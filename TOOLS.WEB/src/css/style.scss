@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=fallback');
+
+@tailwind base;
+@tailwind components;
+
+// Additional styles
+@import 'additional-styles/utility-patterns.scss';
+@import 'additional-styles/range-slider.scss';
+@import 'additional-styles/toggle-switch.scss';
+@import 'additional-styles/flatpickr.scss';
+@import 'additional-styles/theme.scss';
+
+.bg-gradient-primary-500 {
+    background: linear-gradient(65deg, #0270D7 0, #0F8AFD 100%) !important;
+}
+
+.color-primary-500 {
+    color: #0270D7 !important;
+}
+
+.color-primary-400 {
+    color: #0F8AFD !important;
+}
+
+.color-primary-100 {
+    color: #a6c6f0 !important;
+}
+
+
+@tailwind utilities;
+
