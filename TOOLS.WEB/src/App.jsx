@@ -78,6 +78,13 @@ import TooltipPage from './pages/component/TooltipPage';
 import AccordionPage from './pages/component/AccordionPage';
 import IconsPage from './pages/component/IconsPage';
 
+// Lord icons.
+import { loadAnimation } from "lottie-web";
+import { defineLordIconElement } from "lord-icon-element";
+
+// register lottie and define custom element
+defineLordIconElement(loadAnimation);
+
 function App() {
 
   const location = useLocation();
