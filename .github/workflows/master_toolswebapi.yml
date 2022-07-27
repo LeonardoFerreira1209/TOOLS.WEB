@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - toolswebapi
+name: Build and deploy Node.js app to Azure Web App - TOOLSWEBAPI
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -26,7 +26,7 @@ jobs:
           npm install
           npm run build --if-present
           npm run test --if-present
-
+      
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -47,10 +47,10 @@ jobs:
           name: node-app
 
       - name: 'Deploy to Azure Web App'
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
+        id: deploy-to-webapp
         with:
-          app-name: 'toolswebapi'
+          app-name: 'TOOLSWEBAPI'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1A82BB2118704D08BAB0E002BEB9BC4A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0607FE9E4D3F4211AA37F58576C00B8B }}
           package: .
