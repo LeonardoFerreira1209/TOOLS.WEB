@@ -421,7 +421,7 @@ function Sidebar({
                       </a>
                       <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-9 mt-1 ${!open && 'hidden'}`}>
-                          <li className="mb-1 last:mb-0">
+                        {/*  <li className="mb-1 last:mb-0">
                             <NavLink
                               end
                               to="/community/users-tabs"
@@ -433,7 +433,7 @@ function Sidebar({
                                 Usuários - Guias
                               </span>
                             </NavLink>
-                          </li>
+                          </li> */}
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
@@ -443,7 +443,7 @@ function Sidebar({
                               }
                             >
                               <span className="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                                Usuários - Blocos
+                                Paínel de usuários
                               </span>
                             </NavLink>
                           </li>
@@ -807,14 +807,20 @@ function Sidebar({
                     pathname.includes('inbox') && 'hover:text-slate-200'
                   }`}
                 >
-                  <div className="flex items-center">
-                  <lord-icon
-                        src="https://cdn.lordicon.com/umursgaq.json"
-                        trigger="morph"
-                        >
-                    </lord-icon>
-                    <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Inbox</span>
-                  </div>
+                    <div className="flex items-center justify-between">
+                        <div className="grow flex items-center">
+                          <lord-icon
+                                src="https://cdn.lordicon.com/umursgaq.json"
+                                trigger="morph"
+                                >
+                            </lord-icon>
+                            <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Inbox</span>
+                          </div>
+                          {/* Badge */}
+                          <div className="flex flex-shrink-0 ml-2">
+                            <span className="inline-flex items-center justify-center h-5 text-xs font-medium text-white bg-gradient-primary-500 px-2 rounded">5</span>
+                          </div>
+                      </div>
                 </NavLink>
               </li>
               {/* Calendar */}
@@ -826,16 +832,22 @@ function Sidebar({
                     pathname.includes('calendar') && 'hover:text-slate-200'
                   }`}
                 >
-                  <div className="flex items-center">
-                  <lord-icon
-                        src="https://cdn.lordicon.com/aglnhnlw.json"
-                        trigger="morph"
-                        >
-                    </lord-icon>
-                    <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                      Calendário
-                    </span>
-                  </div>
+                  <div className="flex items-center justify-between">
+                        <div className="grow flex items-center">
+                          <lord-icon
+                                src="https://cdn.lordicon.com/aglnhnlw.json"
+                                trigger="morph"
+                                >
+                            </lord-icon>
+                            <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                              Calendário
+                            </span>
+                          </div>
+                          {/* Badge */}
+                          <div className="flex flex-shrink-0 ml-2">
+                            <span className="inline-flex items-center justify-center h-5 text-xs font-medium text-white bg-gradient-primary-500 px-2 rounded">5</span>
+                          </div>
+                    </div>
                 </NavLink>
               </li>
               {/* Campaigns */}
@@ -847,17 +859,23 @@ function Sidebar({
                     pathname.includes('campaigns') && 'hover:text-slate-200'
                   }`}
                 >
-                  <div className="flex items-center">
-                  <lord-icon
-                        src="https://cdn.lordicon.com/sxicradg.json"
-                        colors="outlene:#121331,primary:#eeca66,secondary:#e83a30,tertiary:#4bb3fd,quaternary:#ebe6e"
-                        trigger="morph"
-                        >
-                    </lord-icon>
-                    <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                      Campanhas
-                    </span>
-                  </div>
+                  <div className="flex items-center justify-between">
+                      <div className="grow flex items-center">
+                      <lord-icon
+                            src="https://cdn.lordicon.com/sxicradg.json"
+                            colors="outlene:#121331,primary:#eeca66,secondary:#e83a30,tertiary:#4bb3fd,quaternary:#ebe6e"
+                            trigger="morph"
+                            >
+                        </lord-icon>
+                        <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                          Campanhas
+                        </span>
+                      </div>
+                      {/* Badge */}
+                      <div className="flex flex-shrink-0 ml-2">
+                            <span className="inline-flex items-center justify-center h-5 text-xs font-medium text-white bg-gradient-primary-500 px-2 rounded">5</span>
+                          </div>
+                    </div>
                 </NavLink>
               </li>
               {/* Settings */}
