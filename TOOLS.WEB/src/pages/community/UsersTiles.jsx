@@ -40,7 +40,6 @@ function UsersTiles() {
       .then(response => response.json())
       .then(
         (results) => {
-          debugger
           setItems(
             results.dados.map(result => (
               {
