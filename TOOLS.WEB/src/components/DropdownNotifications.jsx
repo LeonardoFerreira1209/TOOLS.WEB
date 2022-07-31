@@ -1,10 +1,32 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { HubConnectionBuilder } from "@microsoft/signalr";
 import Transition from '../utils/Transition';
+import CardNotifications from './CardNotifications';
 
-function DropdownNotifications({
-  align
-}) {
+function DropdownNotifications({align}) {
+
+  //#region  SignalR
+  const [hubCx, setHubCx] = useState();
+  
+  const [notifications, setNotifications ] = useState([]);
+  
+  useEffect(() => {
+    (async () => {
+        const newConnection = new HubConnectionBuilder()
+        .withUrl("https://toolsuserapi.azurewebsites.net/notify")
+        .withAutomaticReconnect(600)
+        .build()
+
+        await newConnection.start();
+
+        newConnection.on("ReceiveNotification", (notify) => {
+          debugger
+          notifications.push(notify); setNotifications(notifications);
+        });
+        setHubCx(newConnection); 
+    }) ();
+  });
+  //#endregion
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -34,6 +56,7 @@ function DropdownNotifications({
 
   return (
     <div className="relative inline-flex">
+       
       <button
         ref={trigger}
         className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 transition duration-150 rounded-full ${dropdownOpen && 'bg-slate-200'}`}
@@ -65,38 +88,14 @@ function DropdownNotifications({
           onFocus={() => setDropdownOpen(true)}
           onBlur={() => setDropdownOpen(false)}
         >
-          <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notifications</div>
-          <ul>
-            <li className="border-b border-slate-200 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <span className="block text-sm mb-2">📣 <span className="font-medium text-slate-800">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                <span className="block text-xs font-medium text-slate-400">Feb 12, 2021</span>
-              </Link>
-            </li>
-            <li className="border-b border-slate-200 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <span className="block text-sm mb-2">📣 <span className="font-medium text-slate-800">Edit your information in a swipe</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                <span className="block text-xs font-medium text-slate-400">Feb 9, 2021</span>
-              </Link>
-            </li>
-            <li className="border-b border-slate-200 last:border-0">
-              <Link
-                className="block py-2 px-4 hover:bg-slate-50"
-                to="#0"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                <span className="block text-sm mb-2">🚀<span className="font-medium text-slate-800">Say goodbye to paper receipts!</span> Sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim.</span>
-                <span className="block text-xs font-medium text-slate-400">Jan 24, 2020</span>
-              </Link>
-            </li>
+          <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notificações</div>
+          <ul id='notifications'>
+            {
+              notifications.map(notify => {
+                debugger
+                return (<CardNotifications date={notify.date} message={notify.message} />)
+              })
+            }
           </ul>
         </div>
       </Transition>

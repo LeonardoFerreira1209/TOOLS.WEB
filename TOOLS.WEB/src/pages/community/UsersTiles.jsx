@@ -27,7 +27,7 @@ function UsersTiles() {
   useEffect(() => {
     fetch("https://toolsuserapi.azurewebsites.net/api/Person/getAll", {
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIwNzM5ODM5LWVhN2UtNGU2OC1mOWQ3LTA4ZGE2ZDliZjRkYiIsInVuaXF1ZV9uYW1lIjoiTGVvLkFsbWVpZGEiLCJqdGkiOiI5ZmIzZGJiYi0xMDg3LTRkMTUtYTNiNi03NTMzZmNhMDBhN2MiLCJpYXQiOiIyNy8wNy8yMDIyIDAxOjI5OjA1IiwidHlwIjoiQmVhcmVyIiwiZW1haWwiOiJMZW8uRmVycmVpcmEzMEBvdXRsb29rLmNvbSIsInBob25lTnVtYmVyIjoiKzU1KDE4KTk5Nzc2LTI0NTIiLCJ3ZWJzaXRlIjoiaHR0cHM6Ly90b29sc3VzZXJhcGkuYXp1cmV3ZWJzaXRlcy5uZXQvIiwicGVybWlzc2lvbiI6ImFkbWluIiwiZXhwIjoxNjY0MDY5MzQ1LCJpc3MiOiJIWVBFUi5TRUNVUklUWS5JU1NVRVIuQkVBUkVSIiwiYXVkIjoiSFlQRVIuU0VDVVJJVFkuQVVESUVOQ0UuQkVBUkVSIn0.2zyI5ujObKLiluAsxl97T7fQ165G0FkBwZaPk27Fpww'
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIwNzM5ODM5LWVhN2UtNGU2OC1mOWQ3LTA4ZGE2ZDliZjRkYiIsInVuaXF1ZV9uYW1lIjoiTGVvLkFsbWVpZGEiLCJqdGkiOiIwMjQ1MGE1MC01MjJkLTRmNDMtOWVhYi01YTkyYWU1MGM3ZGQiLCJpYXQiOiIzMS8wNy8yMDIyIDEyOjE2OjQ1IiwidHlwIjoiQmVhcmVyIiwiZW1haWwiOiJMZW8uRmVycmVpcmEzMEBvdXRsb29rLmNvbSIsInBob25lTnVtYmVyIjoiKzU1KDE4KTk5Nzc2LTI0NTIiLCJ3ZWJzaXRlIjoiaHR0cHM6Ly90b29sc3VzZXJhcGkuYXp1cmV3ZWJzaXRlcy5uZXQvIiwiR2V0IjoiQ2VwIiwiQ2VwIjoiR2V0IiwicGVybWlzc2lvbiI6ImFkbWluIiwiZXhwIjoxNjY0NDUzODA1LCJpc3MiOiJIWVBFUi5TRUNVUklUWS5JU1NVRVIuQkVBUkVSIiwiYXVkIjoiSFlQRVIuU0VDVVJJVFkuQVVESUVOQ0UuQkVBUkVSIn0.x_02JGyQAr1pJOxIUmFXp2gSjx4jJBTQzG8EFPEylBE'
       },
       crossDomain:true,
       mode:'cors', 
@@ -74,87 +74,8 @@ function UsersTiles() {
               link: '#0',
               location: '🇫🇷',
               content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            },
-            {
-              id: 2,
-              name: 'Tisha Yanchev',
-              image: Image03,
-              link: '#0',
-              location: '🇩🇪',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            },
-            {
-              id: 3,
-              name: 'Sergio Gonnelli',
-              image: Image04,
-              link: '#0',
-              location: '🇮🇹',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            },
-            {
-              id: 4,
-              name: 'Jerzy Wierzy',
-              image: Image05,
-              link: '#0',
-              location: '🇪🇸',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            },
-            {
-              id: 5,
-              name: 'Mirko Grubisic',
-              image: Image06,
-              link: '#0',
-              location: '🇩🇪',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            },
-            {
-              id: 6,
-              name: 'Alisha Acharya',
-              image: Image07,
-              link: '#0',
-              location: '🇬🇧',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            },
-            {
-              id: 7,
-              name: 'Brian Halligan',
-              image: Image08,
-              link: '#0',
-              location: '🇺🇸',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            },
-            {
-              id: 8,
-              name: 'Patricia Semklo',
-              image: Image09,
-              link: '#0',
-              location: '🇮🇳',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            },
-            {
-              id: 9,
-              name: 'Maria Martinez',
-              image: Image10,
-              link: '#0',
-              location: '🇮🇹',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            },
-            {
-              id: 10,
-              name: 'Vedad Siljak',
-              image: Image11,
-              link: '#0',
-              location: '🇮🇹🇨🇦',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            },
-            {
-              id: 11,
-              name: 'Dominik Lamakani',
-              image: Image12,
-              link: '#0',
-              location: '🇧🇪',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            }]);
+            }
+          ]);
         }
       )
   }, [])
