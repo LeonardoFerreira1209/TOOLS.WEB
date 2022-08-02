@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import EditMenu from '../../components/DropdownEditMenu';
 
 function UsersTilesCard(props) {
 
   return (
-    <div className="col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+    <div key={props.id} className="col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
       <div className="flex flex-col h-full">
         {/* Card top */}
         <div className="grow p-5" style={{height:200}}>

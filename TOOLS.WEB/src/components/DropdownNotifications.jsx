@@ -5,14 +5,43 @@ import CardNotifications from './CardNotifications';
 
 function DropdownNotifications({align}) {
 
-  //#region  SignalR
+  //#region Base methods
+    const [dropdownOpen, setDropdownOpen] = useState(false);
+
+    const trigger = useRef(null);
+    const dropdown = useRef(null);
+  
+    // close on click outside
+    useEffect(() => {
+      const clickHandler = ({ target }) => {
+        if (!dropdown.current) return;
+        if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
+        setDropdownOpen(false);
+      };
+      document.addEventListener('click', clickHandler);
+      return () => document.removeEventListener('click', clickHandler);
+    });
+  
+    // close if the esc key is pressed
+    useEffect(() => {
+      const keyHandler = ({ keyCode }) => {
+        if (!dropdownOpen || keyCode !== 27) return;
+        setDropdownOpen(false);
+      };
+      document.addEventListener('keydown', keyHandler);
+      return () => document.removeEventListener('keydown', keyHandler);
+    });
+    //#endregion
+  
+  //#region SignalR
   const [hubCx, setHubCx] = useState(null);
   
   const [notifications, setNotifications ] = useState([]);
   
+  // Connect to Hub.
   useEffect(() => {
       const newConnection = new HubConnectionBuilder()
-        .withUrl("https://localhost:7125/notify")
+        .withUrl("https://toolsuserapi.azurewebsites.net/notify")
         .withAutomaticReconnect()
         .build()
 
@@ -20,51 +49,18 @@ function DropdownNotifications({align}) {
 
     }, []);
 
+  // Receive the messages. 
   useEffect(() => {
-    debugger
     // Hub connected...
     if(hubCx)
     {   
         hubCx.start().then(result => {
-          console.info("Connected...");
-          
-          hubCx.on("ReceiveNotification", (notify) => 
-          { 
-            debugger
-            notifications.push(notify); setNotifications(notifications); 
-          });
-          
+          hubCx.on("ReceiveMessage", (notify) =>  { notifications.push(notify); setNotifications(notifications); });
         }).catch(e => console.log('Connection failed: ', e));
     }
 
   }, [hubCx]);
   //#endregion
-
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const trigger = useRef(null);
-  const dropdown = useRef(null);
-
-  // close on click outside
-  useEffect(() => {
-    const clickHandler = ({ target }) => {
-      if (!dropdown.current) return;
-      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener('click', clickHandler);
-    return () => document.removeEventListener('click', clickHandler);
-  });
-
-  // close if the esc key is pressed
-  useEffect(() => {
-    const keyHandler = ({ keyCode }) => {
-      if (!dropdownOpen || keyCode !== 27) return;
-      setDropdownOpen(false);
-    };
-    document.addEventListener('keydown', keyHandler);
-    return () => document.removeEventListener('keydown', keyHandler);
-  });
 
   return (
     <div className="relative inline-flex">
@@ -104,8 +100,7 @@ function DropdownNotifications({align}) {
           <ul id='notifications'>
             {
               notifications.map(notify => {
-                debugger
-                return (<CardNotifications date={notify.date} message={notify.message} />)
+                return (<CardNotifications id={notify.id} date={notify.date} message={notify.message} />)
               })
             }
           </ul>

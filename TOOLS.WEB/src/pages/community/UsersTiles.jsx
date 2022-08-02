@@ -8,17 +8,15 @@ import PaginationNumeric from '../../components/PaginationNumeric';
 import ModalBasic from '../../components/ModalBasic';
 import { HubConnectionBuilder } from "@microsoft/signalr";
 
-import Image01 from '../../images/user-64-01.jpg';
-import Image02 from '../../images/user-64-02.jpg';
-
 function UsersTiles() {
 
   const [items, setItems] = useState([]);
-
-  
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [basicModalOpen, setBasicModalOpen] = useState(false);
+  const [hubCx, setHubCx] = useState(null);
 
   useEffect(() => {
-    fetch("https://localhost:7125/api/Person/getAll", {
+    fetch("https://toolsuserapi.azurewebsites.net/api/Person/getAll", {
       headers: {
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIwNzM5ODM5LWVhN2UtNGU2OC1mOWQ3LTA4ZGE2ZDliZjRkYiIsInVuaXF1ZV9uYW1lIjoiTGVvLkFsbWVpZGEiLCJqdGkiOiIwMjQ1MGE1MC01MjJkLTRmNDMtOWVhYi01YTkyYWU1MGM3ZGQiLCJpYXQiOiIzMS8wNy8yMDIyIDEyOjE2OjQ1IiwidHlwIjoiQmVhcmVyIiwiZW1haWwiOiJMZW8uRmVycmVpcmEzMEBvdXRsb29rLmNvbSIsInBob25lTnVtYmVyIjoiKzU1KDE4KTk5Nzc2LTI0NTIiLCJ3ZWJzaXRlIjoiaHR0cHM6Ly90b29sc3VzZXJhcGkuYXp1cmV3ZWJzaXRlcy5uZXQvIiwiR2V0IjoiQ2VwIiwiQ2VwIjoiR2V0IiwicGVybWlzc2lvbiI6ImFkbWluIiwiZXhwIjoxNjY0NDUzODA1LCJpc3MiOiJIWVBFUi5TRUNVUklUWS5JU1NVRVIuQkVBUkVSIiwiYXVkIjoiSFlQRVIuU0VDVVJJVFkuQVVESUVOQ0UuQkVBUkVSIn0.x_02JGyQAr1pJOxIUmFXp2gSjx4jJBTQzG8EFPEylBE'
       },
@@ -30,9 +28,7 @@ function UsersTiles() {
       redirect: 'follow',
       referrerPolicy: 'no-referrer',
     })
-      .then(response => response.json())
-      .then(
-        (results) => {
+      .then(response => response.json()).then((results) => {
           setItems(
             results.dados.map(result => (
               {
@@ -44,38 +40,53 @@ function UsersTiles() {
                 content: result.professions.length > 0 ? result.professions[0].description : "",
               })
             )
-          )
+          );
         },
         // Nota: é importante lidar com errros aqui
         // em vez de um bloco catch() para não receber
         // exceções de erros reais nos componentes.
         (error) => {
-          debugger
-          setItems([
-            {
-              id: 0,
-              name: 'Dominik McNeail',
-              image: Image01,
-              link: '#0',
-              location: '🇮🇹',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            },
-            {
-              id: 1,
-              name: 'Ivan Mesaros',
-              image: Image02,
-              link: '#0',
-              location: '🇫🇷',
-              content: 'Fitness Fanatic, Design Enthusiast, Mentor, Meetup Organizer & PHP Lover.',
-            }
-          ]);
+         
         }
       )
-  }, [])
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  }, [items])
 
-  const [basicModalOpen, setBasicModalOpen] = useState(false);
+  //#region SignalR
+  useEffect(() => {
+      const newConnection = new HubConnectionBuilder()
+        .withUrl("https://localhost:7125/person")
+        .withAutomaticReconnect()
+        .build()
+
+        setHubCx(newConnection); 
+
+    }, [items]);
+
+  // Receive the messages. 
+  useEffect(() => {
+    // Hub connected...
+    if(hubCx)
+    {   
+        hubCx.start().then(result => {
+          hubCx.on("ReceiveMessage", (person) =>  { 
+            
+            items.push({
+
+              id: person.id,
+              name: `${person.firstName} ${person.lastName}` ,
+              image: person.image != null ? "data:" + person.image.contentType + ";base64," + person.image.fileContents : "",
+              link: "",
+              office: person.professions.length > 0 ? person.professions[0].office: "Sem profissão.",
+              content: person.professions.length > 0 ? person.professions[0].description : "Sem descrição.",
+
+          })});
+
+        }).catch(e => console.log('Connection failed: ', e));
+    }
+
+  }, [hubCx, items]);
+  //#endregion
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -143,9 +154,9 @@ function UsersTiles() {
             <div className="grid grid-cols-12 gap-6">
               {
                 items.map(item => {
+                  debugger
                   return (
                     <UsersTilesCard
-                      key={item.id}
                       id={item.id}
                       name={item.name}
                       image={item.image}
