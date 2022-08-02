@@ -6,26 +6,38 @@ import CardNotifications from './CardNotifications';
 function DropdownNotifications({align}) {
 
   //#region  SignalR
-  const [hubCx, setHubCx] = useState();
+  const [hubCx, setHubCx] = useState(null);
   
   const [notifications, setNotifications ] = useState([]);
   
   useEffect(() => {
-    (async () => {
-        const newConnection = new HubConnectionBuilder()
-        .withUrl("https://toolsuserapi.azurewebsites.net/notify")
-        .withAutomaticReconnect(600)
+      const newConnection = new HubConnectionBuilder()
+        .withUrl("https://localhost:7125/notify")
+        .withAutomaticReconnect()
         .build()
 
-        await newConnection.start();
-
-        newConnection.on("ReceiveNotification", (notify) => {
-          debugger
-          notifications.push(notify); setNotifications(notifications);
-        });
         setHubCx(newConnection); 
-    }) ();
-  });
+
+    }, []);
+
+  useEffect(() => {
+    debugger
+    // Hub connected...
+    if(hubCx)
+    {   
+        hubCx.start().then(result => {
+          console.info("Connected...");
+          
+          hubCx.on("ReceiveNotification", (notify) => 
+          { 
+            debugger
+            notifications.push(notify); setNotifications(notifications); 
+          });
+          
+        }).catch(e => console.log('Connection failed: ', e));
+    }
+
+  }, [hubCx]);
   //#endregion
 
   const [dropdownOpen, setDropdownOpen] = useState(false);

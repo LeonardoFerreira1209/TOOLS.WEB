@@ -6,26 +6,19 @@ import SearchForm from '../../partials/actions/SearchForm';
 import UsersTilesCard from '../../partials/community/UsersTilesCard';
 import PaginationNumeric from '../../components/PaginationNumeric';
 import ModalBasic from '../../components/ModalBasic';
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 import Image01 from '../../images/user-64-01.jpg';
 import Image02 from '../../images/user-64-02.jpg';
-import Image03 from '../../images/user-64-03.jpg';
-import Image04 from '../../images/user-64-04.jpg';
-import Image05 from '../../images/user-64-05.jpg';
-import Image06 from '../../images/user-64-06.jpg';
-import Image07 from '../../images/user-64-07.jpg';
-import Image08 from '../../images/user-64-08.jpg';
-import Image09 from '../../images/user-64-09.jpg';
-import Image10 from '../../images/user-64-10.jpg';
-import Image11 from '../../images/user-64-11.jpg';
-import Image12 from '../../images/user-64-12.jpg';
 
 function UsersTiles() {
 
   const [items, setItems] = useState([]);
 
+  
+
   useEffect(() => {
-    fetch("https://toolsuserapi.azurewebsites.net/api/Person/getAll", {
+    fetch("https://localhost:7125/api/Person/getAll", {
       headers: {
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIwNzM5ODM5LWVhN2UtNGU2OC1mOWQ3LTA4ZGE2ZDliZjRkYiIsInVuaXF1ZV9uYW1lIjoiTGVvLkFsbWVpZGEiLCJqdGkiOiIwMjQ1MGE1MC01MjJkLTRmNDMtOWVhYi01YTkyYWU1MGM3ZGQiLCJpYXQiOiIzMS8wNy8yMDIyIDEyOjE2OjQ1IiwidHlwIjoiQmVhcmVyIiwiZW1haWwiOiJMZW8uRmVycmVpcmEzMEBvdXRsb29rLmNvbSIsInBob25lTnVtYmVyIjoiKzU1KDE4KTk5Nzc2LTI0NTIiLCJ3ZWJzaXRlIjoiaHR0cHM6Ly90b29sc3VzZXJhcGkuYXp1cmV3ZWJzaXRlcy5uZXQvIiwiR2V0IjoiQ2VwIiwiQ2VwIjoiR2V0IiwicGVybWlzc2lvbiI6ImFkbWluIiwiZXhwIjoxNjY0NDUzODA1LCJpc3MiOiJIWVBFUi5TRUNVUklUWS5JU1NVRVIuQkVBUkVSIiwiYXVkIjoiSFlQRVIuU0VDVVJJVFkuQVVESUVOQ0UuQkVBUkVSIn0.x_02JGyQAr1pJOxIUmFXp2gSjx4jJBTQzG8EFPEylBE'
       },
