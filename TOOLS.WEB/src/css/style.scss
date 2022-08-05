@@ -10,10 +10,17 @@
 @import 'additional-styles/flatpickr.scss';
 @import 'additional-styles/theme.scss';
 
+// -- BUTTONS
 .bg-gradient-primary-500 {
-    background: linear-gradient(65deg, #0270D7 0, #0F8AFD 100%) !important;
+    background:  linear-gradient(65deg, #0270D7 0, #0F8AFD 100%);
 }
 
+.bg-gradient-primary-500:hover {
+    background: linear-gradient(65deg, #0270D7 0, #0F8AFD 10%);
+}
+// -- BUTTONS
+
+// -- COLORS
 .color-primary-500 {
     color: #0270D7 !important;
 }
@@ -25,7 +32,7 @@
 .color-primary-100 {
     color: #a6c6f0 !important;
 }
-
+// -- COLORS
 
 @tailwind utilities;
 

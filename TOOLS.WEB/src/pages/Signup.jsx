@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import AuthImage from '../images/auth-image.jpg';
+import AuthImage from '../images/—Pngtree—2.5d business office company recruitment_4213736.png';
 import AuthDecoration from '../images/auth-decoration.png';
 
 function Signup() {
@@ -40,28 +40,26 @@ function Signup() {
             </div>
 
             <div className="max-w-sm mx-auto px-4 py-8">
-              <h1 className="text-3xl text-slate-800 font-bold mb-6">Create your Account ✨</h1>
+              <h1 className="text-3xl text-slate-800 font-bold mb-6">Crie sua conta ✨</h1>
               {/* Form */}
               <form>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="email">Email Address <span className="text-rose-500">*</span></label>
+                    <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail <span className="text-rose-500">*</span></label>
                     <input id="email" className="form-input w-full" type="email" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="name">Full Name <span className="text-rose-500">*</span></label>
+                    <label className="block text-sm font-medium mb-1" htmlFor="name">Nome Completo <span className="text-rose-500">*</span></label>
                     <input id="name" className="form-input w-full" type="text" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="role">Your Role <span className="text-rose-500">*</span></label>
+                    <label className="block text-sm font-medium mb-1" htmlFor="role">Tipo de conta <span className="text-rose-500">*</span></label>
                     <select id="role" className="form-select w-full">
-                      <option>Designer</option>
-                      <option>Developer</option>
-                      <option>Accountant</option>
+                      <option>Desenvolvedor</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="password">Password</label>
+                    <label className="block text-sm font-medium mb-1" htmlFor="password">Senha</label>
                     <input id="password" className="form-input w-full" type="password" autoComplete="on" />
                   </div>
                 </div>
@@ -69,16 +67,16 @@ function Signup() {
                   <div className="mr-1">
                     <label className="flex items-center">
                       <input type="checkbox" className="form-checkbox" />
-                      <span className="text-sm ml-2">Email me about product news.</span>
+                      <span className="text-sm ml-2">Me envie e-mails.</span>
                     </label>
                   </div>
-                  <Link className="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3 whitespace-nowrap" to="/">Sign Up</Link>
+                  <Link className="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3 whitespace-nowrap" to="/">Se cadastrar</Link>
                 </div>
               </form>
               {/* Footer */}
               <div className="pt-5 mt-6 border-t border-slate-200">
                 <div className="text-sm">
-                  Have an account? <Link className="font-medium color-primary hover:color-primary" to="/signin">Sign In</Link>
+                  Têm uma conta ? <Link className="font-medium color-primary hover:color-primary" to="/signin">Entrar</Link>
                 </div>
               </div>
             </div>

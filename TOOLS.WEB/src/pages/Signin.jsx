@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import AuthImage from '../images/auth-image.jpg';
+import AuthImage from '../images/—Pngtree—2.5d business office company recruitment_4213736.png';
 import AuthDecoration from '../images/auth-decoration.png';
 
 function Signin() {
@@ -40,30 +40,30 @@ function Signin() {
             </div>
 
             <div className="max-w-sm mx-auto px-4 py-8">
-              <h1 className="text-3xl text-slate-800 font-bold mb-6">Welcome back! ✨</h1>
+              <h1 className="text-3xl text-slate-800 font-bold mb-6">Bem vindo de volta! ✨</h1>
               {/* Form */}
               <form>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="email">Email Address</label>
+                    <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail</label>
                     <input id="email" className="form-input w-full" type="email" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="password">Password</label>
+                    <label className="block text-sm font-medium mb-1" htmlFor="password">Senha</label>
                     <input id="password" className="form-input w-full" type="password" autoComplete="on" />
                   </div>
                 </div>
                 <div className="flex items-center justify-between mt-6">
                   <div className="mr-1">
-                    <Link className="text-sm underline hover:no-underline" to="/reset-password">Forgot Password?</Link>
+                    <Link className="text-sm underline hover:no-underline" to="/reset-password">Esqueceu a senha ?</Link>
                   </div>
-                  <Link className="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-3" to="/">Sign In</Link>
+                  <button className="btn bg-gradient-primary-500 text-white ml-3">Entrar</button>
                 </div>
               </form>
               {/* Footer */}
               <div className="pt-5 mt-6 border-t border-slate-200">
                 <div className="text-sm">
-                  Don’t you have an account? <Link className="font-medium color-primary hover:color-primary" to="/signup">Sign Up</Link>
+                  Não têm uma conta ? <Link className="font-medium color-primary hover:color-primary" to="/signup">Se cadastrar</Link>
                 </div>
                 {/* Warning */}
                 <div className="mt-5">
@@ -72,7 +72,7 @@ function Signin() {
                       <path d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z" />
                     </svg>
                     <span className="text-sm">
-                      To support you during the pandemic super pro features are free until March 31st.
+                      Caso necessite de ajuda entre em contato com o suporte!
                     </span>
                   </div>
                 </div>
