@@ -41,7 +41,7 @@ function DropdownNotifications({align}) {
   // Connect to Hub.
   useEffect(() => {
       const newConnection = new HubConnectionBuilder()
-        .withUrl("https://toolsuserapi.azurewebsites.net/notify")
+        .withUrl("https://localhost:7125/notify")
         .withAutomaticReconnect()
         .build()
 
@@ -54,8 +54,8 @@ function DropdownNotifications({align}) {
     // Hub connected...
     if(hubCx)
     {   
-        hubCx.start().then(result => {
-          hubCx.on("ReceiveMessage", (notify) =>  { notifications.push(notify); setNotifications(notifications); });
+        hubCx.start().then((result) => {
+          hubCx.on("ReceiveMessage", (notify) =>  { setNotifications((previous) => previous.concat(notify)); });
         }).catch(e => console.log('Connection failed: ', e));
     }
 
@@ -100,7 +100,8 @@ function DropdownNotifications({align}) {
           <ul id='notifications'>
             {
               notifications.map(notify => {
-                return (<CardNotifications id={notify.id} date={notify.date} message={notify.message} />)
+                debugger
+                return (<CardNotifications key={notify.id} id={notify.id} date={notify.date} message={notify.message} />)
               })
             }
           </ul>

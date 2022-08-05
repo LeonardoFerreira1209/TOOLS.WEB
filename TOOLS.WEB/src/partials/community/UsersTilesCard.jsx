@@ -2,9 +2,8 @@ import { Link } from 'react-router-dom';
 import EditMenu from '../../components/DropdownEditMenu';
 
 function UsersTilesCard(props) {
-
   return (
-    <div key={props.id} className="col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
+    <div id={props.id} className="col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
       <div className="flex flex-col h-full">
         {/* Card top */}
         <div className="grow p-5" style={{height:200}}>
@@ -64,7 +63,7 @@ function UsersTilesCard(props) {
                 <span>Enviar Email</span>
               </div>
             </Link>
-            <Link className="block flex-1 text-center text-sm text-slate-600 hover:text-slate-800 font-medium px-3 py-4 group" to="settings">
+            <Link className="block flex-1 text-center text-sm text-slate-600 hover:text-slate-800 font-medium px-3 py-4 group" to={`/settings/account/${props.id}`}>
               <div className="flex items-center justify-center">
                 <lord-icon
                     src="https://cdn.lordicon.com/qtqvorle.json"

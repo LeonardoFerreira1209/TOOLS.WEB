@@ -10,13 +10,13 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 
 function UsersTiles() {
 
-  const [items, setItems] = useState([]);
+  const [persons, setPersons] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [basicModalOpen, setBasicModalOpen] = useState(false);
   const [hubCx, setHubCx] = useState(null);
 
   useEffect(() => {
-    fetch("https://toolsuserapi.azurewebsites.net/api/Person/getAll", {
+    fetch("https://localhost:7125/api/Person/getAll", {
       headers: {
         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIwNzM5ODM5LWVhN2UtNGU2OC1mOWQ3LTA4ZGE2ZDliZjRkYiIsInVuaXF1ZV9uYW1lIjoiTGVvLkFsbWVpZGEiLCJqdGkiOiIwMjQ1MGE1MC01MjJkLTRmNDMtOWVhYi01YTkyYWU1MGM3ZGQiLCJpYXQiOiIzMS8wNy8yMDIyIDEyOjE2OjQ1IiwidHlwIjoiQmVhcmVyIiwiZW1haWwiOiJMZW8uRmVycmVpcmEzMEBvdXRsb29rLmNvbSIsInBob25lTnVtYmVyIjoiKzU1KDE4KTk5Nzc2LTI0NTIiLCJ3ZWJzaXRlIjoiaHR0cHM6Ly90b29sc3VzZXJhcGkuYXp1cmV3ZWJzaXRlcy5uZXQvIiwiR2V0IjoiQ2VwIiwiQ2VwIjoiR2V0IiwicGVybWlzc2lvbiI6ImFkbWluIiwiZXhwIjoxNjY0NDUzODA1LCJpc3MiOiJIWVBFUi5TRUNVUklUWS5JU1NVRVIuQkVBUkVSIiwiYXVkIjoiSFlQRVIuU0VDVVJJVFkuQVVESUVOQ0UuQkVBUkVSIn0.x_02JGyQAr1pJOxIUmFXp2gSjx4jJBTQzG8EFPEylBE'
       },
@@ -29,7 +29,7 @@ function UsersTiles() {
       referrerPolicy: 'no-referrer',
     })
       .then(response => response.json()).then((results) => {
-          setItems(
+          setPersons(
             results.dados.map(result => (
               {
                 id: result.id,
@@ -45,12 +45,10 @@ function UsersTiles() {
         // Nota: é importante lidar com errros aqui
         // em vez de um bloco catch() para não receber
         // exceções de erros reais nos componentes.
-        (error) => {
-         
-        }
+        (error) => {}
       )
 
-  }, [items])
+  }, [])
 
   //#region SignalR
   useEffect(() => {
@@ -61,31 +59,28 @@ function UsersTiles() {
 
         setHubCx(newConnection); 
 
-    }, [items]);
+    }, []);
 
   // Receive the messages. 
   useEffect(() => {
-    // Hub connected...
-    if(hubCx)
+    
+    if(hubCx) // Hub connected...
     {   
         hubCx.start().then(result => {
           hubCx.on("ReceiveMessage", (person) =>  { 
-            
-            items.push({
-
+            setPersons((previous) => previous.concat({
               id: person.id,
               name: `${person.firstName} ${person.lastName}` ,
               image: person.image != null ? "data:" + person.image.contentType + ";base64," + person.image.fileContents : "",
               link: "",
               office: person.professions.length > 0 ? person.professions[0].office: "Sem profissão.",
               content: person.professions.length > 0 ? person.professions[0].description : "Sem descrição.",
-
-          })});
-
-        }).catch(e => console.log('Connection failed: ', e));
+          }));
+        });
+      }).catch(e => console.log('Connection failed: ', e));
     }
 
-  }, [hubCx, items]);
+  }, [hubCx]);
   //#endregion
 
   return (
@@ -95,7 +90,7 @@ function UsersTiles() {
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Content area */} 
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
 
         {/*  Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
@@ -153,16 +148,16 @@ function UsersTiles() {
             {/* Cards */}
             <div className="grid grid-cols-12 gap-6">
               {
-                items.map(item => {
-                  debugger
+                persons.map(person => {
                   return (
                     <UsersTilesCard
-                      id={item.id}
-                      name={item.name}
-                      image={item.image}
-                      link={item.link}
-                      office={item.office}
-                      content={item.content}
+                      key={person.id}
+                      id={person.id}
+                      name={person.name}
+                      image={person.image}
+                      link={person.link}
+                      office={person.office}
+                      content={person.content}
                     />
                   )
                 })
@@ -171,7 +166,7 @@ function UsersTiles() {
 
             {/* Pagination */}
             <div className="mt-8">
-              {items.length > 0 ? <PaginationNumeric /> : null}
+              {persons.length > 0 ? <PaginationNumeric /> : null}
             </div>
 
           </div>

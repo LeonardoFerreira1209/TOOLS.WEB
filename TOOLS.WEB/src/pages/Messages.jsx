@@ -25,7 +25,7 @@ function Messages() {
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
       {/* Content area */} 
-      <div className="relative flex flex-col flex-1 overflow-y-auto overflow-x-hidden" ref={contentArea}>
+      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden" ref={contentArea}>
 
         {/*  Site header */}
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />

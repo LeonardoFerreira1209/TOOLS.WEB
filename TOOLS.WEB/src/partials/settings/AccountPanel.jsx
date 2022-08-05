@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 
 import Image from '../../images/user-avatar-80.png';
 
-function AccountPanel() {
+function AccountPanel(person) {
 
+  debugger
   const [sync, setSync] = useState(false);
 
   return (
@@ -15,7 +16,7 @@ function AccountPanel() {
         <section>
           <div className="flex items-center">
             <div className="mr-4">
-              <img className="w-20 h-20 rounded-full" src={Image} width="80" height="80" alt="User upload" />
+              <img className="w-20 h-20 rounded-full" src={person.person.image} width="80" height="80" alt="User upload" />
             </div>
             <button className="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Change</button>
           </div>

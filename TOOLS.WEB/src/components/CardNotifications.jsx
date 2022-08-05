@@ -6,7 +6,7 @@ function CardNotifications(notify){
     const [dropdownOpen, setDropdownOpen] = useState();
 
     return(
-        <li key={notify.id} className="border-b border-slate-200 last:border-0">
+        <li id={notify.id} className="border-b border-slate-200 last:border-0">
           <Link
               className="block py-2 px-4 hover:bg-slate-50"
               to="#0"

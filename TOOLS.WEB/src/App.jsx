@@ -6,6 +6,10 @@ import {
 } from 'react-router-dom';
 
 
+import 'aos/dist/aos.css';
+
+import AOS from 'aos';
+
 // Css
 import './css/style.scss';
 
@@ -77,6 +81,7 @@ import AvatarPage from './pages/component/AvatarPage';
 import TooltipPage from './pages/component/TooltipPage';
 import AccordionPage from './pages/component/AccordionPage';
 import IconsPage from './pages/component/IconsPage';
+import Home from './pages/Home';
 
 // Lord icons.
 import { loadAnimation } from "lottie-web";
@@ -90,15 +95,29 @@ function App() {
   const location = useLocation();
 
   useEffect(() => {
+    AOS.init({
+      once: true,
+      disable: 'phone',
+      duration: 600,
+      easing: 'ease-out-sine',
+    });
+  });
+
+  useEffect(() => {
+    
     document.querySelector('html').style.scrollBehavior = 'auto'
+
     window.scroll({ top: 0 })
+
     document.querySelector('html').style.scrollBehavior = ''
+
   }, [location.pathname]); // triggered on route change
 
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Dashboard />} />
+        <Route exact path="/" element={<Home/>} />
+        <Route exact path="/dashboard" element={<Dashboard />} />
         <Route path="/dashboard/analytics" element={<Analytics />} />
         <Route path="/dashboard/fintech" element={<Fintech />} />
         <Route path="/ecommerce/customers" element={<Customers />} />
@@ -131,7 +150,7 @@ function App() {
         <Route path="/tasks/list" element={<TasksList />} />
         <Route path="/inbox" element={<Inbox />} />
         <Route path="/calendar" element={<Calendar />} />
-        <Route path="/settings/account" element={<Account />} />
+        <Route path="/settings/account/:id" element={<Account />}/>
         <Route path="/settings/notifications" element={<Notifications />} />
         <Route path="/settings/apps" element={<Apps />} />
         <Route path="/settings/plans" element={<Plans />} />
