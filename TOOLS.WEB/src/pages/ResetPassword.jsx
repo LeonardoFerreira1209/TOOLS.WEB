@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-import AuthImage from '../images/auth-image.jpg';
+import AuthImage from '../images/—Pngtree—2.5d business office company recruitment_4213736.png';
 import AuthDecoration from '../images/auth-decoration.png';
 
 function ResetPassword() {
@@ -17,40 +17,51 @@ function ResetPassword() {
             {/* Header */}
             <div className="flex-1">
               <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
-                {/* Logo */}
-                <Link className="block" to="/">
+               {/* Logo */}
+                <NavLink end to="/" className="block">
+                  
                   <svg width="32" height="32" viewBox="0 0 32 32">
                     <defs>
-                      <linearGradient x1="28.538%" y1="20.229%" x2="100%" y2="108.156%" id="logo-a">
-                        <stop stopColor="#A5B4FC" stopOpacity="0" offset="0%" />
-                        <stop stopColor="#A5B4FC" offset="100%" />
+                      <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a">
+                        <stop stopColor="#00BFFB" offset="0%"/>
+                        <stop stopColor="#0270D7" offset="100%"/>
                       </linearGradient>
-                      <linearGradient x1="88.638%" y1="29.267%" x2="22.42%" y2="100%" id="logo-b">
-                        <stop stopColor="#38BDF8" stopOpacity="0" offset="0%" />
-                        <stop stopColor="#38BDF8" offset="100%" />
+                      <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="b">
+                        <stop stopColor="#1F232A" stopOpacity=".48" offset="0%"/>
+                        <stop stopColor="#1F2329" stopOpacity="0" offset="100%"/>
+                      </linearGradient>
+                      <linearGradient x1="87.665%" y1="103.739%" x2="-3.169%" y2="38.807%" id="c">
+                        <stop stopColor="#FFF" stopOpacity="0" offset="0%"/>
+                        <stop stopColor="#FFF" stopOpacity=".64" offset="100%"/>
+                      </linearGradient>
+                      <linearGradient x1="-14.104%" y1="111.262%" x2="109.871%" y2="26.355%" id="d">
+                        <stop stopColor="#0270D7" offset="0%"/>
+                        <stop stopColor="#0270D7" stopOpacity="0" offset="100%"/>
                       </linearGradient>
                     </defs>
-                    <rect fill="#6366F1" width="32" height="32" rx="16" />
-                    <path d="M18.277.16C26.035 1.267 32 7.938 32 16c0 8.837-7.163 16-16 16a15.937 15.937 0 01-10.426-3.863L18.277.161z" fill="#4F46E5" />
-                    <path d="M7.404 2.503l18.339 26.19A15.93 15.93 0 0116 32C7.163 32 0 24.837 0 16 0 10.327 2.952 5.344 7.404 2.503z" fill="url(#logo-a)" />
-                    <path d="M2.223 24.14L29.777 7.86A15.926 15.926 0 0132 16c0 8.837-7.163 16-16 16-5.864 0-10.991-3.154-13.777-7.86z" fill="url(#logo-b)" />
+                    <g fill="none" fillRule="evenodd">
+                      <path fill="url(#a)" transform="rotate(90 14 16)" d="M6 2l-8 13.999L6 30h16l8-14.001L22 2z"/>
+                      <path fill="url(#b)" d="M14 0v32L0 24V8z"/>
+                      <path fill="url(#c)" d="M28 24L0 8l14.001-8L28 8z"/>
+                      <path fillOpacity=".48" fill="url(#d)"  d="M28 8L0 23.978V8l14.001-8L28 8z"/>
+                    </g>
                   </svg>
-                </Link>
+                </NavLink>
               </div>
             </div>
 
             <div className="max-w-sm mx-auto px-4 py-8">
-              <h1 className="text-3xl text-slate-800 font-bold mb-6">Reset your Password ✨</h1>
+              <h1 className="text-3xl text-slate-800 font-bold mb-6">Renovar senha ✨</h1>
               {/* Form */}
               <form>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="email">Email Address <span className="text-rose-500">*</span></label>
+                    <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail <span className="text-rose-500">*</span></label>
                     <input id="email" className="form-input w-full" type="email" />
                   </div>
                 </div>
                 <div className="flex justify-end mt-6">
-                  <button className="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap">Send Reset Link</button>
+                  <button className="btn bg-gradient-primary-500 text-white whitespace-nowrap">Enivar link</button>
                 </div>
               </form>
             </div>
