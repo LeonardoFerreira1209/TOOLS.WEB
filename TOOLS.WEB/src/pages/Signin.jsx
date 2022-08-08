@@ -8,35 +8,20 @@ import AuthDecoration from '../images/auth-decoration.png';
 import 'aos/dist/aos.css';
 
 function Signin() {
-   const navigate = useNavigate();
-   const { state } = useLocation();
-   const [error, setError] = useState(null);
-   const [loading, setLoading] = useState(false);
+  // -- CONSTS
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
+  // -- CONSTS
 
-  // -- Inputs 
+  // -- INPUTS 
   const [values, setValues] = useState(initialState);
   const { setToken } = useContext(Context);
 
   function initialState() {
     return {user: '', password: ''};
   }
-  // -- Inputs
-
-  // -- Validates
-  const [ userValidate, setUserValidate ] = useState(
-      values.user !== "" ? "hide-error-input-message" : ""
-  );
-  const [ passwordValidate, setPasswordValidate ] = useState(
-    values.password !== "" ? "hide-error-input-message" : ""
-  );
-
-  useEffect(() => {
-    values.user === "" ? setUserValidate("") : setUserValidate("hide-error-input-message");
-
-    values.password === "" ? setPasswordValidate("") : setPasswordValidate("hide-error-input-message"); 
-
-  }, [values]);
-  // -- Validates
 
   function onChange(event) {
     const {value, name} = event.target;
@@ -46,14 +31,27 @@ function Signin() {
         [name]: value
       });
   }
+  // -- INPUTS
 
+  // -- VALIDATES
+  const [ userValidate, setUserValidate ] = useState(false);
+  const [ passwordValidate, setPasswordValidate ] = useState(false);
+
+  useEffect(() => {
+    values.user === "" ? setUserValidate(false) : setUserValidate(true);
+
+    values.password === "" ? setPasswordValidate(false) : setPasswordValidate(true); 
+
+  }, [values]);
+  // -- VALIDATES
+
+  // -- API CONSUMER
   function Signin(event) {
-
     setLoading(true);
 
     event.preventDefault();
 
-    fetch("https://toolsuserapi.azurewebsites.net/api/User/authetication", {
+    fetch("https://localhost:7125/api/User/authetication", {
       headers: {
         'username': values.user,
         'password': values.password
@@ -75,12 +73,13 @@ function Signin() {
         }
       },
       (error) => {
-        debugger
         setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
       }
     )
   }
+  // -- API CONSUMER
 
+  // -- RETURN
   return (
     <main className="bg-white">
 
@@ -134,24 +133,29 @@ function Signin() {
                   <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="user">Usuário</label>
                     <input onChange={onChange} value={values.user} id="user" name='user' className="form-input w-full" type="user" />
-                    <div id='userValidate' className={`text-xs mt-1 text-rose-500 ${userValidate}`}>Campo obrigatório!</div>
+                    {
+                      userValidate ? (null) : (<div id='userValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>)
+                    }
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="password">Senha</label>
                     <input onChange={onChange} value={values.password} id="password" name='password' className="form-input w-full" type="password" autoComplete="on" />
-                    <div id='passwordValidate' className={`text-xs mt-1 text-rose-500 ${passwordValidate}`}>Campo obrigatório!</div>
+                    {
+                      passwordValidate ? (null) : (<div id='passwordValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>)
+                    }
                   </div>
                 </div>
                 {/* Error */}
-                {error !== null ? (
-                  <div className="mt-5">
-                    <div className="bg-gradient-danger-500 text-white px-3 py-2 rounded">
-                      x&ensp;
-                      <span className="text-sm">
-                        {error}
-                      </span>
-                    </div>
-                  </div>) : null}
+                { error !== null ? (
+                    <div className="mt-5">
+                      <div className="bg-gradient-danger-500 text-white px-3 py-2 rounded">
+                        x&ensp;
+                        <span className="text-sm">
+                          {error}
+                        </span>
+                      </div>
+                    </div>) 
+                  : null }
                 <div className="flex items-center justify-between mt-6">
                   <div className="mr-1">
                     <Link className="text-sm underline hover:no-underline" to="/reset-password">Esqueceu a senha ?</Link>
@@ -200,6 +204,7 @@ function Signin() {
 
     </main>
   );
+  // -- RETURN
 }
 
 export default Signin;

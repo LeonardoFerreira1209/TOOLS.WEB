@@ -11,13 +11,15 @@ import StoreContext from "../../components/store/Context";
 
 function UsersTiles() {
 
+  // -- CONST
   const [persons, setPersons] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [basicModalOpen, setBasicModalOpen] = useState(false);
   const [hubCx, setHubCx] = useState(null);
   const { token } = useContext(StoreContext)
+  // -- CONST
 
-  debugger
+  // -- API CONSUMER
   useEffect(() => {
     fetch("https://toolsuserapi.azurewebsites.net/api/Person/getAll", {
       headers: {
@@ -53,8 +55,9 @@ function UsersTiles() {
       )
 
   }, [])
+  // -- API CONSUMER
 
-  //#region SignalR
+  // -- SIGNALR
   useEffect(() => {
       const newConnection = new HubConnectionBuilder()
         .withUrl("https://toolsuserapi.azurewebsites.net/person")
@@ -64,8 +67,9 @@ function UsersTiles() {
         setHubCx(newConnection); 
 
     }, []);
+  // -- SIGNALR
 
-  // Receive the messages. 
+  // -- RECEIVE MESSAGE HUB
   useEffect(() => {
     
     if(hubCx) // Hub connected...
@@ -85,8 +89,9 @@ function UsersTiles() {
     }
 
   }, [hubCx]);
-  //#endregion
+  // -- RECEIVE MESSAGE HUB
 
+  // -- RETURN
   return (
     <div className="flex h-screen overflow-hidden">
 
@@ -180,6 +185,7 @@ function UsersTiles() {
       
     </div>
   );
+  // -- RETURN
 }
 
 export default UsersTiles;

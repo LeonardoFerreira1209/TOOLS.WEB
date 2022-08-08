@@ -15,7 +15,6 @@ function Account() {
   let {id} = useParams();
 
   useEffect(() => {
-    debugger
     fetch(`https://toolsuserapi.azurewebsites.net/api/Person/get/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`

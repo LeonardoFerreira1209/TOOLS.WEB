@@ -83,6 +83,7 @@ import IconsPage from './pages/component/IconsPage';
 import Home from './pages/Home';
 import StoreProvider from './components/store/Provider';
 import RequireAuth from './components/auth/RequireAuth';
+import ConfirmEmail from './pages/ConfirmEmail';
 
 // Lord icons.
 import { loadAnimation } from "lottie-web";
@@ -122,6 +123,7 @@ function App() {
           <Route exact path="/" element={<Home/>} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/confirmEmail/:code/:userId" element={ <ConfirmEmail /> } />
           <Route path="/reset-password" element={<ResetPassword />} />
           {/* Required login */}
           <Route exact path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
