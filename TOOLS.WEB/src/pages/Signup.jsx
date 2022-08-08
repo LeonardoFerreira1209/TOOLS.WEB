@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import AuthImage from '../images/—Pngtree—2.5d business office company recruitment_4213736.png';
+import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.jpg';
 import AuthDecoration from '../images/auth-decoration.png';
 
 function Signup() {
@@ -17,8 +17,8 @@ function Signup() {
             {/* Header */}
             <div className="flex-1">
               <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
-               {/* Logo */}
-               <NavLink end to="/" className="block">
+                {/* Logo */}
+                <NavLink end to="/" className="block">
                   
                   <svg width="32" height="32" viewBox="0 0 32 32">
                     <defs>
@@ -50,44 +50,67 @@ function Signup() {
               </div>
             </div>
 
-            <div className="max-w-sm mx-auto px-4 py-8">
+            <div className="md:max-w-md lg:max-w-lg mx-auto px-4 py-8">
               <h1 className="text-3xl text-slate-800 font-bold mb-6">Crie sua conta ✨</h1>
               {/* Form */}
               <form>
-                <div className="space-y-4">
+                <div className='grid gap-2 grid-cols-2'>
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail <span className="text-rose-500">*</span></label>
-                    <input id="email" className="form-input w-full" type="email" />
+                    <label className="block text-sm font-medium mb-1" htmlFor="firstName">Nome<span className="text-rose-500">*</span></label>
+                    <input id="firstName" className="form-input w-full" type="firstName" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="name">Nome Completo <span className="text-rose-500">*</span></label>
-                    <input id="name" className="form-input w-full" type="text" />
+                    <label className="block text-sm font-medium mb-1" htmlFor="lastName">Sobrenome<span className="text-rose-500">*</span></label>
+                    <input id="lastName" className="form-input w-full" type="text" />
+                  </div>
+                </div>
+                <div className='grid gap-5 md:grid-cols-2'>
+                  <div>
+                    <label className="block text-sm font-medium mb-1" htmlFor="username">Nome de usuário<span className="text-rose-500">*</span></label>
+                    <input id="username" className="form-input w-full" type="username" autoComplete="on" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="role">Tipo de conta <span className="text-rose-500">*</span></label>
-                    <select id="role" className="form-select w-full">
-                      <option>Desenvolvedor</option>
+                    <label className="block text-sm font-medium mb-1" htmlFor="password">Senha<span className="text-rose-500">*</span></label>
+                    <input id="password" className="form-input w-full" type="password" autoComplete="on" />
+                  </div>
+                </div>
+                <div className='grid gap-5 md:grid-cols-2'>
+                  <div>
+                    <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail<span className="text-rose-500">*</span></label>
+                    <input id="email" className="form-input w-full" type="email" autoComplete="on" />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1" htmlFor="phoneNumber">Celular<span className="text-rose-500">*</span></label>
+                    <input id="phoneNumber" className="form-input w-full" type="phoneNumber" autoComplete="on" />
+                  </div>
+                </div>
+                <div className="grid gap-5 md:grid-cols-2">
+                  <div>
+                    <label className="block text-sm font-medium mb-1" htmlFor="role">Sexo<span className="text-rose-500">*</span></label>
+                    <select id="gender" className="form-select w-full">
+                      <option value={1}>Masculino</option>
+                      <option value={2}>Feminino</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="password">Senha</label>
-                    <input id="password" className="form-input w-full" type="password" autoComplete="on" />
+                    <label className="block text-sm font-medium mb-1" htmlFor="cpf">Cadastro de Pessoas Física<span className="text-rose-500">*</span></label>
+                    <input id="cpf" className="form-input w-full" type="cpf" autoComplete="on" />
                   </div>
                 </div>
                 <div className="flex items-center justify-between mt-6">
                   <div className="mr-1">
                     <label className="flex items-center">
                       <input type="checkbox" className="form-checkbox" />
-                      <span className="text-sm ml-2">Me envie e-mails.</span>
+                      <span className="text-sm ml-2">Receber e-mail com novidades.</span>
                     </label>
                   </div>
-                  <Link className="btn bg-gradient-primary-500 text-white ml-3 whitespace-nowrap" to="/">Se cadastrar</Link>
+                  <Link className="btn bg-gradient-primary-500 text-white ml-3 whitespace-nowrap" to="/">Cadastrar</Link>
                 </div>
               </form>
               {/* Footer */}
               <div className="pt-5 mt-6 border-t border-slate-200">
                 <div className="text-sm">
-                  Têm uma conta ? <Link className="font-medium color-primary hover:color-primary" to="/signin">Entrar</Link>
+                  Já têm uma conta? <Link className="font-medium color-primary hover:color-primary" to="/signin">Entrar</Link>
                 </div>
               </div>
             </div>

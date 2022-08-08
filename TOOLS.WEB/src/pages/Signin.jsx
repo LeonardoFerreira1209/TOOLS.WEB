@@ -1,12 +1,85 @@
-import React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import Context from '../components/store/Context';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 
-import AuthImage from '../images/—Pngtree—2.5d business office company recruitment_4213736.png';
+import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.jpg';
 import AuthDecoration from '../images/auth-decoration.png';
 
 import 'aos/dist/aos.css';
 
 function Signin() {
+   const navigate = useNavigate();
+   const { state } = useLocation();
+   const [error, setError] = useState(null);
+   const [loading, setLoading] = useState(false);
+
+  // -- Inputs 
+  const [values, setValues] = useState(initialState);
+  const { setToken } = useContext(Context);
+
+  function initialState() {
+    return {user: '', password: ''};
+  }
+  // -- Inputs
+
+  // -- Validates
+  const [ userValidate, setUserValidate ] = useState(
+      values.user !== "" ? "hide-error-input-message" : ""
+  );
+  const [ passwordValidate, setPasswordValidate ] = useState(
+    values.password !== "" ? "hide-error-input-message" : ""
+  );
+
+  useEffect(() => {
+    values.user === "" ? setUserValidate("") : setUserValidate("hide-error-input-message");
+
+    values.password === "" ? setPasswordValidate("") : setPasswordValidate("hide-error-input-message"); 
+
+  }, [values]);
+  // -- Validates
+
+  function onChange(event) {
+    const {value, name} = event.target;
+
+    setValues(
+      {...values, 
+        [name]: value
+      });
+  }
+
+  function Signin(event) {
+
+    setLoading(true);
+
+    event.preventDefault();
+
+    fetch("https://localhost:7125/api/User/authetication", {
+      headers: {
+        'username': values.user,
+        'password': values.password
+    },
+      crossDomain:true,
+      mode:'cors', 
+      method: 'GET',
+      cache: 'no-cache',
+      credentials:'same-origin',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+    .then(response => response.json()).then((results) => {
+        if(results.sucesso){
+          setToken(results.dados.value); navigate(state?.path || "/dashboard");
+        }
+        else{
+          setError(results.notificacoes[0].mensagem); setLoading(false);
+        }
+      },
+      (error) => {
+        setError(error);
+      }
+    )
+  }
+
   return (
     <main className="bg-white">
 
@@ -53,24 +126,45 @@ function Signin() {
             </div>
 
             <div className="max-w-sm mx-auto px-4 py-8">
-              <h1 className="text-3xl text-slate-800 font-bold mb-6">Bem vindo de volta! ✨</h1>
+              <h1 className="text-3xl text-slate-800 font-bold mb-6">Olá novamente! ✨</h1>
               {/* Form */}
               <form>
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail</label>
-                    <input id="email" className="form-input w-full" type="email" />
+                    <label className="block text-sm font-medium mb-1" htmlFor="user">Usuário</label>
+                    <input onChange={onChange} value={values.user} id="user" name='user' className="form-input w-full" type="user" />
+                    <div id='userValidate' className={`text-xs mt-1 text-rose-500 ${userValidate}`}>Campo obrigatório!</div>
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="password">Senha</label>
-                    <input id="password" className="form-input w-full" type="password" autoComplete="on" />
+                    <input onChange={onChange} value={values.password} id="password" name='password' className="form-input w-full" type="password" autoComplete="on" />
+                    <div id='passwordValidate' className={`text-xs mt-1 text-rose-500 ${passwordValidate}`}>Campo obrigatório!</div>
                   </div>
                 </div>
+                {/* Error */}
+                {error !== null ? (
+                  <div className="mt-5">
+                    <div className="bg-gradient-danger-500 text-white px-3 py-2 rounded">
+                      x&ensp;
+                      <span className="text-sm">
+                        {error}
+                      </span>
+                    </div>
+                  </div>) : null}
                 <div className="flex items-center justify-between mt-6">
                   <div className="mr-1">
                     <Link className="text-sm underline hover:no-underline" to="/reset-password">Esqueceu a senha ?</Link>
                   </div>
-                  <button className="btn bg-gradient-primary-500 text-white ml-3">Entrar</button>
+                  <button onClick={Signin} className="btn bg-gradient-primary-500 text-white ml-3">
+                    {loading === false  ? ("Entrar") : (
+                      <lord-icon
+                        src="https://cdn.lordicon.com/yiniatmi.json"
+                        trigger="loop"
+                        colors="primary:#ffffff"
+                        style={{width:40,height:20}}>
+                      </lord-icon>
+                    )}
+                  </button>
                 </div>
               </form>
               {/* Footer */}

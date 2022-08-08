@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import Sidebar from '../../partials/Sidebar';
 import Header from '../../partials/Header';
@@ -7,6 +7,7 @@ import UsersTilesCard from '../../partials/community/UsersTilesCard';
 import PaginationNumeric from '../../components/PaginationNumeric';
 import ModalBasic from '../../components/ModalBasic';
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import StoreContext from "../../components/store/Context";
 
 function UsersTiles() {
 
@@ -14,11 +15,13 @@ function UsersTiles() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [basicModalOpen, setBasicModalOpen] = useState(false);
   const [hubCx, setHubCx] = useState(null);
+  const { token } = useContext(StoreContext)
 
+  debugger
   useEffect(() => {
     fetch("https://localhost:7125/api/Person/getAll", {
       headers: {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImIwNzM5ODM5LWVhN2UtNGU2OC1mOWQ3LTA4ZGE2ZDliZjRkYiIsInVuaXF1ZV9uYW1lIjoiTGVvLkFsbWVpZGEiLCJqdGkiOiIwMjQ1MGE1MC01MjJkLTRmNDMtOWVhYi01YTkyYWU1MGM3ZGQiLCJpYXQiOiIzMS8wNy8yMDIyIDEyOjE2OjQ1IiwidHlwIjoiQmVhcmVyIiwiZW1haWwiOiJMZW8uRmVycmVpcmEzMEBvdXRsb29rLmNvbSIsInBob25lTnVtYmVyIjoiKzU1KDE4KTk5Nzc2LTI0NTIiLCJ3ZWJzaXRlIjoiaHR0cHM6Ly90b29sc3VzZXJhcGkuYXp1cmV3ZWJzaXRlcy5uZXQvIiwiR2V0IjoiQ2VwIiwiQ2VwIjoiR2V0IiwicGVybWlzc2lvbiI6ImFkbWluIiwiZXhwIjoxNjY0NDUzODA1LCJpc3MiOiJIWVBFUi5TRUNVUklUWS5JU1NVRVIuQkVBUkVSIiwiYXVkIjoiSFlQRVIuU0VDVVJJVFkuQVVESUVOQ0UuQkVBUkVSIn0.x_02JGyQAr1pJOxIUmFXp2gSjx4jJBTQzG8EFPEylBE'
+        'Authorization': `Bearer ${token}`
       },
       crossDomain:true,
       mode:'cors', 
@@ -29,6 +32,7 @@ function UsersTiles() {
       referrerPolicy: 'no-referrer',
     })
       .then(response => response.json()).then((results) => {
+          debugger
           setPersons(
             results.dados.map(result => (
               {

@@ -5,7 +5,6 @@ import {
   useLocation
 } from 'react-router-dom';
 
-
 import 'aos/dist/aos.css';
 
 import AOS from 'aos';
@@ -82,10 +81,13 @@ import TooltipPage from './pages/component/TooltipPage';
 import AccordionPage from './pages/component/AccordionPage';
 import IconsPage from './pages/component/IconsPage';
 import Home from './pages/Home';
+import StoreProvider from './components/store/Provider';
+import RequireAuth from './components/auth/RequireAuth';
 
 // Lord icons.
 import { loadAnimation } from "lottie-web";
 import { defineLordIconElement } from "lord-icon-element";
+
 
 // register lottie and define custom element
 defineLordIconElement(loadAnimation);
@@ -114,75 +116,79 @@ function App() {
 
   return (
     <>
-      <Routes>
-        <Route exact path="/" element={<Home/>} />
-        <Route exact path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/analytics" element={<Analytics />} />
-        <Route path="/dashboard/fintech" element={<Fintech />} />
-        <Route path="/ecommerce/customers" element={<Customers />} />
-        <Route path="/ecommerce/orders" element={<Orders />} />
-        <Route path="/ecommerce/invoices" element={<Invoices />} />
-        <Route path="/ecommerce/shop" element={<Shop />} />
-        <Route path="/ecommerce/shop-2" element={<Shop2 />} />
-        <Route path="/ecommerce/product" element={<Product />} />
-        <Route path="/ecommerce/cart" element={<Cart />} />
-        <Route path="/ecommerce/cart-2" element={<Cart2 />} />
-        <Route path="/ecommerce/cart-3" element={<Cart3 />} />
-        <Route path="/ecommerce/pay" element={<Pay />} />
-        <Route path="/campaigns" element={<Campaigns />} />
-        <Route path="/community/users-tabs" element={<UsersTabs />} />
-        <Route path="/community/users-tiles" element={<UsersTiles />} />
-        <Route path="/community/profile" element={<Profile />} />
-        <Route path="/community/feed" element={<Feed />} />
-        <Route path="/community/forum" element={<Forum />} />
-        <Route path="/community/forum-post" element={<ForumPost />} />
-        <Route path="/community/meetups" element={<Meetups />} />
-        <Route path="/community/meetups-post" element={<MeetupsPost />} />
-        <Route path="/finance/cards" element={<CreditCards />} />
-        <Route path="/finance/transactions" element={<Transactions />} />
-        <Route path="/finance/transaction-details" element={<TransactionDetails />} />
-        <Route path="/job/job-listing" element={<JobListing />} />
-        <Route path="/job/job-post" element={<JobPost />} />
-        <Route path="/job/company-profile" element={<CompanyProfile />} />
-        <Route path="/messages" element={<Messages />} />
-        <Route path="/tasks/kanban" element={<TasksKanban />} />
-        <Route path="/tasks/list" element={<TasksList />} />
-        <Route path="/inbox" element={<Inbox />} />
-        <Route path="/calendar" element={<Calendar />} />
-        <Route path="/settings/account/:id" element={<Account />}/>
-        <Route path="/settings/notifications" element={<Notifications />} />
-        <Route path="/settings/apps" element={<Apps />} />
-        <Route path="/settings/plans" element={<Plans />} />
-        <Route path="/settings/billing" element={<Billing />} />
-        <Route path="/settings/feedback" element={<Feedback />} />
-        <Route path="/utility/changelog" element={<Changelog />} />
-        <Route path="/utility/roadmap" element={<Roadmap />} />
-        <Route path="/utility/faqs" element={<Faqs />} />
-        <Route path="/utility/empty-state" element={<EmptyState />} />
-        <Route path="/utility/404" element={<PageNotFound />} />
-        <Route path="/utility/knowledge-base" element={<KnowledgeBase />} />
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/onboarding-01" element={<Onboarding01 />} />
-        <Route path="/onboarding-02" element={<Onboarding02 />} />
-        <Route path="/onboarding-03" element={<Onboarding03 />} />
-        <Route path="/onboarding-04" element={<Onboarding04 />} />
-        <Route path="/component/button" element={<ButtonPage />} />
-        <Route path="/component/form" element={<FormPage />} />
-        <Route path="/component/dropdown" element={<DropdownPage />} />
-        <Route path="/component/alert" element={<AlertPage />} />
-        <Route path="/component/modal" element={<ModalPage />} />
-        <Route path="/component/pagination" element={<PaginationPage />} />
-        <Route path="/component/tabs" element={<TabsPage />} />
-        <Route path="/component/breadcrumb" element={<BreadcrumbPage />} />
-        <Route path="/component/badge" element={<BadgePage />} />
-        <Route path="/component/avatar" element={<AvatarPage />} />
-        <Route path="/component/tooltip" element={<TooltipPage />} />
-        <Route path="/component/accordion" element={<AccordionPage />} />
-        <Route path="/component/icons" element={<IconsPage />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
+        <StoreProvider>
+         <Routes>
+          {/* No required login */}
+          <Route exact path="/" element={<Home/>} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          {/* Required login */}
+          <Route exact path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
+          <Route path="/dashboard/analytics" element={<RequireAuth><Analytics /></RequireAuth>} />
+          <Route path="/dashboard/fintech" element={<RequireAuth><Fintech /></RequireAuth>} />
+          <Route path="/ecommerce/customers" element={<RequireAuth><Customers /></RequireAuth>} />
+          <Route path="/ecommerce/orders" element={<RequireAuth><Orders /><Orders /></RequireAuth>} />
+          <Route path="/ecommerce/invoices" element={<RequireAuth><Invoices /></RequireAuth>} />
+          <Route path="/ecommerce/shop" element={<RequireAuth><Shop /></RequireAuth>} />
+          <Route path="/ecommerce/shop-2" element={<RequireAuth><Shop2 /></RequireAuth>} />
+          <Route path="/ecommerce/product" element={<RequireAuth><Product /></RequireAuth>} />
+          <Route path="/ecommerce/cart" element={<RequireAuth><Cart /></RequireAuth>} />
+          <Route path="/ecommerce/cart-2" element={<RequireAuth><Cart2 /></RequireAuth>} />
+          <Route path="/ecommerce/cart-3" element={<RequireAuth><Cart3 /></RequireAuth>} />
+          <Route path="/ecommerce/pay" element={<RequireAuth><Pay /></RequireAuth>} />
+          <Route path="/campaigns" element={<RequireAuth><Campaigns /></RequireAuth>} />
+          <Route path="/community/users-tabs" element={<RequireAuth><UsersTabs /></RequireAuth>} />
+          <Route path="/community/users-tiles" element={<RequireAuth><UsersTiles /></RequireAuth>} />
+          <Route path="/community/profile" element={<RequireAuth><Profile /></RequireAuth>} />
+          <Route path="/community/feed" element={<RequireAuth><Feed /></RequireAuth>} />
+          <Route path="/community/forum" element={<RequireAuth><Forum /></RequireAuth>} />
+          <Route path="/community/forum-post" element={<RequireAuth><ForumPost /></RequireAuth>} />
+          <Route path="/community/meetups" element={<RequireAuth><Meetups /></RequireAuth>} />
+          <Route path="/community/meetups-post" element={<RequireAuth><MeetupsPost /></RequireAuth>} />
+          <Route path="/finance/cards" element={<RequireAuth><CreditCards /></RequireAuth>} />
+          <Route path="/finance/transactions" element={<RequireAuth><Transactions /></RequireAuth>} />
+          <Route path="/finance/transaction-details" element={<RequireAuth><TransactionDetails /></RequireAuth>} />
+          <Route path="/job/job-listing" element={<RequireAuth><JobListing /></RequireAuth>} />
+          <Route path="/job/job-post" element={<RequireAuth><JobPost /></RequireAuth>} />
+          <Route path="/job/company-profile" element={<RequireAuth><CompanyProfile /></RequireAuth>} />
+          <Route path="/messages" element={<RequireAuth><Messages /></RequireAuth>} />
+          <Route path="/tasks/kanban" element={<RequireAuth><TasksKanban /></RequireAuth>} />
+          <Route path="/tasks/list" element={<RequireAuth><TasksList /></RequireAuth>} />
+          <Route path="/inbox" element={<RequireAuth><Inbox /></RequireAuth>} />
+          <Route path="/calendar" element={<RequireAuth><Calendar /></RequireAuth>} />
+          <Route path="/settings/account/:id" element={<RequireAuth><Account /></RequireAuth>}/>
+          <Route path="/settings/notifications" element={<RequireAuth><Notifications /></RequireAuth>} />
+          <Route path="/settings/apps" element={<RequireAuth><Apps /></RequireAuth>} />
+          <Route path="/settings/plans" element={<RequireAuth><Plans /></RequireAuth>} />
+          <Route path="/settings/billing" element={<RequireAuth><Billing /></RequireAuth>} />
+          <Route path="/settings/feedback" element={<RequireAuth><Feedback /></RequireAuth>} />
+          <Route path="/utility/changelog" element={<RequireAuth><Changelog /></RequireAuth>} />
+          <Route path="/utility/roadmap" element={<RequireAuth><Roadmap /></RequireAuth>} />
+          <Route path="/utility/faqs" element={<RequireAuth><Faqs /></RequireAuth>} />
+          <Route path="/utility/empty-state" element={<RequireAuth><EmptyState /></RequireAuth>} />
+          <Route path="/utility/404" element={<RequireAuth><PageNotFound /></RequireAuth>} />
+          <Route path="/utility/knowledge-base" element={<RequireAuth><KnowledgeBase /></RequireAuth>} />
+          <Route path="/onboarding-01" element={<RequireAuth><Onboarding01 /></RequireAuth>} />
+          <Route path="/onboarding-02" element={<Onboarding02 />} />
+          <Route path="/onboarding-03" element={<Onboarding03 />} />
+          <Route path="/onboarding-04" element={<Onboarding04 />} />
+          <Route path="/component/button" element={<ButtonPage />} />
+          <Route path="/component/form" element={<FormPage />} />
+          <Route path="/component/dropdown" element={<DropdownPage />} />
+          <Route path="/component/alert" element={<AlertPage />} />
+          <Route path="/component/modal" element={<ModalPage />} />
+          <Route path="/component/pagination" element={<PaginationPage />} />
+          <Route path="/component/tabs" element={<TabsPage />} />
+          <Route path="/component/breadcrumb" element={<BreadcrumbPage />} />
+          <Route path="/component/badge" element={<BadgePage />} />
+          <Route path="/component/avatar" element={<AvatarPage />} />
+          <Route path="/component/tooltip" element={<TooltipPage />} />
+          <Route path="/component/accordion" element={<AccordionPage />} />
+          <Route path="/component/icons" element={<IconsPage />} />
+          <Route path="*" element={<RequireAuth><PageNotFound /></RequireAuth>} />
+          </Routes>
+        </StoreProvider>
     </>
   );
 }

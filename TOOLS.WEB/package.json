@@ -13,6 +13,7 @@
     "babel-plugin-macros": "^3.1.0",
     "chart.js": "^3.8.0",
     "chartjs-adapter-moment": "^1.0.0",
+    "js-cookie": "^3.0.1",
     "lord-icon-element": "^3.4.2",
     "lottie-web": "^5.9.6",
     "moment": "^2.29.4",

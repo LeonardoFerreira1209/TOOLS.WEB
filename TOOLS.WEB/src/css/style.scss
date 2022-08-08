@@ -18,6 +18,10 @@
 .bg-gradient-primary-500:hover {
     background: linear-gradient(65deg, #0270D7 0, #0F8AFD 10%);
 }
+
+.bg-gradient-danger-500 {
+    background: linear-gradient(65deg, #c24f4f 0, #ff0000 10%);
+}
 // -- BUTTONS
 
 // -- COLORS
@@ -34,5 +38,10 @@
 }
 // -- COLORS
 
+// -- INPUTS
+.hide-error-input-message {
+    display: none;
+}
+// -- INPUTS
 @tailwind utilities;
 
