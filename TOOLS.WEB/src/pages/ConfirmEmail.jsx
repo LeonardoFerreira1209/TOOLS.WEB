@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import Image from '../images/—Pngtree—global data security personal data_7255062.png';
 
 function ConfirmEmail() {
 
   let {code, userId} = useParams();
-
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   function ConfirmEmail(event){
