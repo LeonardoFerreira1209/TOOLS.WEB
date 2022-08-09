@@ -41,7 +41,7 @@ function DropdownNotifications({align}) {
   // Connect to Hub.
   useEffect(() => {
       const newConnection = new HubConnectionBuilder()
-        .withUrl("https://toolsuserapi.azurewebsites.net/notify")
+        .withUrl("https://localhost:7125/notify")
         .withAutomaticReconnect()
         .build()
 
