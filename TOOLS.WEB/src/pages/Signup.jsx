@@ -43,7 +43,7 @@ function Signup() {
 
   setLoading(true);
 
-  fetch("https://localhost:7125/api/User/create", {
+  fetch("https://toolsuserapi.azurewebsites.net/api/User/create", {
     crossDomain:true,
     mode:'cors', 
     method: 'POST',
@@ -67,7 +67,7 @@ function Signup() {
   })
   .then(response => response.json()).then((results) => {
       if(results.sucesso){
-        navigate("/ConfirmEmail/fdsfds/fdsfsdfsd");
+        navigate("/");
       }
       else{
         setError(results.notificacoes[0].mensagem); setLoading(false);

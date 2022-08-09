@@ -1,16 +1,43 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-import NotFoundImage from '../images/—Pngtree—global data security personal data_7255062.png';
+import Image from '../images/—Pngtree—global data security personal data_7255062.png';
 
 function ConfirmEmail() {
 
+  let {code, userId} = useParams();
+
   const [loading, setLoading] = useState(false);
 
-  function teste(event)
-  {
+  function ConfirmEmail(event){
+    debugger
     setLoading(true);
 
     event.preventDefault();
+
+    fetch(`https://toolsuserapi.azurewebsites.net/api/User/activate/${code}/${userId}`, {
+      crossDomain:true,
+      mode:'cors', 
+      method: 'GET',
+      cache: 'no-cache',
+      credentials:'same-origin',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+    .then(response => response.json()).then((results) => {
+      debugger
+        if(results.sucesso){
+          navigate("/signin");
+        }
+        else{
+          setError(results.notificacoes[0].mensagem); setLoading(false);
+        }
+      },
+      (error) => {
+        setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+      }
+    )
+
   }
 
   return (
@@ -25,10 +52,10 @@ function ConfirmEmail() {
 
               <div className="text-center px-4">
                 <div className="inline-flex mb-8">
-                  <img data-aos="fade-down" ata-aos-delay="100" className='shadow-transparent-image' src={NotFoundImage} width="600" height="300" alt="404 illustration" />
+                  <img data-aos="fade-down" ata-aos-delay="100" className='shadow-transparent-image' src={Image} width="600" height="300" alt="404 illustration" />
                 </div>
                 <h1 data-aos="fade-up" ata-aos-delay="200"  className="mb-6">Usuário criado com sucesso! Clique no botão abaixo para confirma-lo!</h1>
-                <button data-aos="fade-up" ata-aos-delay="400" onClick={teste} className="btn bg-gradient-primary-500 text-white">
+                <button data-aos="fade-up" ata-aos-delay="400" onClick={ConfirmEmail} className="btn bg-gradient-primary-500 text-white">
                 {
                   loading === false ? ("Confirmar usuário") : (
                     <lord-icon
