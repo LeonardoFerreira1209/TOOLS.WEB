@@ -15,7 +15,7 @@ function Account() {
   let {id} = useParams();
 
   useEffect(() => {
-    fetch(`https://localhost:7125/api/Person/get/${id}`, {
+    fetch(`https://toolsuserapi.azurewebsites.net/api/Person/get/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       },
