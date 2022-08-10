@@ -2,31 +2,35 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
 import Context from './store/Context';
-
-import UserAvatar from '../images/user-avatar-32.png';
+import StoreContext from "./store/Context";
 
 function DropdownProfile({
   align
 }) {
 
+  // -- CONSTS
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
   const trigger = useRef(null);
   const dropdown = useRef(null);
-
   const { setToken } = useContext(Context);
-  const navigate = useNavigate();
+  const { setTokenData } = useContext(Context);
+  const { tokenData } = useContext(StoreContext)
   
+  const navigate = useNavigate();
+  // -- CONSTS
+  
+  // -- SIGNOUT
   function SigninOut(event) {
     event.preventDefault();
 
-   setToken(null);
+    setToken(null); setTokenData(null);
 
     navigate("/");
   }
+  // -- SIGNOUT
 
-  // close on click outside
-  useEffect(() => {
+  // -- DROPDOWN
+  useEffect(() => { // close on click outside
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
       if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
@@ -36,8 +40,7 @@ function DropdownProfile({
     return () => document.removeEventListener('click', clickHandler);
   });
 
-  // close if the esc key is pressed
-  useEffect(() => {
+  useEffect(() => { // close if the esc key is pressed
     const keyHandler = ({ keyCode }) => {
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
@@ -45,6 +48,7 @@ function DropdownProfile({
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+  // -- DROPDOWN
 
   return (
     <div className="relative inline-flex">
@@ -61,7 +65,7 @@ function DropdownProfile({
             style={{with:32, height:32}}>
         </lord-icon>
         <div className="flex items-center truncate">
-          <span className="truncate ml-2 text-sm font-medium group-hover:text-slate-800">Acme Inc.</span>
+          <span className="truncate ml-2 text-sm font-medium group-hover:text-slate-800">{tokenData.unique_name}.</span>
           <svg className="w-3 h-3 shrink-0 ml-1 fill-current text-slate-400" viewBox="0 0 12 12">
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
           </svg>
@@ -84,7 +88,7 @@ function DropdownProfile({
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200">
-            <div className="font-medium text-slate-800">Acme Inc.</div>
+            <div className="font-medium text-slate-800">{tokenData.unique_name}.</div>
             <div className="text-xs text-slate-500 italic">Administrator</div>
           </div>
           <ul>
@@ -94,7 +98,7 @@ function DropdownProfile({
                 to="/settings"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                Settings
+                Configurações
               </Link>
             </li>
             <li>

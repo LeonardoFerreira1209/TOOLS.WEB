@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Context from '../components/store/Context';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import { parseJwt } from '../utils/Utils';
 
 import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.jpg';
 import AuthDecoration from '../images/auth-decoration.png';
@@ -18,6 +19,7 @@ function Signin() {
   // -- INPUTS 
   const [values, setValues] = useState(initialState);
   const { setToken } = useContext(Context);
+  const { setTokenData } = useContext(Context);
 
   function initialState() {
     return {user: '', password: ''};
@@ -51,7 +53,7 @@ function Signin() {
 
     event.preventDefault();
 
-    fetch("https://toolsuserapi.azurewebsites.net/api/User/authetication", {
+    fetch("https://localhost:7125/api/User/authetication", {
       headers: {
         'username': values.user,
         'password': values.password
@@ -66,7 +68,9 @@ function Signin() {
     })
     .then(response => response.json()).then((results) => {
         if(results.sucesso){
-          setToken(results.dados.value); navigate(state?.path || "/dashboard");
+          setToken(results.dados.value); setTokenData(parseJwt(results.dados.value));
+
+          navigate(state?.path || "/dashboard");
         }
         else{
           setError(results.notificacoes[0].mensagem); setLoading(false);

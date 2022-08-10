@@ -15,7 +15,7 @@ function Account() {
   let {id} = useParams();
 
   useEffect(() => {
-    fetch(`https://toolsuserapi.azurewebsites.net/api/Person/get/${id}`, {
+    fetch(`https://localhost:7125/api/Person/get/${id}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       },
@@ -34,7 +34,6 @@ function Account() {
               age: personResult.dados.age != null ?? person.dados.age,
               image: personResult.dados.image != null ? "data:" + personResult.dados.image.contentType + ";base64," + personResult.dados.image.fileContents : "",
             });
-            debugger
         },
         // Nota: é importante lidar com errros aqui
         // em vez de um bloco catch() para não receber

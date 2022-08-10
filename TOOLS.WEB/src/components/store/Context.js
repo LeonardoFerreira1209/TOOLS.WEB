@@ -2,7 +2,9 @@ import { createContext } from "react";
 
 const Context = createContext({
     token: null,
-    setToke: () => {}
+    setToken: () => {},
+    tokenData: null,
+    setTokenData: () => {},
 });
 
 export default Context;
