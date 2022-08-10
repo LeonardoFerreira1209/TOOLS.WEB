@@ -51,7 +51,7 @@ function Signin() {
 
     event.preventDefault();
 
-    fetch("https://localhost:7125/api/User/authetication", {
+    fetch("https://toolsuserapi.azurewebsites.net/api/User/authetication", {
       headers: {
         'username': values.user,
         'password': values.password
@@ -158,7 +158,7 @@ function Signin() {
                   : null }
                 <div className="flex items-center justify-between mt-6">
                   <div data-aos="fade-up" className="mr-1">
-                    <Link className="text-sm underline hover:no-underline" to="/reset-password">Esqueceu a senha ?</Link>
+                    <Link className="text-sm underline hover:no-underline" to="/reset-password">Esqueceu a senha?</Link>
                   </div>
                   <button data-aos="fade-up" onClick={Signin} className="btn bg-gradient-primary-500 text-white ml-3">
                     {loading === false  ? ("Entrar") : (
@@ -175,7 +175,7 @@ function Signin() {
               {/* Footer */}
               <div className="pt-5 mt-6 border-t border-slate-200">
                 <div data-aos="fade-right" className="text-sm">
-                  Não têm uma conta ? <Link className="font-medium color-primary hover:color-primary" to="/signup">Se cadastrar</Link>
+                  Não têm uma conta? <Link className="font-medium color-primary hover:color-primary" to="/signup">Se cadastrar</Link>
                 </div>
                 {/* Warning */}
                 <div data-aos="fade-up" className="mt-5">
