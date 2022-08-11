@@ -53,7 +53,7 @@ function Signin() {
 
     event.preventDefault();
 
-    fetch("https://toolsuserapi.azurewebsites.net/api/User/authetication", {
+    fetch("https://localhost:7125/api/User/authetication", {
       headers: {
         'username': values.user,
         'password': values.password
@@ -68,6 +68,7 @@ function Signin() {
     })
     .then(response => response.json()).then((results) => {
         if(results.sucesso){
+          debugger
           setToken(results.dados.value); setTokenData(parseJwt(results.dados.value));
 
           navigate(state?.path || "/dashboard");

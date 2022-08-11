@@ -5,6 +5,8 @@ const Context = createContext({
     setToken: () => {},
     tokenData: null,
     setTokenData: () => {},
+    notifications: [{ }],
+    setNotifications: () => {}
 });
 
 export default Context;

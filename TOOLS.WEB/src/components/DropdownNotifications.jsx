@@ -1,67 +1,74 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import Transition from '../utils/Transition';
 import CardNotifications from './CardNotifications';
+import Context from './store/Context';
 
 function DropdownNotifications({align}) {
 
-  //#region Base methods
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+  // -- CONSTS
+  
+  // -- STORE
+  const { notifications, setNotifications } = useContext(Context);
+  
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const trigger = useRef(null);
+  const dropdown = useRef(null);
 
-    const trigger = useRef(null);
-    const dropdown = useRef(null);
-  
-    // close on click outside
-    useEffect(() => {
-      const clickHandler = ({ target }) => {
-        if (!dropdown.current) return;
-        if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
-        setDropdownOpen(false);
-      };
-      document.addEventListener('click', clickHandler);
-      return () => document.removeEventListener('click', clickHandler);
-    });
-  
-    // close if the esc key is pressed
-    useEffect(() => {
-      const keyHandler = ({ keyCode }) => {
-        if (!dropdownOpen || keyCode !== 27) return;
-        setDropdownOpen(false);
-      };
-      document.addEventListener('keydown', keyHandler);
-      return () => document.removeEventListener('keydown', keyHandler);
-    });
-    //#endregion
-  
-  //#region SignalR
+  // -- SIGNALR
   const [hubCx, setHubCx] = useState(null);
-  
-  const [notifications, setNotifications ] = useState([]);
-  
-  // Connect to Hub.
+  // -- CONSTS
+
+  // -- CLOSE ON CLICK OUTSIDE
   useEffect(() => {
+    const clickHandler = ({ target }) => {
+      if (!dropdown.current) return;
+      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
+      setDropdownOpen(false);
+    };
+    document.addEventListener('click', clickHandler);
+    return () => document.removeEventListener('click', clickHandler);
+  });
+  // -- CLOSE ON CLICK OUTSIDE
+  
+  // -- CLOSE ON CLICK IN ESC KEY
+  useEffect(() => {
+    const keyHandler = ({ keyCode }) => {
+      if (!dropdownOpen || keyCode !== 27) return;
+      setDropdownOpen(false);
+    };
+    document.addEventListener('keydown', keyHandler);
+    return () => document.removeEventListener('keydown', keyHandler);
+  });
+  // -- CLOSE ON CLICK IN ESC KEY
+  
+  // -- SIGNALR
+  useEffect(() => { // HUB CONNECTION.
       const newConnection = new HubConnectionBuilder()
-        .withUrl("https://toolsuserapi.azurewebsites.net/notify")
+        .withUrl("https://localhost:7125/notify")
         .withAutomaticReconnect()
         .build()
 
         setHubCx(newConnection); 
-
     }, []);
 
-  // Receive the messages. 
-  useEffect(() => {
-    // Hub connected...
+  useEffect(() => { // HUB RECEIVER
     if(hubCx)
     {   
         hubCx.start().then((result) => {
-          hubCx.on("ReceiveMessage", (notify) =>  { setNotifications((previous) => previous.concat(notify)); });
+          hubCx.on("ReceiveMessage", (notify) =>  {
+
+            notifications ? setNotifications([notify]) : setNotifications((previous) => previous.concat(notify));
+          
+          });
+
         }).catch(e => console.log('Connection failed: ', e));
     }
 
   }, [hubCx]);
-  //#endregion
+  // -- SIGNALR
 
+  // -- RETURN
   return (
     <div className="relative inline-flex">
        
@@ -78,7 +85,9 @@ function DropdownNotifications({align}) {
             trigger="hover"
             >
         </lord-icon>
-        <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 border-2 border-white rounded-full"></div>
+        {
+          notifications ? (<div className="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 border-2 border-white rounded-full"></div>) : (null)
+        }
       </button>
 
       <Transition
@@ -96,12 +105,14 @@ function DropdownNotifications({align}) {
           onFocus={() => setDropdownOpen(true)}
           onBlur={() => setDropdownOpen(false)}
         >
-          <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notificações</div>
+          <div className='grid grid-cols-2'>
+            <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notificações</div>
+            <button style={{ cursor:"pointer" }} onClick={() => setNotifications(null)} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button>
+          </div>
           <ul id='notifications'>
             {
-              notifications.map(notify => {
-                debugger
-                return (<CardNotifications key={notify.id} id={notify.id} date={notify.date} message={notify.message} />)
+              notifications?.map(notify => {
+                return (<CardNotifications key={notify.id} id={notify.id} icon={notify.icon} date={notify.date} theme={notify.theme} message={notify.message} />)
               })
             }
           </ul>
@@ -109,6 +120,7 @@ function DropdownNotifications({align}) {
       </Transition>
     </div>
   )
+  // -- RETURN
 }
 
 export default DropdownNotifications;

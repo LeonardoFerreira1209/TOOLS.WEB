@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Transition from '../utils/Transition';
 import Context from './store/Context';
-import StoreContext from "./store/Context";
 
 function DropdownProfile({
   align
@@ -12,9 +11,11 @@ function DropdownProfile({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef(null);
   const dropdown = useRef(null);
+
+  // Store
   const { setToken } = useContext(Context);
+  const { tokenData } = useContext(Context)
   const { setTokenData } = useContext(Context);
-  const { tokenData } = useContext(StoreContext)
   
   const navigate = useNavigate();
   // -- CONSTS
