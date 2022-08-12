@@ -5,19 +5,19 @@ import Header from '../../partials/Header';
 import SettingsSidebar from '../../partials/settings/SettingsSidebar';
 import AccountPanel from '../../partials/settings/AccountPanel';
 import { useParams } from 'react-router-dom';
-import StoreContext from "../../components/store/Context";
+import StoreContext from "../../components/store/context/ContextUser";
 
 function Account() {
 
   const [person, setPersons] = useState(null);
-  const { token } = useContext(StoreContext);
+  const { user } = useContext(StoreContext);
 
   let {id} = useParams();
 
   useEffect(() => {
     fetch(`https://localhost:7125/api/Person/get/${id}`, {
       headers: {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${user.tokenJwt}`
       },
       crossDomain:true,
       mode:'cors', 
@@ -44,9 +44,6 @@ function Account() {
   }, [])
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  if(person != null)
-  {
     return (
       <div className="flex h-screen overflow-hidden">
   
@@ -60,30 +57,28 @@ function Account() {
           <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
   
           <main>
-            <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
-  
-              {/* Page header */}
-              <div className="mb-8">
-                {/* Title */}
-                <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">Editar perfil ✨</h1>
-              </div>
-  
-              {/* Content */} 
-              <div className="bg-white shadow-lg rounded-sm mb-8">
-                <div className="flex flex-col md:flex-row md:-mr-px">
-                  <SettingsSidebar person={person} />
-                  <AccountPanel person={person} />
+            {
+              person != null ? (
+                 <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+                    {/* Page header */}
+                    <div className="mb-8">
+                      {/* Title */}
+                      <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">Editar perfil ✨</h1>
+                    </div>
+                    {/* Content */} 
+                  <div className="bg-white shadow-lg rounded-sm mb-8">
+                  <div className="flex flex-col md:flex-row md:-mr-px">
+                    <SettingsSidebar person={person} />
+                    <AccountPanel person={person} />
+                  </div>
                 </div>
               </div>
-  
-            </div>
+              ) : (null)
+            }
           </main>
-  
         </div>
-        
       </div>
     );
-  }
 }
 
 export default Account;

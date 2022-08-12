@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
-import Context from '../components/store/Context';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { parseJwt } from '../utils/Utils';
+import ContextUser from '../components/store/context/ContextUser';
 
 import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.jpg';
 import AuthDecoration from '../images/auth-decoration.png';
@@ -18,8 +18,8 @@ function Signin() {
 
   // -- INPUTS 
   const [values, setValues] = useState(initialState);
-  const { setToken } = useContext(Context);
-  const { setTokenData } = useContext(Context);
+  const { setUser } = useContext(ContextUser);
+
 
   function initialState() {
     return {user: '', password: ''};
@@ -68,9 +68,10 @@ function Signin() {
     })
     .then(response => response.json()).then((results) => {
         if(results.sucesso){
-          debugger
-          setToken(results.dados.value); setTokenData(parseJwt(results.dados.value));
-
+          setUser({
+            tokenJwt: results.dados.value,
+            tokenObj: parseJwt(results.dados.value)
+          });
           navigate(state?.path || "/dashboard");
         }
         else{

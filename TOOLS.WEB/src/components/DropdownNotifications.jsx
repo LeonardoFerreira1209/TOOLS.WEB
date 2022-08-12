@@ -2,15 +2,19 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { HubConnectionBuilder } from "@microsoft/signalr";
 import Transition from '../utils/Transition';
 import CardNotifications from './CardNotifications';
-import Context from './store/Context';
+import ContextNotify from './store/context/ContextNotify';
 
 function DropdownNotifications({align}) {
 
   // -- CONSTS
   
   // -- STORE
-  const { notifications, setNotifications } = useContext(Context);
-  
+  //const { notifications, setNotifications } = useContext(ContextNotify);
+
+  const [notifications, setNotifications ] = useState([]);
+  //const { setNotificationContext } = useContext(ContextNotify);
+
+  debugger
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef(null);
   const dropdown = useRef(null);
@@ -44,81 +48,94 @@ function DropdownNotifications({align}) {
   
   // -- SIGNALR
   useEffect(() => { // HUB CONNECTION.
-      const newConnection = new HubConnectionBuilder()
-        .withUrl("https://localhost:7125/notify")
-        .withAutomaticReconnect()
-        .build()
+    const newConnection = new HubConnectionBuilder()
+      .withUrl("https://localhost:7125/notify")
+      .withAutomaticReconnect()
+      .build()
 
-        setHubCx(newConnection); 
-    }, []);
+      setHubCx(newConnection);
+  }, []);
 
   useEffect(() => { // HUB RECEIVER
     if(hubCx)
     {   
-        hubCx.start().then((result) => {
+        hubCx.start().then(() => {
           hubCx.on("ReceiveMessage", (notify) =>  {
-
-            notifications ? setNotifications([notify]) : setNotifications((previous) => previous.concat(notify));
-          
+            setNotifications((previous) => previous.concat(notify));
           });
 
         }).catch(e => console.log('Connection failed: ', e));
     }
 
   }, [hubCx]);
+
+  function cleanNotify(event) {
+    event.preventDefault();
+
+    setNotifications([]);
+  }
   // -- SIGNALR
 
   // -- RETURN
   return (
-    <div className="relative inline-flex">
+    <ContextNotify.Consumer>
+      {
+        notifyContext => (
+          <div className="relative inline-flex">
        
-      <button
-        ref={trigger}
-        className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 transition duration-150 rounded-full ${dropdownOpen && 'bg-slate-200'}`}
-        aria-haspopup="true"
-        onClick={() => setDropdownOpen(!dropdownOpen)}
-        aria-expanded={dropdownOpen}
-      >
-        <span className="sr-only">Notificações</span>
-        <lord-icon
-            src="https://cdn.lordicon.com/ujkjgorh.json"
-            trigger="hover"
+            <button
+              ref={trigger}
+              className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 transition duration-150 rounded-full ${dropdownOpen && 'bg-slate-200'}`}
+              aria-haspopup="true"
+              onClick={() => setDropdownOpen(!dropdownOpen)}
+              aria-expanded={dropdownOpen}
             >
-        </lord-icon>
-        {
-          notifications ? (<div className="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 border-2 border-white rounded-full"></div>) : (null)
-        }
-      </button>
+              <span className="sr-only">Notificações</span>
+              <lord-icon
+                  src="https://cdn.lordicon.com/ujkjgorh.json"
+                  trigger="hover"
+                  >
+              </lord-icon>
+              {
+                notifications.length > 0 ? (<div className="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 border-2 border-white rounded-full"></div>) : (null)
+              }
+            </button>
 
-      <Transition
-        className={`origin-top-right z-10 absolute top-full -mr-48 sm:mr-0 min-w-80 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 ${align === 'right' ? 'right-0' : 'left-0'}`}
-        show={dropdownOpen}
-        enter="transition ease-out duration-200 transform"
-        enterStart="opacity-0 -translate-y-2"
-        enterEnd="opacity-100 translate-y-0"
-        leave="transition ease-out duration-200"
-        leaveStart="opacity-100"
-        leaveEnd="opacity-0"
-      >
-        <div
-          ref={dropdown}
-          onFocus={() => setDropdownOpen(true)}
-          onBlur={() => setDropdownOpen(false)}
-        >
-          <div className='grid grid-cols-2'>
-            <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notificações</div>
-            <button style={{ cursor:"pointer" }} onClick={() => setNotifications(null)} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button>
+            <Transition
+              className={`origin-top-right z-10 absolute top-full -mr-48 sm:mr-0 min-w-80 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 ${align === 'right' ? 'right-0' : 'left-0'}`}
+              show={dropdownOpen}
+              enter="transition ease-out duration-200 transform"
+              enterStart="opacity-0 -translate-y-2"
+              enterEnd="opacity-100 translate-y-0"
+              leave="transition ease-out duration-200"
+              leaveStart="opacity-100"
+              leaveEnd="opacity-0"
+            >
+              <div
+                ref={dropdown}
+                onFocus={() => setDropdownOpen(true)}
+                onBlur={() => setDropdownOpen(false)}
+              >
+                <div className='grid grid-cols-2'>
+                  <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notificações</div>
+                  {
+                    notifications.length > 0 ? <button style={{ cursor:"pointer" }} onClick={cleanNotify} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button> : (null)
+                  }
+                </div>
+                <ul id='notifications'>
+                  {
+                    notifications?.map(notify => {
+                      debugger
+                      return (<CardNotifications key={notify.id} id={notify.id} icon={notify.icon} date={notify.date} theme={notify.theme} message={notify.message} />)
+                    })
+                  }
+                </ul>
+              </div>
+            </Transition>
           </div>
-          <ul id='notifications'>
-            {
-              notifications?.map(notify => {
-                return (<CardNotifications key={notify.id} id={notify.id} icon={notify.icon} date={notify.date} theme={notify.theme} message={notify.message} />)
-              })
-            }
-          </ul>
-        </div>
-      </Transition>
-    </div>
+        )
+      }
+    </ContextNotify.Consumer>
   )
   // -- RETURN
 }

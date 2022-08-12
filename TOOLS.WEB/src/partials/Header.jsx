@@ -6,6 +6,8 @@ import Help from '../components/DropdownHelp';
 import UserMenu from '../components/DropdownProfile';
 
 function Header({
+  notifications,
+  setNotifications,
   sidebarOpen,
   setSidebarOpen
 }) {
@@ -52,7 +54,7 @@ function Header({
             </lord-icon>
             </button>
             <SearchModal id="search-modal" searchId="search" modalOpen={searchModalOpen} setModalOpen={setSearchModalOpen} />
-            <Notifications align="right" />
+            <Notifications notifications={notifications} setNotifications={setNotifications} align="right" />
             <Help align="right" />
             {/*  Divider */}
             <hr className="w-px h-6 bg-slate-200 mx-3" />

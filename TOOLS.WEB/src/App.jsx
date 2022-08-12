@@ -81,7 +81,7 @@ import TooltipPage from './pages/component/TooltipPage';
 import AccordionPage from './pages/component/AccordionPage';
 import IconsPage from './pages/component/IconsPage';
 import Home from './pages/Home';
-import StoreProvider from './components/store/Provider';
+import ContextUserProvider from './components/store/Provider';
 import RequireAuth from './components/auth/RequireAuth';
 import ConfirmEmail from './pages/ConfirmEmail';
 
@@ -117,8 +117,8 @@ function App() {
 
   return (
     <>
-        <StoreProvider>
-         <Routes>
+      <ContextUserProvider>
+        <Routes>
           {/* No required login */}
           <Route exact path="/" element={<Home/>} />
           <Route path="/signin" element={<Signin />} />
@@ -189,8 +189,8 @@ function App() {
           <Route path="/component/accordion" element={<AccordionPage />} />
           <Route path="/component/icons" element={<IconsPage />} />
           <Route path="*" element={<RequireAuth><PageNotFound /></RequireAuth>} />
-          </Routes>
-        </StoreProvider>
+        </Routes>
+      </ContextUserProvider>
     </>
   );
 }

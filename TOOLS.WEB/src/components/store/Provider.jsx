@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import useStorage from "../../utils/storage/UseStorage";
-import Context from "./Context";
+import ContextUser from "./context/ContextUser";
+import ContextNotify from "./context/ContextNotify";
 
-const StoreProvider = ({ children }) => {
-    debugger
-    const [token, setToken] = useStorage('token');
-    const [tokenData, setTokenData] = useStorage('tokenData');
+function ContextUserProvider({ children })  {
+    const [user, setUser] = useStorage('user');
     const [notifications, setNotifications] = useStorage('notifications');
 
     return(
-        <Context.Provider value={{ token, setToken, tokenData, setTokenData, notifications, setNotifications }}>
-            { children }
-        </Context.Provider>
+        <ContextUser.Provider value={{ user, setUser }}>
+            <ContextNotify.Provider value={{ notifications, setNotifications }}>
+                { children }
+            </ContextNotify.Provider>
+        </ContextUser.Provider>
     )
 }
 
-export default StoreProvider;
+export default ContextUserProvider;

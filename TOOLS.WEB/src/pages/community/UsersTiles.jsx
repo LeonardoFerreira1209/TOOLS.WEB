@@ -7,7 +7,7 @@ import UsersTilesCard from '../../partials/community/UsersTilesCard';
 import PaginationNumeric from '../../components/PaginationNumeric';
 import ModalBasic from '../../components/ModalBasic';
 import { HubConnectionBuilder } from "@microsoft/signalr";
-import StoreContext from "../../components/store/Context";
+import StoreContext from "../../components/store/context/ContextUser";
 
 function UsersTiles() {
 
@@ -15,15 +15,17 @@ function UsersTiles() {
   const [persons, setPersons] = useState([]);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [basicModalOpen, setBasicModalOpen] = useState(false);
+  // -- SIGNALR
   const [hubCx, setHubCx] = useState(null);
-  const { token } = useContext(StoreContext)
+  // -- CONTEXT
+  const { user } = useContext(StoreContext)
   // -- CONST
 
   // -- API CONSUMER
   useEffect(() => {
     fetch("https://localhost:7125/api/Person/getAll", {
       headers: {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${user.tokenJwt}`
       },
       crossDomain:true,
       mode:'cors', 
@@ -34,7 +36,6 @@ function UsersTiles() {
       referrerPolicy: 'no-referrer',
     })
       .then(response => response.json()).then((results) => {
-          debugger
           setPersons(
             results.dados.map(result => (
               {
