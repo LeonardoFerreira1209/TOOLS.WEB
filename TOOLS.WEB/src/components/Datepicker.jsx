@@ -5,6 +5,14 @@ function Datepicker({
   align
 }) {
 
+  const customLocale = {
+   
+    weekdays: {
+        shorthand: ["seg", "ter", "quar", "quin", "sex", "sáb", "dom"],
+        longhand: ["segunda", "terça", "quarta", "quinta", "sexta", "sábado", "domingo"],
+    }
+  }
+
   const options = {
     mode: 'range',
     static: true,
@@ -21,6 +29,7 @@ function Datepicker({
     onChange: (selectedDates, dateStr, instance) => {
       instance.element.value = dateStr.replace('to', '-');
     },
+    locale: customLocale
   }
 
   return (

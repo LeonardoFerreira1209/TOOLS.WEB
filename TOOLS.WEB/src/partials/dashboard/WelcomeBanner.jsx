@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import ContextUser from '../../components/store/context/ContextUser';
 
-function WelcomeBanner() {
+function 
+WelcomeBanner() {
+
+  const { user } = useContext(ContextUser);
+
   return (
     <div className="relative bg-indigo-200 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">
 
@@ -48,7 +53,7 @@ function WelcomeBanner() {
 
       {/* Content */}
       <div className="relative">
-        <h1 className="text-2xl md:text-3xl text-slate-800 font-bold mb-1">Good afternoon, Acme Inc. 👋</h1>
+        <h1 className="text-2xl md:text-3xl text-slate-800 font-bold mb-1">Good afternoon, {user.tokenObj.unique_name}. 👋</h1>
         <p>Here is what’s happening with your projects today:</p>
       </div>
 

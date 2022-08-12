@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import AuthImage from '../images/—Pngtree—2.5d business office company recruitment_4213736.png';
+import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.jpg';
 import AuthDecoration from '../images/auth-decoration.png';
 
 function ResetPassword() {
@@ -18,7 +18,7 @@ function ResetPassword() {
             <div className="flex-1">
               <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
                {/* Logo */}
-                <NavLink end to="/" className="block">
+                <NavLink data-aos="fade-left" end to="/" className="block">
                   
                   <svg width="32" height="32" viewBox="0 0 32 32">
                     <defs>
@@ -51,27 +51,26 @@ function ResetPassword() {
             </div>
 
             <div className="max-w-sm mx-auto px-4 py-8">
-              <h1 className="text-3xl text-slate-800 font-bold mb-6">Renovar senha ✨</h1>
+              <h1 data-aos="fade-down" className="text-3xl text-slate-800 font-bold mb-6">Renovar senha ✨</h1>
               {/* Form */}
               <form>
-                <div className="space-y-4">
+                <div data-aos="fade-left" className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail <span className="text-rose-500">*</span></label>
-                    <input id="email" className="form-input w-full" type="email" />
+                    <input id="email" className="form-input w-full" name='email' type="email" />
                   </div>
                 </div>
-                <div className="flex justify-end mt-6">
-                  <button className="btn bg-gradient-primary-500 text-white whitespace-nowrap">Enivar link</button>
+                <div data-aos="fade-up" className="flex justify-end mt-6">
+                  <button className="btn bg-gradient-primary-500 text-white whitespace-nowrap">Enivar e-mail</button>
                 </div>
               </form>
             </div>
-
           </div>
         </div>
 
         {/* Image */}
         <div className="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
-          <img className="object-cover object-center w-full h-full" src={AuthImage} width="760" height="1024" alt="Authentication" />
+          <img data-aos="fade-left" className="object-cover object-center w-full h-full" src={AuthImage} width="760" height="1024" alt="Authentication" />
           <img className="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block" src={AuthDecoration} width="218" height="224" alt="Authentication decoration" />
         </div>
 
