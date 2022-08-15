@@ -49,7 +49,7 @@ function DropdownNotifications({align}) {
   // -- SIGNALR
   useEffect(() => { // HUB CONNECTION.
     const newConnection = new HubConnectionBuilder()
-      .withUrl("https://toolsuserapi.azurewebsites.net/notify")
+      .withUrl("https://localhost:7125/notify")
       .withAutomaticReconnect()
       .build()
 
@@ -97,7 +97,7 @@ function DropdownNotifications({align}) {
                   >
               </lord-icon>
               {
-                notifications.length > 0 ? (<div className="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 border-2 border-white rounded-full"></div>) : (null)
+                notifications.length > 0 && <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 border-2 border-white rounded-full"></div>
               }
             </button>
 
@@ -119,7 +119,7 @@ function DropdownNotifications({align}) {
                 <div className='grid grid-cols-2'>
                   <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notificações</div>
                   {
-                    notifications.length > 0 ? <button style={{ cursor:"pointer" }} onClick={cleanNotify} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button> : (null)
+                    notifications.length > 0 && <button style={{ cursor:"pointer" }} onClick={cleanNotify} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button>
                   }
                 </div>
                 <ul id='notifications'>

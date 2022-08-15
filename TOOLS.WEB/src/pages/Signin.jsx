@@ -53,7 +53,7 @@ function Signin() {
 
     event.preventDefault();
 
-    fetch("https://toolsuserapi.azurewebsites.net/api/User/authetication", {
+    fetch("https://localhost:7125/api/User/authetication", {
       headers: {
         'username': values.user,
         'password': values.password
@@ -140,19 +140,19 @@ function Signin() {
                     <label className="block text-sm font-medium mb-1" htmlFor="user">Usuário</label>
                     <input onChange={onChange} value={values.user} id="user" name='user' className="form-input w-full" type="user" />
                     {
-                      userValidate ? (null) : (<div id='userValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>)
+                      !userValidate && <div id='userValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
                     }
                   </div>
                   <div data-aos="fade-left">
                     <label className="block text-sm font-medium mb-1" htmlFor="password">Senha</label>
                     <input onChange={onChange} value={values.password} id="password" name='password' className="form-input w-full" type="password" autoComplete="on" />
                     {
-                      passwordValidate ? (null) : (<div id='passwordValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>)
+                      !passwordValidate && <div id='passwordValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
                     }
                   </div>
                 </div>
                 {/* Error */}
-                { error !== null ? (
+                { error !== null && 
                     <div className="mt-5">
                       <div data-aos="fade-left" className="bg-gradient-danger-500 text-white px-3 py-2 rounded">
                         x&ensp;
@@ -160,8 +160,7 @@ function Signin() {
                           {error}
                         </span>
                       </div>
-                    </div>) 
-                  : null }
+                    </div> }
                 <div className="flex items-center justify-between mt-6">
                   <div data-aos="fade-up" className="mr-1">
                     <Link className="text-sm underline hover:no-underline" to="/reset-password">Esqueceu a senha?</Link>

@@ -28,12 +28,12 @@ function Signup() {
   }
 
   function onChange(event) {
-  const {value, name} = event.target;
+    const {value, name} = event.target;
 
-  setValues(
-  {...values, 
-    [name]: value
-  });
+    setValues(
+    {...values, 
+      [name]: value
+    });
   }
   // -- INPUTS
 
@@ -43,7 +43,7 @@ function Signup() {
 
   setLoading(true);
 
-  fetch("https://toolsuserapi.azurewebsites.net/api/User/create", {
+  fetch("https://localhost:7125/api/User/create", {
     crossDomain:true,
     mode:'cors', 
     method: 'POST',
@@ -171,7 +171,7 @@ function Signup() {
                 </div>
               </div>
                {/* Error */}
-               { error !== null ? (
+               { error !== null && 
                   <div className="mt-5">
                     <div data-aos="fade-up" className="bg-gradient-danger-500 text-white px-3 py-2 rounded">
                       x&ensp;
@@ -179,8 +179,7 @@ function Signup() {
                         {error}
                       </span>
                     </div>
-                  </div>) 
-                : null }
+                  </div> }
               <div data-aos="fade-right" className="flex items-center justify-between mt-6">
                 <div className="mr-1">
                   <label className="flex items-center">
@@ -190,7 +189,7 @@ function Signup() {
                 </div>
                 <button data-aos="fade-up" onClick={Create} className="btn bg-gradient-primary-500 text-white ml-3 whitespace-nowrap">
                 {
-                  loading === false  ? ("Cadastrar") : (
+                  !loading ? ("Cadastrar") : (
                     <lord-icon
                       src="https://cdn.lordicon.com/yiniatmi.json"
                       trigger="loop"
