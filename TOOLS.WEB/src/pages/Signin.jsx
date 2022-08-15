@@ -53,7 +53,7 @@ function Signin() {
 
     event.preventDefault();
 
-    fetch("https://localhost:7125/api/User/authetication", {
+    fetch("https://toolsuserapi.azurewebsites.net/api/User/authetication", {
       headers: {
         'username': values.user,
         'password': values.password
