@@ -18,7 +18,7 @@ function ConfirmEmail() {
 
     event.preventDefault();
 
-    fetch(`https://toolsuserapi.azurewebsites.net//api/User/activate/${code}/${userId}`, {
+    fetch(`https://localhost:7125/api/User/activate/${code}/${userId}`, {
       crossDomain:true,
       mode:'cors', 
       method: 'GET',

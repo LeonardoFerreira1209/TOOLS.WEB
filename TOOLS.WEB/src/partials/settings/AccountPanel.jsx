@@ -69,7 +69,7 @@ function AccountPanel({ person }) {
   event.preventDefault();
   
    setLoading(true);
-   fetch("https://toolsuserapi.azurewebsites.net//api/person/completeRegister", {
+   fetch("https://localhost:7125/api/person/completeRegister", {
       crossDomain:true,
       mode:'cors', 
       method: 'PUT',
