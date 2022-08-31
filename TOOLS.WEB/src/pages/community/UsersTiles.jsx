@@ -23,7 +23,8 @@ function UsersTiles() {
 
   // -- API CONSUMER
   useEffect(() => {
-    fetch("https://localhost:7125/api/Person/getAll", {
+    debugger
+    fetch("https://toolsuserapi.azurewebsites.net//api/Person/getAll", {
       headers: {
         'Authorization': `Bearer ${user.tokenJwt}`
       },
@@ -43,6 +44,7 @@ function UsersTiles() {
                 name: `${result.firstName} ${result.lastName}` ,
                 image: result.image != null ? "data:" + result.image.contentType + ";base64," + result.image.fileContents : "",
                 link: "",
+                gender: result.gender,
                 office: result.professions.length > 0 ? result.professions[0].office: "",
                 content: result.professions.length > 0 ? result.professions[0].description : "",
               })
@@ -61,7 +63,7 @@ function UsersTiles() {
   // -- SIGNALR
   useEffect(() => {
       const newConnection = new HubConnectionBuilder()
-        .withUrl("https://localhost:7125/person")
+        .withUrl("https://toolsuserapi.azurewebsites.net//person")
         .withAutomaticReconnect()
         .build()
 
@@ -82,8 +84,9 @@ function UsersTiles() {
               name: `${person.firstName} ${person.lastName}` ,
               image: person.image != null ? "data:" + person.image.contentType + ";base64," + person.image.fileContents : "",
               link: "",
+              gender: person.gender,
               office: person.professions.length > 0 ? person.professions[0].office: "Sem profissão.",
-              content: person.professions.length > 0 ? person.professions[0].description : "Sem descrição.",
+              content: person.professions.length > 0 ? person.professions[0].description : "Sem descrição."
           }));
         });
       }).catch(e => console.log('Connection failed: ', e));
@@ -166,6 +169,7 @@ function UsersTiles() {
                       name={person.name}
                       image={person.image}
                       link={person.link}
+                      gender={person.gender}
                       office={person.office}
                       content={person.content}
                     />

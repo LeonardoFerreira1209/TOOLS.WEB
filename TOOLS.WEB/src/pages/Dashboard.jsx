@@ -18,7 +18,7 @@ import DashboardCard09 from '../partials/dashboard/DashboardCard09';
 import DashboardCard10 from '../partials/dashboard/DashboardCard10';
 import DashboardCard11 from '../partials/dashboard/DashboardCard11';
 
-function Dashboard({notifications, setNotifications}) {
+function Dashboard() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -32,7 +32,7 @@ function Dashboard({notifications, setNotifications}) {
       <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
 
         {/*  Site header */}
-        <Header notifications={notifications} setNotifications={setNotifications} sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">

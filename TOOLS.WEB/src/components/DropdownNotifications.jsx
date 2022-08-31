@@ -3,21 +3,18 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 import Transition from '../utils/Transition';
 import CardNotifications from './CardNotifications';
 import ContextNotify from './store/context/ContextNotify';
+import useStorage from '../utils/storage/UseStorage';
+
 
 function DropdownNotifications({align}) {
-
-  // -- CONSTS
   
-  // -- STORE
-  //const { notifications, setNotifications } = useContext(ContextNotify);
-
-  const [notifications, setNotifications ] = useState([]);
-  //const { setNotificationContext } = useContext(ContextNotify);
-
-  debugger
+  // -- CONSTS
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef(null);
   const dropdown = useRef(null);
+  
+  // -- STORE
+  const { notifications, setNotifications } = useContext(ContextNotify);
 
   // -- SIGNALR
   const [hubCx, setHubCx] = useState(null);
@@ -29,8 +26,9 @@ function DropdownNotifications({align}) {
       if (!dropdown.current) return;
       if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
       setDropdownOpen(false);
-    };
-    document.addEventListener('click', clickHandler);
+
+    }; document.addEventListener('click', clickHandler);
+
     return () => document.removeEventListener('click', clickHandler);
   });
   // -- CLOSE ON CLICK OUTSIDE
@@ -40,8 +38,9 @@ function DropdownNotifications({align}) {
     const keyHandler = ({ keyCode }) => {
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
-    };
-    document.addEventListener('keydown', keyHandler);
+
+    }; document.addEventListener('keydown', keyHandler);
+
     return () => document.removeEventListener('keydown', keyHandler);
   });
   // -- CLOSE ON CLICK IN ESC KEY
@@ -49,7 +48,7 @@ function DropdownNotifications({align}) {
   // -- SIGNALR
   useEffect(() => { // HUB CONNECTION.
     const newConnection = new HubConnectionBuilder()
-      .withUrl("https://localhost:7125/notify")
+      .withUrl("https://toolsuserapi.azurewebsites.net//notify")
       .withAutomaticReconnect()
       .build()
 
@@ -57,11 +56,10 @@ function DropdownNotifications({align}) {
   }, []);
 
   useEffect(() => { // HUB RECEIVER
-    if(hubCx)
-    {   
+    if(hubCx) {   
         hubCx.start().then(() => {
           hubCx.on("ReceiveMessage", (notify) =>  {
-            setNotifications((previous) => previous.concat(notify));
+            setNotifications([...notifications, notify]);
           });
 
         }).catch(e => console.log('Connection failed: ', e));
@@ -97,7 +95,7 @@ function DropdownNotifications({align}) {
                   >
               </lord-icon>
               {
-                notifications.length > 0 && <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 border-2 border-white rounded-full"></div>
+                notifyContext.notifications.length > 0 && <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 border-2 border-white rounded-full"></div>
               }
             </button>
 
@@ -119,13 +117,12 @@ function DropdownNotifications({align}) {
                 <div className='grid grid-cols-2'>
                   <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notificações</div>
                   {
-                    notifications.length > 0 && <button style={{ cursor:"pointer" }} onClick={cleanNotify} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button>
+                    notifyContext.notifications.length > 0 && <button style={{ cursor:"pointer" }} onClick={cleanNotify} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button>
                   }
                 </div>
                 <ul id='notifications'>
                   {
-                    notifications?.map(notify => {
-                      debugger
+                    notifyContext.notifications && notifyContext.notifications.map(notify => {
                       return (<CardNotifications key={notify.id} id={notify.id} icon={notify.icon} date={notify.date} theme={notify.theme} message={notify.message} />)
                     })
                   }

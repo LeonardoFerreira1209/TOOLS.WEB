@@ -20,7 +20,6 @@ function Signin() {
   const [values, setValues] = useState(initialState);
   const { setUser } = useContext(ContextUser);
 
-
   function initialState() {
     return {user: '', password: ''};
   }
@@ -41,7 +40,6 @@ function Signin() {
 
   useEffect(() => {
     values.user === "" ? setUserValidate(false) : setUserValidate(true);
-
     values.password === "" ? setPasswordValidate(false) : setPasswordValidate(true); 
 
   }, [values]);
@@ -53,7 +51,7 @@ function Signin() {
 
     event.preventDefault();
 
-    fetch("https://localhost:7125/api/User/authetication", {
+    fetch("https://toolsuserapi.azurewebsites.net//api/User/authetication", {
       headers: {
         'username': values.user,
         'password': values.password
@@ -64,7 +62,7 @@ function Signin() {
       cache: 'no-cache',
       credentials:'same-origin',
       redirect: 'follow',
-      referrerPolicy: 'no-referrer',
+      referrerPolicy: 'no-referrer'
     })
     .then(response => response.json()).then((results) => {
         if(results.sucesso){

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 import InputMask from 'react-input-mask';
@@ -14,17 +14,37 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // -- VALIDATES
+  const [ firstNameValidate, setFirstNameValidate ] = useState(false);
+  const [ lastNameValidate, setLastNameValidate ] = useState(false);
+  const [ userValidate, setUserValidate ] = useState(false);
+  const [ passwordValidate, setPasswordValidate ] = useState(false);
+  const [ emailValidate, setEmailValidate ] = useState(false);
+  const [ phoneNumberValidate, setPhoneNumberValidate ] = useState(false);
+  const [ cpfValidate, setCPFValidate ] = useState(false);
+
+  useEffect(() => {
+    values.firstName === "" ? setFirstNameValidate(false) : setFirstNameValidate(true);
+    values.lastName === "" ? setLastNameValidate(false) : setLastNameValidate(true);
+    values.username === "" ? setUserValidate(false) : setUserValidate(true);
+    values.password === "" ? setPasswordValidate(false) : setPasswordValidate(true);
+    values.email === "" ? setEmailValidate(false) : setEmailValidate(true);
+    values.phoneNumber === "" ? setPhoneNumberValidate(false) : setPhoneNumberValidate(true);
+    values.cpf === "" ? setCPFValidate(false) : setCPFValidate(true);
+
+  }, [values]);
+
   function initialState() {
-    return {
-    firstName: '', 
-    lastName: '',
-    username: '',
-    password: '',
-    email: '',
-    phoneNumber: '',
-    gender: 1,
-    cpf: ''
-  };
+      return {
+      firstName: '', 
+      lastName: '',
+      username: '',
+      password: '',
+      email: '',
+      phoneNumber: '',
+      gender: 1,
+      cpf: ''
+    };
   }
 
   function onChange(event) {
@@ -39,45 +59,45 @@ function Signup() {
 
   // -- API CONSUMER
   function Create(event) {
-  event.preventDefault();
+    event.preventDefault();
 
-  setLoading(true);
+     setLoading(true);
 
-  fetch("https://localhost:7125/api/User/create", {
-    crossDomain:true,
-    mode:'cors', 
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      FirstName: values.firstName,
-      LastName: values.lastName,
-      Cpf: values.cpf,
-      Gender: values.gender,
-      User: {
-        Username: values.username,
-        Password: values.password,
-        Email: values.email,
-        PhoneNumber: values.phoneNumber
-      }
-    }),
-    cache: 'no-cache',
-    credentials:'same-origin',
-    redirect: 'follow',
-    referrerPolicy: 'no-referrer',
-  })
-  .then(response => response.json()).then((results) => {
-      if(results.sucesso){
-        navigate("/");
-      }
-      else{
-        setError(results.notificacoes[0].mensagem); setLoading(false);
-      }
-    },
-    (error) => {
-      setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
-    }
-  )
- }
+      fetch("https://toolsuserapi.azurewebsites.net//api/User/create", {
+        crossDomain:true,
+        mode:'cors', 
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          FirstName: values.firstName,
+          LastName: values.lastName,
+          Cpf: values.cpf,
+          Gender: values.gender,
+          User: {
+            Username: values.username,
+            Password: values.password,
+            Email: values.email,
+            PhoneNumber: values.phoneNumber
+          }
+        }),
+        cache: 'no-cache',
+        credentials:'same-origin',
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer'
+      })
+      .then(response => response.json()).then((results) => {
+          if(results.sucesso){
+            navigate("/");
+          }
+          else{
+            setError(results.notificacoes[0].mensagem); setLoading(false);
+          }
+        },
+        (error) => {
+          setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+        }
+      )
+   }
   // -- API CONSUMER
 
   // -- RETURN
@@ -92,7 +112,6 @@ function Signup() {
             <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
               {/* Logo */}
               <NavLink data-aos="fade-left" end to="/" className="block">
-                
                 <svg width="32" height="32" viewBox="0 0 32 32">
                   <defs>
                     <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a">
@@ -127,37 +146,55 @@ function Signup() {
             <h1 data-aos="fade-down" className="text-3xl text-slate-800 font-bold mb-6">Crie sua conta ✨</h1>
             {/* Form */}
             <form>
-              <div className='grid gap-2 grid-cols-2'>
+              <div className='grid gap-2 grid-cols-2 mt-2'>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="firstName">Nome<span className="text-rose-500">*</span></label>
                   <input data-aos="fade-right" onChange={onChange} value={values.firstName} id="firstName" name='firstName' className="form-input w-full" placeholder='Leonardo' type="firstName" />
+                    {
+                      !firstNameValidate && <div id='firstNameValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
+                    }
                 </div>
                 <div>
                   <label  className="block text-sm font-medium mb-1" htmlFor="lastName">Sobrenome<span className="text-rose-500">*</span></label>
                   <input data-aos="fade-left" onChange={onChange} value={values.lastName} id="lastName" name='lastName' className="form-input w-full" placeholder='Almeida' type="text" />
+                    { 
+                      !lastNameValidate && <div id='lastNameValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
+                    }
                 </div>
               </div>
-              <div className='grid gap-5 md:grid-cols-2'>
+              <div className='grid gap-5 md:grid-cols-2 mt-2'>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="username">Nome de usuário<span className="text-rose-500">*</span></label>
                   <input data-aos="fade-right" onChange={onChange} value={values.username} id="username" name='username' className="form-input w-full" type="username" placeholder='Leo.Almeida' autoComplete="on" />
+                    {
+                      !userValidate && <div id='userValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
+                    }
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="password">Senha<span className="text-rose-500">*</span></label>
                   <input data-aos="fade-left" onChange={onChange} value={values.password} id="password" name='password' className="form-input w-full" type="password" placeholder='Example@11011' autoComplete="on" />
+                    {
+                      !passwordValidate && <div id='passwordValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
+                    }
                 </div>
               </div>
-              <div className='grid gap-5 md:grid-cols-2'>
+              <div className='grid gap-5 md:grid-cols-2 mt-2'>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail<span className="text-rose-500">*</span></label>
                   <input data-aos="fade-right" onChange={onChange} value={values.email} id="email" name='email' className="form-input w-full" type='email'placeholder='example@example.com' autoComplete="on" />
+                    {
+                      !emailValidate && <div id='emailValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
+                    }
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="phoneNumber">Celular<span className="text-rose-500">*</span></label>
-                  <InputMask data-aos="fade-left" mask={'(99)99999-9999'} onChange={onChange} value={values.phoneNumber} id="phoneNumber" name='phoneNumber' className="form-input w-full" type="phoneNumber" placeholder='(18)99776-2452' autoComplete="on"/>
+                  <InputMask data-aos="fade-left" mask={'+99(99)99999-9999'} onChange={onChange} value={values.phoneNumber} id="phoneNumber" name='phoneNumber' className="form-input w-full" type="phoneNumber" placeholder='+99(99)99999-9999' autoComplete="on"/>
+                    {
+                      !phoneNumberValidate && <div id='phoneNumberValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
+                    }
                 </div>
               </div>
-              <div className="grid gap-5 md:grid-cols-2">
+              <div className="grid gap-5 md:grid-cols-2 mt-2">
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="role">Sexo<span className="text-rose-500">*</span></label>
                   <select data-aos="fade-right" onChange={onChange} value={values.gender} id="gender" type="number" name='gender' className="form-select w-full">
@@ -168,6 +205,9 @@ function Signup() {
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="cpf">Cadastro de Pessoas Física<span className="text-rose-500">*</span></label>
                   <InputMask data-aos="fade-left" mask={'999.999.999-99'} onChange={onChange} value={values.cpf} id="cpf" name='cpf' className="form-input w-full" type="cpf" placeholder='xxx.xxx.xxx-xx' autoComplete="on" />
+                  {
+                      !cpfValidate && <div id='cpfValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
+                    }
                 </div>
               </div>
                {/* Error */}

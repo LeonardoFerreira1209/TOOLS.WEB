@@ -8,9 +8,18 @@ function Datepicker({
   const customLocale = {
    
     weekdays: {
-        shorthand: ["seg", "ter", "quar", "quin", "sex", "sáb", "dom"],
-        longhand: ["segunda", "terça", "quarta", "quinta", "sexta", "sábado", "domingo"],
-    }
+        shorthand: ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"],
+        longhand: ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"],
+    },
+    months: {
+      shorthand: ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"],
+      longhand: ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"]
+    },
+    daysInMonth: [
+      31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
+    ],
+    firstDayOfWeek: 7,
+    time_24hr: true
   }
 
   const options = {

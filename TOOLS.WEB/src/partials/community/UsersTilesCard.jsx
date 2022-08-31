@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
 import EditMenu from '../../components/DropdownEditMenu';
+import FemaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7691478.png';
+import MaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7690723.png';
 
 function UsersTilesCard(props) {
+
+  const avatarImage = props.image === "" ? props.gender == 2 ? FemaleAvatar : MaleAvatar : props.image; 
+
   return (
     <div id={props.id} className="col-span-full sm:col-span-6 xl:col-span-4 bg-white shadow-lg rounded-sm border border-slate-200">
       <div className="flex flex-col h-full">
@@ -19,7 +24,7 @@ function UsersTilesCard(props) {
                       >
                   </lord-icon>
                   </div>
-                  <img className="rounded-full" src={props.image} width="64" height="64" alt={props.name} />
+                  <img className="rounded-full" src={avatarImage} width="64" height="64" alt={props.name} />
                 </Link>
                 <div className="mt-1 pr-1">
                   <Link className="inline-flex text-slate-800 hover:text-slate-900" to={props.link}>
@@ -63,7 +68,7 @@ function UsersTilesCard(props) {
                 <span>Enviar Email</span>
               </div>
             </Link>
-            <Link className="block flex-1 text-center text-sm text-slate-600 hover:text-slate-800 font-medium px-3 py-4 group" to={`/settings/account/${props.id}`}>
+            <Link className="block flex-1 text-center text-sm text-slate-600 hover:text-slate-800 font-medium px-3 py-4 group" to={`/community/account/${props.id}`}>
               <div className="flex items-center justify-center">
                 <lord-icon
                     src="https://cdn.lordicon.com/qtqvorle.json"

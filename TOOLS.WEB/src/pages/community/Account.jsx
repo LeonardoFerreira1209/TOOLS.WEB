@@ -9,13 +9,16 @@ import StoreContext from "../../components/store/context/ContextUser";
 
 function Account() {
 
-  const [person, setPersons] = useState(null);
+  // -- CONSTS
+  // -- USER
   const { user } = useContext(StoreContext);
+  const [ person, setPersons ] = useState(null);
+  // -- CONSTS
 
   let {id} = useParams();
 
   useEffect(() => {
-    fetch(`https://localhost:7125/api/Person/get/${id}`, {
+    fetch(`https://toolsuserapi.azurewebsites.net//api/Person/get/${id}`, {
       headers: {
         'Authorization': `Bearer ${user.tokenJwt}`
       },
@@ -29,10 +32,24 @@ function Account() {
     })
       .then(response => response.json()).then((personResult) => {
             setPersons({
-              firstName: personResult.dados.firstName != null ? personResult.dados.firstName : "",
-              secondName: personResult.dados.lastName != null ? personResult.dados.lastName : "",
-              age: personResult.dados.age != null ?? person.dados.age,
-              image: personResult.dados.image != null ? "data:" + personResult.dados.image.contentType + ";base64," + personResult.dados.image.fileContents : "",
+              id: personResult.dados.id,
+              firstName: personResult.dados.firstName !== null && personResult.dados.firstName,
+              lastName: personResult.dados.lastName !== null && personResult.dados.lastName,
+              secondName: personResult.dados.lastName !== null && personResult.dados.lastName,
+              age: personResult.dados.age !== null && personResult.dados.age,
+              birthDay: personResult.dados.birthDay,
+              gender: personResult.dados.gender,
+              image: personResult.dados.image !== null ? "data:" + personResult.dados.image.contentType + ";base64," + personResult.dados.image.fileContents : "",
+              rg: personResult.dados.rg !== null && personResult.dados.rg,
+              cpf: personResult.dados.cpf !== null && personResult.dados.cpf,
+              status: personResult.dados.status,
+              professions: personResult.dados.professions,
+              user: {
+                id: personResult.dados.user.id,
+                username: personResult.dados.user.userName,
+                email: personResult.dados.user.email,
+                phoneNumber: personResult.dados.user.phoneNumber!= null && personResult.dados.user.phoneNumber
+              }
             });
         },
         // Nota: é importante lidar com errros aqui
@@ -63,7 +80,7 @@ function Account() {
                     {/* Page header */}
                     <div className="mb-8">
                       {/* Title */}
-                      <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">Editar perfil ✨</h1>
+                      <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">Configurações ✨</h1>
                     </div>
                     {/* Content */} 
                   <div className="bg-white shadow-lg rounded-sm mb-8">
