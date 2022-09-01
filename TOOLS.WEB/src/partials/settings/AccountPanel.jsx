@@ -129,7 +129,7 @@ function AccountPanel({ person }) {
     ).catch((error) => {
       
       toast.error("Ops, Falha ao editar!", {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.TOP_CENTER,
         theme: 'light',
       });
 
@@ -144,7 +144,7 @@ function AccountPanel({ person }) {
       <div className="p-6 space-y-6">
         <h2 className="text-2xl text-slate-800 font-bold mb-5">Dados pessoais</h2>
         {/* Picture */}
-         <ToastContainer style={{top:"14em", right: "4em"}}></ToastContainer>
+         <ToastContainer className="sm-toast-position"></ToastContainer>
         <section>
           <div className="flex items-center">
             <div className="mr-4">
