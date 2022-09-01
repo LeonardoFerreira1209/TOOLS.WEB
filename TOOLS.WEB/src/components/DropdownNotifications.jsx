@@ -48,7 +48,7 @@ function DropdownNotifications({align}) {
   // -- SIGNALR
   useEffect(() => { // HUB CONNECTION.
     const newConnection = new HubConnectionBuilder()
-      .withUrl("https://localhost:7125/notify")
+      .withUrl("https://toolsuserapi.azurewebsites.net/notify")
       .withAutomaticReconnect()
       .build()
 
@@ -70,7 +70,7 @@ function DropdownNotifications({align}) {
   function cleanNotify(event) {
     event.preventDefault();
 
-    setNotifications([]);
+    setNotifications(null);
   }
   // -- SIGNALR
 
@@ -95,7 +95,7 @@ function DropdownNotifications({align}) {
                   >
               </lord-icon>
               {
-                notifyContext.notifications && <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 border-2 border-white rounded-full"></div>
+                notifyContext.notifications && notifyContext.notifications.length > 0 && <div className="absolute top-0 right-0 w-2.5 h-2.5 bg-rose-500 border-2 border-white rounded-full"></div>
               }
             </button>
 
@@ -117,12 +117,12 @@ function DropdownNotifications({align}) {
                 <div className='grid grid-cols-2'>
                   <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notificações</div>
                   {
-                    notifyContext.notifications && <button style={{ cursor:"pointer" }} onClick={cleanNotify} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button>
+                    notifyContext.notifications && notifyContext.notifications.length > 0 && <button style={{ cursor:"pointer" }} onClick={cleanNotify} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button>
                   }
                 </div>
                 <ul id='notifications'>
                   {
-                    notifyContext.notifications && notifyContext.notifications.map(notify => {
+                    notifyContext.notifications && notifyContext.notifications.length > 0 && notifyContext.notifications.map(notify => {
                       return (<CardNotifications key={notify.id} id={notify.id} icon={notify.icon} date={notify.date} theme={notify.theme} message={notify.message} />)
                     })
                   }

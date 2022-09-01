@@ -1,11 +1,17 @@
+// -- REACT --
 import React, { useContext, useState } from 'react';
 import StoreContext from "../../components/store/context/ContextUser";
 
+// -- TOASTIFY --
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+// -- INPUTMASK --
 import InputMask from 'react-input-mask';
 
+// -- IMAGES --
 import FemaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7691478.png';
 import MaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7690723.png';
-
 
 function AccountPanel({ person }) {
 
@@ -93,15 +99,42 @@ function AccountPanel({ person }) {
     .then(response => response.json()).then((results) => {
         if(results.sucesso){
           setLoading(false);
+
+          toast.success("Edição feita com sucesso!", {
+            position: toast.POSITION.TOP_RIGHT,
+            theme: 'light',
+          });
         }
         else{
+          setLoading(false);
+
+          toast.info(results.notificacoes[0].mensagem, {
+            position: toast.POSITION.TOP_RIGHT,
+            theme: 'light',
+          });
+
           setError(results.notificacoes[0].mensagem); setLoading(false);
         }
       },
       (error) => {
-        setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+
+        toast.error("Ops, Falha ao editar!", {
+          position: toast.POSITION.TOP_RIGHT,
+          theme: 'light',
+        });
+
+        setError("Ops, Falha ao editar!"); setLoading(false);
       }
-    )
+
+    ).catch((error) => {
+      
+      toast.error("Ops, Falha ao editar!", {
+        position: toast.POSITION.TOP_RIGHT,
+        theme: 'light',
+      });
+
+      setError("Ops, Falha ao editar!"); setLoading(false);
+    })
  }
  // -- FUNCTIONS
 
@@ -111,6 +144,7 @@ function AccountPanel({ person }) {
       <div className="p-6 space-y-6">
         <h2 className="text-2xl text-slate-800 font-bold mb-5">Dados pessoais</h2>
         {/* Picture */}
+         <ToastContainer style={{top:"14em", right: "4em"}}></ToastContainer>
         <section>
           <div className="flex items-center">
             <div className="mr-4">
