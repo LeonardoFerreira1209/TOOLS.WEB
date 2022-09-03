@@ -18,7 +18,7 @@ function Account() {
   let {id} = useParams();
 
   useEffect(() => {
-    fetch(`https://toolsuserapi.azurewebsites.net/api/Person/get/${id}`, {
+    fetch(`https://localhost:7125/api/Person/get/${id}`, {
       headers: {
         'Authorization': `Bearer ${user.tokenJwt}`
       },
@@ -40,6 +40,7 @@ function Account() {
               birthDay: personResult.dados.birthDay,
               gender: personResult.dados.gender,
               image: personResult.dados.image !== null ? "data:" + personResult.dados.image.contentType + ";base64," + personResult.dados.image.fileContents : "",
+              imageByte: personResult.dados.image && personResult.dados.image.fileContents,
               rg: personResult.dados.rg !== null && personResult.dados.rg,
               cpf: personResult.dados.cpf !== null && personResult.dados.cpf,
               status: personResult.dados.status,

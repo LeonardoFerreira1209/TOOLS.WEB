@@ -23,6 +23,7 @@
     "react-input-mask": "^2.0.4",
     "react-router-dom": "^6.3.0",
     "react-toastify": "^9.0.8",
+    "react-tooltip": "^4.2.21",
     "react-transition-group": "^4.4.2"
   },
   "devDependencies": {
