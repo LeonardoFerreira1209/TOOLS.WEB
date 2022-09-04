@@ -51,7 +51,7 @@ function Signin() {
 
     event.preventDefault();
 
-    fetch("https://localhost:7125/api/User/authetication", {
+    fetch("https://toolsuserapi.azurewebsites.net/api/User/authetication", {
       headers: {
         'username': values.user,
         'password': values.password
@@ -135,14 +135,14 @@ function Signin() {
               <form>
                 <div className="space-y-4">
                   <div data-aos="fade-left">
-                    <label className="block text-sm font-medium mb-1" htmlFor="user">Usuário</label>
+                    <label className="block text-sm font-medium mb-1" htmlFor="user">Usuário<span className="text-rose-500">*</span></label>
                     <input onChange={onChange} value={values.user} id="user" name='user' className="form-input w-full" type="user" />
                     {
                       !userValidate && <div id='userValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
                     }
                   </div>
                   <div data-aos="fade-left">
-                    <label className="block text-sm font-medium mb-1" htmlFor="password">Senha</label>
+                    <label className="block text-sm font-medium mb-1" htmlFor="password">Senha<span className="text-rose-500">*</span></label>
                     <input onChange={onChange} value={values.password} id="password" name='password' className="form-input w-full" type="password" autoComplete="on" />
                     {
                       !passwordValidate && <div id='passwordValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>

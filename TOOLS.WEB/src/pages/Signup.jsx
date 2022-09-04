@@ -63,7 +63,7 @@ function Signup() {
 
      setLoading(true);
 
-      fetch("https://localhost:7125/api/User/create", {
+      fetch("https://toolsuserapi.azurewebsites.net/api/User/create", {
         crossDomain:true,
         mode:'cors', 
         method: 'POST',

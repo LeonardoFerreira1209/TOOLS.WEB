@@ -24,7 +24,7 @@ function UsersTiles() {
   // -- API CONSUMER
   useEffect(() => {
     
-    fetch("https://localhost:7125/api/Person/getAll", {
+    fetch("https://toolsuserapi.azurewebsites.net/api/Person/getAll", {
       headers: {
         'Authorization': `Bearer ${user.tokenJwt}`
       },
@@ -63,7 +63,7 @@ function UsersTiles() {
   // -- SIGNALR
   useEffect(() => {
       const newConnection = new HubConnectionBuilder()
-        .withUrl("https://localhost:7125/person")
+        .withUrl("https://toolsuserapi.azurewebsites.net/person")
         .withAutomaticReconnect()
         .build()
 
