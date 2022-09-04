@@ -26,7 +26,7 @@ function Header({
             <button
               className="text-slate-500 hover:text-slate-600 lg:hidden"
               aria-controls="sidebar"
-              aria-expanded={sidebarOpen}
+              aria-expanded={!sidebarOpen}
               onClick={() => setSidebarOpen(!sidebarOpen)}
             >
               <span className="sr-only">Abrir menu</span>
@@ -36,7 +36,6 @@ function Header({
                 <rect x="4" y="17" width="16" height="2" />
               </svg>
             </button>
-
           </div>
 
           {/* Header: Right side */}

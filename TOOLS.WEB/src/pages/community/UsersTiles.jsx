@@ -23,7 +23,7 @@ function UsersTiles() {
 
   // -- API CONSUMER
   useEffect(() => {
-    debugger
+    
     fetch("https://localhost:7125/api/Person/getAll", {
       headers: {
         'Authorization': `Bearer ${user.tokenJwt}`

@@ -13,7 +13,7 @@ function ConfirmEmail() {
 
   // -- API CONSUMER
   function ConfirmEmail(event) {
-    debugger
+    
     setLoading(true);
 
     event.preventDefault();
@@ -28,7 +28,7 @@ function ConfirmEmail() {
       referrerPolicy: 'no-referrer'
     })
     .then(response => response.json()).then((results) => {
-      debugger
+      
         if(results.sucesso){
           navigate("/signin");
         }

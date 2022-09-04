@@ -10,6 +10,49 @@
 @import 'additional-styles/flatpickr.scss';
 @import 'additional-styles/theme.scss';
 
+// -- RESPONSIVE COMPONENTS
+
+// -- TOASTS
+.toast-position {
+    @media only screen and (min-width: 700px) {
+        top: 22vh !important;
+        right: 6vh !important;
+    }
+
+    @media only screen and (min-width: 1278px) {
+        top: 22vh !important;
+        right: 10vh !important;
+    }
+    
+    @media only screen and (min-width: 1600px) {    
+        top: 22vh !important;
+        right: 15vh !important;
+    }
+    
+    @media only screen and (min-width: 2130px) {
+        top: 22vh !important;
+        right: 30vh !important;
+    }
+    
+    @media only screen and (min-width: 2140px) {
+        top: 22vh !important;
+        right: 30vh !important;
+    }
+    
+    @media only screen and (min-width: 2250px) {    
+        top: 22vh !important; 
+        right: 30vh !important;
+    }
+    
+    @media only screen and (min-width: 2500px) {
+        top: 22vh !important; 
+        right: 50vh !important;
+    }
+}
+// -- TOASTS
+
+// -- RESPONSIVE COMPONENTS
+
 // -- BUTTONS
 .bg-gradient-primary-500 {
     background:  linear-gradient(65deg, #0270D7 0, #0F8AFD 100%);
@@ -38,48 +81,6 @@
 }
 // -- COLORS
 
-// -- TOASTS
-@media only screen and (min-width: 1278px) {
-
-    .sm-toast-position {
-        top: 22vh !important;
-        right: 10vh !important;
-    }
-}
-
-@media only screen and (min-width: 2130px) {
-
-    .sm-toast-position {
-        top: 22vh !important;
-        right: 30vh !important;
-    }
-}
-
-@media only screen and (min-width: 2140px) {
-
-    .sm-toast-position {
-        top: 22vh !important;
-        right: 30vh !important;
-    }
-}
-
-@media only screen and (min-width: 2250px) {
-
-    .sm-toast-position {
-        top: 22vh !important; 
-        right: 30vh !important;
-    }
-}
-
-@media only screen and (min-width: 2500px) {
-
-    .sm-toast-position {
-        top: 22vh !important; 
-        right: 50vh !important;
-    }
-}
-// -- TOASTS
-
 // -- IMAGES
 .shadow-transparent-image {
     filter: drop-shadow(0 0 20px #121212);
@@ -91,5 +92,6 @@
     display: none;
 }
 // -- INPUTS
+
 @tailwind utilities;
 

@@ -548,11 +548,11 @@ function Sidebar({
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
-                          <lord-icon
+                          {/* <lord-icon
                                 src="https://cdn.lordicon.com/jpbfwgcg.json"
                                 trigger="morph"
                                 >
-                            </lord-icon>
+                            </lord-icon> */}
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                               Finanças
                             </span>
@@ -632,11 +632,11 @@ function Sidebar({
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
-                          <lord-icon
+                          {/* <lord-icon
                                 src="https://cdn.lordicon.com/lpovzdft.json"
                                 trigger="morph"
                                 >
-                            </lord-icon>
+                            </lord-icon> */}
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                               Empregos
                             </span>
@@ -716,11 +716,11 @@ function Sidebar({
                       >
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
-                          <lord-icon
+                          {/* <lord-icon
                                 src="https://cdn.lordicon.com/jmzztico.json"
                                 trigger="morph"
                                 >
-                            </lord-icon>
+                            </lord-icon> */}
                             <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
                               Tarefas
                             </span>

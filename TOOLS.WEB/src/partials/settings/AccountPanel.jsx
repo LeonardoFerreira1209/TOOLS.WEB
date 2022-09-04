@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import StoreContext from "../../components/store/context/ContextUser";
 
 // -- TOASTIFY --
-import { ToastContainer, toast, Icons } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // -- TOOTIP --
@@ -17,10 +17,9 @@ import FemaleAvatar from '../../images/—Pngtree—smiling people avatar set di
 import MaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7690723.png';
 
 function AccountPanel({ person }) {
-debugger
   // -- CONTS
   //const [sync, setSync] = useState(false);
-  const avatarImage = person.image === "" ? person.gender == 2 ? FemaleAvatar : MaleAvatar : person.image;
+  const [avatarImage, setAvatarImage] = useState(initialStateIAvatar)
   const [values, setValues] = useState(initialState);
   const [loading, setLoading] = useState(false);
 
@@ -29,6 +28,10 @@ debugger
  // -- CONTS
 
  // -- FUNCTIONS
+  function initialStateIAvatar() {
+    return person.image === "" ? person.gender == 2 ? FemaleAvatar : MaleAvatar : person.image;
+  }
+
   function initialState() {
     return {
       id: person.id,
@@ -58,7 +61,7 @@ debugger
    event.preventDefault();
   
    setLoading(true);
-    debugger
+
    fetch("https://localhost:7125/api/person/completeRegister", {
       crossDomain:true,
       mode:'cors', 
@@ -123,7 +126,6 @@ debugger
  }
  
  function changeImage(event) {
-  debugger
   const formData = new FormData();
 
   formData.append('File', event.target.files[0]);
@@ -135,13 +137,47 @@ debugger
     },
     body: formData,
     dataType: "jsonp"
-    }).then(
-      response => response.json() 
-    ).then(
-      success => console.log(success)
-    ).catch(
-      error => console.log(error)
-    );
+    })
+    .then(response => response.json()).then((results) => {
+      if(results.sucesso) {
+        const avatar = "data:" + results.dados.contentType + ";base64," + results.dados.fileContents;
+
+        setValues(
+          {...values, 
+            ["imageByte"]: results.dados.fileContents
+          });
+
+        setAvatarImage(avatar);
+          
+        toast.success("Imagem salva com sucesso!", {
+            theme: 'light',
+            autoClose: true
+        });
+      }
+      else {
+        toast.info(results.notificacoes[0].mensagem, {
+          theme: 'light',
+          autoClose: true
+        });
+      }
+    },
+    (error) => {
+      console.error(error.message);
+      
+      toast.error("Ops, Falha ao salvar imagem", {
+        theme: 'light',
+        autoClose: true
+      });
+    }
+
+  ).catch((error) => {
+      console.error(error.message);
+
+      toast.error("Ops, Falha ao salvar imagem!", {
+        theme: 'light',
+        autoClose: true
+      });
+    })
   };
  // -- FUNCTIONS
 
@@ -151,7 +187,7 @@ debugger
       <div className="p-6 space-y-6">
         <h2 className="text-2xl text-slate-800 font-bold mb-5">Dados pessoais</h2>
         {/* IziToast */}
-        <ToastContainer className="sm-toast-position"></ToastContainer>
+        <ToastContainer className="toast-position"></ToastContainer>
         {/* Picture */}
         <section>
           <div className="flex items-center">
@@ -159,7 +195,7 @@ debugger
             <img data-tip="Clique para adicionar uma nova imagem!" className="w-15 h-20 rounded-full" src={avatarImage} width="80" height="80" alt="User upload" />
             <label htmlFor="image" style={{ bottom: "2vh", left: "5vh", position: "relative", cursor: "pointer" }} className="flex justify-center items-center w-7 h-7 rounded-full bg-white border border-slate-200 hover:border-slate-300 color-primary shadow-sm transition duration-150 ml-2">
               {/* Tooltip */}
-              <ReactTooltip place='right' border="true" type="light" effect='solid' />
+              <ReactTooltip place='right' type="light" effect='solid' />
               <input accept='image/*' onChange={changeImage} name="image" type="file" id="image" hidden />
               <svg className="w-4 h-4 fill-current" viewBox="0 0 16 16">
                 <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />

@@ -12,7 +12,7 @@ function Account() {
   // -- CONSTS
   // -- USER
   const { user } = useContext(StoreContext);
-  const [ person, setPersons ] = useState(null);
+  const [ person, setPersons ] = useState();
   // -- CONSTS
 
   let {id} = useParams();
