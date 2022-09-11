@@ -68,7 +68,7 @@ function UsersTilesCard(props) {
                 <span>Enviar Email</span>
               </div>
             </Link>
-            <Link className="block flex-1 text-center text-sm text-slate-600 hover:text-slate-800 font-medium px-3 py-4 group" to={`/community/account/${props.id}`}>
+            <Link className="block flex-1 text-center text-sm text-slate-600 hover:text-slate-800 font-medium px-3 py-4 group" to={`/settings/account/${props.id}`}>
               <div className="flex items-center justify-center">
                 <lord-icon
                     src="https://cdn.lordicon.com/qtqvorle.json"

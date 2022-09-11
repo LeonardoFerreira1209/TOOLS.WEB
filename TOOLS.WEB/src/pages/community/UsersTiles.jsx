@@ -24,7 +24,7 @@ function UsersTiles() {
   // -- API CONSUMER
   useEffect(() => {
     
-    fetch("https://toolsuserapi.azurewebsites.net/api/Person/getAll", {
+    fetch("https://localhost:7125/api/Person/getAll", {
       headers: {
         'Authorization': `Bearer ${user.tokenJwt}`
       },
@@ -63,7 +63,7 @@ function UsersTiles() {
   // -- SIGNALR
   useEffect(() => {
       const newConnection = new HubConnectionBuilder()
-        .withUrl("https://toolsuserapi.azurewebsites.net/person")
+        .withUrl("https://localhost:7125/person")
         .withAutomaticReconnect()
         .build()
 
@@ -132,30 +132,29 @@ function UsersTiles() {
                 </button>
                 {/* Basic Modal */}
                 <div className="m-1.5">
-                      {/* Start */}
-                      <ModalBasic id="basic-modal" modalOpen={basicModalOpen} setModalOpen={setBasicModalOpen} title="Basic Modal">
-                        {/* Modal content */}
-                        <div className="px-5 pt-4 pb-1">
-                          <div className="text-sm">
-                            <div className="font-medium text-slate-800 mb-2">Let’s Talk Paragraph</div>
-                            <div className="space-y-2">
-                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                              <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                            </div>
+                    {/* Start */}
+                    <ModalBasic id="basic-modal" modalOpen={basicModalOpen} setModalOpen={setBasicModalOpen} title="Basic Modal">
+                      {/* Modal content */}
+                      <div className="px-5 pt-4 pb-1">
+                        <div className="text-sm">
+                          <div className="font-medium text-slate-800 mb-2">Let’s Talk Paragraph</div>
+                          <div className="space-y-2">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                            <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                           </div>
                         </div>
-                        {/* Modal footer */}
-                        <div className="px-5 py-4">
-                          <div className="flex flex-wrap justify-end space-x-2">
-                            <button className="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" onClick={(e) => { e.stopPropagation(); setBasicModalOpen(false); }}>Close</button>
-                            <button className="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">I Understand</button>
-                          </div>
-                        </div>
-                      </ModalBasic>
-                      {/* End */}
                       </div>
-              </div>
-
+                      {/* Modal footer */}
+                      <div className="px-5 py-4">
+                        <div className="flex flex-wrap justify-end space-x-2">
+                          <button className="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" onClick={(e) => { e.stopPropagation(); setBasicModalOpen(false); }}>Close</button>
+                          <button className="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">I Understand</button>
+                        </div>
+                      </div>
+                    </ModalBasic>
+                    {/* End */}
+                    </div>
+                </div>
             </div>
 
             {/* Cards */}

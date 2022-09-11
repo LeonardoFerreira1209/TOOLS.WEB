@@ -21,6 +21,7 @@
     "react-dom": "^18.2.0",
     "react-flatpickr": "^3.10.13",
     "react-input-mask": "^2.0.4",
+    "react-placeholder-loading": "^0.5.30",
     "react-router-dom": "^6.3.0",
     "react-toastify": "^9.0.8",
     "react-tooltip": "^4.2.21",

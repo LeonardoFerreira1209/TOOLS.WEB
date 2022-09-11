@@ -51,7 +51,7 @@ function Signin() {
 
     event.preventDefault();
 
-    fetch("https://toolsuserapi.azurewebsites.net/api/User/authetication", {
+    fetch("https://localhost:7125/api/User/authetication", {
       headers: {
         'username': values.user,
         'password': values.password
@@ -65,6 +65,7 @@ function Signin() {
       referrerPolicy: 'no-referrer'
     })
     .then(response => response.json()).then((results) => {
+        debugger
         if(results.sucesso){
           setUser({
             tokenJwt: results.dados.value,
@@ -77,6 +78,9 @@ function Signin() {
         }
       },
       (error) => {
+        debugger
+        console.error(error);
+
         setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
       }
     )

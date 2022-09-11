@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 import Sidebar from '../../partials/Sidebar';
 import Header from '../../partials/Header';
 import SettingsSidebar from '../../partials/settings/SettingsSidebar';
-import NotificationsPanel from '../../partials/settings/NotificationsPanel';
+import AccountPanel from '../../partials/settings/AccountPanel';
 import { useParams } from 'react-router-dom';
 
-function Notifications() {
+function Account() {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -18,27 +18,26 @@ function Notifications() {
       {/* Sidebar */}
       <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-      {/* Content area */}
+      {/* Content area */} 
       <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
 
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+      {/*  Site header */}
+      <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
 
-        <main>
+      <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
               {/* Page header */}
               <div className="mb-8">
                 {/* Title */}
-                <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">Account Settings ✨</h1>
+                <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">Configurações ✨</h1>
               </div>
-  
-              {/* Content */}
+              {/* Content */} 
               <div className="bg-white shadow-lg rounded-sm mb-8">
-                <div className="flex flex-col md:flex-row md:-mr-px">
-                  <SettingsSidebar props={personId} />
-                  <NotificationsPanel props={personId} />
-                </div>
+              <div className="flex flex-col md:flex-row md:-mr-px">
+                <SettingsSidebar props={personId} />
+                <AccountPanel props={personId} />
               </div>
+            </div>
           </div>
         </main>
       </div>
@@ -46,4 +45,4 @@ function Notifications() {
   );
 }
 
-export default Notifications;
+export default Account;

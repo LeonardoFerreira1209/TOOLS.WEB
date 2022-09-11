@@ -48,7 +48,7 @@ import TasksKanban from './pages/tasks/TasksKanban';
 import TasksList from './pages/tasks/TasksList';
 import Inbox from './pages/Inbox';
 import Calendar from './pages/Calendar';
-import Account from './pages/community/Account';
+import Account from './pages/settings/Account';
 import Notifications from './pages/settings/Notifications';
 import Apps from './pages/settings/Apps';
 import Plans from './pages/settings/Plans';
@@ -84,10 +84,12 @@ import Home from './pages/Home';
 import ContextUserProvider from './components/store/Provider';
 import RequireAuth from './components/auth/RequireAuth';
 import ConfirmEmail from './pages/ConfirmEmail';
+import User from './pages/settings/User';
 
 // Lord icons.
 import { loadAnimation } from "lottie-web";
 import { defineLordIconElement } from "lord-icon-element";
+import Business from './pages/settings/Business';
 
 
 // register lottie and define custom element
@@ -142,7 +144,6 @@ function App() {
           <Route path="/campaigns" element={<RequireAuth><Campaigns /></RequireAuth>} />
           <Route path="/community/users-tabs" element={<RequireAuth><UsersTabs /></RequireAuth>} />
           <Route path="/community/users-tiles" element={<RequireAuth><UsersTiles /></RequireAuth>} />
-          <Route path="/community/account/:id" element={<RequireAuth><Account /></RequireAuth>}/>
           <Route path="/community/profile" element={<RequireAuth><Profile /></RequireAuth>} />
           <Route path="/community/feed" element={<RequireAuth><Feed /></RequireAuth>} />
           <Route path="/community/forum" element={<RequireAuth><Forum /></RequireAuth>} />
@@ -160,7 +161,10 @@ function App() {
           <Route path="/tasks/list" element={<RequireAuth><TasksList /></RequireAuth>} />
           <Route path="/inbox" element={<RequireAuth><Inbox /></RequireAuth>} />
           <Route path="/calendar" element={<RequireAuth><Calendar /></RequireAuth>} />
-          <Route path="/settings/notifications" element={<RequireAuth><Notifications /></RequireAuth>} />
+          <Route path="/settings/account/:id" element={<RequireAuth><Account /></RequireAuth>}/>
+          <Route path="/settings/user/:id" element={<RequireAuth><User /></RequireAuth>} />
+          <Route path="/settings/business/:id" element={<RequireAuth><Business /></RequireAuth>} />
+          <Route path="/settings/notifications/:id" element={<RequireAuth><Notifications /></RequireAuth>} />
           <Route path="/settings/apps" element={<RequireAuth><Apps /></RequireAuth>} />
           <Route path="/settings/plans" element={<RequireAuth><Plans /></RequireAuth>} />
           <Route path="/settings/billing" element={<RequireAuth><Billing /></RequireAuth>} />

@@ -152,7 +152,6 @@ function ProfileSidebar({
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 // -- REACT --
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import StoreContext from "../../components/store/context/ContextUser";
+import PlaceholderLoading from 'react-placeholder-loading'
 
 // -- TOASTIFY --
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,187 +16,206 @@ import InputMask from 'react-input-mask';
 // -- IMAGES --
 import FemaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7691478.png';
 import MaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7690723.png';
+import { Link } from 'react-router-dom';
 
-function AccountPanel({ person }) {
-  // -- CONTS
-  //const [sync, setSync] = useState(false);
-  const [avatarImage, setAvatarImage] = useState(initialStateIAvatar)
-  const [values, setValues] = useState(initialState);
-  const [loading, setLoading] = useState(false);
+function AccountPanel({ props }) {
 
-  // -- CONTEXT
-  const { user } = useContext(StoreContext)
- // -- CONTS
+// -- CONTS
+const [loading, setLoading] = useState(false);
+const [values, setValues] = useState();
+const [avatarImage, setAvatarImage] = useState()
+// -- CONTEXT
+const { user } = useContext(StoreContext)
+// -- CONTS
 
- // -- FUNCTIONS
-  function initialStateIAvatar() {
-    return person.image === "" ? person.gender == 2 ? FemaleAvatar : MaleAvatar : person.image;
-  }
+// -- FUNCTIONS
+ useEffect(() => {
+  fetch(`https://localhost:7125/api/Person/get/${props.id}`, {
+    headers: {
+      'Authorization': `Bearer ${user.tokenJwt}`
+    },
+    crossDomain:true,
+    mode:'cors', 
+    method: 'GET',
+    cache: 'no-cache',
+    credentials:'same-origin',
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+  })
+    .then(response => response.json()).then((personResult) => {
+        setValues({
+          id: personResult.dados.id,
+          userId: personResult.dados.userId,
+          firstName: personResult.dados.firstName !== null && personResult.dados.firstName,
+          lastName: personResult.dados.lastName !== null && personResult.dados.lastName,
+          age: personResult.dados.age !== null && personResult.dados.age,
+          birthDay: personResult.dados.birthDay,
+          gender: personResult.dados.gender,
+          image: personResult.dados.image !== null ? "data:" + personResult.dados.image.contentType + ";base64," + personResult.dados.image.fileContents : "",
+          imageByte: personResult.dados.image && personResult.dados.image.fileContents,
+          rg: personResult.dados.rg !== null && personResult.dados.rg,
+          cpf: personResult.dados.cpf !== null && personResult.dados.cpf,
+          status: personResult.dados.status,
+        });
 
-  function initialState() {
-    return {
-      id: person.id,
-      firstName: person.firstName, 
-      lastName: person.lastName,
-      userId: person.user.id,
-      rg: person.rg,
-      cpf: person.cpf,
-      gender: person.gender,
-      birthDay: person.birthDay,
-      age: person.age,
-      status: person.status,
-      imageByte: person.imageByte
-    };
-  }
+        setAvatarImage(personResult.dados.image.fileContents === "" ? person.gender == 2 ? FemaleAvatar : MaleAvatar : personResult.dados.image !== null ? "data:" + personResult.dados.image.contentType + ";base64," + personResult.dados.image.fileContents : "",);
+      },
+      // Nota: é importante lidar com errros aqui
+      // em vez de um bloco catch() para não receber
+      // exceções de erros reais nos componentes.
+      (error) => {}
+    )
 
- function onChange(event) {
-    const {value, name} = event.target;
+}, [])
 
-    setValues(
-    {...values, 
-      [name]: value
-    });
+function onChange(event) {
+  const {value, name} = event.target;
+
+  setValues(
+  {...values, 
+    [name]: value
+  });
  }
 
- function update(event) {
-   event.preventDefault();
-  
-   setLoading(true);
+function update(event) {
+  event.preventDefault();
 
-   fetch("https://toolsuserapi.azurewebsites.net/api/person/completeRegister", {
-      crossDomain:true,
-      mode:'cors', 
-      method: 'PUT',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${user.tokenJwt}`
-      },
-      body: JSON.stringify({
-        Id: values.id,
-        UserId: values.userId,
-        FirstName: values.firstName,
-        LastName: values.lastName,
-        Gender: values.gender,
-        Rg: values.rg,
-        Cpf: values.cpf,
-        Age: values.age,
-        Birthday: values.birthDay,
-        status: values.status,
-        image: values.imageByte
-      })
+  setLoading(true);
+
+  fetch("https://localhost:7125/api/person/completeRegister", {
+    crossDomain:true,
+    mode:'cors', 
+    method: 'PUT',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${user.tokenJwt}`
+    },
+    body: JSON.stringify({
+      Id: values.id,
+      UserId: values.userId,
+      FirstName: values.firstName,
+      LastName: values.lastName,
+      Gender: values.gender,
+      Rg: values.rg,
+      Cpf: values.cpf,
+      Age: values.age,
+      Birthday: values.birthDay,
+      status: values.status,
+      image: values.imageByte
     })
-    .then(response => response.json()).then((results) => {
-        if(results.sucesso) {
-          toast.success("Edição feita com sucesso!", {
-            theme: 'light',
-            autoClose: true
-          });
-
-          setLoading(false);
-        }
-        else {
-          toast.info(results.notificacoes[0].mensagem, {
-            theme: 'light',
-            autoClose: true
-          });
-          
-          setLoading(false);
-        }
-      },
-      (error) => {
-        console.error(error.message);
-        
-        toast.error("Ops, Falha ao editar!", {
+  })
+  .then(response => response.json()).then((results) => {
+      if(results.sucesso) {
+        toast.success("Edição feita com sucesso!", {
           theme: 'light',
           autoClose: true
         });
 
         setLoading(false);
       }
-
-    ).catch((error) => {
+      else {
+        toast.info(results.notificacoes[0].mensagem, {
+          theme: 'light',
+          autoClose: true
+        });
+        
+        setLoading(false);
+      }
+    },
+    (error) => {
       console.error(error.message);
-
+      
       toast.error("Ops, Falha ao editar!", {
         theme: 'light',
         autoClose: true
       });
 
       setLoading(false);
-    })
- }
- 
- function changeImage(event) {
-  const formData = new FormData();
+    }
 
-  formData.append('File', event.target.files[0]);
+  ).catch((error) => {
+    console.error(error.message);
 
-  fetch(`https://toolsuserapi.azurewebsites.net/api/person/profileImage/${values.id}`, { 
-    method: 'PATCH',
-    headers: { 
-      'Authorization': `Bearer ${user.tokenJwt}`
-    },
-    body: formData,
-    dataType: "jsonp"
-    })
-    .then(response => response.json()).then((results) => {
-      if(results.sucesso) {
-        const avatar = "data:" + results.dados.contentType + ";base64," + results.dados.fileContents;
+    toast.error("Ops, Falha ao editar!", {
+      theme: 'light',
+      autoClose: true
+    });
 
-        setValues(
-          {...values, 
-            ["imageByte"]: results.dados.fileContents
-          });
+    setLoading(false);
+  })
+}
 
-        setAvatarImage(avatar);
-          
-        toast.success("Imagem salva com sucesso!", {
-            theme: 'light',
-            autoClose: true
+function changeImage(event) {
+const formData = new FormData();
+
+formData.append('File', event.target.files[0]);
+
+fetch(`https://localhost:7125/api/person/profileImage/${values.id}`, { 
+  method: 'PATCH',
+  headers: { 
+    'Authorization': `Bearer ${user.tokenJwt}`
+  },
+  body: formData,
+  dataType: "jsonp"
+  })
+  .then(response => response.json()).then((results) => {
+    if(results.sucesso) {
+      const avatar = "data:" + results.dados.contentType + ";base64," + results.dados.fileContents;
+
+      setValues(
+        {...values, 
+          ["imageByte"]: results.dados.fileContents
         });
-      }
-      else {
-        toast.info(results.notificacoes[0].mensagem, {
+
+      setAvatarImage(avatar);
+        
+      toast.success("Imagem salva com sucesso!", {
           theme: 'light',
           autoClose: true
-        });
-      }
-    },
-    (error) => {
-      console.error(error.message);
-      
-      toast.error("Ops, Falha ao salvar imagem", {
+      });
+    }
+    else {
+      toast.info(results.notificacoes[0].mensagem, {
         theme: 'light',
         autoClose: true
       });
     }
+  },
+  (error) => {
+    console.error(error.message);
+    
+    toast.error("Ops, Falha ao salvar imagem", {
+      theme: 'light',
+      autoClose: true
+    });
+  }
 
-  ).catch((error) => {
-      console.error(error.message);
+).catch((error) => {
+    console.error(error.message);
 
-      toast.error("Ops, Falha ao salvar imagem!", {
-        theme: 'light',
-        autoClose: true
-      });
-    })
-  };
- // -- FUNCTIONS
+    toast.error("Ops, Falha ao salvar imagem!", {
+      theme: 'light',
+      autoClose: true
+    });
+  })
+};
+// -- FUNCTIONS
 
-  return (
+return (values != null ? (
     <div className="grow">
       {/* Panel body */}
       <div className="p-6 space-y-6">
-        <h2 className="text-2xl text-slate-800 font-bold mb-5">Dados pessoais</h2>
+        <h2 className="text-2xl text-slate-800 font-bold mb-5">Dados básicos ✨</h2>
         {/* IziToast */}
         <ToastContainer className="toast-position"></ToastContainer>
         {/* Picture */}
         <section>
           <div className="flex items-center">
             <ul>
-            <img data-tip="Clique para adicionar uma nova imagem!" className="w-15 h-20 rounded-full" src={avatarImage} width="80" height="80" alt="User upload" />
+            <img data-tip="Clique no <b>(+)</b> para adicionar uma nova imagem!" className="w-15 h-20 rounded-full" src={avatarImage} width="80" height="80" alt="User upload" />
             <label htmlFor="image" style={{ bottom: "2vh", left: "5vh", position: "relative", cursor: "pointer" }} className="flex justify-center items-center w-7 h-7 rounded-full bg-white border border-slate-200 hover:border-slate-300 color-primary shadow-sm transition duration-150 ml-2">
               {/* Tooltip */}
-              <ReactTooltip place='right' border type="light" effect='solid' />
+              <ReactTooltip html place='right' border type="light" effect='solid' />
               <input accept='image/*' onChange={changeImage} name="image" type="file" id="image" hidden />
               <svg className="w-4 h-4 fill-current" viewBox="0 0 16 16">
                 <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
@@ -207,145 +227,193 @@ function AccountPanel({ person }) {
         {/* Base Profile */}
         <section>
           <h2 className="text-xl leading-snug text-slate-800 font-bold mb-1">Suas informações</h2>
-          <div className="text-sm">Informe seus dados pessoais nos campos abaixo. Preste atenção ao preenher as informações!</div>
-          <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-2">
-            <div className="sm:w-1/3">
+          <div className="text-sm">Informe seus dados pessoais nos campos abaixo. Preste atenção ao preencher as informações!</div>
+          <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-3">
+            <div className="sm:w-1/3">  
               <label className="block text-sm font-medium mb-1" htmlFor="firstName">Nome<span className="text-rose-500">*</span></label>
-              <input id="firstName" onChange={onChange} value={values.firstName} name="firstName" className="form-input w-full" type="text" />
+              <div className="relative">
+                <input id="firstName" onChange={onChange} value={values.firstName} name="firstName" className="form-input w-full pl-9" type="text" />
+                <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                  <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                    <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                  </svg>
+                </div>
+              </div>
             </div>
             <div className="sm:w-1/3">
               <label className="block text-sm font-medium mb-1" htmlFor="lastName">Sobrenome<span className="text-rose-500">*</span></label>
-              <input id="lastName" onChange={onChange} value={values.lastName} name="lastName" className="form-input w-full" type="text" />
+              <div className="relative">
+                <input id="lastName" onChange={onChange} value={values.lastName} name="lastName" className="form-input w-full pl-9" type="text" />
+                <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                  <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                    <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                  </svg>
+                </div>
+              </div>
             </div>
             <div className="sm:w-1/3">
               <label className="block text-sm font-medium mb-1" htmlFor="role">Sexo<span className="text-rose-500">*</span></label>
-              <select onChange={onChange} value={values.gender} id="gender" type="number" name='gender' className="form-select w-full">
-                <option value={1}>Masculino</option>
-                <option value={2}>Feminino</option>
-              </select>
+              <div className="relative">
+                <select onChange={onChange} value={values.gender} id="gender" type="number" name='gender' className="form-input w-full pl-9">
+                  <option value={1}>Masculino</option>
+                  <option value={2}>Feminino</option>
+                </select>
+                <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                  <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                    <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-2">
-          </div>
-          <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-2">
+          <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-3">
             <div className="sm:w-1/3">
-              <label className="block text-sm font-medium mb-1" htmlFor="lastName">Idade<span className="text-rose-500">*</span></label>
-              <input id="age" onChange={onChange} value={values.age} name="age" className="form-input w-full" placeholder='18' type="number" min="18" max="90" />
+              <label className="block text-sm font-medium mb-1" htmlFor="age">Idade<span className="text-rose-500">*</span></label>
+              <div className="relative">
+                <input id="age" onChange={onChange} value={values.age} name="age" className="form-input w-full pl-9" placeholder='18' type="number" min="18" max="90" />
+                <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                  <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                    <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                  </svg>
+                </div>
+              </div>
             </div>
             <div className="sm:w-1/3">
               <label className="block text-sm font-medium mb-1" htmlFor="cpf">Cadastro de Pessoas Física<span className="text-rose-500">*</span></label>
-              <InputMask mask={'999.999.999-99'} onChange={onChange} value={values.cpf} id="cpf" name='cpf' className="form-input w-full" type="text" placeholder='xxx.xxx.xxx-xx' autoComplete="on" />
+              <div className="relative">
+                <InputMask mask={'999.999.999-99'} onChange={onChange} value={values.cpf} id="cpf" name='cpf' className="form-input w-full pl-9" type="text" placeholder='xxx.xxx.xxx-xx' autoComplete="on" />
+                <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                  <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                    <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                  </svg>
+                </div>
+              </div>
             </div>
             <div className="sm:w-1/3">
               <label className="block text-sm font-medium mb-1" htmlFor="rg">Registro geral<span className="text-rose-500">*</span></label>
-              <InputMask mask={'99.999.999-9'} onChange={onChange} value={values.rg} id="rg" name='rg' className="form-input w-full" type="text" placeholder='xx.xxx.xxx-x' autoComplete="on" />
+              <div className="relative">
+                <InputMask mask={'99.999.999-9'} onChange={onChange} value={values.rg} id="rg" name='rg' className="form-input w-full pl-9" type="text" placeholder='xx.xxx.xxx-x' autoComplete="on" />
+                <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                  <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                    <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
-          <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-2">
+          <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-3">
             <div className="sm:w-1/3">
-              <label className="block text-sm font-medium mb-1" htmlFor="lastName">Aniversário<span className="text-rose-500">*</span></label>
-              <InputMask mask={"99/99/9999"} id="birthDay" onChange={onChange} value={values.birthDay} name="birthDay" className="form-input w-full" placeholder='01/01/0001' type="text"/>
+              <label className="block text-sm font-medium mb-1" htmlFor="birthday">Aniversário<span className="text-rose-500">*</span></label>
+              <div className="relative">
+                <InputMask mask={"99/99/9999"} id="birthDay" onChange={onChange} value={values.birthDay} name="birthDay" className="form-input w-full pl-9" placeholder='01/01/0001' type="text"/>
+                <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                  <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                    <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                  </svg>
+                </div>
+              </div>
             </div>
             <div className="sm:w-1/3">
             <label className="block text-sm font-medium mb-1" htmlFor="role">Status<span className="text-rose-500">*</span></label>
-              <select onChange={onChange} value={values.status} id="status" type="number" name='status' className="form-select w-full">
-                <option value={1}>Ativo</option>
-                <option value={0}>Inativo</option>
-              </select>
+            <div className="relative">
+                <select onChange={onChange} value={values.status} id="status" type="number" name='status' className="form-select w-full pl-9">
+                  <option value={1}>Ativo</option>
+                  <option value={0}>Inativo</option>
+                </select>
+                <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                  <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                    <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                  </svg>
+                </div>
+              </div>
             </div>
-            <div className="sm:w-1/3">
-              {/* Nada aqui */}
-            </div>
+            <div className="sm:w-1/3"> {/* Nada aqui */}  </div>
           </div>
         </section>
-        {/* Business Profile */}
-         {/*  <section>
-            <h2 className="text-xl leading-snug text-slate-800 font-bold mb-1">Dados das profissões</h2>
-            <div className="text-sm">Informe os dados dos trabalhos prestados & de sua profissão.</div>
-            {
-              person.professions.map(profession => (
-                <>
-                  <div key={profession.id} className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-5">
-                    <div className="sm:w-1/3">
-                      <label className="block text-sm font-medium mb-1" htmlFor="name">Nome</label>
-                      <input id="name" value={profession.office} className="form-input w-full" type="text" />
-                    </div>
-                    <div className="sm:w-1/3">
-                      <label className="block text-sm font-medium mb-1" htmlFor="business-id">Profissão ID</label>
-                      <input id="business-id" value={profession.id} className="form-input w-full" type="text" />
-                    </div>
-                    <div className="sm:w-1/3">
-                      <label className="block text-sm font-medium mb-1" htmlFor="location">Location</label>
-                      <input id="location" className="form-input w-full" type="text" />
-                    </div>
-                  </div>
-                  <div className="sm:w-3/3 mt-5">
-                      <label className="block text-sm font-medium mb-1" htmlFor="name">Descrição</label>
-                      <input id="name" value={profession.description} className="form-input w-full" type="text" />
-                    </div>
-                </>
-              ))
-            }
-          </section> */}
-        {/* Email */}
-       {/*  <section>
-          <h2 className="text-xl leading-snug text-slate-800 font-bold mb-1">Email</h2>
-          <div className="text-sm">Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia.</div>
-          <div className="flex flex-wrap mt-5">
-            <div className="mr-2">
-              <label className="sr-only" htmlFor="email">Business email</label>
-              <input id="email" className="form-input" type="email" />
-            </div>
-            <button className="btn border-slate-200 hover:border-slate-300 shadow-sm color-primary">Change</button>
-          </div>
-        </section> */}
-        {/* Password */}
-      {/*   <section>
-          <h2 className="text-xl leading-snug text-slate-800 font-bold mb-1">Password</h2>
-          <div className="text-sm">You can set a permanent password if you don't want to use temporary login codes.</div>
-          <div className="mt-5">
-            <button className="btn border-slate-200 shadow-sm color-primary">Set New Password</button>
-          </div>
-        </section> */}
-        {/* Smart Sync */}
-        {/* <section>
-          <h2 className="text-xl leading-snug text-slate-800 font-bold mb-1">Smart Sync update for Mac</h2>
-          <div className="text-sm">With this update, online-only files will no longer appear to take up hard drive space.</div>
-          <div className="flex items-center mt-5">
-            <div className="form-switch">
-              <input type="checkbox" id="toggle" className="sr-only" checked={sync} onChange={() => setSync(!sync)} />
-              <label className="bg-slate-400" htmlFor="toggle">
-                <span className="bg-white shadow-sm" aria-hidden="true"></span>
-                <span className="sr-only">Enable smart sync</span>
-              </label>
-            </div>
-            <div className="text-sm text-slate-400 italic ml-2">{sync ? 'On' : 'Off'}</div>
-          </div>
-        </section>
-        */}
       </div> 
       {/* Panel footer */}
       <footer>
         <div className="flex flex-col px-6 py-5 border-t border-slate-200">
           <div className="flex self-end">
-            <button className="btn border-slate-200 hover:border-slate-300 text-slate-600">Cancelar</button>
-            <button onClick={update} className="btn bg-gradient-primary-500 text-white ml-3">
+            <Link to={`/community/users-tiles`} className="btn border-slate-200 hover:border-slate-300 text-slate-600">Cancelar</Link>
             {
-              !loading ? ("Salvar") : (
+              !loading ? (<button id='btnSave' onClick={update} className="btn bg-gradient-primary-500 text-white ml-3">Salvar</button>) :  (<button id='btnSave' onClick={update} disabled className="btn bg-gradient-primary-500 text-white disabled:cursor-not-allowed ml-3">
                 <lord-icon
                   src="https://cdn.lordicon.com/yiniatmi.json"
                   trigger="loop"
                   colors="primary:#ffffff"
                   style={{width:67,height:20}}>
                 </lord-icon>
-              )
+              </button>)
             }
-            </button>
           </div>
         </div>
       </footer>
     </div>
-  );
+  ) :  
+    <div className="grow">
+      {/* Panel body */}
+      <div className="p-6 space-y-6">
+        <h2 className="text-2xl text-slate-800 font-bold mb-5"><PlaceholderLoading shape='rect' width={"100%"} height={"35px"}/></h2>
+        <section>
+          <div className="flex items-center">
+            <ul>
+            <PlaceholderLoading shape='circle' width={80} height={80}/>
+            </ul>
+          </div>
+        </section>
+        {/* Base Profile */}
+        <section>
+        <h2 className="text-xl leading-snug text-slate-800 font-bold"><PlaceholderLoading shape='rect' width={"100%"} height={"28px"} /></h2>
+          <div className="text-sm"> <PlaceholderLoading shape='rect' width={"100%"} height={"22px"} /></div>
+          <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-3">
+            <div className="sm:w-1/3">
+              <PlaceholderLoading shape='rect' width={"100%"} height={"64px"} />
+            </div>
+            <div className="sm:w-1/3">
+              <PlaceholderLoading shape='rect' width={"100%"} height={"64px"} />
+            </div>
+            <div className="sm:w-1/3">
+              <PlaceholderLoading shape='rect' width={"100%"} height={"64px"} />
+            </div>
+          </div>
+          <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-2">
+          </div>
+          <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-2">
+            <div className="sm:w-1/3">
+             <PlaceholderLoading shape='rect' width={"100%"} height={"64px"} />  
+            </div>
+            <div className="sm:w-1/3">
+              <PlaceholderLoading shape='rect' width={"100%"} height={"64px"} />
+            </div>
+            <div className="sm:w-1/3">
+              <PlaceholderLoading shape='rect' width={"100%"} height={"64px"} />
+            </div>
+          </div>
+          <div className="sm:flex sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mt-3">
+            <div className="sm:w-1/3">
+              <PlaceholderLoading shape='rect' width={"100%"} height={"64px"} />
+            </div>
+            <div className="sm:w-1/3">
+              <PlaceholderLoading shape='rect' width={"100%"} height={"64px"} />
+            </div>
+            <div className="sm:w-1/3">
+              {/* Nada aqui */}
+            </div>
+          </div>
+        </section>
+      </div> 
+      {/* Panel footer */}
+      <footer>
+        <div className="flex flex-col px-6 py-5 border-t border-slate-200">
+          <div className="flex self-end">
+            <PlaceholderLoading shape='rect' width={"80"} height={"38px"} />
+            <PlaceholderLoading shape='rect' width={"80"} height={"38px"} />
+          </div>
+        </div>
+      </footer>
+  </div>
+  )
 }
 
 export default AccountPanel;

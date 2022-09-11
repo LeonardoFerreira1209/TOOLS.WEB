@@ -93,7 +93,7 @@ function DropdownProfile({
                   <li>
                     <Link
                       className="font-medium text-sm color-primary hover:color-primary flex items-center py-1 px-3"
-                      to="/settings"
+                      to={`/settings/account/${userContext.user.tokenObj.personId}`}
                       onClick={() => setDropdownOpen(!dropdownOpen)}
                     >
                       Configurações
@@ -104,7 +104,7 @@ function DropdownProfile({
                       className="font-medium text-sm color-primary hover:color-primary flex items-center py-1 px-3"
                       onClick={SigninOut}
                     >
-                      Sign Out
+                     Sair
                     </button>
                   </li>
                 </ul>

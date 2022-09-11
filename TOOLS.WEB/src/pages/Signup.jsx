@@ -63,7 +63,7 @@ function Signup() {
 
      setLoading(true);
 
-      fetch("https://toolsuserapi.azurewebsites.net/api/User/create", {
+      fetch("https://localhost:7125/api/User/create", {
         crossDomain:true,
         mode:'cors', 
         method: 'POST',
@@ -86,6 +86,7 @@ function Signup() {
         referrerPolicy: 'no-referrer'
       })
       .then(response => response.json()).then((results) => {
+        debugger
           if(results.sucesso){
             navigate("/");
           }

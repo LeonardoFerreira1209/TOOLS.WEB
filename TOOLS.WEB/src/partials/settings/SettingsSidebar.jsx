@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
-function SettingsSidebar() {
-
+function SettingsSidebar({ props }) {
   const location = useLocation();
+  
   const { pathname } = location;
 
   return (
@@ -13,19 +13,35 @@ function SettingsSidebar() {
         <div className="text-xs font-semibold text-slate-400 uppercase mb-3">Configurações da conta</div>
         <ul className="flex flex-nowrap md:block mr-3 md:mr-0">
           <li className="mr-0.5 md:mr-0 md:mb-0.5">
-            <NavLink end to="/settings/account" className={`flex items-center px-2.5 py-2 rounded whitespace-nowrap ${pathname.includes('/settings/account') && 'bg-indigo-50'}`}>
-              <svg className={`w-4 h-4 shrink-0 fill-current text-slate-400 mr-2 ${pathname.includes('/settings/account') && 'color-primary'}`} viewBox="0 0 16 16">
-                <path d="M12.311 9.527c-1.161-.393-1.85-.825-2.143-1.175A3.991 3.991 0 0012 5V4c0-2.206-1.794-4-4-4S4 1.794 4 4v1c0 1.406.732 2.639 1.832 3.352-.292.35-.981.782-2.142 1.175A3.942 3.942 0 001 13.26V16h14v-2.74c0-1.69-1.081-3.19-2.689-3.733zM6 4c0-1.103.897-2 2-2s2 .897 2 2v1c0 1.103-.897 2-2 2s-2-.897-2-2V4zm7 10H3v-.74c0-.831.534-1.569 1.33-1.838 1.845-.624 3-1.436 3.452-2.422h.436c.452.986 1.607 1.798 3.453 2.422A1.943 1.943 0 0113 13.26V14z" />
+            <NavLink end to={`/settings/account/${props.id}`} className={`flex items-center px-2.5 py-2 rounded whitespace-nowrap ${pathname.includes(`/settings/account/${props.id}`) && 'bg-indigo-50'}`}>
+              <svg className={`w-5 h-6 mr-2 ${pathname.includes(`/settings/account/${props.id}`) && 'color-primary'}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
               </svg>
-              <span className={`text-sm font-medium ${pathname.includes('/settings/account') ? 'color-primary' : 'hover:text-slate-700'}`}>Minhas informações</span>
+              <span className={`text-sm font-medium ${pathname.includes(`/settings/account/${props.id}`) ? 'color-primary' : 'hover:text-slate-700'}`}>Dados básicos</span>
             </NavLink>
           </li>
           <li className="mr-0.5 md:mr-0 md:mb-0.5">
-            <NavLink end to="/settings/notifications" className={`flex items-center px-2.5 py-2 rounded whitespace-nowrap ${pathname.includes('/settings/notifications') && 'bg-indigo-50'}`}>
-              <svg className={`w-4 h-4 shrink-0 fill-current text-slate-400 mr-2 ${pathname.includes('/settings/notifications') && 'color-primary'}`} viewBox="0 0 16 16">
+            <NavLink end to={`/settings/user/${props.id}`} className={`flex items-center px-2.5 py-2 rounded whitespace-nowrap ${pathname.includes(`/settings/user/${props.id}`) && 'bg-indigo-50'}`}>
+              <svg className={`w-5 h-6 mr-2 ${pathname.includes(`/settings/user/${props.id}`) && 'color-primary'}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+              </svg>
+              <span className={`text-sm font-medium ${pathname.includes(`/settings/user/${props.id}`) ? 'color-primary' : 'hover:text-slate-700'}`}>Dados confidênciais</span>
+            </NavLink>
+          </li>
+          <li className="mr-0.5 md:mr-0 md:mb-0.5">
+            <NavLink end to={`/settings/business/${props.id}`} className={`flex items-center px-2.5 py-2 rounded whitespace-nowrap ${pathname.includes(`/settings/business/${props.id}`) && 'bg-indigo-50'}`}>
+              <svg className={`w-5 h-6 mr-2 ${pathname.includes(`/settings/business/${props.id}`) && 'color-primary'}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
+              </svg>
+              <span className={`text-sm font-medium ${pathname.includes(`/settings/business`) ? 'color-primary' : 'hover:text-slate-700'}`}>Dados profissionais</span>
+            </NavLink>
+          </li>
+          <li className="mr-0.5 md:mr-0 md:mb-0.5">
+            <NavLink end to={`/settings/notifications`} className={`flex items-center px-2.5 py-2 rounded whitespace-nowrap ${pathname.includes(`/settings/notifications`) && 'bg-indigo-50'}`}>
+              <svg className={`w-4 h-4 fill-current text-slate-400 mr-2 ${pathname.includes(`/settings/notifications`) && 'color-primary'}`} viewBox="0 0 16 16">
                 <path d="M14.3.3c.4-.4 1-.4 1.4 0 .4.4.4 1 0 1.4l-8 8c-.2.2-.4.3-.7.3-.3 0-.5-.1-.7-.3-.4-.4-.4-1 0-1.4l8-8zM15 7c.6 0 1 .4 1 1 0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8c.6 0 1 .4 1 1s-.4 1-1 1C4.7 2 2 4.7 2 8s2.7 6 6 6 6-2.7 6-6c0-.6.4-1 1-1z" />
               </svg>
-              <span className={`text-sm font-medium ${pathname.includes('/settings/notifications') ? 'color-primary' : 'hover:text-slate-700'}`}>My Notifications</span>
+              <span className={`text-sm font-medium ${pathname.includes(`/settings/notifications`) ? 'color-primary' : 'hover:text-slate-700'}`}>My Notifications</span>
             </NavLink>
           </li>
           <li className="mr-0.5 md:mr-0 md:mb-0.5">
