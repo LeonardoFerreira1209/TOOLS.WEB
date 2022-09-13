@@ -62,7 +62,7 @@ function Signin() {
       cache: 'no-cache',
       credentials:'same-origin',
       redirect: 'follow',
-      referrerPolicy: 'no-referrer'
+      referrerPolicy: 'no-referrer',
     })
     .then(response => response.json()).then((results) => {
         debugger
