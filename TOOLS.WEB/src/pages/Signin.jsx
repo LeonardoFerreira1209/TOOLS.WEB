@@ -14,6 +14,7 @@ function Signin() {
   const { state } = useLocation();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   // -- CONSTS
 
   // -- INPUTS 
@@ -35,14 +36,13 @@ function Signin() {
   // -- INPUTS
 
   // -- VALIDATES
-  const [ userValidate, setUserValidate ] = useState(false);
-  const [ passwordValidate, setPasswordValidate ] = useState(false);
+  function isInvalid() {
+    if(values.user === "") { setError("Preencha o campo usuário!");  setLoading(false); return true; }
 
-  useEffect(() => {
-    values.user === "" ? setUserValidate(false) : setUserValidate(true);
-    values.password === "" ? setPasswordValidate(false) : setPasswordValidate(true); 
+    if(values.password === "") { setError("Preencha o campo senha!"); setLoading(false); return true; }
 
-  }, [values]);
+    return false;
+  };
   // -- VALIDATES
 
   // -- API CONSUMER
@@ -51,39 +51,45 @@ function Signin() {
 
     event.preventDefault();
 
-    fetch("https://localhost:7125/api/User/authetication", {
+    if(!isInvalid())
+    {
+      fetch("https://localhost:7125/api/User/authetication", {
       headers: {
         'username': values.user,
         'password': values.password
-    },
-      crossDomain:true,
-      mode:'cors', 
-      method: 'GET',
-      cache: 'no-cache',
-      credentials:'same-origin',
-      redirect: 'follow',
-      referrerPolicy: 'no-referrer',
-    })
-    .then(response => response.json()).then((results) => {
-        debugger
-        if(results.sucesso){
-          setUser({
-            tokenJwt: results.dados.value,
-            tokenObj: parseJwt(results.dados.value)
-          });
-          navigate(state?.path || "/dashboard");
-        }
-        else{
-          setError(results.notificacoes[0].mensagem); setLoading(false);
-        }
       },
-      (error) => {
-        debugger
+        crossDomain:true,
+        mode:'cors', 
+        method: 'GET',
+        cache: 'no-cache',
+        credentials:'same-origin',
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+      })
+      .then(response => response.json()).then((results) => {
+          if(results.sucesso){
+            setUser({
+              tokenJwt: results.dados.value,
+              tokenObj: parseJwt(results.dados.value)
+            });
+            navigate(state?.path || "/dashboard");
+          }
+          else{
+            setError(results.notificacoes[0].mensagem); setLoading(false);
+          }
+        },
+        (error) => {
+          console.error(error);
+
+          setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+        }
+
+      ).catch(error => {
         console.error(error);
 
         setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
-      }
-    )
+      });
+    }
   }
   // -- API CONSUMER
 
@@ -140,17 +146,32 @@ function Signin() {
                 <div className="space-y-4">
                   <div data-aos="fade-left">
                     <label className="block text-sm font-medium mb-1" htmlFor="user">Usuário<span className="text-rose-500">*</span></label>
-                    <input onChange={onChange} value={values.user} id="user" name='user' className="form-input w-full" type="user" />
-                    {
-                      !userValidate && <div id='userValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
-                    }
+                    <div className="relative">
+                      <input onChange={onChange} value={values.user} id="user" name='user' className="form-input w-full pl-9" type="user" />
+                      <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                        <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                          <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                        </svg>
+                      </div>
+                    </div>
                   </div>
-                  <div data-aos="fade-left">
-                    <label className="block text-sm font-medium mb-1" htmlFor="password">Senha<span className="text-rose-500">*</span></label>
-                    <input onChange={onChange} value={values.password} id="password" name='password' className="form-input w-full" type="password" autoComplete="on" />
-                    {
-                      !passwordValidate && <div id='passwordValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
-                    }
+                  <div className="relative" data-aos="fade-left">
+                    <input id="password" onChange={onChange} value={values.password} name="password" className="form-input w-full pl-9" type={showPassword ? "text" : "password"} />
+                    <button type='button' style={{ cursor: "pointer" }} onClick={() => (setShowPassword((current) => !current))} className="absolute inset-0 right-auto group" aria-label="show">
+                      {
+                        showPassword ? (
+                          <svg className="w-5 h-5 shrink-0 text-slate-400 group-hover:text-slate-500 ml-3 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                        ) :
+                        (
+                          <svg className="w-5 h-5 shrink-0 text-slate-400 group-hover:text-slate-500 ml-3 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" />
+                          </svg>
+                        )
+                      }
+                    </button>
                   </div>
                 </div>
                 {/* Error */}

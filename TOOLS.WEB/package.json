@@ -7,14 +7,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@microsoft/signalr": "^6.0.7",
-    "@tailwindcss/forms": "^0.5.2",
+    "@microsoft/signalr": "^6.0.9",
+    "@tailwindcss/forms": "^0.5.3",
     "aos": "^3.0.0-beta.6",
     "babel-plugin-macros": "^3.1.0",
-    "chart.js": "^3.8.0",
+    "chart.js": "^3.9.1",
     "chartjs-adapter-moment": "^1.0.0",
     "js-cookie": "^3.0.1",
-    "lord-icon-element": "^3.4.2",
+    "lord-icon-element": "^3.4.3",
     "lottie-web": "^5.9.6",
     "moment": "^2.29.4",
     "react": "^18.2.0",
@@ -22,17 +22,19 @@
     "react-flatpickr": "^3.10.13",
     "react-input-mask": "^2.0.4",
     "react-placeholder-loading": "^0.5.30",
-    "react-router-dom": "^6.3.0",
+    "react-router-dom": "^6.4.0",
     "react-toastify": "^9.0.8",
     "react-tooltip": "^4.2.21",
-    "react-transition-group": "^4.4.2"
+    "react-transition-group": "^4.4.5",
+    "striptags": "^3.2.0",
+    "utils": "^0.3.1"
   },
   "devDependencies": {
-    "@vitejs/plugin-react": "^2.0.0",
-    "autoprefixer": "^10.4.7",
-    "postcss": "^8.4.14",
-    "sass": "^1.53.0",
-    "tailwindcss": "^3.1.6",
-    "vite": "^3.0.0"
+    "@vitejs/plugin-react": "^2.1.0",
+    "autoprefixer": "^10.4.10",
+    "postcss": "^8.4.16",
+    "sass": "^1.54.9",
+    "tailwindcss": "^3.1.8",
+    "vite": "^3.1.0"
   }
 }

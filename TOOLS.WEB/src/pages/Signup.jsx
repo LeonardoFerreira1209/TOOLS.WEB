@@ -15,24 +15,26 @@ function Signup() {
   const navigate = useNavigate();
 
   // -- VALIDATES
-  const [ firstNameValidate, setFirstNameValidate ] = useState(false);
-  const [ lastNameValidate, setLastNameValidate ] = useState(false);
-  const [ userValidate, setUserValidate ] = useState(false);
-  const [ passwordValidate, setPasswordValidate ] = useState(false);
-  const [ emailValidate, setEmailValidate ] = useState(false);
-  const [ phoneNumberValidate, setPhoneNumberValidate ] = useState(false);
-  const [ cpfValidate, setCPFValidate ] = useState(false);
+  function isInvalid() {
+    if(values.firstName === "") { setError("Preencha o campo nome!");  setLoading(false); return true; }
 
-  useEffect(() => {
-    values.firstName === "" ? setFirstNameValidate(false) : setFirstNameValidate(true);
-    values.lastName === "" ? setLastNameValidate(false) : setLastNameValidate(true);
-    values.username === "" ? setUserValidate(false) : setUserValidate(true);
-    values.password === "" ? setPasswordValidate(false) : setPasswordValidate(true);
-    values.email === "" ? setEmailValidate(false) : setEmailValidate(true);
-    values.phoneNumber === "" ? setPhoneNumberValidate(false) : setPhoneNumberValidate(true);
-    values.cpf === "" ? setCPFValidate(false) : setCPFValidate(true);
+    if(values.lastName === "") { setError("Preencha o campo sobrenome!"); setLoading(false); return true; }
 
-  }, [values]);
+    if(values.username === "") { setError("Preencha o campo nome de usuário!"); setLoading(false); return true; }
+
+    if(values.password === "") { setError("Preencha o campo senha!"); setLoading(false); return true; }
+
+    if(values.email === "") { setError("Preencha o campo e-mail!"); setLoading(false); return true; }
+
+    if(values.phoneNumber === "") { setError("Preencha o campo celular!"); setLoading(false); return true; }
+
+    if(values.male === "") { setError("Preencha o campo sexo!"); setLoading(false); return true; }
+
+    if(values.cpf === "") { setError("Preencha o campo Cadastro de pessoa física!"); setLoading(false); return true; }
+
+    return false;
+  };
+  // -- VALIDATES
 
   function initialState() {
       return {
@@ -61,8 +63,10 @@ function Signup() {
   function Create(event) {
     event.preventDefault();
 
-     setLoading(true);
+    setLoading(true);
 
+    if(!isInvalid())
+    {
       fetch("https://localhost:7125/api/User/create", {
         crossDomain:true,
         mode:'cors', 
@@ -98,6 +102,7 @@ function Signup() {
           setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
         }
       )
+    }
    }
   // -- API CONSUMER
 
@@ -148,67 +153,102 @@ function Signup() {
             {/* Form */}
             <form>
               <div className='grid gap-2 grid-cols-2 mt-2'>
-                <div>
+                <div data-aos="fade-left">
                   <label className="block text-sm font-medium mb-1" htmlFor="firstName">Nome<span className="text-rose-500">*</span></label>
-                  <input data-aos="fade-right" onChange={onChange} value={values.firstName} id="firstName" name='firstName' className="form-input w-full" placeholder='Leonardo' type="firstName" />
-                    {
-                      !firstNameValidate && <div id='firstNameValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
-                    }
+                  <div className="relative">
+                    <input onChange={onChange} value={values.firstName} id="firstName" name='firstName' className="form-input w-full pl-9" placeholder='Leonardo' type="firstName" />
+                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                      <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <label  className="block text-sm font-medium mb-1" htmlFor="lastName">Sobrenome<span className="text-rose-500">*</span></label>
-                  <input data-aos="fade-left" onChange={onChange} value={values.lastName} id="lastName" name='lastName' className="form-input w-full" placeholder='Almeida' type="text" />
-                    { 
-                      !lastNameValidate && <div id='lastNameValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
-                    }
+                <div data-aos="fade-left">
+                  <label className="block text-sm font-medium mb-1" htmlFor="lastName">Sobrenome<span className="text-rose-500">*</span></label>
+                  <div className="relative">
+                    <input onChange={onChange} value={values.lastName} id="lastName" name='lastName' className="form-input w-full pl-9" placeholder='Almeida' type="text" />
+                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                      <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className='grid gap-5 md:grid-cols-2 mt-2'>
-                <div>
+                <div data-aos="fade-left">
                   <label className="block text-sm font-medium mb-1" htmlFor="username">Nome de usuário<span className="text-rose-500">*</span></label>
-                  <input data-aos="fade-right" onChange={onChange} value={values.username} id="username" name='username' className="form-input w-full" type="username" placeholder='Leo.Almeida' autoComplete="on" />
-                    {
-                      !userValidate && <div id='userValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
-                    }
+                  <div className="relative">
+                    <input onChange={onChange} value={values.username} id="username" name='username' className="form-input w-full pl-9" type="username" placeholder='Leo.Almeida' autoComplete="on" />
+                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                      <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                <div>
+                <div data-aos="fade-left">
                   <label className="block text-sm font-medium mb-1" htmlFor="password">Senha<span className="text-rose-500">*</span></label>
-                  <input data-aos="fade-left" onChange={onChange} value={values.password} id="password" name='password' className="form-input w-full" type="password" placeholder='Example@11011' autoComplete="on" />
-                    {
-                      !passwordValidate && <div id='passwordValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
-                    }
+                  <div className="relative">
+                    <input onChange={onChange} value={values.password} id="password" name='password' className="form-input w-full pl-9" type="password" placeholder='Example@11011' autoComplete="on" />
+                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                      <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className='grid gap-5 md:grid-cols-2 mt-2'>
-                <div>
+                <div data-aos="fade-left">
                   <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail<span className="text-rose-500">*</span></label>
-                  <input data-aos="fade-right" onChange={onChange} value={values.email} id="email" name='email' className="form-input w-full" type='email'placeholder='example@example.com' autoComplete="on" />
-                    {
-                      !emailValidate && <div id='emailValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
-                    }
+                  <div className="relative">
+                    <input onChange={onChange} value={values.email} id="email" name='email' className="form-input w-full pl-9" type='email'placeholder='example@example.com' autoComplete="on" />
+                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                      <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                <div>
+                <div data-aos="fade-left">
                   <label className="block text-sm font-medium mb-1" htmlFor="phoneNumber">Celular<span className="text-rose-500">*</span></label>
-                  <InputMask data-aos="fade-left" mask={'+99(99)99999-9999'} onChange={onChange} value={values.phoneNumber} id="phoneNumber" name='phoneNumber' className="form-input w-full" type="phoneNumber" placeholder='+99(99)99999-9999' autoComplete="on"/>
-                    {
-                      !phoneNumberValidate && <div id='phoneNumberValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
-                    }
+                  <div className="relative">
+                    <InputMask mask={'+99(99)99999-9999'} onChange={onChange} value={values.phoneNumber} id="phoneNumber" name='phoneNumber' className="form-input w-full pl-9" type="phoneNumber" placeholder='+99(99)99999-9999' autoComplete="on"/>
+                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                      <svg className="w-5 h-5 shrink-0 text-slate-400 group-hover:text-slate-500 ml-3 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="grid gap-5 md:grid-cols-2 mt-2">
-                <div>
+                <div data-aos="fade-left">
                   <label className="block text-sm font-medium mb-1" htmlFor="role">Sexo<span className="text-rose-500">*</span></label>
-                  <select data-aos="fade-right" onChange={onChange} value={values.gender} id="gender" type="number" name='gender' className="form-select w-full">
-                    <option value={1}>Masculino</option>
-                    <option value={2}>Feminino</option>
-                  </select>
+                  <div className="relative">
+                    <select onChange={onChange} value={values.gender} id="gender" type="number" name='gender' className="form-select w-full pl-9">
+                      <option value={1}>Masculino</option>
+                      <option value={2}>Feminino</option>
+                    </select>
+                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                      <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-                <div>
+                <div data-aos="fade-left">
                   <label className="block text-sm font-medium mb-1" htmlFor="cpf">Cadastro de Pessoas Física<span className="text-rose-500">*</span></label>
-                  <InputMask data-aos="fade-left" mask={'999.999.999-99'} onChange={onChange} value={values.cpf} id="cpf" name='cpf' className="form-input w-full" type="cpf" placeholder='xxx.xxx.xxx-xx' autoComplete="on" />
-                  {
-                      !cpfValidate && <div id='cpfValidate' className={`text-xs mt-1 text-rose-500`}>Campo obrigatório!</div>
-                    }
+                  <div className="relative">
+                    <InputMask mask={'999.999.999-99'} onChange={onChange} value={values.cpf} id="cpf" name='cpf' className="form-input w-full pl-9" type="cpf" placeholder='xxx.xxx.xxx-xx' autoComplete="on" />
+                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                      <svg className="w-4 h-4 fill-current text-slate-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
                {/* Error */}
