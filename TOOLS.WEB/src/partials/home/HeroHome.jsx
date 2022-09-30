@@ -29,14 +29,14 @@ function HeroHome() {
 
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-            <h1 className="h1 mb-4" data-aos="fade-up">Landing template for startups</h1>
-            <p className="text-xl text-gray-400 mb-8" data-aos="fade-up" data-aos-delay="200">Our landing page template works on all devices, so you only have to set it up once, and get beautiful results forever.</p>
+            <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-indigo-500 h1 mb-4" data-aos="fade-up"><i className='bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500'>TOOLS.API</i> o seu gerenciador de negócios</h1>
+            <p className="text-xl text-sky-500 mb-8 bg-clip-text text-transparent bg-gradient-to-l from-indigo-400 to-sky-900" data-aos="fade-up" data-aos-delay="200">Nosso sistema fornece tudo que á de atual no gerenciamento de sua empresa, temos a flexibilidade, mobilidade e facilidade.</p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
-                <a className="btn text-white bg-purple-600 hover:bg-purple-700 w-full mb-4 sm:w-auto sm:mb-0" href="#0">Start free trial</a>
+                <a className="btn text-white text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 w-full mb-4 sm:w-auto sm:mb-0" href="#0">Inicie um teste gratuito.</a>
               </div>
               <div data-aos="fade-up" data-aos-delay="600">
-                <a className="btn text-white bg-gray-700 hover:bg-gray-800 w-full sm:w-auto sm:ml-4" href="#0">Learn more</a>
+                <a className="btn text-white bg-indigo-500 hover:bg-indigo-600 w-full sm:w-auto sm:ml-4" href="#0">Leia mais</a>
               </div>
             </div>
           </div>

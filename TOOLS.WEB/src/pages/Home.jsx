@@ -13,7 +13,7 @@ import Target from "../partials/home/Target";
 function Home() {
 
   return (
-    <div className="flex flex-col min-h-screen overflow-hidden">
+    <div className="bg-white flex flex-col min-h-screen overflow-hidden">
 
       {/*  Site header */}
       <HomeHeader />
