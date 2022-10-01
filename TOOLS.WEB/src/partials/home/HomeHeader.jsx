@@ -76,26 +76,26 @@ function HomeHeader() {
             <ul className="flex grow justify-end flex-wrap items-center">
               <li>
                 <Link to="/dashboard" className="text-[#008df6] hover:text-sky-400 px-4 py-2 flex items-center transition duration-150 ease-in-out">
-                  Features
+                  Funcionalidades
                 </Link>
               </li>
               <li>
-                <Link to="/pricing" className="text-[#008df6] hover:text-sky-400 px-4 py-2 flex items-center transition duration-150 ease-in-out">Pricing</Link>
+                <Link to="/pricing" className="text-[#008df6] hover:text-sky-400 px-4 py-2 flex items-center transition duration-150 ease-in-out">Preços</Link>
               </li>
               <li>
-                <Link to="/blog" className="text-[#008df6] hover:text-sky-400 px-4 py-2 flex items-center transition duration-150 ease-in-out">Blog</Link>
+                <Link to="/blog" className="text-[#008df6] hover:text-sky-400 px-4 py-2 flex items-center transition duration-150 ease-in-out">Novidades</Link>
               </li>
               <li>
-                <Link to="/about" className="text-[#008df6] hover:text-sky-400 px-4 py-2 flex items-center transition duration-150 ease-in-out">About us</Link>
+                <Link to="/about" className="text-[#008df6] hover:text-sky-400 px-4 py-2 flex items-center transition duration-150 ease-in-out">Sobre nós</Link>
               </li>
               {/* 1st level: hover */}
-              <Dropdown title="Support">
+              <Dropdown title="Suporte">
                 {/* 2nd level: hover */}
                 <li>
-                  <Link to="/contact" className="font-medium text-sm text-[#008df6] hover:text-sky-400 flex py-2 px-4 leading-tight">Contact us</Link>
+                  <Link to="/contact" className="font-medium text-sm text-[#008df6] hover:text-sky-400 flex py-2 px-4 leading-tight">Fale conosco</Link>
                 </li>
                 <li>
-                  <Link to="/help" className="font-medium text-sm text-[#008df6] hover:text-sky-400 flex py-2 px-4 leading-tight">Help center</Link>
+                  <Link to="/help" className="font-medium text-sm text-[#008df6] hover:text-sky-400 flex py-2 px-4 leading-tight">Centro de ajuda</Link>
                 </li>
                 <li>
                   <Link to="/404" className="font-medium text-sm text-[#008df6] hover:text-sky-400 flex py-2 px-4 leading-tight">404</Link>
@@ -132,25 +132,25 @@ function HomeHeader() {
             <nav id="mobile-nav" ref={mobileNav} className="absolute top-full z-20 left-0 w-full px-4 sm:px-6 overflow-hidden transition-all duration-300 ease-in-out" style={mobileNavOpen ? { maxHeight: mobileNav.current.scrollHeight, opacity: 1 } : { maxHeight: 0, opacity: .8 } }>
               <ul className="bg-gray-800 px-4 py-2">
                 <li>
-                  <Link to="/features" className="flex text-gray-300 hover:text-gray-200 py-2">Features</Link>
+                  <Link to="/features" className="flex text-gray-300 hover:text-gray-200 py-2">Funcionalidades</Link>
                 </li>
                 <li>
-                  <Link to="/pricing" className="flex text-gray-300 hover:text-gray-200 py-2">Pricing</Link>
+                  <Link to="/pricing" className="flex text-gray-300 hover:text-gray-200 py-2">Preços</Link>
                 </li>
                 <li>
-                  <Link to="/blog" className="flex text-gray-300 hover:text-gray-200 py-2">Blog</Link>
+                  <Link to="/blog" className="flex text-gray-300 hover:text-gray-200 py-2">Novidades</Link>
                 </li>
                 <li>
-                  <Link to="/about" className="flex text-gray-300 hover:text-gray-200 py-2">About us</Link>
+                  <Link to="/about" className="flex text-gray-300 hover:text-gray-200 py-2">Sobre nós</Link>
                 </li>
                 <li className="py-2 my-2 border-t border-b border-gray-700">
-                  <span className="flex text-gray-300 py-2">Support</span>
+                  <span className="flex text-gray-300 py-2">Suporte</span>
                   <ul className="pl-4">
                     <li>
-                      <Link to="/contact" className="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2">Contact us</Link>
+                      <Link to="/contact" className="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2">Fale conosco</Link>
                     </li>
                     <li>
-                      <Link to="/help" className="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2">Help center</Link>
+                      <Link to="/help" className="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2">Centro de ajuda</Link>
                     </li>
                     <li>
                       <Link to="/404" className="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2">404</Link>
@@ -158,10 +158,10 @@ function HomeHeader() {
                   </ul>
                 </li>
                 <li>
-                  <Link to="/signin" className="flex font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center">Sign in</Link>
+                  <Link to="/signin" className="flex font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center">Entrar</Link>
                 </li>
                 <li>
-                  <Link to="/signup" className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-white bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out">Sign up</Link>
+                  <Link to="/signup" className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-white bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out">Cadastre-se</Link>
                 </li>
               </ul>
             </nav>

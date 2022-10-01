@@ -140,7 +140,7 @@ function Signin() {
             </div>
 
             <div className="max-w-sm mx-auto px-4 py-8">
-              <h1 data-aos="fade-down" className="text-3xl text-slate-800 font-bold mb-6">Olá novamente! ✨</h1>
+              <h1 data-aos="fade-down" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Olá novamente! <b className='text-indigo-100'>✨</b></h1>
               {/* Form */}
               <form>
                 <div className="space-y-4">
@@ -188,7 +188,7 @@ function Signin() {
                   <div data-aos="fade-up" className="mr-1">
                     <Link className="text-sm underline hover:no-underline" to="/reset-password">Esqueceu a senha?</Link>
                   </div>
-                  <button data-aos="fade-up" onClick={Signin} className="btn bg-gradient-primary-500 text-white ml-3">
+                  <button data-aos="fade-up" onClick={Signin} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-3">
                     {loading === false  ? ("Entrar") : (
                       <lord-icon
                         src="https://cdn.lordicon.com/yiniatmi.json"
@@ -203,7 +203,7 @@ function Signin() {
               {/* Footer */}
               <div className="pt-5 mt-6 border-t border-slate-200">
                 <div data-aos="fade-right" className="text-sm">
-                  Não têm uma conta? <Link className="font-medium color-primary hover:color-primary" to="/signup">Se cadastrar</Link>
+                  Não têm uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signup">Se cadastrar</Link>
                 </div>
                 {/* Warning */}
                 <div data-aos="fade-up" className="mt-5">
