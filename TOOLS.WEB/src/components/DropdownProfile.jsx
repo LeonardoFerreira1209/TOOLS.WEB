@@ -93,7 +93,7 @@ function DropdownProfile({
                   <li>
                     <Link
                       className="font-medium text-sm color-primary hover:color-primary flex items-center py-1 px-3"
-                      to={`/settings/account/${userContext.user.tokenObj.personId}`}
+                      to={`/settings/account/${userContext.user.tokenObj.id}`}
                       onClick={() => setDropdownOpen(!dropdownOpen)}
                     >
                       Configurações

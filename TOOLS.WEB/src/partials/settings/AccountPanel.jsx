@@ -30,7 +30,7 @@ const { user } = useContext(StoreContext)
 
 // -- FUNCTIONS
  useEffect(() => {
-  fetch(`https://localhost:7125/api/Person/get/${props.id}`, {
+  fetch(`https://localhost:7125/api/User/get/${props.id}`, {
     headers: {
       'Authorization': `Bearer ${user.tokenJwt}`
     },
@@ -42,23 +42,21 @@ const { user } = useContext(StoreContext)
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
   })
-    .then(response => response.json()).then((personResult) => {
+    .then(response => response.json()).then((userResult) => {
         setValues({
-          id: personResult.dados.id,
-          userId: personResult.dados.userId,
-          firstName: personResult.dados.firstName !== null && personResult.dados.firstName,
-          lastName: personResult.dados.lastName !== null && personResult.dados.lastName,
-          age: personResult.dados.age !== null && personResult.dados.age,
-          birthDay: personResult.dados.birthDay,
-          gender: personResult.dados.gender,
-          image: personResult.dados.image !== null ? "data:" + personResult.dados.image.contentType + ";base64," + personResult.dados.image.fileContents : "",
-          imageByte: personResult.dados.image && personResult.dados.image.fileContents,
-          rg: personResult.dados.rg !== null && personResult.dados.rg,
-          cpf: personResult.dados.cpf !== null && personResult.dados.cpf,
-          status: personResult.dados.status,
+          id: userResult.dados.id,
+          firstName: userResult.dados.firstName !== null && userResult.dados.firstName,
+          lastName: userResult.dados.lastName !== null && userResult.dados.lastName,
+          age: userResult.dados.age !== null && userResult.dados.age,
+          birthDay: userResult.dados.birthDay,
+          gender: userResult.dados.gender,
+          imageUri: userResult.dados.imageUri,
+          rg: userResult.dados.rg !== null && userResult.dados.rg,
+          cpf: userResult.dados.cpf !== null && userResult.dados.cpf,
+          status: userResult.dados.status
         });
 
-        setAvatarImage(personResult.dados.image.fileContents === "" ? person.gender == 2 ? FemaleAvatar : MaleAvatar : personResult.dados.image !== null ? "data:" + personResult.dados.image.contentType + ";base64," + personResult.dados.image.fileContents : "",);
+        setAvatarImage(userResult.dados.imageUri === null ? userResult.dados.gender == 2 ? FemaleAvatar : MaleAvatar : userResult.dados.imageUri);
       },
       // Nota: é importante lidar com errros aqui
       // em vez de um bloco catch() para não receber
@@ -82,7 +80,7 @@ function update(event) {
 
   setLoading(true);
 
-  fetch("https://localhost:7125/api/person/completeRegister", {
+  fetch("https://localhost:7125/api/user/update", {
     crossDomain:true,
     mode:'cors', 
     method: 'PUT',
@@ -92,7 +90,6 @@ function update(event) {
     },
     body: JSON.stringify({
       Id: values.id,
-      UserId: values.userId,
       FirstName: values.firstName,
       LastName: values.lastName,
       Gender: values.gender,
@@ -101,7 +98,7 @@ function update(event) {
       Age: values.age,
       Birthday: values.birthDay,
       status: values.status,
-      image: values.imageByte
+      imageUri: values.imageUri
     })
   })
   .then(response => response.json()).then((results) => {
@@ -150,7 +147,7 @@ const formData = new FormData();
 
 formData.append('File', event.target.files[0]);
 
-fetch(`https://localhost:7125/api/person/profileImage/${values.id}`, { 
+fetch(`https://localhost:7125/api/user/updateUserImage/${values.id}`, { 
   method: 'PATCH',
   headers: { 
     'Authorization': `Bearer ${user.tokenJwt}`
@@ -160,12 +157,7 @@ fetch(`https://localhost:7125/api/person/profileImage/${values.id}`, {
   })
   .then(response => response.json()).then((results) => {
     if(results.sucesso) {
-      const avatar = "data:" + results.dados.contentType + ";base64," + results.dados.fileContents;
-
-      setValues(
-        {...values, 
-          ["imageByte"]: results.dados.fileContents
-        });
+      const avatar = results.dados.fileUri;
 
       setAvatarImage(avatar);
         

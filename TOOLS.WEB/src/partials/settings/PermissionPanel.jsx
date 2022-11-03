@@ -32,27 +32,27 @@ fetch(`https://localhost:7125/api/Person/get/${props.id}`, {
   redirect: 'follow',
   referrerPolicy: 'no-referrer',
 })
-  .then(response => response.json()).then((personResult) => {
+  .then(response => response.json()).then((userResult) => {
     debugger
       setValues({
-        UserId: personResult.dados.userId,
-        firstName: personResult.dados.firstName !== null && personResult.dados.firstName,
-        lastName: personResult.dados.lastName !== null && personResult.dados.lastName,
-        image: personResult.dados.image !== null ? "data:" + personResult.dados.image.contentType + ";base64," + personResult.dados.image.fileContents : "",
-        username: personResult.dados.user.userName,
-        email: personResult.dados.user.email,
-        emailConfirmed: personResult.dados.user.emailConfirmed,
-        phoneNumber: personResult.dados.user.phoneNumber,
-        phoneNumberConfirmed: personResult.dados.user.phoneNumberConfirmed,
-        lockoutEnabled : personResult.dados.user.lockoutEnabled,
-        lockoutEnd: personResult.dados.user.lockoutEnd,
-        securityStamp: personResult.dados.user.securityStamp,
-        concurrencyStamp: personResult.dados.user.concurrencyStamp,
-        twoFactorEnabled: personResult.dados.user.twoFactorEnabled,
-        accessFailedCount: personResult.dados.user.accessFailedCount
+        UserId: userResult.dados.userId,
+        firstName: userResult.dados.firstName !== null && userResult.dados.firstName,
+        lastName: userResult.dados.lastName !== null && userResult.dados.lastName,
+        image: userResult.dados.image !== null ? "data:" + userResult.dados.image.contentType + ";base64," + userResult.dados.image.fileContents : "",
+        username: userResult.dados.user.userName,
+        email: userResult.dados.user.email,
+        emailConfirmed: userResult.dados.user.emailConfirmed,
+        phoneNumber: userResult.dados.user.phoneNumber,
+        phoneNumberConfirmed: userResult.dados.user.phoneNumberConfirmed,
+        lockoutEnabled : userResult.dados.user.lockoutEnabled,
+        lockoutEnd: userResult.dados.user.lockoutEnd,
+        securityStamp: userResult.dados.user.securityStamp,
+        concurrencyStamp: userResult.dados.user.concurrencyStamp,
+        twoFactorEnabled: userResult.dados.user.twoFactorEnabled,
+        accessFailedCount: userResult.dados.user.accessFailedCount
       });
 
-      setAvatarImage(personResult.dados.image.fileContents === "" ? person.gender == 2 ? FemaleAvatar : MaleAvatar : personResult.dados.image !== null ? "data:" + personResult.dados.image.contentType + ";base64," + personResult.dados.image.fileContents : "",);
+      setAvatarImage(userResult.dados.image.fileContents === "" ? person.gender == 2 ? FemaleAvatar : MaleAvatar : userResult.dados.image !== null ? "data:" + userResult.dados.image.contentType + ";base64," + userResult.dados.image.fileContents : "",);
     },
     // Nota: é importante lidar com errros aqui
     // em vez de um bloco catch() para não receber
