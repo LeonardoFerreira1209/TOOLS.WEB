@@ -272,16 +272,16 @@ return (values != null ? (
             </div>
           </div>
           <div className="w-full mt-3">  
-              <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail<span className="text-rose-500">*</span></label>
-              <div className="relative">
-                <input id="email" onChange={onChange} value={values.email} name="email" className="form-input w-full pl-9" type="text" />
-                <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
-                  <svg className="w-5 h-5 shrink-0 text-slate-400 group-hover:text-slate-500 ml-3 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                    <path stroke-linecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
-                  </svg>
-                </div>
+            <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail<span className="text-rose-500">*</span></label>
+            <div className="relative">
+              <input id="email" onChange={onChange} value={values.email} name="email" className="form-input w-full pl-9" type="text" />
+              <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                <svg className="w-5 h-5 shrink-0 text-slate-400 group-hover:text-slate-500 ml-3 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                  <path stroke-linecap="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25" />
+                </svg>
               </div>
             </div>
+          </div>
         </section>
       </div> 
       {/* Panel footer */}

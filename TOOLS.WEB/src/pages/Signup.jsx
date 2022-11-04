@@ -77,12 +77,10 @@ function Signup() {
           LastName: values.lastName,
           Cpf: values.cpf,
           Gender: values.gender,
-          User: {
-            Username: values.username,
-            Password: values.password,
-            Email: values.email,
-            PhoneNumber: values.phoneNumber
-          }
+          Username: values.username,
+          Password: values.password,
+          Email: values.email,
+          PhoneNumber: values.phoneNumber
         }),
         cache: 'no-cache',
         credentials:'same-origin',
