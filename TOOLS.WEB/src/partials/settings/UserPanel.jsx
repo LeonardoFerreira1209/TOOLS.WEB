@@ -44,7 +44,6 @@ fetch(`https://localhost:7125/api/Person/get/${props.id}`, {
   referrerPolicy: 'no-referrer',
 })
   .then(response => response.json()).then((userResult) => {
-    debugger
       setValues({
         UserId: userResult.dados.userId,
         firstName: userResult.dados.firstName !== null && userResult.dados.firstName,

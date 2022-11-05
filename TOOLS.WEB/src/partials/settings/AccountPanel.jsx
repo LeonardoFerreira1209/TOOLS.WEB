@@ -43,25 +43,25 @@ const { user } = useContext(StoreContext)
     redirect: 'follow',
     referrerPolicy: 'no-referrer',
   })
-    .then(response => response.json()).then((userResult) => {
+    .then(response => response.json()).then((results) => {
         setValues({
-          id: userResult.dados.id,
-          username: userResult.dados.userName,
-          password: userResult.dados.password,
-          email: userResult.dados.email,
-          phoneNumber: userResult.dados.phoneNumber,
-          firstName: userResult.dados.firstName,
-          lastName: userResult.dados.lastName,
-          age: userResult.dados.age,
-          birthDay: userResult.dados.birthDay,
-          gender: userResult.dados.gender,
-          imageUri: userResult.dados.imageUri,
-          rg: userResult.dados.rg,
-          cpf: userResult.dados.cpf,
-          status: userResult.dados.status
+          id: results.dados.id,
+          username: results.dados.userName,
+          password: results.dados.password,
+          email: results.dados.email,
+          phoneNumber: results.dados.phoneNumber,
+          firstName: results.dados.firstName,
+          lastName: results.dados.lastName,
+          age: results.dados.age,
+          birthDay: results.dados.birthDay,
+          gender: results.dados.gender,
+          imageUri: results.dados.imageUri,
+          rg: results.dados.rg,
+          cpf: results.dados.cpf,
+          status: results.dados.status
         });
 
-        setAvatarImage(userResult.dados.imageUri === null ? userResult.dados.gender == 2 ? FemaleAvatar : MaleAvatar : userResult.dados.imageUri);
+        setAvatarImage(results.dados.imageUri === null ? results.dados.gender == 2 ? FemaleAvatar : MaleAvatar : results.dados.imageUri);
       },
       // Nota: é importante lidar com errros aqui
       // em vez de um bloco catch() para não receber
@@ -85,7 +85,6 @@ function update(event) {
 
   setLoading(true);
 
-  debugger
   fetch("https://localhost:7125/api/user/update", {
     crossDomain:true,
     mode:'cors', 
@@ -117,6 +116,23 @@ function update(event) {
         toast.success("Edição feita com sucesso!", {
           theme: 'light',
           autoClose: true
+        });
+
+        setValues({
+          id: results.dados.id,
+          username: results.dados.userName,
+          password: results.dados.password,
+          email: results.dados.email,
+          phoneNumber: results.dados.phoneNumber,
+          firstName: results.dados.firstName,
+          lastName: results.dados.lastName,
+          age: results.dados.age,
+          birthDay: results.dados.birthDay,
+          gender: results.dados.gender,
+          imageUri: results.dados.imageUri,
+          rg: results.dados.rg,
+          cpf: results.dados.cpf,
+          status: results.dados.status
         });
 
         setLoading(false);
@@ -172,7 +188,7 @@ fetch(`https://localhost:7125/api/user/updateUserImage/${values.id}`, {
 
       setAvatarImage(avatar);
         
-      toast.success("Imagem salva com sucesso!", {
+      toast.success("Imagem atualizada com sucesso!", {
           theme: 'light',
           autoClose: true
       });
@@ -187,7 +203,7 @@ fetch(`https://localhost:7125/api/user/updateUserImage/${values.id}`, {
   (error) => {
     console.error(error.message);
     
-    toast.error("Ops, Falha ao salvar imagem", {
+    toast.error("Ops, Falha ao atualizar imagem", {
       theme: 'light',
       autoClose: true
     });
@@ -196,7 +212,7 @@ fetch(`https://localhost:7125/api/user/updateUserImage/${values.id}`, {
 ).catch((error) => {
     console.error(error.message);
 
-    toast.error("Ops, Falha ao salvar imagem!", {
+    toast.error("Ops, Falha ao atualizar imagem!", {
       theme: 'light',
       autoClose: true
     });
@@ -465,7 +481,7 @@ return (values != null ? (
           <div className="flex self-end">
             <Link to={`/community/users-tiles`} className="btn border-slate-200 hover:border-slate-300 text-slate-600">Cancelar</Link>
             {
-              !loading ? (<button id='btnSave' onClick={update} className="btn bg-gradient-primary-500 text-white ml-3">Salvar</button>) :  (<button id='btnSave' onClick={update} disabled className="btn bg-gradient-primary-500 text-white disabled:cursor-not-allowed ml-3">
+              !loading ? (<button id='btnSave' onClick={update} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-3">Salvar</button>) :  (<button id='btnSave' onClick={update} disabled className="btn bg-gradient-primary-500 text-white disabled:cursor-not-allowed ml-3">
                 <lord-icon
                   src="https://cdn.lordicon.com/yiniatmi.json"
                   trigger="loop"

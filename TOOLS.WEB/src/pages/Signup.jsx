@@ -88,7 +88,6 @@ function Signup() {
         referrerPolicy: 'no-referrer'
       })
       .then(response => response.json()).then((results) => {
-        debugger
           if(results.sucesso){
             navigate("/");
           }
