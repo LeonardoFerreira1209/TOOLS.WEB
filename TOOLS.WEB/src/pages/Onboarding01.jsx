@@ -7,16 +7,11 @@ import OnboardingDecoration from '../images/auth-decoration.png';
 function Onboarding01() {
   return (
     <main className="bg-white">
-
       <div className="relative flex">
-
         {/* Content */}
         <div className="w-full md:w-1/2">
-
           <div className="min-h-screen h-full flex flex-col after:flex-1">
-
             <div className="flex-1">
-
               {/* Header */}
               <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
                 {/* Logo */}
@@ -66,10 +61,8 @@ function Onboarding01() {
                 </div>
               </div>
             </div>
-
             <div className="px-4 py-8">
               <div className="max-w-md mx-auto">
-
                 <h1 className="text-3xl text-slate-800 font-bold mb-6">Tell us what’s your situation ✨</h1>
                 {/* Form */}
                 <form>
@@ -112,12 +105,9 @@ function Onboarding01() {
                     <Link className="btn bg-indigo-500 hover:bg-indigo-600 text-white ml-auto" to="/onboarding-02">Next Step -&gt;</Link>
                   </div>
                 </form>
-
               </div>
             </div>
-
           </div>
-
         </div>
 
         {/* Image */}
@@ -125,9 +115,7 @@ function Onboarding01() {
           <img className="object-cover object-center w-full h-full" src={OnboardingImage} width="760" height="1024" alt="Onboarding" />
           <img className="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block" src={OnboardingDecoration} width="218" height="224" alt="Authentication decoration" />
         </div>
-
       </div>
-
     </main>
   );
 }

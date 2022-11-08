@@ -15,7 +15,7 @@ function SettingsSidebar({ props }) {
           <li className="mr-0.5 md:mr-0 md:mb-0.5">
             <NavLink end to={`/settings/account/${props.id}`} className={`flex items-center px-2.5 py-2 rounded whitespace-nowrap ${pathname.includes(`/settings/account/${props.id}`) && 'bg-indigo-50'}`}>
               <svg className={`w-5 h-6 mr-2 ${pathname.includes(`/settings/account/${props.id}`) && 'color-primary'}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
               </svg>
               <span className={`text-sm font-medium ${pathname.includes(`/settings/account/${props.id}`) ? 'color-primary' : 'hover:text-slate-700'}`}>Dados básicos</span>
             </NavLink>
@@ -23,7 +23,7 @@ function SettingsSidebar({ props }) {
           <li className="mr-0.5 md:mr-0 md:mb-0.5">
             <NavLink end to={`/settings/user/${props.id}`} className={`flex items-center px-2.5 py-2 rounded whitespace-nowrap ${pathname.includes(`/settings/user/${props.id}`) && 'bg-indigo-50'}`}>
               <svg className={`w-5 h-6 mr-2 ${pathname.includes(`/settings/user/${props.id}`) && 'color-primary'}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
               </svg>
               <span className={`text-sm font-medium ${pathname.includes(`/settings/user/${props.id}`) ? 'color-primary' : 'hover:text-slate-700'}`}>Dados confidênciais</span>
             </NavLink>
@@ -31,7 +31,7 @@ function SettingsSidebar({ props }) {
           <li className="mr-0.5 md:mr-0 md:mb-0.5">
             <NavLink end to={`/settings/permission/${props.id}`} className={`flex items-center px-2.5 py-2 rounded whitespace-nowrap ${pathname.includes(`/settings/permission/${props.id}`) && 'bg-indigo-50'}`}>
               <svg className={`w-5 h-6 mr-2 ${pathname.includes(`/settings/permission/${props.id}`) && 'color-primary'}`} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.0} stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
               </svg>
               <span className={`text-sm font-medium ${pathname.includes(`/settings/business`) ? 'color-primary' : 'hover:text-slate-700'}`}>Permissões do usuário</span>
             </NavLink>

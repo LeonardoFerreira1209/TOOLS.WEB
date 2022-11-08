@@ -61,7 +61,8 @@ import EmptyState from './pages/utility/EmptyState';
 import PageNotFound from './pages/utility/PageNotFound';
 import KnowledgeBase from './pages/utility/KnowledgeBase';
 import Signin from './pages/Signin';
-import Signup from './pages/Signup';
+import Signup01 from './pages/Signup01';
+import Signup02 from './pages/Signup02';
 import ResetPassword from './pages/ResetPassword';
 import Onboarding01 from './pages/Onboarding01';
 import Onboarding02 from './pages/Onboarding02';
@@ -91,6 +92,7 @@ import Permission from './pages/settings/Permission';
 import { loadAnimation } from "lottie-web";
 import { defineLordIconElement } from "lord-icon-element";
 import Business from './pages/settings/Business';
+import Signup03 from './pages/Signup03';
 
 
 // register lottie and define custom element
@@ -125,7 +127,9 @@ function App() {
           {/* No required login */}
           <Route exact path="/" element={<Home/>} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup01" element={<Signup01 />} />
+          <Route path="/signup02" element={<Signup02 />} />
+          <Route path="/signup03" element={<Signup03 />} />
           <Route path="/confirmEmail/:code/:userId" element={ <ConfirmEmail /> } />
           <Route path="/reset-password" element={<ResetPassword />} />
           {/* Required login */}
