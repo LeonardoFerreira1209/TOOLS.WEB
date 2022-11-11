@@ -1,51 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
-
-import InputMask from 'react-input-mask';
+import React, { useState } from 'react';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.jpg';
 import AuthDecoration from '../images/auth-decoration.png';
 
 function Signup01() {
-
   // -- INPUTS 
+  const params = useLocation();
   const [values, setValues] = useState(initialState);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // params obj
+  const data = { situation: values.situation, firstname:  params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, rg: params.state.rg, gender: params.state.gender, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
 
   // -- VALIDATES
   function isInvalid() {
-    if(values.firstName === "") { setError("Preencha o campo nome!");  setLoading(false); return true; }
-
-    if(values.lastName === "") { setError("Preencha o campo sobrenome!"); setLoading(false); return true; }
-
-    if(values.username === "") { setError("Preencha o campo nome de usuário!"); setLoading(false); return true; }
-
-    if(values.password === "") { setError("Preencha o campo senha!"); setLoading(false); return true; }
-
-    if(values.email === "") { setError("Preencha o campo e-mail!"); setLoading(false); return true; }
-
-    if(values.phoneNumber === "") { setError("Preencha o campo celular!"); setLoading(false); return true; }
-
-    if(values.male === "") { setError("Preencha o campo sexo!"); setLoading(false); return true; }
-
-    if(values.cpf === "") { setError("Preencha o campo Cadastro de pessoa física!"); setLoading(false); return true; }
+    if(values.situation === "") { setError("Preencha o campo situação!");  return true; }
 
     return false;
   };
   // -- VALIDATES
 
   function initialState() {
+
       return {
-      firstName: '', 
-      lastName: '',
-      username: '',
-      password: '',
-      email: '',
-      phoneNumber: '',
-      gender: 1,
-      cpf: ''
+        situation: params.state.situation
     };
   }
 
@@ -59,49 +39,13 @@ function Signup01() {
   }
   // -- INPUTS
 
-  // -- API CONSUMER
-  function Create(event) {
+  // -- FUNCTIONS
+  function Next(event) {
     event.preventDefault();
 
-    setLoading(true);
-
-    if(!isInvalid())
-    {
-      fetch("https://localhost:7125/api/User/create", {
-        crossDomain:true,
-        mode:'cors', 
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          FirstName: values.firstName,
-          LastName: values.lastName,
-          Cpf: values.cpf,
-          Gender: values.gender,
-          Username: values.username,
-          Password: values.password,
-          Email: values.email,
-          PhoneNumber: values.phoneNumber
-        }),
-        cache: 'no-cache',
-        credentials:'same-origin',
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer'
-      })
-      .then(response => response.json()).then((results) => {
-          if(results.sucesso){
-            navigate("/");
-          }
-          else{
-            setError(results.notificacoes[0].mensagem); setLoading(false);
-          }
-        },
-        (error) => {
-          setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
-        }
-      )
-    }
+    if(!isInvalid()) { navigate(`/signup02/basic`, { state:  data }) };
    }
-  // -- API CONSUMER
+  // -- FUNCTIONS
 
   // -- RETURN
   return (
@@ -147,7 +91,6 @@ function Signup01() {
               </div>
             </div>
           </div>
-
           {/* Progress bar */}
           <div data-aos="fade-right" className="px-4 pt-12 pb-8">
             <div className="max-w-md mx-auto w-full">
@@ -155,30 +98,29 @@ function Signup01() {
                 <div className="absolute left-0 top-1/2 -mt-px w-full h-0.5 bg-slate-200" aria-hidden="true"></div>
                 <ul className="relative flex justify-between w-full">
                   <li>
-                    <Link className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white" to="/signup01">1</Link>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">1</div>
                   </li>
                   <li>
-                    <Link className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500" to="/signup02">2</Link>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500" to="">2</div>
                   </li>
                   <li>
-                    <Link className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500" to="/onboarding-03">3</Link>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500" to="">3</div>
                   </li>
                   <li>
-                    <Link className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500" to="/onboarding-04">4</Link>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500" to="">4</div>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-
           <div className="px-4 py-8">
               <div className="max-w-md mx-auto">
-                <h1 className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Qual sua situação <b className='text-indigo-100'>✨</b></h1>
+                <h1 data-aos="fade-left" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Qual sua situação <b className='text-indigo-100'>✨</b></h1>
                 {/* Form */}
                 <form>
                   <div className="space-y-3 mb-8">
                     <label className="relative block cursor-pointer">
-                      <input type="radio" name="radio-buttons" className="peer sr-only" defaultChecked />
+                      <input onChange={onChange} value="1" type="radio" name="situation" className="peer situation sr-only" checked={values.situation === '1'}/>
                       <div className="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
                         <svg className="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
                           <path className="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />
@@ -190,7 +132,7 @@ function Signup01() {
                       <div className="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
                     </label>
                     <label className="relative block cursor-pointer">
-                      <input type="radio" name="radio-buttons" className="peer sr-only" />
+                      <input onChange={onChange} value="2" type="radio" name="situation" className="peer situation sr-only" checked={values.situation === '2'}/>
                       <div className="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
                         <svg className="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
                           <path className="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />
@@ -201,7 +143,7 @@ function Signup01() {
                       <div className="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
                     </label>
                     <label className="relative block cursor-pointer">
-                      <input type="radio" name="radio-buttons" className="peer sr-only" />
+                      <input onChange={onChange} value="3" type="radio" name="situation" className="peer situation sr-only" checked={values.situation === '3'}/>
                       <div className="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
                         <svg className="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
                           <path className="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />
@@ -212,7 +154,7 @@ function Signup01() {
                     </label>
                   </div>
                   <div className="flex items-center justify-between mt-6">
-                    <Link className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto" to="/signup02">Próximo passo -&gt;</Link>
+                    <button onClick={Next} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">Próximo passo -&gt;</button>
                   </div>
                 </form>
               </div>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import InputMask from 'react-input-mask';
 
@@ -9,21 +9,24 @@ import AuthDecoration from '../images/auth-decoration.png';
 function Signup03() {
 
   // -- INPUTS 
+  const params = useLocation();
   const [values, setValues] = useState(initialState);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
+  // params obj
+  const data = { situation: params.state.situation, firstname:  params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, rg: params.state.rg, gender: params.state.gender, username: values.username, password: values.password, email: values.email, phoneNumber: values.phoneNumber };
 
   // -- VALIDATES
   function isInvalid() {
    
-    if(values.username === "") { setError("Preencha o campo nome de usuário!"); setLoading(false); return true; }
+    if(values.username === "" || values.username === undefined) { setError("Preencha o campo nome de usuário!"); return true; }
 
-    if(values.password === "") { setError("Preencha o campo senha!"); setLoading(false); return true; }
+    if(values.password === "" || values.password === undefined) { setError("Preencha o campo senha!"); return true; }
 
-    if(values.email === "") { setError("Preencha o campo e-mail!"); setLoading(false); return true; }
+    if(values.email === "" || values.email === undefined) { setError("Preencha o campo e-mail!"); return true; }
 
-    if(values.phoneNumber === "") { setError("Preencha o campo celular!"); setLoading(false); return true; }
+    if(values.phoneNumber === "" || values.phoneNumber === undefined) { setError("Preencha o campo celular!"); return true; }
 
     return false;
   };
@@ -31,10 +34,10 @@ function Signup03() {
 
   function initialState() {
       return {
-      username: '',
-      password: '',
-      email: '',
-      phoneNumber: '',
+      username: params.state.username,
+      password: params.state.password,
+      email: params.state.email,
+      phoneNumber: params.state.phoneNumber,
     };
   }
 
@@ -48,49 +51,13 @@ function Signup03() {
   }
   // -- INPUTS
 
-  // -- API CONSUMER
-  function Create(event) {
+   // -- FUNCTIONS
+   function Next(event) {
     event.preventDefault();
-
-    setLoading(true);
-
-    if(!isInvalid())
-    {
-      fetch("https://localhost:7125/api/User/create", {
-        crossDomain:true,
-        mode:'cors', 
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          FirstName: values.firstName,
-          LastName: values.lastName,
-          Cpf: values.cpf,
-          Gender: values.gender,
-          Username: values.username,
-          Password: values.password,
-          Email: values.email,
-          PhoneNumber: values.phoneNumber
-        }),
-        cache: 'no-cache',
-        credentials:'same-origin',
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer'
-      })
-      .then(response => response.json()).then((results) => {
-          if(results.sucesso){
-            navigate("/");
-          }
-          else{
-            setError(results.notificacoes[0].mensagem); setLoading(false);
-          }
-        },
-        (error) => {
-          setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
-        }
-      )
-    }
+    
+    if(!isInvalid()) { navigate(`/signup02/basic`, { state: data }) };
    }
-  // -- API CONSUMER
+  // -- FUNCTIONS
 
   // -- RETURN
   return (
@@ -144,16 +111,16 @@ function Signup03() {
                 <div className="absolute left-0 top-1/2 -mt-px w-full h-0.5 bg-slate-200" aria-hidden="true"></div>
                 <ul className="relative flex justify-between w-full">
                   <li>
-                    <Link className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white" to="/signup01">1</Link>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">1</div>
                   </li>
                   <li>
-                    <Link className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white" to="/signup02">2</Link>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">2</div>
                   </li>
                   <li>
-                    <Link className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white" to="/signup03">3</Link>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">3</div>
                   </li>
                   <li>
-                    <Link className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500" to="/onboarding-04">4</Link>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">4</div>
                   </li>
                 </ul>
               </div>
@@ -161,7 +128,7 @@ function Signup03() {
           </div>
 
           <div className="md:max-w-md lg:max-w-lg mx-auto px-4 py-8">
-            <h1 className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Informe os dados de usuário<b className='text-indigo-100'>✨</b></h1>
+            <h1 data-aos="fade-left" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Informe os dados de usuário<b className='text-indigo-100'>✨</b></h1>
             {/* Form */}
             <form>
               <div className='grid gap-3 md:grid-cols-2 mt-2'>
@@ -214,7 +181,7 @@ function Signup03() {
               </div>
                {/* Error */}
                { error !== null && 
-                  <div className="mt-5">
+                  <div data-aos="fade-left" className="mt-5">
                     <div className="bg-gradient-danger-500 text-white px-3 py-2 rounded">
                       x&ensp;
                       <span className="text-sm">
@@ -229,21 +196,10 @@ function Signup03() {
                         <span className="text-sm ml-2">Receber e-mail com novidades.</span>
                       </label>
                     </div>
-                {/* <button onClick={Create} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-3">
-                {
-                  !loading ? ("Cadastrar") : (
-                    <lord-icon
-                      src="https://cdn.lordicon.com/yiniatmi.json"
-                      trigger="loop"
-                      colors="primary:#ffffff"
-                      style={{width:67,height:20}}>
-                    </lord-icon>
-                  )}
-                </button> */}
               </div>
               <div className="flex items-center justify-between mt-6">
-                <Link className="text-sm underline text-red-300 hover:no-underline" to="/signup02">&lt;- Voltar</Link>
-                <Link className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto" to="/signup02">Próximo passo -&gt;</Link>
+              <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup02/basic`} state={ data }>&lt;- Voltar</Link>
+                <button onClick={Next} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">Próximo passo -&gt;</button>
               </div>
             </form>
           </div>

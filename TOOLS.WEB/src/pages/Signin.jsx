@@ -1,5 +1,5 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { parseJwt } from '../utils/Utils';
 import ContextUser from '../components/store/context/ContextUser';
 
@@ -10,8 +10,6 @@ import 'aos/dist/aos.css';
 
 function Signin() {
   // -- CONSTS
-  const navigate = useNavigate();
-  const { state } = useLocation();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -203,7 +201,7 @@ function Signin() {
               {/* Footer */}
               <div className="pt-5 mt-6 border-t border-slate-200">
                 <div data-aos="fade-right" className="text-sm">
-                  Não têm uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signup01">Se cadastrar</Link>
+                  Não têm uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signup01/situation" state={ { situation: "1" } }>Se cadastrar</Link>
                 </div>
                 {/* Warning */}
                 <div data-aos="fade-up" className="mt-5">
