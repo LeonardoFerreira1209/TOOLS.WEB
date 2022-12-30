@@ -11,9 +11,9 @@ function Signup01() {
   const navigate = useNavigate();
 
   // params obj
-  const data = { situation: values.situation, unloadedanimation: false, companytype: params.state.companytype, firstname:  params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, rg: params.state.rg, gender: params.state.gender, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
+  const data = { situation: values.situation, unloadedanimation: false, intendedtype: params.state.intendedtype, firstname:  params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf,  birthday: params.state.birthday, rg: params.state.rg, gender: params.state.gender, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
 
-  debugger
+  
   function initialState() {
 
       return {
@@ -101,9 +101,6 @@ function Signup01() {
                   <li>
                     <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500" to="">4</div>
                   </li>
-                  <li>
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500" to="">5</div>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -122,7 +119,7 @@ function Signup01() {
                           <path className="text-sky-500" d="m11 12.588-9-5V18a1 1 0 0 0 .514.874L11 23.588v-11Z" />
                           <path className="text-indigo-500" d="M13 12.588v11l8.486-4.714A1 1 0 0 0 22 18V7.589l-9 4.999Z" />
                         </svg>
-                        <span className="text-slate-500">A empresa é minha</span>
+                        <span className="text-slate-500">Irei usar em uma sistema meu.</span>
                       </div>
                       <div className="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
                     </label>
@@ -133,13 +130,13 @@ function Signup01() {
                           <path className="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />
                           <path className="text-sky-500" d="m11 12.588-9-5V18a1 1 0 0 0 .514.874L11 23.588v-11Z" />
                         </svg>
-                        <span className="text-slate-500">Faço parte de uma empresa que não é minha.</span>
+                        <span className="text-slate-500">Irei usar em um sistema de terceiro.</span>
                       </div>
                       <div className="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
                     </label>
                   </div>
                   <div className="flex items-center justify-between mt-6">
-                    <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup0/companytype`} state={ data }>&lt;- Voltar</Link>
+                    <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup0/intendedtype`} state={ data }>&lt;- Voltar</Link>
                     <button onClick={Next} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">Próximo passo -&gt;</button>
                   </div>
                 </form>

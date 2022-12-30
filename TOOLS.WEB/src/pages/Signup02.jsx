@@ -15,7 +15,7 @@ function Signup02() {
   const [error, setError] = useState(null);
 
   // params obj
-  const data = { situation: params.state.situation, unloadedanimation: false, companytype: params.state.companytype, firstname: values.firstName, lastname: values.lastName, cpf: values.cpf, rg: values.rg, gender: values.gender, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
+  const data = { situation: params.state.situation, unloadedanimation: false, intendedtype: params.state.intendedtype, firstname: values.firstName, lastname: values.lastName, cpf: values.cpf, rg: values.rg, gender: values.gender, birthday: values.birthday, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
 
   // -- VALIDATES
   function isInvalid() {
@@ -27,6 +27,8 @@ function Signup02() {
 
     if(values.cpf === "" || values.cpf === undefined) { setError("Preencha o campo Cadastro de pessoa física!"); return true; }
 
+    if(values.birthday === "" || values.birthday === undefined) { setError("Preencha o campo Aniversário!"); return true; }
+
     return false;
   };
   // -- VALIDATES
@@ -37,7 +39,8 @@ function Signup02() {
       lastName: params.state.lastname,
       gender: params.state.gender,
       rg: params.state.rg,
-      cpf: params.state.cpf
+      cpf: params.state.cpf,
+      birthday: params.state.birthday
     };
   }
 
@@ -55,7 +58,7 @@ function Signup02() {
   function Next(event) {
     event.preventDefault();
 
-    debugger
+    
     if(!isInvalid()) { navigate(`/signup03/user`, { state: data }) };
 
    }
@@ -124,9 +127,6 @@ function Signup02() {
                   <li>
                     <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">4</div>
                   </li>
-                  <li>
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">5</div>
-                  </li>
                 </ul>
               </div>
             </div>
@@ -189,9 +189,20 @@ function Signup02() {
                   <label className="block text-sm font-medium mb-1" htmlFor="role">Sexo<span className="text-rose-500">*</span></label>
                   <div className="relative">
                     <select onChange={onChange} value={values.gender} id="gender" type="number" name='gender' className="form-select w-full pl-8">
-                      <option value={1}>Masculino</option>
+                      <option selected value={1}>Masculino</option>
                       <option value={2}>Feminino</option>
                     </select>
+                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
+                      <svg className="w-4 h-4 fill-current text-indigo-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
+                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1" htmlFor="phoneNumber">Aniversário<span className="text-rose-500">*</span></label>
+                  <div className="relative">
+                    <InputMask mask={'99/99/9999'} onChange={onChange} value={values.birthday} id="birthday" name='birthday' className="form-input w-full pl-9" type="birthday" autoComplete="on"/>
                     <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
                       <svg className="w-4 h-4 fill-current text-indigo-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
                         <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />

@@ -56,7 +56,7 @@ function Signin() {
 
     if(!isInvalid())
     {
-      fetch("https://localhost:7125/api/User/authetication", {
+      fetch(`${process.env.BASE_URL}api/User/authetication`, {
       headers: {
         'username': values.user,
         'password': values.password
@@ -76,7 +76,7 @@ function Signin() {
               tokenJwt: results.dados.value,
               tokenObj: parseJwt(results.dados.value)
             });
-            debugger
+            
             navigate(state?.path || "/dashboard");
           }
           else{
@@ -208,7 +208,7 @@ function Signin() {
               {/* Footer */}
               <div className="pt-5 mt-6 border-t border-slate-200">
                 <div data-aos="fade-right" className="text-sm">
-                  Não têm uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signup0/companytype" state={ { companytype: "1", unloadedanimation: true } }>Se cadastrar</Link>
+                  Não têm uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signup0/intendedtype" state={ { intendedtype: "1", unloadedanimation: true } }>Se cadastrar</Link>
                 </div>
                 {/* Warning */}
                 <div data-aos="fade-up" className="mt-5">

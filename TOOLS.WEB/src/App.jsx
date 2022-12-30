@@ -128,7 +128,7 @@ function App() {
           {/* No required login */}
           <Route exact path="/" element={<Home/>} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/signup0/companytype" element={<Signup0 />} />
+          <Route path="/signup0/intendedtype" element={<Signup0 />} />
           <Route path="/signup01/situation" element={<Signup01 />} />
           <Route path="/signup02/basic" element={<Signup02 />} />
           <Route path="/signup03/user" element={<Signup03 />} />

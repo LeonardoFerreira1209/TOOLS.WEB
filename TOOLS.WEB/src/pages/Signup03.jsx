@@ -10,12 +10,13 @@ function Signup03() {
 
   // -- INPUTS 
   const params = useLocation();
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState(initialState);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
+  
   // params obj
-  const data = { situation: params.state.situation, unloadedanimation: false, companytype: params.state.companytype, firstname: params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, rg: params.state.rg, gender: params.state.gender, username: values.username, password: values.password, email: values.email, phoneNumber: values.phoneNumber };
+  const data = { situation: params.state.situation, unloadedanimation: false, intendedtype: params.state.intendedtype, firstname: params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, birthday: params.state.birthday, rg: params.state.rg, gender: params.state.gender, username: values.username, password: values.password, email: values.email, phoneNumber: values.phoneNumber };
 
   // -- VALIDATES
   function isInvalid() {
@@ -51,10 +52,62 @@ function Signup03() {
   // -- INPUTS
 
    // -- FUNCTIONS
-   function Next(event) {
-    event.preventDefault();
+   function Create(event) {
     
-    if(!isInvalid()) { navigate(`/signup02/basic`, { state: data }) };
+    event.preventDefault();
+
+    setLoading(true);
+
+    if(!isInvalid())
+    {
+      fetch("https://localhost:7125/api/User/create", 
+      {
+          crossDomain:true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          mode:'cors', 
+          method: 'POST',
+          body: JSON.stringify({
+            FirstName: params.state.firstname,
+            LastName: params.state.lastname,
+            BirthDay: params.state.birthday,
+            Gender: params.state.gender,
+            RG: params.state.rg,
+            CPF: params.state.cpf,
+            UserName: values.username,
+            Email: values.email,
+            Password: values.password,
+            PhoneNumber: values.phoneNumber,
+            PlanId: "AF97A7D9-0CC9-4AFC-3A6E-08DAE94C722C"
+          })
+        })
+        .then(response => response.json()).then((results) => {
+          
+            if(results.sucesso){    
+              setUser({
+                tokenJwt: results.dados.value,
+                tokenObj: parseJwt(results.dados.value)
+              });
+
+              navigate(state?.path || "/dashboard");
+            }
+            else{
+              setError(results.notificacoes[0].mensagem); setLoading(false);
+            }
+          },
+          (error) => {
+            console.error(error);
+
+            setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+          }
+
+        ).catch(error => {
+          console.error(error);
+
+          setError("Ops, tivemos um erro inesperado!"); setLoading(false);
+      });
+    };
    }
   // -- FUNCTIONS
 
@@ -120,9 +173,6 @@ function Signup03() {
                   </li>
                   <li>
                     <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">4</div>
-                  </li>
-                  <li>
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">5</div>
                   </li>
                 </ul>
               </div>
@@ -191,17 +241,18 @@ function Signup03() {
                       </span>
                     </div>
                   </div> }
-                  <div className="flex items-center justify-between mt-6">
-                    <div className="mr-1">
-                      <label className="flex items-center">
-                        <input type="checkbox" className="form-checkbox" />
-                        <span className="text-sm ml-2">Receber e-mail com novidades.</span>
-                      </label>
-                    </div>
-              </div>
               <div className="flex items-center justify-between mt-6">
-              <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup02/basic`} state={ data }>&lt;- Voltar</Link>
-                <button onClick={Next} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">Próximo passo -&gt;</button>
+                <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup02/basic`} state={ data }>&lt;- Voltar</Link>
+                <button onClick={Create} type="button" className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">
+                    {loading === false  ? ("Criar usuário") : (
+                      <lord-icon
+                        src="https://cdn.lordicon.com/yiniatmi.json"
+                        trigger="loop"
+                        colors="primary:#ffffff"
+                        style={{width:40,height:20}}>
+                      </lord-icon>
+                    )}
+                  </button>
               </div>
             </form>
           </div>

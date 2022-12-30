@@ -109,7 +109,7 @@ function HomeHeader() {
                 <Link to="/signin" className="font-medium text-[#008df6] hover:text-sky-400 px-4 py-3 flex items-center transition duration-150 ease-in-out">Entrar</Link>
               </li>
               <li>
-                <Link to="/signup0/companytype" state={ { companytype: "1", unloadedanimation: true } } className="btn-sm text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-3">Cadastre-se</Link>
+                <Link to="/signup0/intendedtype" state={ { intendedtype: "1", unloadedanimation: true } } className="btn-sm text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-3">Cadastre-se</Link>
               </li>
             </ul>
 
@@ -161,7 +161,7 @@ function HomeHeader() {
                   <Link to="/signin" className="flex font-medium w-full text-purple-600 hover:text-gray-200 py-2 justify-center">Entrar</Link>
                 </li>
                 <li>
-                  <Link to="/signup0/companytype" state={ { companytype: "1", unloadedanimation: true } } className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-white bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out">Cadastre-se</Link>
+                  <Link to="/signup0/intendedtype" state={ { intendedtype: "1", unloadedanimation: true } } className="font-medium w-full inline-flex items-center justify-center border border-transparent px-4 py-2 my-2 rounded-sm text-white bg-purple-600 hover:bg-purple-700 transition duration-150 ease-in-out">Cadastre-se</Link>
                 </li>
               </ul>
             </nav>
