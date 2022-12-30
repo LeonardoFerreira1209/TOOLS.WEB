@@ -15,15 +15,13 @@ function Signup02() {
   const [error, setError] = useState(null);
 
   // params obj
-  const data = { situation: params.state.situation, firstname: values.firstName, lastname: values.lastName, cpf: values.cpf, rg: values.rg, gender: values.gender, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
+  const data = { situation: params.state.situation, unloadedanimation: false, companytype: params.state.companytype, firstname: values.firstName, lastname: values.lastName, cpf: values.cpf, rg: values.rg, gender: values.gender, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
 
   // -- VALIDATES
   function isInvalid() {
     if(values.firstName === "" || values.firstName === undefined) { setError("Preencha o campo nome!"); return true; }
 
     if(values.lastName === "" || values.lastName === undefined) { setError("Preencha o campo sobrenome!"); return true; }
-
-    if(values.gender === "" || values.gender === undefined) { setError("Preencha o campo sexo!"); return true; }
 
     if(values.rg === "" || values.rg === undefined) { setError("Preencha o campo de Registro geral!"); return true; }
 
@@ -34,7 +32,6 @@ function Signup02() {
   // -- VALIDATES
 
   function initialState() {
-
       return {
       firstName: params.state.firstname, 
       lastName: params.state.lastname,
@@ -104,7 +101,7 @@ function Signup02() {
                 </svg>
               </NavLink>
               <div className="text-sm">
-                  Já têm uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signin">Entrar</Link>
+                  Já tem uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signin">Entrar</Link>
               </div>
             </div>
           </div>
@@ -122,10 +119,13 @@ function Signup02() {
                     <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">2</div>
                   </li>
                   <li>
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">3</div>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">3</div>
                   </li>
                   <li>
                     <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">4</div>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">5</div>
                   </li>
                 </ul>
               </div>
@@ -162,7 +162,7 @@ function Signup02() {
               </div>
               <div className='grid gap-3 md:grid-cols-2 mt-2'>
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="cpf">Cadastro de Pessoas Física<span className="text-rose-500">*</span></label>
+                  <label className="block text-sm font-medium mb-1" htmlFor="cpf">CPF<span className="text-rose-500">*</span></label>
                   <div className="relative">
                     <InputMask mask={'999.999.999-99'} onChange={onChange} value={values.cpf} id="cpf" name='cpf' className="form-input w-full pl-9" type="cpf"/>
                     <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
@@ -173,7 +173,7 @@ function Signup02() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="rg">Registro geral<span className="text-rose-500">*</span></label>
+                  <label className="block text-sm font-medium mb-1" htmlFor="rg">RG<span className="text-rose-500">*</span></label>
                   <div className="relative">
                     <InputMask mask={'99.999.999-9'} onChange={onChange} value={values.rg} id="rg" name='rg' className="form-input w-full pl-9" type="text" />
                     <div className="absolute inset-0 right-auto flex items-center pointer-events-none">

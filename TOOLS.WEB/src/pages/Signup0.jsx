@@ -4,20 +4,21 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.jpg';
 import AuthDecoration from '../images/auth-decoration.png';
 
-function Signup01() {
+function Signup0() {
   // -- INPUTS 
   const params = useLocation();
+  const [unloadedanimation] = useState(params.state.unloadedanimation);
   const [values, setValues] = useState(initialState);
   const navigate = useNavigate();
 
   // params obj
-  const data = { situation: values.situation, unloadedanimation: false, companytype: params.state.companytype, firstname:  params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, rg: params.state.rg, gender: params.state.gender, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
+  const data = { companytype: values.companytype, situation: params.state.situation, firstname:  params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, rg: params.state.rg, gender: params.state.gender, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
 
   debugger
   function initialState() {
 
       return {
-        situation: params.state.situation
+        companytype: params.state.companytype
     };
   }
 
@@ -35,7 +36,7 @@ function Signup01() {
   function Next(event) {
     event.preventDefault();
 
-    navigate(`/signup02/basic`, { state:  data });
+    navigate(`/signup01/situation`, { state:  data });
    }
   // -- FUNCTIONS
 
@@ -50,7 +51,7 @@ function Signup01() {
           <div className="flex-1">
             <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
               {/* Logo */}
-              <NavLink end to="/" className="block">
+              <NavLink data-aos={unloadedanimation ? "fade-left" : ""} end to="/" className="block">
                 <svg width="32" height="32" viewBox="0 0 32 32">
                   <defs>
                     <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a">
@@ -78,7 +79,7 @@ function Signup01() {
                   </g>
                 </svg>
               </NavLink>
-              <div className="text-sm">
+              <div  data-aos={unloadedanimation ? "fade-left" : ""} className="text-sm">
                   Já tem uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signin">Entrar</Link>
               </div>
             </div>
@@ -93,7 +94,7 @@ function Signup01() {
                     <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">1</div>
                   </li>
                   <li>
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">2</div>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500" to="">2</div>
                   </li>
                   <li>
                     <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500" to="">3</div>
@@ -113,33 +114,51 @@ function Signup01() {
                 <h1 data-aos="fade-left" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Qual sua situação <b className='text-indigo-100'>✨</b></h1>
                 {/* Form */}
                 <form>
-                  <div className="space-y-3 mb-8">
-                    <label className="relative block cursor-pointer">
-                      <input onChange={onChange} value="1" type="radio" name="situation" className="peer situation sr-only" checked={values.situation === '1' || values.situation === undefined}/>
-                      <div className="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
-                        <svg className="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
-                          <path className="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />
-                          <path className="text-sky-500" d="m11 12.588-9-5V18a1 1 0 0 0 .514.874L11 23.588v-11Z" />
-                          <path className="text-indigo-500" d="M13 12.588v11l8.486-4.714A1 1 0 0 0 22 18V7.589l-9 4.999Z" />
+                <div className="sm:flex space-y-3 sm:space-y-0 sm:space-x-4 mb-8">
+                    <label className="flex-1 relative block cursor-pointer">
+                      <input onChange={onChange} value="1" type="radio" name="companytype" className="peer sr-only" checked={values.companytype === '1'} />
+                      <div className="h-full text-center bg-white px-4 py-6 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
+                        <svg className="inline-flex w-10 h-10 shrink-0 fill-current mb-2" viewBox="0 0 40 40">
+                          <circle className="color-primary" cx="20" cy="20" r="20" />
+                          <path className="color-primary" d="m26.371 23.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 24 17v-1.828A4.087 4.087 0 0 0 20 11a4.087 4.087 0 0 0-4 4.172V17a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V27a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
                         </svg>
-                        <span className="text-slate-500">A empresa é minha</span>
+                        <div className="font-medium text-indigo-500 mb-1">Individual</div>
+                        <div className="text-sm">Não sou vinculado a uma empresa.</div>
                       </div>
                       <div className="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
                     </label>
-                    <label className="relative block cursor-pointer">
-                      <input onChange={onChange} value="2" type="radio" name="situation" className="peer situation sr-only" checked={values.situation === '2'}/>
-                      <div className="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
-                        <svg className="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
-                          <path className="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />
-                          <path className="text-sky-500" d="m11 12.588-9-5V18a1 1 0 0 0 .514.874L11 23.588v-11Z" />
+                    <label className="flex-1 relative block cursor-pointer">
+                      <input onChange={onChange} value="2" type="radio" name="companytype" className="peer sr-only" checked={values.companytype === '2'} />
+                      <div className="h-full text-center bg-white px-4 py-6 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
+                        <svg className="inline-flex w-10 h-10 shrink-0 fill-current mb-2" viewBox="0 0 40 40">
+                          <circle className="color-primary" cx="20" cy="20" r="20" />
+                          <path className="color-primary" d="m26.371 23.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 24 17v-1.828A4.087 4.087 0 0 0 20 11a4.087 4.087 0 0 0-4 4.172V17a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V27a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
+                          <circle className="color-primary" cx="20" cy="20" r="20" />
+                          <path className="color-primary" d="m30.377 22.749-3.709-1.5a1 1 0 0 1-.623-.926v-.878A3.989 3.989 0 0 0 28.027 16v-1.828c.047-2.257-1.728-4.124-3.964-4.172-2.236.048-4.011 1.915-3.964 4.172V16a3.989 3.989 0 0 0 1.982 3.445v.878a1 1 0 0 1-.623.928c-.906.266-1.626.557-2.159.872-.533.315-1.3 1.272-2.299 2.872 1.131.453 6.075-.546 6.072.682V28a2.99 2.99 0 0 1-.182 1h7.119A.996.996 0 0 0 31 28v-4.323a1 1 0 0 0-.623-.928Z" />
+                          <path className="color-primary" d="m22.371 24.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 20 18v-1.828A4.087 4.087 0 0 0 16 12a4.087 4.087 0 0 0-4 4.172V18a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V28a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
                         </svg>
-                        <span className="text-slate-500">Faço parte de uma empresa que não é minha.</span>
+                        <div className="font-medium text-indigo-500 mb-1">Organização</div>
+                        <div className="text-sm">Sou vinculado a uma empresa.</div>
                       </div>
                       <div className="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
                     </label>
                   </div>
+                  <div className="flex items-center justify-between space-x-6 mb-8">
+                    <div>
+                      <div className="font-medium text-slate-800 text-sm mb-1">💸 Lorem ipsum is place text commonly?</div>
+                      <div className="text-xs">Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts.</div>
+                    </div>
+                    <div className="flex items-center">
+                      <div className="form-switch">
+                        <input type="checkbox" id="switch" className="sr-only" defaultChecked />
+                        <label className="bg-slate-400" htmlFor="switch">
+                          <span className="bg-white shadow-sm" aria-hidden="true"></span>
+                          <span className="sr-only">Switch label</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
                   <div className="flex items-center justify-between mt-6">
-                    <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup0/companytype`} state={ data }>&lt;- Voltar</Link>
                     <button onClick={Next} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">Próximo passo -&gt;</button>
                   </div>
                 </form>
@@ -149,7 +168,7 @@ function Signup01() {
       </div>
       {/* Image */}
       <div className="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
-        <img className="object-cover object-center w-full h-full" src={AuthImage} width="760" height="1024" alt="Authentication" />
+        <img  data-aos={unloadedanimation ? "fade-left" : ""} className="object-cover object-center w-full h-full" src={AuthImage} width="760" height="1024" alt="Authentication" />
         <img className="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block"  src={AuthDecoration} width="218" height="224" alt="Authentication decoration" />
       </div>
     </div>
@@ -158,4 +177,4 @@ function Signup01() {
   // -- RETURN
 }
 
-export default Signup01;
+export default Signup0;

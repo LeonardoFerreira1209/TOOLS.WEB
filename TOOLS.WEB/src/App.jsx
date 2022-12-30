@@ -93,6 +93,7 @@ import { loadAnimation } from "lottie-web";
 import { defineLordIconElement } from "lord-icon-element";
 import Business from './pages/settings/Business';
 import Signup03 from './pages/Signup03';
+import Signup0 from './pages/Signup0';
 
 
 // register lottie and define custom element
@@ -127,6 +128,7 @@ function App() {
           {/* No required login */}
           <Route exact path="/" element={<Home/>} />
           <Route path="/signin" element={<Signin />} />
+          <Route path="/signup0/companytype" element={<Signup0 />} />
           <Route path="/signup01/situation" element={<Signup01 />} />
           <Route path="/signup02/basic" element={<Signup02 />} />
           <Route path="/signup03/user" element={<Signup03 />} />

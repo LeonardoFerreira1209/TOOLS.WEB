@@ -15,11 +15,10 @@ function Signup03() {
   const navigate = useNavigate();
 
   // params obj
-  const data = { situation: params.state.situation, firstname:  params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, rg: params.state.rg, gender: params.state.gender, username: values.username, password: values.password, email: values.email, phoneNumber: values.phoneNumber };
+  const data = { situation: params.state.situation, unloadedanimation: false, companytype: params.state.companytype, firstname: params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, rg: params.state.rg, gender: params.state.gender, username: values.username, password: values.password, email: values.email, phoneNumber: values.phoneNumber };
 
   // -- VALIDATES
   function isInvalid() {
-   
     if(values.username === "" || values.username === undefined) { setError("Preencha o campo nome de usuário!"); return true; }
 
     if(values.password === "" || values.password === undefined) { setError("Preencha o campo senha!"); return true; }
@@ -99,7 +98,7 @@ function Signup03() {
                 </svg>
               </NavLink>
               <div className="text-sm">
-                  Já têm uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signin">Entrar</Link>
+                  Já tem uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signin">Entrar</Link>
               </div>
             </div>
           </div>
@@ -120,7 +119,10 @@ function Signup03() {
                     <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">3</div>
                   </li>
                   <li>
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">4</div>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">4</div>
+                  </li>
+                  <li>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">5</div>
                   </li>
                 </ul>
               </div>
@@ -172,7 +174,7 @@ function Signup03() {
                   <div className="relative">
                     <InputMask mask={'+99(99)99999-9999'} onChange={onChange} value={values.phoneNumber} id="phoneNumber" name='phoneNumber' className="form-input w-full pl-9" type="phoneNumber" autoComplete="on"/>
                     <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
-                      <svg className="w-5 h-5 shrink-0 text-indigo-400 group-hover:text-slate-500 ml-3 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                      <svg className="w-5 h-5 shrink-0 text-indigo-400 group-hover:text-slate-500 ml-3 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                       </svg>
                     </div>
