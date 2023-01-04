@@ -60,7 +60,7 @@ function Signup03() {
 
     if(!isInvalid())
     {
-      fetch("https://localhost:7125/api/User/create", 
+      fetch(`${process.env.BASE_URL}/api/User/create`, 
       {
           crossDomain:true,
           headers: {
@@ -83,14 +83,8 @@ function Signup03() {
           })
         })
         .then(response => response.json()).then((results) => {
-          
             if(results.sucesso){    
-              setUser({
-                tokenJwt: results.dados.value,
-                tokenObj: parseJwt(results.dados.value)
-              });
-
-              navigate(state?.path || "/dashboard");
+              navigate("/signin");
             }
             else{
               setError(results.notificacoes[0].mensagem); setLoading(false);

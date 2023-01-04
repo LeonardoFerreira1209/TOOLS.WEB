@@ -31,7 +31,8 @@ const { user } = useContext(StoreContext)
 
 // -- FUNCTIONS
  useEffect(() => {
-  fetch(`https://localhost:7125/api/User/get/${props.id}`, {
+  fetch(`${process.env.BASE_URL}/api/User/get/${props.id}`, 
+  {
     headers: {
       'Authorization': `Bearer ${user.tokenJwt}`
     },
@@ -85,7 +86,7 @@ function update(event) {
 
   setLoading(true);
 
-  fetch("https://localhost:7125/api/user/update", {
+  fetch("${process.env.BASE_URL}api/user/update", {
     crossDomain:true,
     mode:'cors', 
     method: 'PUT',
@@ -174,7 +175,7 @@ const formData = new FormData();
 
 formData.append('File', event.target.files[0]);
 
-fetch(`https://localhost:7125/api/user/updateUserImage/${values.id}`, { 
+fetch(`${process.env.BASE_URL}api/user/updateUserImage/${values.id}`, { 
   method: 'PATCH',
   headers: { 
     'Authorization': `Bearer ${user.tokenJwt}`

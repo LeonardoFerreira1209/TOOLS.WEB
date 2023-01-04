@@ -25,7 +25,8 @@ function BusinessPanel({ props }) {
 
  // -- FUNCTIONS
  useEffect(() => {
-  fetch(`https://localhost:7125/api/Person/get/${user.tokenObj.personId}`, {
+  fetch(`${process.env.BASE_URL}/api/Person/get/${user.tokenObj.personId}`, 
+  {
     headers: {
       'Authorization': `Bearer ${user.tokenJwt}`
     },
@@ -77,7 +78,7 @@ function BusinessPanel({ props }) {
   
    setLoading(true);
 
-   fetch("https://localhost:7125/api/person/completeRegister", {
+   fetch("${process.env.BASE_URL}api/person/completeRegister", {
       crossDomain:true,
       mode:'cors', 
       method: 'PUT',

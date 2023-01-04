@@ -7,7 +7,7 @@ import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.jpg';
 import AuthDecoration from '../images/auth-decoration.png';
 
 function Signup02() {
-
+  
   // -- INPUTS 
   const params = useLocation();
   const navigate = useNavigate();
@@ -37,7 +37,7 @@ function Signup02() {
       return {
       firstName: params.state.firstname, 
       lastName: params.state.lastname,
-      gender: params.state.gender,
+      gender: params.state.gender === undefined ? "1" : params.state.gender,
       rg: params.state.rg,
       cpf: params.state.cpf,
       birthday: params.state.birthday
@@ -57,7 +57,6 @@ function Signup02() {
   // -- FUNCTIONS
   function Next(event) {
     event.preventDefault();
-
     
     if(!isInvalid()) { navigate(`/signup03/user`, { state: data }) };
 
@@ -189,8 +188,8 @@ function Signup02() {
                   <label className="block text-sm font-medium mb-1" htmlFor="role">Sexo<span className="text-rose-500">*</span></label>
                   <div className="relative">
                     <select onChange={onChange} value={values.gender} id="gender" type="number" name='gender' className="form-select w-full pl-8">
-                      <option selected value={1}>Masculino</option>
-                      <option value={2}>Feminino</option>
+                      <option selected value={"1"}>Masculino</option>
+                      <option value={"2"}>Feminino</option>
                     </select>
                     <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
                       <svg className="w-4 h-4 fill-current text-indigo-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">

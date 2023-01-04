@@ -20,18 +20,19 @@ const { user } = useContext(StoreContext)
 
 // -- FUNCTIONS
 useEffect(() => {
-fetch(`https://localhost:7125/api/Person/get/${props.id}`, {
-  headers: {
-    'Authorization': `Bearer ${user.tokenJwt}`
-  },
-  crossDomain:true,
-  mode:'cors', 
-  method: 'GET',
-  cache: 'no-cache',
-  credentials:'same-origin',
-  redirect: 'follow',
-  referrerPolicy: 'no-referrer',
-})
+  fetch(`${process.env.BASE_URL}/api/Person/get/${props.id}`, 
+  {
+    headers: {
+      'Authorization': `Bearer ${user.tokenJwt}`
+    },
+    crossDomain:true,
+    mode:'cors', 
+    method: 'GET',
+    cache: 'no-cache',
+    credentials:'same-origin',
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+  })
   .then(response => response.json()).then((userResult) => {
       setValues({
         UserId: userResult.dados.userId,
@@ -75,7 +76,7 @@ function update(event) {
 
   setLoading(true);
 
-  fetch("https://localhost:7125/api/user/update", {
+  fetch("${process.env.BASE_URL}api/user/update", {
     crossDomain:true,
     mode:'cors', 
     method: 'PUT',
