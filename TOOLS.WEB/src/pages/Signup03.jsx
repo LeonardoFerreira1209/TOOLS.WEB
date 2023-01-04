@@ -79,7 +79,7 @@ function Signup03() {
             Email: values.email,
             Password: values.password,
             PhoneNumber: values.phoneNumber,
-            PlanId: "AF97A7D9-0CC9-4AFC-3A6E-08DAE94C722C"
+            PlanId: `${process.env.PLAN_ID}`
           })
         })
         .then(response => response.json()).then((results) => {
