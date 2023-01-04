@@ -86,7 +86,7 @@ function update(event) {
 
   setLoading(true);
 
-  fetch("${process.env.BASE_URL}api/user/update", {
+  fetch(`${process.env.BASE_URL}/api/user/update`, {
     crossDomain:true,
     mode:'cors', 
     method: 'PUT',
@@ -175,7 +175,7 @@ const formData = new FormData();
 
 formData.append('File', event.target.files[0]);
 
-fetch(`${process.env.BASE_URL}api/user/updateUserImage/${values.id}`, { 
+fetch(`${process.env.BASE_URL}/api/user/updateUserImage/${values.id}`, { 
   method: 'PATCH',
   headers: { 
     'Authorization': `Bearer ${user.tokenJwt}`

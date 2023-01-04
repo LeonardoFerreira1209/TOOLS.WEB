@@ -64,7 +64,7 @@ function UsersTiles() {
   // -- SIGNALR
   useEffect(() => {
       const newConnection = new HubConnectionBuilder()
-        .withUrl("${process.env.BASE_URL}person")
+        .withUrl(`${process.env.BASE_URL}/person`)
         .withAutomaticReconnect()
         .build()
 

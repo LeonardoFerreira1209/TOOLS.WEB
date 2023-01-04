@@ -78,7 +78,8 @@ function BusinessPanel({ props }) {
   
    setLoading(true);
 
-   fetch("${process.env.BASE_URL}api/person/completeRegister", {
+   fetch(`${process.env.BASE_URL}/api/person/completeRegister`, 
+   {
       crossDomain:true,
       mode:'cors', 
       method: 'PUT',
