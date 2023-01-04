@@ -24,7 +24,7 @@ function UsersTiles() {
   // -- API CONSUMER
   useEffect(() => {
     
-    fetch(`${process.env.BASE_URL}/api/Person/getAll`, 
+    fetch(`${process.env.BASE_URL}api/Person/getAll`, 
     {
       headers: {
         'Authorization': `Bearer ${user.tokenJwt}`

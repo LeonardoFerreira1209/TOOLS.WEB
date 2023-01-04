@@ -60,7 +60,7 @@ function Signup03() {
 
     if(!isInvalid())
     {
-      fetch(`${process.env.BASE_URL}/api/User/create`, 
+      fetch(`${process.env.BASE_URL}api/User/create`, 
       {
           crossDomain:true,
           headers: {
