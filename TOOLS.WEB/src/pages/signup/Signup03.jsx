@@ -3,31 +3,30 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
 import InputMask from 'react-input-mask';
 
-import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.jpg';
-import AuthDecoration from '../images/auth-decoration.png';
+import AuthImage from '../../images/—Pngtree—2 5d learn know how_4117072.jpg';
+import AuthDecoration from '../../images/auth-decoration.png';
 
-function Signup02() {
-  
+function Signup03() {
+
   // -- INPUTS 
   const params = useLocation();
-  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
   const [values, setValues] = useState(initialState);
   const [error, setError] = useState(null);
-
+  const navigate = useNavigate();
+  
   // params obj
-  const data = { situation: params.state.situation, unloadedanimation: false, intendedtype: params.state.intendedtype, firstname: values.firstName, lastname: values.lastName, cpf: values.cpf, rg: values.rg, gender: values.gender, birthday: values.birthday, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
+  const data = { situation: params.state.situation, unloadedanimation: false, intendedtype: params.state.intendedtype, firstname: params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, birthday: params.state.birthday, rg: params.state.rg, gender: params.state.gender, username: values.username, password: values.password, email: values.email, phoneNumber: values.phoneNumber };
 
   // -- VALIDATES
   function isInvalid() {
-    if(values.firstName === "" || values.firstName === undefined) { setError("Preencha o campo nome!"); return true; }
+    if(values.username === "" || values.username === undefined) { setError("Preencha o campo nome de usuário!"); return true; }
 
-    if(values.lastName === "" || values.lastName === undefined) { setError("Preencha o campo sobrenome!"); return true; }
+    if(values.password === "" || values.password === undefined) { setError("Preencha o campo senha!"); return true; }
 
-    if(values.rg === "" || values.rg === undefined) { setError("Preencha o campo de Registro geral!"); return true; }
+    if(values.email === "" || values.email === undefined) { setError("Preencha o campo e-mail!"); return true; }
 
-    if(values.cpf === "" || values.cpf === undefined) { setError("Preencha o campo Cadastro de pessoa física!"); return true; }
-
-    if(values.birthday === "" || values.birthday === undefined) { setError("Preencha o campo Aniversário!"); return true; }
+    if(values.phoneNumber === "" || values.phoneNumber === undefined) { setError("Preencha o campo celular!"); return true; }
 
     return false;
   };
@@ -35,18 +34,16 @@ function Signup02() {
 
   function initialState() {
       return {
-      firstName: params.state.firstname, 
-      lastName: params.state.lastname,
-      gender: params.state.gender === undefined ? "1" : params.state.gender,
-      rg: params.state.rg,
-      cpf: params.state.cpf,
-      birthday: params.state.birthday
+      username: params.state.username,
+      password: params.state.password,
+      email: params.state.email,
+      phoneNumber: params.state.phoneNumber,
     };
   }
 
   function onChange(event) {
-    let {value, name} = event.target;
-    
+    const {value, name} = event.target;
+
     setValues(
     {...values, 
       [name]: value
@@ -54,12 +51,57 @@ function Signup02() {
   }
   // -- INPUTS
 
-  // -- FUNCTIONS
-  function Next(event) {
-    event.preventDefault();
+   // -- FUNCTIONS
+   function Create(event) {
     
-    if(!isInvalid()) { navigate(`/signup03/user`, { state: data }) };
+    event.preventDefault();
 
+    setLoading(true);
+
+    if(!isInvalid())
+    {
+      fetch(`${process.env.BASE_URL}api/User/create`, 
+      {
+          crossDomain:true,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          mode:'cors', 
+          method: 'POST',
+          body: JSON.stringify({
+            FirstName: params.state.firstname,
+            LastName: params.state.lastname,
+            BirthDay: params.state.birthday,
+            Gender: params.state.gender,
+            RG: params.state.rg,
+            CPF: params.state.cpf,
+            UserName: values.username,
+            Email: values.email,
+            Password: values.password,
+            PhoneNumber: values.phoneNumber,
+            PlanId: `${process.env.PLAN_ID}`
+          })
+        })
+        .then(response => response.json()).then((results) => {
+            if(results.sucesso){    
+              navigate("/signin");
+            }
+            else{
+              setError(results.notificacoes[0].mensagem); setLoading(false);
+            }
+          },
+          (error) => {
+            console.error(error);
+
+            setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+          }
+
+        ).catch(error => {
+          console.error(error);
+
+          setError("Ops, tivemos um erro inesperado!"); setLoading(false);
+      });
+    };
    }
   // -- FUNCTIONS
 
@@ -124,7 +166,7 @@ function Signup02() {
                     <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">3</div>
                   </li>
                   <li>
-                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">4</div>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">4</div>
                   </li>
                 </ul>
               </div>
@@ -132,14 +174,14 @@ function Signup02() {
           </div>
 
           <div className="md:max-w-md lg:max-w-lg mx-auto px-4 py-8">
-            <h1 data-aos="fade-left" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Informe seus dados pessoais <b className='text-indigo-100'>✨</b></h1>
+            <h1 data-aos="fade-left" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Informe os dados de usuário<b className='text-indigo-100'>✨</b></h1>
             {/* Form */}
             <form>
               <div className='grid gap-3 md:grid-cols-2 mt-2'>
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="firstName">Nome<span className="text-rose-500">*</span></label>
+                  <label className="block text-sm font-medium mb-1" htmlFor="username">Nome de usuário<span className="text-rose-500">*</span></label>
                   <div className="relative">
-                    <input onChange={onChange} value={values.firstName} id="firstName" name='firstName' className="form-input w-full pl-9" type="text" />
+                    <input onChange={onChange} value={values.username} id="username" name='username' className="form-input w-full pl-9" type="username" autoComplete="on" />
                     <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
                       <svg className="w-4 h-4 fill-current text-indigo-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
                         <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
@@ -148,33 +190,9 @@ function Signup02() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="lastName">Sobrenome<span className="text-rose-500">*</span></label>
+                  <label className="block text-sm font-medium mb-1" htmlFor="password">Senha<span className="text-rose-500">*</span></label>
                   <div className="relative">
-                    <input onChange={onChange} value={values.lastName} id="lastName" name='lastName' className="form-input w-full pl-9" type="text" />
-                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
-                      <svg className="w-4 h-4 fill-current text-indigo-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
-                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className='grid gap-3 md:grid-cols-2 mt-2'>
-                <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="cpf">CPF<span className="text-rose-500">*</span></label>
-                  <div className="relative">
-                    <InputMask mask={'999.999.999-99'} onChange={onChange} value={values.cpf} id="cpf" name='cpf' className="form-input w-full pl-9" type="cpf"/>
-                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
-                      <svg className="w-4 h-4 fill-current text-indigo-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
-                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="rg">RG<span className="text-rose-500">*</span></label>
-                  <div className="relative">
-                    <InputMask mask={'99.999.999-9'} onChange={onChange} value={values.rg} id="rg" name='rg' className="form-input w-full pl-9" type="text" />
+                    <input onChange={onChange} value={values.password} id="password" name='password' className="form-input w-full pl-9" type="password" autoComplete="on" />
                     <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
                       <svg className="w-4 h-4 fill-current text-indigo-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
                         <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
@@ -185,12 +203,9 @@ function Signup02() {
               </div>
               <div className='grid gap-3 md:grid-cols-2 mt-2'>
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="role">Sexo<span className="text-rose-500">*</span></label>
+                  <label className="block text-sm font-medium mb-1" htmlFor="email">E-mail<span className="text-rose-500">*</span></label>
                   <div className="relative">
-                    <select onChange={onChange} value={values.gender} id="gender" type="number" name='gender' className="form-select w-full pl-8">
-                      <option selected value={"1"}>Masculino</option>
-                      <option value={"2"}>Feminino</option>
-                    </select>
+                    <input onChange={onChange} value={values.email} id="email" name='email' className="form-input w-full pl-9" type='email' autoComplete="on" />
                     <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
                       <svg className="w-4 h-4 fill-current text-indigo-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
                         <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
@@ -199,12 +214,12 @@ function Signup02() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="phoneNumber">Aniversário<span className="text-rose-500">*</span></label>
+                  <label className="block text-sm font-medium mb-1" htmlFor="phoneNumber">Celular<span className="text-rose-500">*</span></label>
                   <div className="relative">
-                    <InputMask mask={'99/99/9999'} onChange={onChange} value={values.birthday} id="birthday" name='birthday' className="form-input w-full pl-9" type="birthday" autoComplete="on"/>
+                    <InputMask mask={'+99(99)99999-9999'} onChange={onChange} value={values.phoneNumber} id="phoneNumber" name='phoneNumber' className="form-input w-full pl-9" type="phoneNumber" autoComplete="on"/>
                     <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
-                      <svg className="w-4 h-4 fill-current text-indigo-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
-                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
+                      <svg className="w-5 h-5 shrink-0 text-indigo-400 group-hover:text-slate-500 ml-3 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
                       </svg>
                     </div>
                   </div>
@@ -212,18 +227,26 @@ function Signup02() {
               </div>
                {/* Error */}
                { error !== null && 
-                  <div className="mt-5">
-                    <div data-aos="fade-left" className="bg-gradient-danger-500 text-white px-3 py-2 rounded">
+                  <div data-aos="fade-left" className="mt-5">
+                    <div className="bg-gradient-danger-500 text-white px-3 py-2 rounded">
                       x&ensp;
                       <span className="text-sm">
                         {error}
                       </span>
                     </div>
-                  </div> 
-               }
+                  </div> }
               <div className="flex items-center justify-between mt-6">
-                <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup01/situation`} state={ data }>&lt;- Voltar</Link>
-                <button onClick={Next} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">Próximo passo -&gt;</button>
+                <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup02/basic`} state={ data }>&lt;- Voltar</Link>
+                <button onClick={Create} type="button" className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">
+                    {loading === false  ? ("Criar usuário") : (
+                      <lord-icon
+                        src="https://cdn.lordicon.com/yiniatmi.json"
+                        trigger="loop"
+                        colors="primary:#ffffff"
+                        style={{width:40,height:20}}>
+                      </lord-icon>
+                    )}
+                  </button>
               </div>
             </form>
           </div>
@@ -240,4 +263,4 @@ function Signup02() {
   // -- RETURN
 }
 
-export default Signup02;
+export default Signup03;

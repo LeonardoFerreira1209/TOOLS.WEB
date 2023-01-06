@@ -61,8 +61,10 @@ import EmptyState from './pages/utility/EmptyState';
 import PageNotFound from './pages/utility/PageNotFound';
 import KnowledgeBase from './pages/utility/KnowledgeBase';
 import Signin from './pages/Signin';
-import Signup01 from './pages/Signup01';
-import Signup02 from './pages/Signup02';
+import Signup0 from './pages/Signup/Signup0';
+import Signup01 from './pages/Signup/Signup01';
+import Signup02 from './pages/Signup/Signup02';
+import Signup03 from './pages/Signup/Signup03';
 import ResetPassword from './pages/ResetPassword';
 import Onboarding01 from './pages/Onboarding01';
 import Onboarding02 from './pages/Onboarding02';
@@ -92,8 +94,6 @@ import Permission from './pages/settings/Permission';
 import { loadAnimation } from "lottie-web";
 import { defineLordIconElement } from "lord-icon-element";
 import Business from './pages/settings/Business';
-import Signup03 from './pages/Signup03';
-import Signup0 from './pages/Signup0';
 
 
 // register lottie and define custom element

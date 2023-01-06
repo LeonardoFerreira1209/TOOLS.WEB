@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
-import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.jpg';
-import AuthDecoration from '../images/auth-decoration.png';
+import AuthImage from '../../images/—Pngtree—2 5d learn know how_4117072.jpg';
+import AuthDecoration from '../../images/auth-decoration.png';
 
 function Signup01() {
   // -- INPUTS 
