@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import ModalBasic from '../components/ModalBasic';
-import Datepicker from '../components/Datepicker';
+import DatepickerCalendar from '../components/DatepickerCalendar';
 
 function Calendar() {
 
@@ -18,6 +18,7 @@ function Calendar() {
   const [endingBlankDays, setEndingBlankDays] = useState([])
   const [events, setEvents] = useState([])
   const [eventModalOpen, setEventModalOpen] = useState(false)
+  const [values, setValues] = useState();
 
   useEffect(() => {
     fetch(`https://localhost:7271/api/Calendar/get/events`, {
@@ -30,7 +31,6 @@ function Calendar() {
         referrerPolicy: 'no-referrer',
       })
       .then(response => response.json()).then((results) => {
-        debugger
         setEvents(results);
       },
       (error) => {
@@ -42,7 +42,7 @@ function Calendar() {
 
         setError("Ops, tivemos um erro inesperado!"); setLoading(false);
       });
-  }, [])
+  }, []);
   // const events = [
   //   // Previous month
   //   {
@@ -202,11 +202,11 @@ function Calendar() {
   const isToday = (date) => {
     const day = new Date(year, month, date);
     return today.toDateString() === day.toDateString() ? true : false;
-  }
+  };
 
   const getEvents = (date) => {
     return events.filter(e => new Date(e.eventStart).toDateString() === new Date(year, month, date).toDateString());
-  }
+  };
 
   const eventColor = (color) => {
     switch (color) {
@@ -252,20 +252,29 @@ function Calendar() {
     setEndingBlankDays(endingBlankDaysArray);
 
     setDaysInMonth(daysArray);
-  }
-
-  const [state, setState] = useState();
+  };
 
   useEffect(() => {
-    debugger
-    state
     getDays();
   }, [month]);
+
+  function onChange(event) {
+    const {value, name} = event.target;
+
+    setValues(
+    {...values, 
+      [name]: value
+    });
+  }
+
+  function CreateEvent(){
+    values
+  };
 
   return (
     <div className="flex h-screen overflow-hidden">
         {/* Start */}
-        <ModalBasic id="event-modal" modalOpen={eventModalOpen} setModalOpen={setEventModalOpen} title="Crie seu evento 🗓️">
+        <ModalBasic id="event-modal" modalOpen={eventModalOpen} setModalOpen={setEventModalOpen} title="Crie seu evento">
           {/* Modal content */}
           <div className="px-5 py-4">
               <div className="text-sm">
@@ -273,39 +282,35 @@ function Calendar() {
               </div>
               {/* Form */}
             <form>
-              <div className='grid gap-2 md:grid-cols-2 mt-2'>
+              <div className='grid gap-5 md:grid-cols-2 mt-2'>
                 <div>
                   {/* Datepicker built with flatpickr */}
-                  <Datepicker setState={setState} id="teste1" align="right"/>
-                  {/* <label className="block text-sm font-medium mb-1" htmlFor="startDate">Data inicial<span className="text-rose-500">*</span></label>
-                  <input id="startDate" className="form-input w-full px-2 py-1" type="datetime-local" required /> */}
+                  <DatepickerCalendar values={values} setValues={setValues} id="startEvent" name="startEvent" align="right"/>
                 </div>
                 <div>
-                  <Datepicker setState={setState} id="teste2" align="left"/>
-                  {/* <label className="block text-sm font-medium mb-1" htmlFor="endDate">Data final<span className="text-rose-500">*</span></label>
-                  <input id="endDate" className="form-input w-full px-2 py-1" type="datetime-local" required /> */}
+                  <DatepickerCalendar values={values} setValues={setValues} id="endEvent" name="endEvent" align="left"/>
                 </div>
               </div>
               <div className='grid gap-2 md:grid-cols-1 mt-2'>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="email">Email<span className="text-rose-500">*</span></label>
-                  <input id="email" className="form-input w-full px-2 py-1" type="text" required />
+                  <input onChange={onChange} id="email" name='email' className="form-input w-full px-2 py-1" type="text" required />
                 </div>
               </div>
               <div className='grid gap-2 md:grid-cols-2 mt-2'>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="firstName">Nome<span className="text-rose-500">*</span></label>
-                  <input id="firstName" className="form-input w-full px-2 py-1" type="text" required />
+                  <input onChange={onChange} id="firstName" name='firstName' className="form-input w-full px-2 py-1" type="text" required />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="lastName">Sobrenome<span className="text-rose-500">*</span></label>
-                  <input id="lastName" className="form-input w-full px-2 py-1" type="lastName" required />
+                  <input onChange={onChange} id="lastName" name='lastName' className="form-input w-full px-2 py-1" type="text" required />
                 </div>
               </div>
             <div className='grid gap-1 md:grid-cols-1 mt-2'>
               <div>
-                <label className="block text-sm font-medium mb-1" htmlFor="feedback">Message <span className="text-rose-500">*</span></label>
-                <textarea id="feedback" className="form-textarea w-full px-2 py-1" rows="4" required></textarea>
+                <label className="block text-sm font-medium mb-1" htmlFor="feedback">Descrição<span className="text-rose-500">*</span></label>
+                <textarea onChange={onChange} name='description' id="description" className="form-textarea w-full px-2 py-1" rows="4" required></textarea>
               </div>
             </div>
            </form>
@@ -314,7 +319,7 @@ function Calendar() {
           <div className="px-5 py-4 border-t border-slate-200">
             <div className="flex flex-wrap justify-end space-x-2">
               <button type='button' className="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" onClick={(e) => { e.stopPropagation(); setEventModalOpen(false); }}>Cancelar</button>
-              <button type='button' className="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Criar</button>
+              <button onClick={CreateEvent} type='button' className="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Criar</button>
             </div>
           </div>
         </ModalBasic>
@@ -424,8 +429,8 @@ function Calendar() {
               {/* View buttons (requires custom integration) */}
               <div className="flex flex-nowrap -space-x-px">
                 <button className="btn bg-slate-50 border-slate-200 hover:bg-slate-50 color-primary rounded-none first:rounded-l last:rounded-r">Mês</button>
-                <button className="btn bg-white border-slate-200 hover:bg-slate-50 text-slate-600 rounded-none first:rounded-l last:rounded-r">Semana</button>
-                <button className="btn bg-white border-slate-200 hover:bg-slate-50 text-slate-600 rounded-none first:rounded-l last:rounded-r">Dia</button>
+                <button disabled className="btn bg-white border-slate-200 hover:bg-slate-50 text-slate-600 rounded-none first:rounded-l last:rounded-r disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed shadow-none text-slate-600 rounded-none first:rounded-l last:rounded-r">Semana</button>
+                <button disabled className="btn bg-white border-slate-200 hover:bg-slate-50 text-slate-600 rounded-none first:rounded-l last:rounded-r disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed shadow-none text-slate-600 rounded-none first:rounded-l last:rounded-r">Dia</button>
               </div>
             </div>
 
