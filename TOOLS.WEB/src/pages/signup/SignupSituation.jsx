@@ -4,7 +4,7 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import AuthImage from '../../images/—Pngtree—2 5d learn know how_4117072.jpg';
 import AuthDecoration from '../../images/auth-decoration.png';
 
-function Signup01() {
+function SignupSituation() {
   // -- INPUTS 
   const params = useLocation();
   const [values, setValues] = useState(initialState);
@@ -35,7 +35,7 @@ function Signup01() {
   function Next(event) {
     event.preventDefault();
 
-    navigate(`/signup02/basic`, { state:  data });
+    navigate(`/signup/basic`, { state:  data });
    }
   // -- FUNCTIONS
 
@@ -136,7 +136,7 @@ function Signup01() {
                     </label>
                   </div>
                   <div className="flex items-center justify-between mt-6">
-                    <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup0/intendedtype`} state={ data }>&lt;- Voltar</Link>
+                    <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup/intendedtype`} state={ data }>&lt;- Voltar</Link>
                     <button onClick={Next} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">Próximo passo -&gt;</button>
                   </div>
                 </form>
@@ -155,4 +155,4 @@ function Signup01() {
   // -- RETURN
 }
 
-export default Signup01;
+export default SignupSituation;

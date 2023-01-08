@@ -61,10 +61,10 @@ import EmptyState from './pages/utility/EmptyState';
 import PageNotFound from './pages/utility/PageNotFound';
 import KnowledgeBase from './pages/utility/KnowledgeBase';
 import Signin from './pages/Signin';
-import Signup0 from './pages/Signup/Signup0';
-import Signup01 from './pages/Signup/Signup01';
-import Signup02 from './pages/Signup/Signup02';
-import Signup03 from './pages/Signup/Signup03';
+import SignupIntended from './pages/signup/SignupIntended';
+import SignupSituation from './pages/signup/SignupSituation';
+import SignupPersonalData from './pages/signup/SignupPersonalData';
+import SignupUserData from './pages/signup/SignupUserData';
 import ResetPassword from './pages/ResetPassword';
 import Onboarding01 from './pages/Onboarding01';
 import Onboarding02 from './pages/Onboarding02';
@@ -89,12 +89,11 @@ import RequireAuth from './components/auth/RequireAuth';
 import ConfirmEmail from './pages/ConfirmEmail';
 import User from './pages/settings/User';
 import Permission from './pages/settings/Permission';
+import Business from './pages/settings/Business';
 
 // Lord icons.
 import { loadAnimation } from "lottie-web";
 import { defineLordIconElement } from "lord-icon-element";
-import Business from './pages/settings/Business';
-
 
 // register lottie and define custom element
 defineLordIconElement(loadAnimation);
@@ -128,10 +127,10 @@ function App() {
           {/* No required login */}
           <Route exact path="/" element={<Home/>} />
           <Route path="/signin" element={<Signin />} />
-          <Route path="/signup0/intendedtype" element={<Signup0 />} />
-          <Route path="/signup01/situation" element={<Signup01 />} />
-          <Route path="/signup02/basic" element={<Signup02 />} />
-          <Route path="/signup03/user" element={<Signup03 />} />
+          <Route path="/signup/intendedtype" element={<SignupIntended />} />
+          <Route path="/signup/situation" element={<SignupSituation />} />
+          <Route path="/signup/basic" element={<SignupPersonalData />} />
+          <Route path="/signup/user" element={<SignupUserData />} />
           <Route path="/confirmEmail/:code/:userId" element={ <ConfirmEmail /> } />
           <Route path="/reset-password" element={<ResetPassword />} />
           {/* Required login */}

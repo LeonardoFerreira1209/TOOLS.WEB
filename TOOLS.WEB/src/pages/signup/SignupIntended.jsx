@@ -4,7 +4,7 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import AuthImage from '../../images/—Pngtree—2 5d learn know how_4117072.jpg';
 import AuthDecoration from '../../images/auth-decoration.png';
 
-function Signup0() {
+function SignupIntended() {
   // -- INPUTS 
   const params = useLocation();
   const [unloadedanimation] = useState(params.state.unloadedanimation);
@@ -35,7 +35,7 @@ function Signup0() {
   function Next(event) {
     event.preventDefault();
 
-    navigate(`/signup01/situation`, { state:  data });
+    navigate(`/signup/situation`, { state:  data });
    }
   // -- FUNCTIONS
 
@@ -173,4 +173,4 @@ function Signup0() {
   // -- RETURN
 }
 
-export default Signup0;
+export default SignupIntended;
