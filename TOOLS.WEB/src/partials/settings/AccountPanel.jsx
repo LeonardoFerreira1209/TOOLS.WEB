@@ -1,35 +1,23 @@
-// -- REACT --
 import React, { useContext, useEffect, useState } from 'react';
 import StoreContext from "../../components/store/context/ContextUser";
 import PlaceholderLoading from 'react-placeholder-loading'
-
-// -- TOASTIFY --
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-// -- TOOTIP --
 import ReactTooltip from 'react-tooltip';
-
-// -- INPUTMASK --
 import InputMask from 'react-input-mask';
 
-// -- IMAGES --
 import FemaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7691478.png';
 import MaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7690723.png';
 import { Link } from 'react-router-dom';
 
 function AccountPanel({ props }) {
 
-// -- CONTS
 const [loading, setLoading] = useState(false);
 const [showPassword, setShowPassword] = useState(false);
 const [values, setValues] = useState();
 const [avatarImage, setAvatarImage] = useState()
-// -- CONTEXT
 const { user } = useContext(StoreContext)
-// -- CONTS
 
-// -- FUNCTIONS
  useEffect(() => {
   fetch(`${process.env.BASE_URL}api/User/get/${props.id}`, 
   {

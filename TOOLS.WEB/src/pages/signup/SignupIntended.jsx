@@ -15,7 +15,6 @@ function SignupIntended() {
   const data = { intendedtype: values.intendedtype, situation: params.state.situation, firstname: params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, birthday: params.state.birthday, rg: params.state.rg, gender: params.state.gender, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
 
   function initialState() {
-
       return {
         intendedtype: params.state.intendedtype
     };

@@ -8,17 +8,14 @@ import AuthDecoration from '../../images/auth-decoration.png';
 
 function SignupUserData() {
 
-  // -- INPUTS 
   const params = useLocation();
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState(initialState);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   
-  // params obj
   const data = { situation: params.state.situation, unloadedanimation: false, intendedtype: params.state.intendedtype, firstname: params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, birthday: params.state.birthday, rg: params.state.rg, gender: params.state.gender, username: values.username, password: values.password, email: values.email, phoneNumber: values.phoneNumber };
 
-  // -- VALIDATES
   function isInvalid() {
     if(values.username === "" || values.username === undefined) { setError("Preencha o campo nome de usuário!"); return true; }
 
@@ -30,7 +27,6 @@ function SignupUserData() {
 
     return false;
   };
-  // -- VALIDATES
 
   function initialState() {
       return {
@@ -49,9 +45,7 @@ function SignupUserData() {
       [name]: value
     });
   }
-  // -- INPUTS
 
-   // -- FUNCTIONS
    function Create(event) {
     
     event.preventDefault();
@@ -103,7 +97,6 @@ function SignupUserData() {
       });
     };
    }
-  // -- FUNCTIONS
 
   // -- RETURN
   return (

@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 
 import Sidebar from '../partials/Sidebar';
 import Header from '../partials/Header';
 import ModalBasic from '../components/ModalBasic';
 import DatepickerCalendar from '../components/DatepickerCalendar';
+import StoreContext from "../components/store/context/ContextUser";
+import { BlockPicker  } from 'react-color';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Calendar() {
 
@@ -17,12 +21,46 @@ function Calendar() {
   const [startingBlankDays, setStartingBlankDays] = useState([])
   const [endingBlankDays, setEndingBlankDays] = useState([])
   const [events, setEvents] = useState([])
+  const [eventTypes, setEventTypes] = useState([])
   const [eventModalOpen, setEventModalOpen] = useState(false)
-  const [values, setValues] = useState();
+  const [color, setColor] = useState()
+  const [eventTypeModalOpen, setEventTypeModalOpen] = useState(false)
+  const [eventValues, setEventValues] = useState(initializeEventValues);
+  const [eventTypeValues, setEventTypeValues] = useState(initializeEventTypeValues);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { user } = useContext(StoreContext)
 
+  // initialize event state.
+  function initializeEventValues(){
+    return {
+      email: '',
+      firstName: '',
+      lastName: '',
+      description: '',
+      startEvent: new Date(),
+      endEvent: new Date()
+    };
+  };
+
+  // initialize event type state.
+  function initializeEventTypeValues(){
+    return {
+      eventTypeName: '',
+      eventTypeColor: '#22194d'
+    };
+  };
+
+  // get events and eventTypes in api on load page.
   useEffect(() => {
-    fetch(`https://localhost:7271/api/Calendar/get/events`, {
+
+    // fetch events in web api.
+    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/getall`, {
         crossDomain:true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.tokenJwt}`
+        },
         mode:'cors', 
         method: 'GET',
         cache: 'no-cache',
@@ -31,7 +69,20 @@ function Calendar() {
         referrerPolicy: 'no-referrer',
       })
       .then(response => response.json()).then((results) => {
-        setEvents(results);
+          if(results.sucesso){    
+            setEvents(
+              results.dados.map(data => ({
+                id: data.id,
+                eventType: data.eventType,
+                eventStart: data.startEvent,
+                eventName: data.description,
+                eventEnd: data.endEvent
+              }))
+            );
+          }
+          else{
+            setError(results.notificacoes[0].mensagem); setLoading(false);
+          }
       },
       (error) => {
         console.error(error);
@@ -42,192 +93,62 @@ function Calendar() {
 
         setError("Ops, tivemos um erro inesperado!"); setLoading(false);
       });
-  }, []);
-  // const events = [
-  //   // Previous month
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth() - 1, 8, 3),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth() - 1, 8, 7),
-  //     eventName: '⛱️ Relax for 2 at Marienbad',
-  //     eventColor: 'indigo'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth() - 1, 12, 10),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 12, 11),
-  //     eventName: 'Team Catch-up',
-  //     eventColor: 'sky'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth() - 1, 18, 2),
-  //     eventEnd: '',
-  //     eventName: '✍️ New Project (2)',
-  //     eventColor: 'yellow'
-  //   },
-  //   // Current month
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 1, 10),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 1, 11),
-  //     eventName: 'Meeting w/ Patrick Lin',
-  //     eventColor: 'sky'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 1, 19),
-  //     eventEnd: '',
-  //     eventName: 'Reservation at La Ginestre',
-  //     eventColor: 'indigo'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 3, 9),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 3, 10),
-  //     eventName: '✍️ New Project',
-  //     eventColor: 'yellow'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 7, 21),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 7, 22),
-  //     eventName: '⚽ 2021 - Semi-final',
-  //     eventColor: 'red'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth() + 4, 9, 10),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 9, 11),
-  //     eventName: 'Meeting w/Carolyn',
-  //     eventColor: 'sky'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 9, 13),
-  //     eventEnd: '',
-  //     eventName: 'Pick up Marta at school',
-  //     eventColor: 'emerald'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 9, 14),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 9, 15),
-  //     eventName: 'Meeting w/ Patrick Lin',
-  //     eventColor: 'emerald'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 9, 19),
-  //     eventEnd: '',
-  //     eventName: 'Reservation at La Ginestre',
-  //     eventColor: 'indigo'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 11, 10),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 11, 11),
-  //     eventName: '⛱️ Relax for 2 at Marienbad',
-  //     eventColor: 'indigo'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 11, 19),
-  //     eventEnd: '',
-  //     eventName: '⚽ 2021 - Semi-final',
-  //     eventColor: 'red'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 14, 10),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 14, 11),
-  //     eventName: 'Team Catch-up',
-  //     eventColor: 'sky'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 21, 2),
-  //     eventEnd: '',
-  //     eventName: 'Pick up Marta at school',
-  //     eventColor: 'emerald'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 21, 3),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 21, 7),
-  //     eventName: '✍️ New Project (2)',
-  //     eventColor: 'yellow'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 22, 10),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 22, 11),
-  //     eventName: 'Team Catch-up',
-  //     eventColor: 'sky'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 22, 19),
-  //     eventEnd: '',
-  //     eventName: '⚽ 2021 - Semi-final',
-  //     eventColor: 'red'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 23, 0),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 23, 23),
-  //     eventName: 'You stay at Meridiana B&B',
-  //     eventColor: 'indigo'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 25, 10),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 25, 11),
-  //     eventName: 'Meeting w/ Kylie Joh',
-  //     eventColor: 'sky'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth(), 29, 10),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 29, 11),
-  //     eventName: 'Call Request ->',
-  //     eventColor: 'sky'
-  //   },
-  //   // Next month
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 2, 3),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 2, 7),
-  //     eventName: '✍️ New Project (2)',
-  //     eventColor: 'yellow'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 14, 10),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth(), 14, 11),
-  //     eventName: 'Team Catch-up',
-  //     eventColor: 'sky'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 25, 2),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 25, 3),
-  //     eventName: 'Pick up Marta at school',
-  //     eventColor: 'emerald'
-  //   },
-  //   {
-  //     eventStart: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 27, 21),
-  //     eventEnd: new Date(new Date().getFullYear(), new Date().getMonth() + 1, 27, 22),
-  //     eventName: '⚽ 2021 - Semi-final',
-  //     eventColor: 'red'
-  //   },
-  // ];
 
+      // fetch event types in web api.
+      fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/getall/eventtypes`, {
+        crossDomain:true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.tokenJwt}`
+        },
+        mode:'cors', 
+        method: 'GET',
+        cache: 'no-cache',
+        credentials:'same-origin',
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+      })
+      .then(response => response.json()).then((results) => {
+          if(results.sucesso){    
+            setEventTypes(
+              results.dados.map(data => ({
+                id: data.id,
+                name: data.name,
+                color: data.color,
+              }))
+            );
+          }
+          else{
+            setError(results.notificacoes[0].mensagem); setLoading(false);
+          }
+      },
+      (error) => {
+        console.error(error);
+
+        setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+      }).catch(error => {
+        console.error(error);
+
+        setError("Ops, tivemos um erro inesperado!"); setLoading(false);
+      });
+
+  }, []);
+
+  // verify day.
   const isToday = (date) => {
     const day = new Date(year, month, date);
     return today.toDateString() === day.toDateString() ? true : false;
   };
 
+  // filter events.
   const getEvents = (date) => {
     return events.filter(e => new Date(e.eventStart).toDateString() === new Date(year, month, date).toDateString());
   };
 
-  const eventColor = (color) => {
-    switch (color) {
-      case 'sky':
-        return 'text-white bg-sky-500';
-      case 'indigo':
-        return 'text-white bg-indigo-500';
-      case 'yellow':
-        return 'text-white bg-amber-500';
-      case 'emerald':
-        return 'text-white bg-emerald-500';
-      case 'red':
-        return 'text-white bg-rose-400';
-      default:
-        return '';
-    }
-  };
-
+  // get days.
   const getDays = () => {
     const days = new Date(year, month + 1, 0).getDate();
-
+    
     // starting empty cells (previous month)
     const startingDayOfWeek = new Date(year, month).getDay();
 
@@ -254,25 +175,143 @@ function Calendar() {
     setDaysInMonth(daysArray);
   };
 
+  // get days on load page
   useEffect(() => {
     getDays();
   }, [month]);
 
-  function onChange(event) {
+  // handle on change events.
+  function onChangeEvents(event) {
     const {value, name} = event.target;
 
-    setValues(
-    {...values, 
+    setEventValues(
+    {...eventValues, 
       [name]: value
     });
   }
 
-  function CreateEvent(){
-    values
+  // handle on create event type.
+  function CreateEventType(event){
+    event.preventDefault();
+
+    setLoading(true);
+
+    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/create/eventype`, 
+    {
+        crossDomain:true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.tokenJwt}`
+        },
+        mode:'cors', 
+        method: 'POST',
+        body: JSON.stringify({
+          Name: eventTypeValues.eventTypeName,
+          Color: eventTypeValues.eventTypeColor,
+        })
+      })
+      .then(response => response.json()).then((results) => {
+          if(results.sucesso){    
+            setEventTypes([...eventTypes, {
+              id: results.dados.id,
+              name: results.dados.name,
+              color: results.dados.color,
+            }]);
+          }
+          else{
+            setError(results.notificacoes[0].mensagem); setLoading(false);
+          }
+        },
+        (error) => {
+          console.error(error);
+
+          setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+        }
+
+      ).catch(error => {
+        console.error(error);
+
+        setError("Ops, tivemos um erro inesperado!"); setLoading(false);
+      });
+  };
+
+  // handle on create event.
+  function CreateEvent(event){
+    event.preventDefault();
+
+    setLoading(true);
+    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/create`, 
+    {
+        crossDomain:true,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.tokenJwt}`
+        },
+        mode:'cors', 
+        method: 'POST',
+        body: JSON.stringify({
+          FirstName: eventValues.firstName,
+          LastName: eventValues.lastName,
+          EventTypeId: eventValues.type ?? eventTypes.find(event => event).id,
+          Email: eventValues.email,
+          StartEvent: eventValues.startEvent,
+          EndEvent: eventValues.endEvent,
+          Description: eventValues.description
+        })
+      })
+      .then(response => response.json()).then((results) => {
+          if(results.sucesso){
+            toast.success("Evento criado com sucesso!", {
+              theme: 'light',
+              autoClose: true
+            });
+    
+            setLoading(false);
+
+            setEvents([...events, {
+              id: results.dados.id,
+              eventType: results.dados.eventType,
+              eventStart: results.dados.startEvent,
+              eventName: results.dados.description,
+              eventEnd: results.dados.endEvent
+            }]);
+          }
+          else{
+            toast.info(results.notificacoes[0].mensagem, {
+              theme: 'light',
+              autoClose: true
+            });
+            
+            setLoading(false);
+          }
+        },
+        (error) => {
+          console.error(error.message);
+      
+          toast.error("Ops, Falha ao criar evento!", {
+            theme: 'light',
+            autoClose: true
+          });
+
+          setLoading(false);
+        }
+
+      ).catch(error => {
+        console.error(error.message);
+
+        toast.error("Ops, Falha ao criar evento!", {
+          theme: 'light',
+          autoClose: true
+        });
+
+        setLoading(false);
+      });
   };
 
   return (
     <div className="flex h-screen overflow-hidden">
+        {/* IziToast */}
+        <ToastContainer className="toast-position"></ToastContainer>
         {/* Start */}
         <ModalBasic id="event-modal" modalOpen={eventModalOpen} setModalOpen={setEventModalOpen} title="Crie seu evento">
           {/* Modal content */}
@@ -285,32 +324,47 @@ function Calendar() {
               <div className='grid gap-5 md:grid-cols-2 mt-2'>
                 <div>
                   {/* Datepicker built with flatpickr */}
-                  <DatepickerCalendar values={values} setValues={setValues} id="startEvent" name="startEvent" align="right"/>
+                  <DatepickerCalendar eventValues={eventValues} setEventValues={setEventValues} id="startEvent" name="startEvent" align="right"/>
                 </div>
                 <div>
-                  <DatepickerCalendar values={values} setValues={setValues} id="endEvent" name="endEvent" align="left"/>
+                  {/* Datepicker built with flatpickr */}
+                  <DatepickerCalendar eventValues={eventValues} setEventValues={setEventValues} id="endEvent" name="endEvent" align="left"/>
                 </div>
               </div>
               <div className='grid gap-2 md:grid-cols-1 mt-2'>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="email">Email<span className="text-rose-500">*</span></label>
-                  <input onChange={onChange} id="email" name='email' className="form-input w-full px-2 py-1" type="text" required />
+                  <input onChange={onChangeEvents} id="email" name='email' className="form-input w-full px-2 py-1" type="email" required />
                 </div>
               </div>
               <div className='grid gap-2 md:grid-cols-2 mt-2'>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="firstName">Nome<span className="text-rose-500">*</span></label>
-                  <input onChange={onChange} id="firstName" name='firstName' className="form-input w-full px-2 py-1" type="text" required />
+                  <input onChange={onChangeEvents} id="firstName" name='firstName' className="form-input w-full px-2 py-1" type="text" required />
                 </div>
                 <div>
                   <label className="block text-sm font-medium mb-1" htmlFor="lastName">Sobrenome<span className="text-rose-500">*</span></label>
-                  <input onChange={onChange} id="lastName" name='lastName' className="form-input w-full px-2 py-1" type="text" required />
+                  <input onChange={onChangeEvents} id="lastName" name='lastName' className="form-input w-full px-2 py-1" type="text" required />
                 </div>
               </div>
             <div className='grid gap-1 md:grid-cols-1 mt-2'>
               <div>
+                <label className="block text-sm font-medium mb-1" htmlFor="role">Tipo de evento<span className="text-rose-500">*</span></label>
+                <select onChange={onChangeEvents} id="type" type="text" name='type' className="form-input w-full px-2 py-1">
+                  {
+                    eventTypes?.map(eventType => {
+                      return (
+                        <option key={eventType.id} value={eventType.id}>{eventType.name}</option>
+                      )
+                    })
+                  }
+                </select>
+              </div>
+            </div>
+            <div className='grid gap-1 md:grid-cols-1 mt-2'>
+              <div>
                 <label className="block text-sm font-medium mb-1" htmlFor="feedback">Descrição<span className="text-rose-500">*</span></label>
-                <textarea onChange={onChange} name='description' id="description" className="form-textarea w-full px-2 py-1" rows="4" required></textarea>
+                <textarea onChange={onChangeEvents} name='description' id="description" className="form-textarea w-full px-2 py-1" rows="4" required></textarea>
               </div>
             </div>
            </form>
@@ -320,6 +374,37 @@ function Calendar() {
             <div className="flex flex-wrap justify-end space-x-2">
               <button type='button' className="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" onClick={(e) => { e.stopPropagation(); setEventModalOpen(false); }}>Cancelar</button>
               <button onClick={CreateEvent} type='button' className="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Criar</button>
+            </div>
+          </div>
+        </ModalBasic>
+        {/* End */}
+
+         {/* Start */}
+         <ModalBasic id="event-type-modal" modalOpen={eventTypeModalOpen} setModalOpen={setEventTypeModalOpen} title="Crie seu tipo de evento">
+          {/* Modal content */}
+          <div className="px-5 py-4">
+              <div className="text-sm">
+                <div className="font-medium text-slate-800 mb-3">Informe os dados do tipo de evento</div>
+              </div>
+              {/* Form */}
+            <form>
+              <div className='grid gap-2 md:grid-cols-2 mt-2'>
+                <div>
+                  <label className="block text-sm font-medium mb-1" htmlFor="eventTypeName">Nome do tipo<span className="text-rose-500">*</span></label>
+                  <input onChange={(event) => setEventTypeValues({...eventTypeValues, [event.target.name]: event.target.value})} id="eventTypeName" name='eventTypeName' className="form-input w-full px-2 py-1" type="text" required />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1" htmlFor="eventTypeColor">Cor do tipo<span className="text-rose-500">*</span></label>
+                  <BlockPicker triangle='hide' width='100%' color={color} colors={["#0f172a", "#b91c1c", "#ea580c", "#fbbf24", "#a3e635", "#4ade80", "#34d399", "#2dd4bf", "#22d3ee", "#38bdf8", "#60a5fa", "#818cf8"]} onChangeComplete={(color) => {setColor(color.hex), setEventTypeValues({...eventTypeValues, ['eventTypeColor']: color.hex})}} id="eventTypeColor" name='eventTypeColor' className="form-input w-full px-2 py-1" required />
+                </div>
+              </div>
+           </form>
+          </div>
+          {/* Modal footer */}
+          <div className="px-5 py-4 border-t border-slate-200">
+            <div className="flex flex-wrap justify-end space-x-2">
+              <button type='button' className="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" onClick={(e) => { e.stopPropagation(); setEventTypeModalOpen(false); }}>Cancelar</button>
+              <button onClick={CreateEventType} type='button' className="btn-sm bg-indigo-500 hover:bg-indigo-600 text-white">Criar</button>
             </div>
           </div>
         </ModalBasic>
@@ -390,38 +475,20 @@ function Calendar() {
               {/* Filters  */}
               <div className="mb-4 sm:mb-0 mr-2">
                 <ul className="flex flex-wrap items-center -m-1">
+                  {
+                    eventTypes?.map(eventType => {
+                      return (
+                        <li key={eventType.id} className="m-1">
+                          <button className="btn-sm bg-white border-slate-200 hover:border-slate-300 text-slate-500">
+                            <div style={{backgroundColor: eventType.color}} className='w-1 h-3.5 shrink-0'></div>
+                            <span className="ml-1.5">{eventType.name}</span>
+                          </button>
+                        </li>
+                      )
+                    })
+                  }
                   <li className="m-1">
-                    <button className="btn-sm bg-white border-slate-200 hover:border-slate-300 text-slate-500">
-                      <div className="w-1 h-3.5 bg-sky-500 shrink-0"></div>
-                      <span className="ml-1.5">Acme Inc.</span>
-                    </button>
-                  </li>
-                  <li className="m-1">
-                    <button className="btn-sm bg-white border-slate-200 hover:border-slate-300 text-slate-500">
-                      <div className="w-1 h-3.5 bg-emerald-500 shrink-0"></div>
-                      <span className="ml-1.5">Life & Family</span>
-                    </button>
-                  </li>
-                  <li className="m-1">
-                    <button className="btn-sm bg-white border-slate-200 hover:border-slate-300 text-slate-500">
-                      <div className="w-1 h-3.5 bg-indigo-500 shrink-0"></div>
-                      <span className="ml-1.5">Reservations</span>
-                    </button>
-                  </li>
-                  <li className="m-1">
-                    <button className="btn-sm bg-white border-slate-200 hover:border-slate-300 text-slate-500">
-                      <div className="w-1 h-3.5 bg-rose-400 shrink-0"></div>
-                      <span className="ml-1.5">Events</span>
-                    </button>
-                  </li>
-                  <li className="m-1">
-                    <button className="btn-sm bg-white border-slate-200 hover:border-slate-300 text-slate-500">
-                      <div className="w-1 h-3.5 bg-amber-500 shrink-0"></div>
-                      <span className="ml-1.5">Misc</span>
-                    </button>
-                  </li>
-                  <li className="m-1">
-                    <button className="btn-sm bg-white border-slate-200 hover:border-slate-300 color-primary">+Adicionar mais</button>
+                    <button type='button' onClick={(e) => { e.stopPropagation(); setEventTypeModalOpen(true); }} className="btn-sm bg-white border-slate-200 hover:border-slate-300 color-primary">+Adicionar mais</button>
                   </li>
                 </ul>
               </div>
@@ -484,21 +551,20 @@ function Calendar() {
                             {
                               getEvents(day).map(event => {
                                 return (
-                                  <button className="relative w-full text-left mb-1" key={event.eventName}>
-                                    <div className={`px-2 py-0.5 rounded overflow-hidden ${eventColor(event.eventColor)}`}>
+                                  <button className="relative w-full text-left mb-1" key={event.id}>
+                                    <div style={{backgroundColor: event.eventType.color}} className={`px-2 py-0.5 text-white rounded overflow-hidden`}>
                                       {/* Event name */}
                                       <div className="text-xs font-semibold truncate">{event.eventName}</div>
                                       {/* Event time */}
                                       <div className="text-xs uppercase truncate hidden sm:block">
                                         {/* Start date */}
                                         {event.eventStart &&        
-                                          <span>{new Date(event.eventStart).toLocaleTimeString([], {hour12: true, hour: 'numeric', minute:'2-digit'})}</span>
+                                          <span>{new Date(event.eventStart).toLocaleTimeString([], {hourCycle: 'h24', hour: 'numeric', minute:'numeric'})}</span>
                                         }
+                                        &ensp;-&ensp;
                                         {/* End date */}
                                         {event.eventEnd &&  
-                                          <span>
-                                            - <span>{new Date(event.eventEnd).toLocaleTimeString([], {hourCycle: 'h24', hour: 'numeric', minute:'numeric'})}</span>
-                                          </span>
+                                          <span>{new Date(event.eventEnd).toLocaleTimeString([], {hourCycle: 'h24', hour: 'numeric', minute:'numeric'})}</span>
                                         }
                                       </div>
                                     </div>
