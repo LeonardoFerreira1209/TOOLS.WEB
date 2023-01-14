@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-
-import Sidebar from '../partials/Sidebar';
-import Header from '../partials/Header';
 import Datepicker from '../components/Datepicker';
 import FintechIntro from '../partials/fintech/FintechIntro';
 import FintechCard01 from '../partials/fintech/FintechCard01';
@@ -20,19 +17,7 @@ import FintechCard13 from '../partials/fintech/FintechCard13';
 import FintechCard14 from '../partials/fintech/FintechCard14';
 
 function Fintech() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className='flex h-screen overflow-hidden'>
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className='relative flex flex-col flex-1 no-scrollbar overflow-x-hidden'>
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className='px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto'>
 
@@ -59,7 +44,6 @@ function Fintech() {
                 </button>
 
               </div>
-
             </div>
 
             {/* Cards */}
@@ -92,12 +76,9 @@ function Fintech() {
               <FintechCard13 />
               {/* Table (Market Trends) */}
               <FintechCard14 />
-
             </div>
           </div>
         </main>
-      </div>
-    </div>
   );
 }
 

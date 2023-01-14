@@ -10,10 +10,9 @@ function DatepickerCalendar({
 }) {
 
   const customLocale = {
-   
     weekdays: {
-        shorthand: ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"],
-        longhand: ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"],
+      shorthand: ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"],
+      longhand: ["domingo", "segunda", "terça", "quarta", "quinta", "sexta", "sábado"],
     },
     months: {
       shorthand: ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"],
@@ -27,6 +26,7 @@ function DatepickerCalendar({
   }
 
   const options = {
+    minDate: new Date(),
     mode: 'single',
     enableTime: true,
     time_24hr: true,

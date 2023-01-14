@@ -53,14 +53,13 @@ function Calendar() {
 
   // get events and eventTypes in api on load page.
   useEffect(() => {
-
     // fetch events in web api.
     fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/getall`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.tokenJwt}`
+      },
         crossDomain:true,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.tokenJwt}`
-        },
         mode:'cors', 
         method: 'GET',
         cache: 'no-cache',
@@ -96,11 +95,11 @@ function Calendar() {
 
       // fetch event types in web api.
       fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/getall/eventtypes`, {
-        crossDomain:true,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${user.tokenJwt}`
         },
+        crossDomain:true,
         mode:'cors', 
         method: 'GET',
         cache: 'no-cache',
@@ -252,7 +251,7 @@ function Calendar() {
         body: JSON.stringify({
           FirstName: eventValues.firstName,
           LastName: eventValues.lastName,
-          EventTypeId: eventValues.type ?? eventTypes.find(event => event).id,
+          EventTypeId: eventValues.type ?? eventTypes.find(event => event)?.id,
           Email: eventValues.email,
           StartEvent: eventValues.startEvent,
           EndEvent: eventValues.endEvent,
@@ -309,7 +308,7 @@ function Calendar() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <>
         {/* IziToast */}
         <ToastContainer className="toast-position"></ToastContainer>
         {/* Start */}
@@ -410,15 +409,7 @@ function Calendar() {
         </ModalBasic>
         {/* End */}
 
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */} 
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
+     
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
@@ -464,9 +455,7 @@ function Calendar() {
                   </svg>
                   <span className="hidden xs:block ml-2">Criar evento</span>
                 </button>
-
               </div>
-
             </div>
 
             {/* Filters and view buttons */}
@@ -483,8 +472,7 @@ function Calendar() {
                             <div style={{backgroundColor: eventType.color}} className='w-1 h-3.5 shrink-0'></div>
                             <span className="ml-1.5">{eventType.name}</span>
                           </button>
-                        </li>
-                      )
+                        </li>)
                     })
                   }
                   <li className="m-1">
@@ -542,51 +530,63 @@ function Calendar() {
                 }                  
                 {/* Days of the current month */}
                 {
-                  daysInMonth.map(day => {      
-                    return ( 
-                      <div className="relative bg-white h-20 sm:h-28 lg:h-36 overflow-hidden" key={day}>
-                        <div className="h-full flex flex-col justify-between">
-                          {/* Events */}
-                          <div className="grow flex flex-col relative p-0.5 sm:p-1.5 overflow-hidden">
-                            {
-                              getEvents(day).map(event => {
-                                return (
-                                  <button className="relative w-full text-left mb-1" key={event.id}>
-                                    <div style={{backgroundColor: event.eventType.color}} className={`px-2 py-0.5 text-white rounded overflow-hidden`}>
-                                      {/* Event name */}
-                                      <div className="text-xs font-semibold truncate">{event.eventName}</div>
-                                      {/* Event time */}
-                                      <div className="text-xs uppercase truncate hidden sm:block">
-                                        {/* Start date */}
-                                        {event.eventStart &&        
-                                          <span>{new Date(event.eventStart).toLocaleTimeString([], {hourCycle: 'h24', hour: 'numeric', minute:'numeric'})}</span>
-                                        }
-                                        &ensp;-&ensp;
-                                        {/* End date */}
-                                        {event.eventEnd &&  
-                                          <span>{new Date(event.eventEnd).toLocaleTimeString([], {hourCycle: 'h24', hour: 'numeric', minute:'numeric'})}</span>
-                                        }
+                  daysInMonth.map(day => {    
+                    return (
+                      new Date(year, month, day) >= new Date() ? (
+                        (
+                          <div className="relative bg-white h-20 sm:h-28 lg:h-36 overflow-hidden" key={day}>
+                          <div className="h-full flex flex-col justify-between">
+                            {/* Events */}
+                            <div className="grow flex flex-col relative p-0.5 sm:p-1.5 overflow-hidden">
+                              {
+                                getEvents(day).map(event => {
+                                  return (
+                                    <button className="relative w-full text-left mb-1" key={event.id}>
+                                      <div style={{backgroundColor: event.eventType.color}} className={`px-2 py-0.5 text-white rounded overflow-hidden`}>
+                                        {/* Event name */}
+                                        <div className="text-xs font-semibold truncate">{event.eventName}</div>
+                                        {/* Event time */}
+                                        <div className="text-xs uppercase truncate hidden sm:block">
+                                          {/* Start date */}
+                                          {event.eventStart &&        
+                                            <span>{new Date(event.eventStart).toLocaleTimeString([], {hourCycle: 'h24', hour: 'numeric', minute:'numeric'})}</span>
+                                          }
+                                          &ensp;-&ensp;
+                                          {/* End date */}
+                                          {event.eventEnd &&  
+                                            <span>{new Date(event.eventEnd).toLocaleTimeString([], {hourCycle: 'h24', hour: 'numeric', minute:'numeric'})}</span>
+                                          }
+                                        </div>
                                       </div>
-                                    </div>
-                                  </button>                                  
-                                )
-                              })
-                            }                                  
-                            <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white to-transparent pointer-events-none" aria-hidden="true"></div>
+                                    </button>                                  
+                                  )
+                                })
+                              }                                  
+                              <div className="absolute bottom-0 left-0 right-0 h-4 bg-gradient-to-t from-white to-transparent pointer-events-none" aria-hidden="true"></div>
+                            </div>
+                            {/* Cell footer */}
+                            <div className="flex justify-between items-center p-0.5 sm:p-1.5">
+                              {/* More button (if more than 2 events) */}
+                              {getEvents(day).length > 2 &&
+                                <button className="text-xs text-slate-500 font-medium whitespace-nowrap text-center sm:py-0.5 px-0.5 sm:px-2 border border-slate-200 rounded">
+                                  <span className="md:hidden">+</span><span>{getEvents(day).length - 2}</span><span className="hidden md:inline">mais</span>
+                                </button>
+                              }
+                              {/* Day number */}
+                              <button className={`inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm font-medium text-center rounded-full hover:bg-indigo-100 ${isToday(day) && 'color-primary'}`}>{day}</button>
+                            </div>
                           </div>
-                          {/* Cell footer */}
-                          <div className="flex justify-between items-center p-0.5 sm:p-1.5">
-                            {/* More button (if more than 2 events) */}
-                            {getEvents(day).length > 2 &&
-                              <button className="text-xs text-slate-500 font-medium whitespace-nowrap text-center sm:py-0.5 px-0.5 sm:px-2 border border-slate-200 rounded">
-                                <span className="md:hidden">+</span><span>{getEvents(day).length - 2}</span> <span className="hidden md:inline">mais</span>
-                              </button>
-                            }
-                            {/* Day number */}
-                            <button className={`inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm font-medium text-center rounded-full hover:bg-indigo-100 ${isToday(day) && 'color-primary'}`}>{day}</button>
-                          </div>
+                        </div>                      
+                        )
+                      ) : (
+                        <div className="bg-slate-50 h-20 sm:h-28 lg:h-36" key={day}>
+                          {/* Day number */}
+                          <button style={{ zIndex: 1, position: "relative" }} className={`inline-flex ml-auto w-6 h-6 items-center justify-center text-xs sm:text-sm font-medium text-center rounded-full hover:bg-indigo-100 ${isToday(day) && 'color-primary'}`}>{day}</button>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                            <rect width="100%" height="100%" fill="url(#stripes)" />
+                          </svg>
                         </div>
-                      </div>                      
+                      )
                     )
                   })
                 }                                         
@@ -606,8 +606,7 @@ function Calendar() {
             </div>
           </div>
         </main>
-      </div>
-    </div>
+    </>
   );
 }
 

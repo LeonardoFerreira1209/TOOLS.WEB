@@ -7,12 +7,15 @@ export default function useStorage(key) {
   const set = useCallback(newValue => {
     storage.set(key, newValue);
     setState(newValue);
+
   }, [key]);
 
   const remove = useCallback(() => {
     storage.remove(key);
     setState(undefined);
+
   }, [key]);
 
   return [state, set, remove];
+
 }

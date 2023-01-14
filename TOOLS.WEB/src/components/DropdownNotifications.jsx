@@ -3,8 +3,7 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 import Transition from '../utils/Transition';
 import CardNotifications from './CardNotifications';
 import ContextNotify from './store/context/ContextNotify';
-import useStorage from '../utils/storage/UseStorage';
-
+import ContextHub from './store/context/ContextHub';
 
 function DropdownNotifications({align}) {
   
@@ -14,10 +13,9 @@ function DropdownNotifications({align}) {
   const dropdown = useRef(null);
   
   // -- STORE
-  const { notifications, setNotifications } = useContext(ContextNotify);
-
-  // -- SIGNALR
-  const [hubCx, setHubCx] = useState(null);
+  const { notifications, setNotifications, setRemove } = useContext(ContextNotify);
+  const { hub, setHub } = useContext(ContextHub);
+  const [ hubcx, setHubcx ] = useState();
   // -- CONSTS
 
   // -- CLOSE ON CLICK OUTSIDE
@@ -47,30 +45,33 @@ function DropdownNotifications({align}) {
   
   // -- SIGNALR
   useEffect(() => { // HUB CONNECTION.
-    const newConnection = new HubConnectionBuilder()
-      .withUrl(`${process.env.BASE_URL}/notify`)
-      .withAutomaticReconnect()
-      .build()
+      const newConnection = new HubConnectionBuilder()
+        .withUrl(`${process.env.TOOLS_API_BASE_URL}notify`)
+        .withAutomaticReconnect()
+        .build()
 
-      setHubCx(newConnection);
+        setHubcx(newConnection);
   }, []);
 
   useEffect(() => { // HUB RECEIVER
-    if(hubCx) {   
-        hubCx.start().then(() => {
-          hubCx.on("ReceiveMessage", (notify) =>  {
-            setNotifications([...notifications, notify]);
+    if(hubcx && (!hub || !hub._connectionStarted)) {
+        hubcx.start().then(() => {
+          hubcx.on("ReceiveMessage", (notify) =>  {
+            notifications.push(notify);
+            setNotifications(notifications);
           });
+
+          setHub(hubcx);
 
         }).catch(e => console.log('Connection failed: ', e));
     }
 
-  }, [hubCx]);
+  }, [hubcx]);
 
   function cleanNotify(event) {
     event.preventDefault();
 
-    setNotifications(null);
+    setRemove();
   }
   // -- SIGNALR
 
@@ -100,7 +101,7 @@ function DropdownNotifications({align}) {
             </button>
 
             <Transition
-              className={`origin-top-right z-10 absolute top-full -mr-48 sm:mr-0 min-w-80 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1 ${align === 'right' ? 'right-0' : 'left-0'}`}
+              className={`origin-top-right z-10 absolute top-full -mr-48 sm:mr-0 min-w-80 max-h-80 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-auto mt-1 ${align === 'right' ? 'right-0' : 'left-0'}`}
               show={dropdownOpen}
               enter="transition ease-out duration-200 transform"
               enterStart="opacity-0 -translate-y-2"
@@ -119,14 +120,14 @@ function DropdownNotifications({align}) {
                   {
                     notifyContext.notifications && notifyContext.notifications.length > 0 && <button style={{ cursor:"pointer" }} onClick={cleanNotify} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button>
                   }
-                </div>
-                <ul id='notifications'>
-                  {
-                    notifyContext.notifications && notifyContext.notifications.length > 0 && notifyContext.notifications.map(notify => {
-                      return (<CardNotifications key={notify.id} id={notify.id} icon={notify.icon} date={notify.date} theme={notify.theme} message={notify.message} />)
-                    })
-                  }
-                </ul>
+                  </div>
+                  <ul id='notifications'>
+                    {
+                      notifyContext.notifications && notifyContext.notifications.length > 0 && notifyContext.notifications.map(notify => {
+                        return (<CardNotifications key={notify.id} id={notify.id} icon={notify.icon} date={notify.date} theme={notify.theme} message={notify.message} />)
+                      })
+                    }
+                  </ul>
               </div>
             </Transition>
           </div>
