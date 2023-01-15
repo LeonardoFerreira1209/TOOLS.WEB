@@ -46,7 +46,7 @@ function DropdownNotifications({align}) {
   // -- SIGNALR
   useEffect(() => { // HUB CONNECTION.
       const newConnection = new HubConnectionBuilder()
-        .withUrl(`${process.env.TOOLS_API_BASE_URL}notify`)
+        .withUrl(`https://toolsmainapi.azurewebsites.net/notify`)
         .withAutomaticReconnect()
         .build()
 

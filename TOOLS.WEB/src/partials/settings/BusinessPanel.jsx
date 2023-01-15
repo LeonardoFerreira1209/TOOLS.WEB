@@ -25,7 +25,7 @@ function BusinessPanel({ props }) {
 
  // -- FUNCTIONS
  useEffect(() => {
-  fetch(`${process.env.BASE_URL}api/Person/get/${user.tokenObj.personId}`, 
+  fetch(`https://toolsuserapi.azurewebsites.net/api/Person/get/${user.tokenObj.personId}`, 
   {
     headers: {
       'Authorization': `Bearer ${user.tokenJwt}`
@@ -78,7 +78,7 @@ function BusinessPanel({ props }) {
   
    setLoading(true);
 
-   fetch(`${process.env.BASE_URL}api/person/completeRegister`, 
+   fetch(`https://toolsuserapi.azurewebsites.net/api/person/completeRegister`, 
    {
       crossDomain:true,
       mode:'cors', 

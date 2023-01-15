@@ -54,7 +54,7 @@ function Calendar() {
   // get events and eventTypes in api on load page.
   useEffect(() => {
     // fetch events in web api.
-    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/getall`, {
+    fetch(`https://toolsmainapi.azurewebsites.net/api/Event/getall`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.tokenJwt}`
@@ -94,7 +94,7 @@ function Calendar() {
       });
 
       // fetch event types in web api.
-      fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/getall/eventtypes`, {
+      fetch(`https://toolsmainapi.azurewebsites.net/api/Event/getall/eventtypes`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${user.tokenJwt}`
@@ -195,7 +195,7 @@ function Calendar() {
 
     setLoading(true);
 
-    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/create/eventype`, 
+    fetch(`https://toolsmainapi.azurewebsites.net/api/Event/create/eventype`, 
     {
         crossDomain:true,
         headers: {
@@ -239,7 +239,7 @@ function Calendar() {
     event.preventDefault();
 
     setLoading(true);
-    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/create`, 
+    fetch(`https://toolsmainapi.azurewebsites.net/api/Event/create`, 
     {
         crossDomain:true,
         headers: {

@@ -20,7 +20,7 @@ const { user } = useContext(StoreContext)
 
 // -- FUNCTIONS
 useEffect(() => {
-  fetch(`${process.env.BASE_URL}api/Person/get/${props.id}`, 
+  fetch(`https://toolsuserapi.azurewebsites.net/api/Person/get/${props.id}`, 
   {
     headers: {
       'Authorization': `Bearer ${user.tokenJwt}`
@@ -76,7 +76,7 @@ function update(event) {
 
   setLoading(true);
 
-  fetch(`${process.env.BASE_URL}api/user/update`, 
+  fetch(`https://toolsuserapi.azurewebsites.net/api/user/update`, 
   {
     crossDomain:true,
     mode:'cors', 
