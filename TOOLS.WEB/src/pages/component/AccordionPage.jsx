@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import AccordionBasic from '../../components/AccordionBasic';
 import AccordionTableItem from '../../components/AccordionTableItem';
 import AccordionTableRichItem from '../../components/AccordionTableRichItem';
@@ -9,9 +7,6 @@ import AccordionTableRichItem from '../../components/AccordionTableRichItem';
 import Image01 from '../../images/user-40-07.jpg';
 
 function AccordionPage() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const items = [
     {
       id: '0',
@@ -41,110 +36,95 @@ function AccordionPage() {
   ];
 
   return (
-    <div className="flex h-screen overflow-hidden">
+      <main>
+        <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+          {/* Page header */}
+          <div className="mb-8">
+            <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">Accordion ✨</h1>
+          </div>
 
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden bg-white">
+          <div className="border-t border-slate-200">
 
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
+            {/* Components */}
+            <div className="space-y-8 mt-8">
 
-        <main>
-          <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+              {/* Basic Accordion */}
+              <div>
+                <h2 className="text-2xl text-slate-800 font-bold mb-6">Basic Accordion</h2>
+                <AccordionBasic title="Accordion Title">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis. Ut enim ad minim veniam quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </AccordionBasic>
+              </div>
 
-            {/* Page header */}
-            <div className="mb-8">
-              <h1 className="text-2xl md:text-3xl text-slate-800 font-bold">Accordion ✨</h1>
-            </div>
-
-            <div className="border-t border-slate-200">
-
-              {/* Components */}
-              <div className="space-y-8 mt-8">
-
-                {/* Basic Accordion */}
-                <div>
-                  <h2 className="text-2xl text-slate-800 font-bold mb-6">Basic Accordion</h2>
-                  <AccordionBasic title="Accordion Title">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis. Ut enim ad minim veniam quis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                  </AccordionBasic>
-                </div>
-
-                {/* Table Row with Accordion */}
-                <div>
-                  <h2 className="text-2xl text-slate-800 font-bold mb-6">Table Row with Accordion</h2>
-                  {/* Start */}
-                  <div className="rounded-sm border border-slate-200">
-                    <div className="overflow-x-auto">
-                      <table className="table-auto w-full divide-y divide-slate-200">
-                        {
-                          items.map(item => {
-                            return (
-                              <AccordionTableItem
-                                key={item.id}
-                                id={item.id}
-                                image={item.image}
-                                customer={item.customer}
-                                total={item.total}
-                                status={item.status}
-                                items={item.items}
-                                location={item.location}
-                                type={item.type}
-                                description={item.description}
-                              />
-                            )
-                          })
-                        }
-                      </table>
-                    </div>
+              {/* Table Row with Accordion */}
+              <div>
+                <h2 className="text-2xl text-slate-800 font-bold mb-6">Table Row with Accordion</h2>
+                {/* Start */}
+                <div className="rounded-sm border border-slate-200">
+                  <div className="overflow-x-auto">
+                    <table className="table-auto w-full divide-y divide-slate-200">
+                      {
+                        items.map(item => {
+                          return (
+                            <AccordionTableItem
+                              key={item.id}
+                              id={item.id}
+                              image={item.image}
+                              customer={item.customer}
+                              total={item.total}
+                              status={item.status}
+                              items={item.items}
+                              location={item.location}
+                              type={item.type}
+                              description={item.description}
+                            />
+                          )
+                        })
+                      }
+                    </table>
                   </div>
-                  {/* End */}
                 </div>
+                {/* End */}
+              </div>
 
-                {/* Rich Table Row with Accordion */}
-                <div>
-                  <h2 className="text-2xl text-slate-800 font-bold mb-6">Rich Table Row with Accordion</h2>
-                  {/* Start */}
-                  <div className="rounded-sm border border-slate-200">
-                    <div className="overflow-x-auto">
-                      <table className="table-auto w-full divide-y divide-slate-200">
-                        {
-                          items2.map(item => {
-                            return (
-                              <AccordionTableRichItem
-                                key={item.id}
-                                id={item.id}
-                                image={item.image}
-                                customer={item.customer}
-                                email={item.email}
-                                location={item.location}
-                                date={item.date}
-                                amount={item.amount}
-                                descriptionTitle={item.descriptionTitle}
-                                descriptionBody={item.descriptionBody}
-                              />
-                            )
-                          })
-                        }
-                      </table>
-                    </div>
+              {/* Rich Table Row with Accordion */}
+              <div>
+                <h2 className="text-2xl text-slate-800 font-bold mb-6">Rich Table Row with Accordion</h2>
+                {/* Start */}
+                <div className="rounded-sm border border-slate-200">
+                  <div className="overflow-x-auto">
+                    <table className="table-auto w-full divide-y divide-slate-200">
+                      {
+                        items2.map(item => {
+                          return (
+                            <AccordionTableRichItem
+                              key={item.id}
+                              id={item.id}
+                              image={item.image}
+                              customer={item.customer}
+                              email={item.email}
+                              location={item.location}
+                              date={item.date}
+                              amount={item.amount}
+                              descriptionTitle={item.descriptionTitle}
+                              descriptionBody={item.descriptionBody}
+                            />
+                          )
+                        })
+                      }
+                    </table>
                   </div>
-                  {/* End */}
                 </div>
-
+                {/* End */}
               </div>
 
             </div>
 
           </div>
-        </main>
 
-      </div>
-
-    </div>
+        </div>
+      </main>
   );
 }
 

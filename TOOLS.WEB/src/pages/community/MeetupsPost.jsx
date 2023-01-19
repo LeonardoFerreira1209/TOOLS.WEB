@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 
 import MeetupImage from '../../images/meetup-image.jpg';
 import MeetupPhoto01 from '../../images/meetup-photo-01.jpg';
@@ -22,20 +19,7 @@ import Avatar03 from '../../images/avatar-03.jpg';
 import Avatar04 from '../../images/avatar-04.jpg';
 
 function MeetupsPost() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="flex h-screen overflow-hidden">
-      
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full">
             {/* Page content */}
@@ -423,8 +407,6 @@ function MeetupsPost() {
             </div>
           </div>
         </main>
-      </div>
-    </div>
   );
 }
 

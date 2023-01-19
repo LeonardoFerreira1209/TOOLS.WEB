@@ -3,7 +3,7 @@ import { createContext } from "react";
 const ContextUser = createContext({
     user: null,
     setUser: () => {},
-    setRemove: () => {}
+    setRemoveUser: () => {}
 });
 
 export default ContextUser;

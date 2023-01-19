@@ -54,7 +54,7 @@ function SignupUserData() {
 
     if(!isInvalid())
     {
-      fetch(`https://toolsuserapi.azurewebsites.net/api/User/create`, 
+      fetch(`${process.env.BASE_URL}api/User/create`, 
       {
           crossDomain:true,
           headers: {

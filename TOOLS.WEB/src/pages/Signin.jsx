@@ -56,7 +56,7 @@ function Signin() {
 
     if(!isInvalid())
     {
-      fetch(`https://toolsuserapi.azurewebsites.net/api/User/authetication`, {
+      fetch(`${process.env.BASE_URL}api/User/authetication`, {
       headers: {
         'username': values.user,
         'password': values.password
@@ -70,7 +70,6 @@ function Signin() {
         referrerPolicy: 'no-referrer',
       })
       .then(response => response.json()).then((results) => {
-        
           if(results.sucesso){
             setUser({
               tokenJwt: results.dados.value,

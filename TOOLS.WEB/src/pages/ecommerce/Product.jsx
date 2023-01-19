@@ -1,8 +1,4 @@
-import React, { useState } from 'react';
-
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
-
+import React from 'react';
 import ProductImage from '../../images/product-image.jpg';
 import User03 from '../../images/user-32-03.jpg';
 import User04 from '../../images/user-32-04.jpg';
@@ -13,21 +9,7 @@ import Related02 from '../../images/related-product-02.jpg';
 import Related03 from '../../images/related-product-03.jpg';
 
 function Product() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="flex h-screen overflow-hidden">
-
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full">
 
@@ -567,10 +549,6 @@ function Product() {
 
           </div>
         </main>
-
-      </div>
-
-    </div>
   );
 }
 

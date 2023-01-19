@@ -19,7 +19,7 @@ const [avatarImage, setAvatarImage] = useState()
 const { user } = useContext(StoreContext)
 
  useEffect(() => {
-  fetch(`https://toolsuserapi.azurewebsites.net/api/User/get/${props.id}`, 
+  fetch(`${process.env.BASE_URL}api/User/get/${props.id}`, 
   {
     headers: {
       'Authorization': `Bearer ${user.tokenJwt}`
@@ -74,7 +74,7 @@ function update(event) {
 
   setLoading(true);
 
-  fetch(`https://toolsuserapi.azurewebsites.net/api/user/update`, {
+  fetch(`${process.env.BASE_URL}api/user/update`, {
     crossDomain:true,
     mode:'cors', 
     method: 'PUT',
@@ -163,7 +163,7 @@ const formData = new FormData();
 
 formData.append('File', event.target.files[0]);
 
-fetch(`https://toolsuserapi.azurewebsites.net/api/user/updateUserImage/${values.id}`, { 
+fetch(`${process.env.BASE_URL}api/user/updateUserImage/${values.id}`, { 
   method: 'PATCH',
   headers: { 
     'Authorization': `Bearer ${user.tokenJwt}`

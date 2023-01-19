@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import PaginationClassic from '../../components/PaginationClassic';
 
 import User01 from '../../images/user-32-01.jpg';
@@ -9,21 +7,7 @@ import User02 from '../../images/user-32-02.jpg';
 import User07 from '../../images/user-32-07.jpg';
 
 function Changelog() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="flex h-screen overflow-hidden">
-
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden bg-white">
-
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
@@ -218,10 +202,6 @@ function Changelog() {
 
           </div>
         </main>
-
-      </div>
-
-    </div>
   );
 }
 

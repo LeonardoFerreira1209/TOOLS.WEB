@@ -45,6 +45,7 @@ import JobListing from './pages/job/JobListing';
 import JobPost from './pages/job/JobPost';
 import CompanyProfile from './pages/job/CompanyProfile';
 import Messages from './pages/Messages';
+import ChatBot from './pages/ChatBot';
 import TasksKanban from './pages/tasks/TasksKanban';
 import TasksList from './pages/tasks/TasksList';
 import Inbox from './pages/Inbox';
@@ -90,12 +91,12 @@ import ConfirmEmail from './pages/ConfirmEmail';
 import User from './pages/settings/User';
 import Permission from './pages/settings/Permission';
 import Business from './pages/settings/Business';
+import Header from './partials/Header';
+import Sidebar from './partials/Sidebar';
 
 // Lord icons.
 import { loadAnimation } from "lottie-web";
 import { defineLordIconElement } from "lord-icon-element";
-import Header from './partials/Header';
-import Sidebar from './partials/Sidebar';
 
 // register lottie and define custom element
 defineLordIconElement(loadAnimation);
@@ -122,8 +123,11 @@ function App() {
   }, [location.pathname]); // triggered on route change
 
   const dontShowGlobalComponents = () => {
+    const user = JSON.parse(localStorage.getItem("user") ?? null);
+
     // verifica se a rota atual é uma das que devem mostrar o menu lateral
-    return location.pathname === '/' 
+    return user === null 
+    || location.pathname === '/' 
     || location.pathname === '/signin' 
     || location.pathname === '/signup/intendedtype' 
     || location.pathname === '/signup/situation' 
@@ -137,7 +141,7 @@ function App() {
     return (
       <Routes>
         {/* No required login */}
-        <Route exact path="/" element={<Home/>} />
+        <Route path="/" element={<Home/>} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/signup/intendedtype" element={<SignupIntended />} />
         <Route path="/signup/situation" element={<SignupSituation />} />
@@ -146,11 +150,11 @@ function App() {
         <Route path="/confirmEmail/:code/:userId" element={ <ConfirmEmail /> } />
         <Route path="/reset-password" element={<ResetPassword />} />
         {/* Required login */}
-        <Route exact path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
+        <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
         <Route path="/dashboard/analytics" element={<RequireAuth><Analytics /></RequireAuth>} />
         <Route path="/dashboard/fintech" element={<RequireAuth><Fintech /></RequireAuth>} />
         <Route path="/ecommerce/customers" element={<RequireAuth><Customers /></RequireAuth>} />
-        <Route path="/ecommerce/orders" element={<RequireAuth><Orders /><Orders /></RequireAuth>} />
+        <Route path="/ecommerce/orders" element={<RequireAuth><Orders /></RequireAuth>} />
         <Route path="/ecommerce/invoices" element={<RequireAuth><Invoices /></RequireAuth>} />
         <Route path="/ecommerce/shop" element={<RequireAuth><Shop /></RequireAuth>} />
         <Route path="/ecommerce/shop-2" element={<RequireAuth><Shop2 /></RequireAuth>} />
@@ -175,6 +179,7 @@ function App() {
         <Route path="/job/job-post" element={<RequireAuth><JobPost /></RequireAuth>} />
         <Route path="/job/company-profile" element={<RequireAuth><CompanyProfile /></RequireAuth>} />
         <Route path="/messages" element={<RequireAuth><Messages /></RequireAuth>} />
+        <Route path="/chatbot" element={<RequireAuth><ChatBot /></RequireAuth>} />
         <Route path="/tasks/kanban" element={<RequireAuth><TasksKanban /></RequireAuth>} />
         <Route path="/tasks/list" element={<RequireAuth><TasksList /></RequireAuth>} />
         <Route path="/inbox" element={<RequireAuth><Inbox /></RequireAuth>} />
@@ -218,6 +223,7 @@ function App() {
 
   return (
     <ContextProvider>
+          {/* Show Header & Sidebar */}
           {!dontShowGlobalComponents() ?
             (<div className='flex h-screen overflow-hidden'>
                 {/* Sidebar */}
@@ -225,10 +231,12 @@ function App() {
                 <div className='relative flex flex-col flex-1 no-scrollbar overflow-x-hidden'>
                   {/* Header */}
                   <Header/>
+                  {/* AppRoutes */}
                   <AppRoutes/>
                 </div>
-              </div>) : 
+              </div>) :
             (<div className='bg-white flex flex-col min-h-screen no-scrollbar-ms overflow-hidden'>
+              {/* AppRoutes */}
               <AppRoutes/>
             </div>)
           }

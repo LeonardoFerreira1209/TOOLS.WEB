@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import SearchForm from '../../partials/actions/SearchForm';
 import DeleteButton from '../../partials/actions/DeleteButton';
 import DateSelect from '../../components/DateSelect';
@@ -11,7 +8,6 @@ import PaginationClassic from '../../components/PaginationClassic';
 
 function Invoices() {
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
 
   const handleSelectedItems = (selectedItems) => {
@@ -19,17 +15,6 @@ function Invoices() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
-
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
@@ -99,10 +84,6 @@ function Invoices() {
 
           </div>
         </main>
-
-      </div>
-
-    </div>
   );
 }
 

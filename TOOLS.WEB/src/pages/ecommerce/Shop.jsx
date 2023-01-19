@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import ShopCards01 from '../../partials/ecommerce/ShopCards01';
 import ShopCards02 from '../../partials/ecommerce/ShopCards02';
 import ShopCards03 from '../../partials/ecommerce/ShopCards03';
@@ -10,21 +8,7 @@ import ShopCards05 from '../../partials/ecommerce/ShopCards05';
 import ShopCards06 from '../../partials/ecommerce/ShopCards06';
 
 function Shop() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="flex h-screen overflow-hidden">
-
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
@@ -126,10 +110,6 @@ function Shop() {
 
           </div>
         </main>
-
-      </div>
-
-    </div>
   );
 }
 

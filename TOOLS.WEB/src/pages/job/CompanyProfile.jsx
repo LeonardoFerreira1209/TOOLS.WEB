@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import JobListItem from '../../partials/job/JobListItem';
 
 import CompanyBg from '../../images/company-bg.jpg';
@@ -98,18 +96,7 @@ function CompanyProfile() {
     ],
   ];  
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           {/* Profile background */}
           <div className="h-56 bg-slate-200">
@@ -233,8 +220,6 @@ function CompanyProfile() {
             </div>
           </div>
         </main>
-      </div>
-    </div>
   );
 }
 

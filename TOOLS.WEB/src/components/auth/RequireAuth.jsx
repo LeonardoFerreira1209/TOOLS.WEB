@@ -3,6 +3,7 @@ import { Navigate } from "react-router-dom";
 import ContextUser from "../store/context/ContextUser";
 
 function RequireAuth({ children }) {
+    
     return (
         <ContextUser.Consumer>
             {

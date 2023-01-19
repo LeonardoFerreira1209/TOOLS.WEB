@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import SearchForm from '../../partials/actions/SearchForm';
 import UsersTilesCard from '../../partials/community/UsersTilesCard';
 import PaginationNumeric from '../../components/PaginationNumeric';
@@ -13,7 +11,6 @@ function UsersTiles() {
 
   // -- CONST
   const [persons, setPersons] = useState([]);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [basicModalOpen, setBasicModalOpen] = useState(false);
   // -- SIGNALR
   const [hubCx, setHubCx] = useState(null);
@@ -24,7 +21,7 @@ function UsersTiles() {
   // -- API CONSUMER
   useEffect(() => {
     
-    fetch(`https://toolsuserapi.azurewebsites.net/api/Person/getAll`, 
+    fetch(`${process.env.BASE_URL}api/Person/getAll`, 
     {
       headers: {
         'Authorization': `Bearer ${user.tokenJwt}`
@@ -64,7 +61,7 @@ function UsersTiles() {
   // -- SIGNALR
   useEffect(() => {
       const newConnection = new HubConnectionBuilder()
-        .withUrl(`https://toolsuserapi.azurewebsites.net//person`)
+        .withUrl(`${process.env.BASE_URL}/person`)
         .withAutomaticReconnect()
         .build()
 
@@ -98,17 +95,6 @@ function UsersTiles() {
 
   // -- RETURN
   return (
-    <div className="flex h-screen overflow-hidden">
-
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */} 
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
@@ -185,10 +171,6 @@ function UsersTiles() {
 
           </div>
         </main>
-
-      </div>
-      
-    </div>
   );
   // -- RETURN
 }

@@ -15,7 +15,6 @@ try {
     const item = localStorage.getItem(key);
 
     try {
-      debugger
       return key.includes('notifications') && item === null ? [] : JSON.parse(item);
 
     } catch (e) {

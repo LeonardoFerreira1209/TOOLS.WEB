@@ -1,25 +1,9 @@
 import React, { useState } from 'react';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import CartItems from '../../partials/ecommerce/CartItems';
 
 function Cart2() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="flex h-screen overflow-hidden">
-
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="lg:relative lg:flex">
 
@@ -135,10 +119,6 @@ function Cart2() {
 
           </div>
         </main>
-
-      </div>
-
-    </div>
   );
 }
 

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import DeleteButton from '../../partials/actions/DeleteButton';
 import SearchForm from '../../partials/actions/SearchForm';
 import DropdownTransaction from '../../components/DropdownTransaction';
@@ -10,8 +8,6 @@ import TransactionPanel from '../../partials/finance/TransactionPanel';
 import PaginationClassic from '../../components/PaginationClassic';
 
 function TransactionDetails() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [transactionPanelOpen, setTransactionPanelOpen] = useState(true);
 
@@ -20,16 +16,6 @@ function TransactionDetails() {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
-
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden bg-white">
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="relative">
             {/* Content */}
@@ -99,8 +85,6 @@ function TransactionDetails() {
             <TransactionPanel transactionPanelOpen={transactionPanelOpen} setTransactionPanelOpen={setTransactionPanelOpen} />
           </div>
         </main>
-      </div>
-    </div>
   );
 }
 

@@ -1,23 +1,7 @@
-import React, { useState } from 'react';
-
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
+import React from 'react';
 
 function CreditCards() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden bg-white">
-
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
 
           <div className="lg:relative lg:flex">
@@ -428,9 +412,6 @@ function CreditCards() {
           </div>
 
         </main>
-
-      </div>
-    </div>
   );
 }
 

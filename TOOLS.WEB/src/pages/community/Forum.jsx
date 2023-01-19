@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import ForumLeftContent from '../../partials/community/ForumLeftContent';
 import ForumEntries from '../../partials/community/ForumEntries';
 import ForumRightContent from '../../partials/community/ForumRightContent';
@@ -9,19 +7,7 @@ import ForumRightContent from '../../partials/community/ForumRightContent';
 import Avatar from '../../images/user-40-02.jpg';
 
 function Forum() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 md:py-0 w-full max-w-9xl mx-auto">
 
@@ -77,9 +63,6 @@ function Forum() {
 
           </div>
         </main>
-
-      </div>
-    </div>
   );
 }
 

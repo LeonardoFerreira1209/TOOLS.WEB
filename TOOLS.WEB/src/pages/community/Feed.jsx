@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import FeedLeftContent from '../../partials/community/FeedLeftContent';
 import FeedPosts from '../../partials/community/FeedPosts';
 import FeedRightContent from '../../partials/community/FeedRightContent';
@@ -9,19 +7,7 @@ import FeedRightContent from '../../partials/community/FeedRightContent';
 import Avatar from '../../images/user-40-02.jpg';
 
 function Feed() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 md:py-0 w-full max-w-9xl mx-auto">
 
@@ -102,9 +88,6 @@ function Feed() {
 
           </div>
         </main>
-
-      </div>
-    </div>
   );
 }
 

@@ -50,7 +50,7 @@ function Header({
                 src="https://cdn.lordicon.com/osbjlbsb.json"
                 trigger="morph"
                 >
-            </lord-icon>
+              </lord-icon>
             </button>
             <SearchModal id="search-modal" searchId="search" modalOpen={searchModalOpen} setModalOpen={setSearchModalOpen} />
             <Notifications notifications={notifications} setNotifications={setNotifications} align="right" />

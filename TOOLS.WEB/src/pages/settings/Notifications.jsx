@@ -1,29 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import SettingsSidebar from '../../partials/settings/SettingsSidebar';
 import NotificationsPanel from '../../partials/settings/NotificationsPanel';
 import { useParams } from 'react-router-dom';
 
 function Notifications() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const personId = useParams("id");
 
   return (
-    <div className="flex h-screen overflow-hidden">
-
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
               {/* Page header */}
@@ -41,8 +25,6 @@ function Notifications() {
               </div>
           </div>
         </main>
-      </div>
-    </div>
   );
 }
 

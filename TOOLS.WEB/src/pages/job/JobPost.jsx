@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import JobListItem from '../../partials/job/JobListItem';
 
 import Image03 from '../../images/company-icon-03.svg';
@@ -48,18 +46,7 @@ function JobPost() {
       },
     ];
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full">
             {/* Page content */}
@@ -269,10 +256,6 @@ function JobPost() {
 
           </div>
         </main>
-
-      </div>
-
-    </div>
   );
 }
 

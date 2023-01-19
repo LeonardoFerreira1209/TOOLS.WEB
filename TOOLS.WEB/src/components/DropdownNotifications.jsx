@@ -6,19 +6,14 @@ import ContextNotify from './store/context/ContextNotify';
 import ContextHub from './store/context/ContextHub';
 
 function DropdownNotifications({align}) {
-  
-  // -- CONSTS
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef(null);
   const dropdown = useRef(null);
   
-  // -- STORE
-  const { notifications, setNotifications, setRemove } = useContext(ContextNotify);
+  const { setNotifications, setRemoveNotifications } = useContext(ContextNotify);
   const { hub, setHub } = useContext(ContextHub);
   const [ hubcx, setHubcx ] = useState();
-  // -- CONSTS
 
-  // -- CLOSE ON CLICK OUTSIDE
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
@@ -29,9 +24,7 @@ function DropdownNotifications({align}) {
 
     return () => document.removeEventListener('click', clickHandler);
   });
-  // -- CLOSE ON CLICK OUTSIDE
   
-  // -- CLOSE ON CLICK IN ESC KEY
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
       if (!dropdownOpen || keyCode !== 27) return;
@@ -41,12 +34,10 @@ function DropdownNotifications({align}) {
 
     return () => document.removeEventListener('keydown', keyHandler);
   });
-  // -- CLOSE ON CLICK IN ESC KEY
   
-  // -- SIGNALR
-  useEffect(() => { // HUB CONNECTION.
+  useEffect(() => {
       const newConnection = new HubConnectionBuilder()
-        .withUrl(`https://toolsmainapi.azurewebsites.net/notify`)
+        .withUrl(`${process.env.TOOLS_API_BASE_URL}notify`)
         .withAutomaticReconnect()
         .build()
 
@@ -54,11 +45,11 @@ function DropdownNotifications({align}) {
   }, []);
 
   useEffect(() => { // HUB RECEIVER
-    if(hubcx && (!hub || !hub._connectionStarted)) {
+    if(hubcx) {
         hubcx.start().then(() => {
           hubcx.on("ReceiveMessage", (notify) =>  {
-            notifications.push(notify);
-            setNotifications(notifications);
+            const { notificationsTeste } = useContext(ContextNotify);
+            setNotifications([...notificationsTeste, notify]);
           });
 
           setHub(hubcx);
@@ -71,17 +62,14 @@ function DropdownNotifications({align}) {
   function cleanNotify(event) {
     event.preventDefault();
 
-    setRemove();
+    setRemoveNotifications();
   }
-  // -- SIGNALR
 
-  // -- RETURN
   return (
     <ContextNotify.Consumer>
       {
         notifyContext => (
           <div className="relative inline-flex">
-       
             <button
               ref={trigger}
               className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 transition duration-150 rounded-full ${dropdownOpen && 'bg-slate-200'}`}
@@ -135,7 +123,6 @@ function DropdownNotifications({align}) {
       }
     </ContextNotify.Consumer>
   )
-  // -- RETURN
 }
 
 export default DropdownNotifications;

@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Sidebar from '../../partials/Sidebar';
-import Header from '../../partials/Header';
 import TasksGroups from '../../partials/tasks/TasksGroups';
 import Task01 from '../../partials/tasks/Task01';
 import Task02 from '../../partials/tasks/Task02';
@@ -15,21 +13,7 @@ import Task08 from '../../partials/tasks/Task08';
 import Task09 from '../../partials/tasks/Task09';
 
 function TasksKanban() {
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
   return (
-    <div className="flex h-screen overflow-hidden">
-
-      {/* Sidebar */}
-      <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
-      {/* Content area */}
-      <div className="relative flex flex-col flex-1 no-scrollbar overflow-x-hidden">
-
-        {/*  Site header */}
-        <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
@@ -100,10 +84,6 @@ function TasksKanban() {
 
           </div>
         </main>
-
-      </div>
-
-    </div>
   );
 }
 

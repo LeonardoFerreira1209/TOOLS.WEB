@@ -11,15 +11,16 @@ function DropdownProfile({
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef(null);
   const dropdown = useRef(null);
-  const { setUser } = useContext(ContextUser);
+  const { setRemoveUser } = useContext(ContextUser);
 
   const navigate = useNavigate();
   // -- CONSTS
   
   // -- SIGNOUT
   function SigninOut(event) {
+    
     event.preventDefault();
-    setUser(null);
+    setRemoveUser();
     navigate("/");
   }
   // -- SIGNOUT

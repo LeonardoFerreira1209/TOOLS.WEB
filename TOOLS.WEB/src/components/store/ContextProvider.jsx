@@ -5,14 +5,14 @@ import ContextNotify from "./context/ContextNotify";
 import ContextHub from "./context/ContextHub";
 
 function ContextProvider({ children })  {
-    const [ user, setUser ] = useStorage('user');
+    const [ user, setUser, setRemoveUser ] = useStorage('user');
     const [ hub, setHub ] = useStorage('hub');
-    const [ notifications, setNotifications, setRemove ] = useStorage('notifications');
+    const [ notifications, setNotifications, setRemoveNotifications ] = useStorage('notifications');
 
     return(
-        <ContextUser.Provider value={{ user, setUser }}>
+        <ContextUser.Provider value={{ user, setUser, setRemoveUser }}>
             <ContextHub.Provider value={{ hub, setHub }}>
-                <ContextNotify.Provider value={{ notifications, setNotifications, setRemove }}>
+                <ContextNotify.Provider value={{ notifications, setNotifications, setRemoveNotifications }}>
                     { children }
                 </ContextNotify.Provider>
             </ContextHub.Provider>

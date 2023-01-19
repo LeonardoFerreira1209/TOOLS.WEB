@@ -1,35 +1,32 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import Sidebar from '../partials/Sidebar';
-import Header from '../partials/Header';
+import moment from 'moment';
 import ModalBasic from '../components/ModalBasic';
 import DatepickerCalendar from '../components/DatepickerCalendar';
 import StoreContext from "../components/store/context/ContextUser";
 import { BlockPicker  } from 'react-color';
 import { ToastContainer, toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 function Calendar() {
 
   const today = new Date();
-  const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
-  const dayNames = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado']
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+  const dayNames = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
   const [month, setMonth] = useState(0);
   const [year, setYear] = useState(today.getFullYear());
-  const [daysInMonth, setDaysInMonth] = useState([])
-  const [startingBlankDays, setStartingBlankDays] = useState([])
-  const [endingBlankDays, setEndingBlankDays] = useState([])
-  const [events, setEvents] = useState([])
-  const [eventTypes, setEventTypes] = useState([])
-  const [eventModalOpen, setEventModalOpen] = useState(false)
-  const [color, setColor] = useState()
-  const [eventTypeModalOpen, setEventTypeModalOpen] = useState(false)
+  const [daysInMonth, setDaysInMonth] = useState([]);
+  const [startingBlankDays, setStartingBlankDays] = useState([]);
+  const [endingBlankDays, setEndingBlankDays] = useState([]);
+  const [events, setEvents] = useState([]);
+  const [eventTypes, setEventTypes] = useState([]);
+  const [eventModalOpen, setEventModalOpen] = useState(false);
+  const [color, setColor] = useState();
+  const [eventTypeModalOpen, setEventTypeModalOpen] = useState(false);
   const [eventValues, setEventValues] = useState(initializeEventValues);
   const [eventTypeValues, setEventTypeValues] = useState(initializeEventTypeValues);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const { user } = useContext(StoreContext)
+  const { user } = useContext(StoreContext);
 
   // initialize event state.
   function initializeEventValues(){
@@ -53,8 +50,9 @@ function Calendar() {
 
   // get events and eventTypes in api on load page.
   useEffect(() => {
+    
     // fetch events in web api.
-    fetch(`https://toolsmainapi.azurewebsites.net/api/Event/getall`, {
+    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/getall`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.tokenJwt}`
@@ -80,21 +78,34 @@ function Calendar() {
             );
           }
           else{
-            setError(results.notificacoes[0].mensagem); setLoading(false);
+            console.error(results.notificacoes[0].mensagem);
+
+            toast.info(results.notificacoes[0].mensagem, {
+              theme: 'light',
+              autoClose: true
+            });
           }
       },
       (error) => {
-        console.error(error);
+        console.error(error.message);
+      
+        toast.error("Ops, Falha ao recuperar evento!", {
+          theme: 'light',
+          autoClose: true
+        });
 
-        setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
       }).catch(error => {
-        console.error(error);
-
-        setError("Ops, tivemos um erro inesperado!"); setLoading(false);
+        console.error(error.message);
+      
+        toast.error("Ops, Falha ao recuperar evento!", {
+          theme: 'light',
+          autoClose: true
+        });
+        
       });
 
       // fetch event types in web api.
-      fetch(`https://toolsmainapi.azurewebsites.net/api/Event/getall/eventtypes`, {
+      fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/getall/eventtypes`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${user.tokenJwt}`
@@ -118,17 +129,29 @@ function Calendar() {
             );
           }
           else{
-            setError(results.notificacoes[0].mensagem); setLoading(false);
+            console.error(results.notificacoes[0].mensagem);
+
+            toast.info(results.notificacoes[0].mensagem, {
+              theme: 'light',
+              autoClose: true
+            });
           }
       },
       (error) => {
-        console.error(error);
+        console.error(error.message);
+      
+        toast.error("Ops, Falha ao recuperar tipos de evento!", {
+          theme: 'light',
+          autoClose: true
+        });
 
-        setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
       }).catch(error => {
-        console.error(error);
-
-        setError("Ops, tivemos um erro inesperado!"); setLoading(false);
+        console.error(error.message);
+      
+        toast.error("Ops, Falha ao recuperar tipos de evento!", {
+          theme: 'light',
+          autoClose: true
+        });
       });
 
   }, []);
@@ -193,10 +216,7 @@ function Calendar() {
   function CreateEventType(event){
     event.preventDefault();
 
-    setLoading(true);
-
-    fetch(`https://toolsmainapi.azurewebsites.net/api/Event/create/eventype`, 
-    {
+    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/create/eventype`, {
         crossDomain:true,
         headers: {
           'Content-Type': 'application/json',
@@ -218,19 +238,19 @@ function Calendar() {
             }]);
           }
           else{
-            setError(results.notificacoes[0].mensagem); setLoading(false);
+            setError(results.notificacoes[0].mensagem);
           }
         },
         (error) => {
           console.error(error);
 
-          setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+          setError("Ops, não conseguimos fazer a requisição!");
         }
 
       ).catch(error => {
         console.error(error);
 
-        setError("Ops, tivemos um erro inesperado!"); setLoading(false);
+        setError("Ops, tivemos um erro inesperado!");
       });
   };
 
@@ -238,9 +258,7 @@ function Calendar() {
   function CreateEvent(event){
     event.preventDefault();
 
-    setLoading(true);
-    fetch(`https://toolsmainapi.azurewebsites.net/api/Event/create`, 
-    {
+    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/create`, {
         crossDomain:true,
         headers: {
           'Content-Type': 'application/json',
@@ -264,9 +282,7 @@ function Calendar() {
               theme: 'light',
               autoClose: true
             });
-    
-            setLoading(false);
-
+  
             setEvents([...events, {
               id: results.dados.id,
               eventType: results.dados.eventType,
@@ -276,12 +292,12 @@ function Calendar() {
             }]);
           }
           else{
+            console.error(results.notificacoes[0].mensagem);
+
             toast.info(results.notificacoes[0].mensagem, {
               theme: 'light',
               autoClose: true
             });
-            
-            setLoading(false);
           }
         },
         (error) => {
@@ -291,8 +307,6 @@ function Calendar() {
             theme: 'light',
             autoClose: true
           });
-
-          setLoading(false);
         }
 
       ).catch(error => {
@@ -302,8 +316,6 @@ function Calendar() {
           theme: 'light',
           autoClose: true
         });
-
-        setLoading(false);
       });
   };
 
@@ -382,10 +394,10 @@ function Calendar() {
          <ModalBasic id="event-type-modal" modalOpen={eventTypeModalOpen} setModalOpen={setEventTypeModalOpen} title="Crie seu tipo de evento">
           {/* Modal content */}
           <div className="px-5 py-4">
-              <div className="text-sm">
-                <div className="font-medium text-slate-800 mb-3">Informe os dados do tipo de evento</div>
-              </div>
-              {/* Form */}
+            <div className="text-sm">
+              <div className="font-medium text-slate-800 mb-3">Informe os dados do tipo de evento</div>
+            </div>
+            {/* Form */}
             <form>
               <div className='grid gap-2 md:grid-cols-2 mt-2'>
                 <div>
@@ -397,7 +409,7 @@ function Calendar() {
                   <BlockPicker triangle='hide' width='100%' color={color} colors={["#0f172a", "#b91c1c", "#ea580c", "#fbbf24", "#a3e635", "#4ade80", "#34d399", "#2dd4bf", "#22d3ee", "#38bdf8", "#60a5fa", "#818cf8"]} onChangeComplete={(color) => {setColor(color.hex), setEventTypeValues({...eventTypeValues, ['eventTypeColor']: color.hex})}} id="eventTypeColor" name='eventTypeColor' className="form-input w-full px-2 py-1" required />
                 </div>
               </div>
-           </form>
+            </form>
           </div>
           {/* Modal footer */}
           <div className="px-5 py-4 border-t border-slate-200">
@@ -407,9 +419,7 @@ function Calendar() {
             </div>
           </div>
         </ModalBasic>
-        {/* End */}
-
-     
+        {/* End */}     
         <main>
           <div className="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
@@ -460,7 +470,6 @@ function Calendar() {
 
             {/* Filters and view buttons */}
             <div className="sm:flex sm:justify-between sm:items-center mb-4">
-
               {/* Filters  */}
               <div className="mb-4 sm:mb-0 mr-2">
                 <ul className="flex flex-wrap items-center -m-1">
@@ -518,7 +527,7 @@ function Calendar() {
                 </svg>
                 {/* Empty cells (previous month) */}
                 {
-                  startingBlankDays.map(blankday => {      
+                  startingBlankDays.map(blankday => {
                     return (          
                       <div className="bg-slate-50 h-20 sm:h-28 lg:h-36" key={blankday}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
@@ -530,9 +539,9 @@ function Calendar() {
                 }                  
                 {/* Days of the current month */}
                 {
-                  daysInMonth.map(day => {    
+                  daysInMonth.map(day => {
                     return (
-                      new Date(year, month, day) >= new Date() ? (
+                      new Date(year, month, day) >= moment().subtract(1, 'days').toDate() ? (
                         (
                           <div className="relative bg-white h-20 sm:h-28 lg:h-36 overflow-hidden" key={day}>
                           <div className="h-full flex flex-col justify-between">
@@ -548,12 +557,12 @@ function Calendar() {
                                         {/* Event time */}
                                         <div className="text-xs uppercase truncate hidden sm:block">
                                           {/* Start date */}
-                                          {event.eventStart &&        
+                                          { event.eventStart &&       
                                             <span>{new Date(event.eventStart).toLocaleTimeString([], {hourCycle: 'h24', hour: 'numeric', minute:'numeric'})}</span>
                                           }
                                           &ensp;-&ensp;
                                           {/* End date */}
-                                          {event.eventEnd &&  
+                                          { event.eventEnd &&
                                             <span>{new Date(event.eventEnd).toLocaleTimeString([], {hourCycle: 'h24', hour: 'numeric', minute:'numeric'})}</span>
                                           }
                                         </div>
