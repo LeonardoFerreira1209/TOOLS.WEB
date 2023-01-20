@@ -29,8 +29,8 @@ function HeroHome() {
 
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-            <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-indigo-500 h1 mb-4" data-aos="fade-up"><i className='bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500'>TOOLS.API</i> o seu gerenciador de negócios</h1>
-            <p className="text-xl mb-8 bg-clip-text text-transparent bg-gradient-to-l from-indigo-400 to-sky-900" data-aos="fade-up" data-aos-delay="200">Nosso sistema fornece tudo que á de atual no gerenciamento de sua empresa, temos a flexibilidade, mobilidade e facilidade.</p>
+            <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-indigo-500 h1 mb-4" data-aos="fade-up"><i className='bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500'>TOOLS.API</i> á sua ferramenta</h1>
+            <p className="text-xl mb-8 bg-clip-text text-transparent bg-gradient-to-l from-indigo-400 to-sky-900" data-aos="fade-up" data-aos-delay="200">O TOOLS.API é um projeto pessoal, projetado com multifuncionalidades no intuito de auxiliar outros projetos com APIS e ferramentas diversificadas.</p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
                 <a className="btn text-white text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 w-full mb-4 sm:w-auto sm:mb-0" href="#0">Inicie um teste gratuito</a>
@@ -44,10 +44,10 @@ function HeroHome() {
           {/* Hero image */}
           <div>
             <div className="relative flex justify-center items-center" data-aos="fade-up" data-aos-delay="200">
-              <picture className="mx-auto" alt="Hero">
-                <img src={HeroImage} alt="presentation-image"/>
+              <picture>
+                <img className="mx-auto" src={HeroImage} width="1024" height="504" alt="Hero"/>
               </picture>
-              <a className="absolute group" href="#0" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setVideoModalOpen(true); }} aria-controls="modal">
+              {/* <a className="absolute group" href="#0" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setVideoModalOpen(true); }} aria-controls="modal">
                 <svg className="w-16 h-16 sm:w-20 sm:h-20 hover:opacity-75 transition duration-150 ease-in-out" viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg">
                   <defs>
                     <linearGradient x1="78.169%" y1="9.507%" x2="24.434%" y2="90.469%" id="a">
@@ -58,15 +58,15 @@ function HeroHome() {
                   <circle fill="url(#a)" cx="44" cy="44" r="44" />
                   <path className="fill-current text-purple-600" d="M52 44a.999.999 0 00-.427-.82l-10-7A1 1 0 0040 37V51a.999.999 0 001.573.82l10-7A.995.995 0 0052 44V44c0 .001 0 .001 0 0z" />
                 </svg>
-              </a>
+              </a> */}
             </div>
             
             {/* Modal */}
-            <Modal id="modal" ariaLabel="modal-headline" show={videoModalOpen} handleClose={() => setVideoModalOpen(false)}>
+            {/* <Modal id="modal" ariaLabel="modal-headline" show={videoModalOpen} handleClose={() => setVideoModalOpen(false)}>
               <div className="relative pb-9/16">
                 <iframe className="absolute w-full h-full" src="https://player.vimeo.com/video/174002812" title="Video" allowFullScreen></iframe>
               </div>
-            </Modal>
+            </Modal> */}
 
           </div>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FeatIllustration from '../../images/features-illustration.png';
+import FeatIllustration from '../../images/features-illustration - Editado.png';
 import FeatAvatar from '../../images/features-avatar.jpg';
 
 function FeaturesHome() {
