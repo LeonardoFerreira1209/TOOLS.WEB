@@ -45,7 +45,7 @@ function HeroHome() {
           <div>
             <div className="relative flex justify-center items-center" data-aos="fade-up" data-aos-delay="200">
               <picture className="mx-auto" alt="Hero">
-                <img src={HeroImage} />
+                <img src={HeroImage} alt="presentation-image"/>
               </picture>
               <a className="absolute group" href="#0" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setVideoModalOpen(true); }} aria-controls="modal">
                 <svg className="w-16 h-16 sm:w-20 sm:h-20 hover:opacity-75 transition duration-150 ease-in-out" viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg">
