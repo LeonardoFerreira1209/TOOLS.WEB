@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
-import AuthImage from '../../images/—Pngtree—2 5d learn know how_4117072.jpg';
+import AuthImage from '../../images/—Pngtree—2 5d learn know how_4117072.webp';
 import AuthDecoration from '../../images/auth-decoration.png';
 
 function SignupSituation() {
@@ -146,7 +146,9 @@ function SignupSituation() {
       </div>
       {/* Image */}
       <div className="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
-        <img className="object-cover object-center w-full h-full" src={AuthImage} width="760" height="1024" alt="Authentication" />
+        <picture>
+          <img className="object-cover object-center w-full h-full" src={AuthImage} width="760" height="1024" alt="Authentication" />
+        </picture>
         <img className="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block"  src={AuthDecoration} width="218" height="224" alt="Authentication decoration" />
       </div>
     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Modal from '../../utils/Modal';
 
-import HeroImage from '../../images/—Pngtree—2 5d business office data_4115599.jpg';
+import HeroImage from '../../images/—Pngtree—2 5d business office data_4115599.webp';
 
 function HeroHome() {
 
@@ -44,7 +44,9 @@ function HeroHome() {
           {/* Hero image */}
           <div>
             <div className="relative flex justify-center items-center" data-aos="fade-up" data-aos-delay="200">
-              <img className="mx-auto" src={HeroImage} width="1024" height="504" alt="Hero" />
+              <picture className="mx-auto" alt="Hero">
+                <img src={HeroImage} />
+              </picture>
               <a className="absolute group" href="#0" onClick={(e) => { e.preventDefault(); e.stopPropagation(); setVideoModalOpen(true); }} aria-controls="modal">
                 <svg className="w-16 h-16 sm:w-20 sm:h-20 hover:opacity-75 transition duration-150 ease-in-out" viewBox="0 0 88 88" xmlns="http://www.w3.org/2000/svg">
                   <defs>

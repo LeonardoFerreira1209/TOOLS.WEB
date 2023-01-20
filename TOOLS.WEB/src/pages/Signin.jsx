@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { parseJwt } from '../utils/Utils';
 import ContextUser from '../components/store/context/ContextUser';
 
-import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.jpg';
+import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.webp';
 import AuthDecoration from '../images/auth-decoration.png';
 
 import 'aos/dist/aos.css';
@@ -207,7 +207,7 @@ function Signin() {
               {/* Footer */}
               <div className="pt-5 mt-6 border-t border-slate-200">
                 <div data-aos="fade-right" className="text-sm">
-                  Não têm uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signup0/intendedtype" state={ { intendedtype: "1", unloadedanimation: true } }>Se cadastrar</Link>
+                  Não têm uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signup/intendedtype" state={ { intendedtype: "1", unloadedanimation: true } }>Se cadastrar</Link>
                 </div>
                 {/* Warning */}
                 <div data-aos="fade-up" className="mt-5">
@@ -228,7 +228,9 @@ function Signin() {
 
         {/* Image */}
         <div className="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
-          <img data-aos="fade-left" className="object-cover object-center w-full h-full" src={AuthImage} width="760" height="1024" alt="Authentication" />
+          <picture>
+            <img data-aos="fade-left" className="object-cover object-center w-full h-full" src={AuthImage} width="760" height="1024" alt="Authentication" />
+          </picture>
           <img className="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block" src={AuthDecoration} width="218" height="224" alt="Authentication decoration" />
         </div>
 
