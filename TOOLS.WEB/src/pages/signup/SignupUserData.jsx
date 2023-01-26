@@ -54,7 +54,7 @@ function SignupUserData() {
 
     if(!isInvalid())
     {
-      fetch(`${process.env.BASE_URL}api/User/create`, 
+      fetch(`${process.env.BASE_URL}gateway/user/create`, 
       {
           crossDomain:true,
           headers: {

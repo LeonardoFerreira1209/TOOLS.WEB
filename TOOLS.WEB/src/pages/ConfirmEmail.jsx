@@ -18,7 +18,7 @@ function ConfirmEmail() {
 
     event.preventDefault();
 
-    fetch(`${process.env.BASE_URL}api/User/activate/${code}/${userId}`, 
+    fetch(`${process.env.BASE_URL}gateway/user/activate/${code}/${userId}`, 
     {
       crossDomain:true,
       mode:'cors', 

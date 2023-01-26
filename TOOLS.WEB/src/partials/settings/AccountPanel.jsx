@@ -19,7 +19,7 @@ const [avatarImage, setAvatarImage] = useState()
 const { user } = useContext(StoreContext)
 
  useEffect(() => {
-  fetch(`${process.env.BASE_URL}api/User/get/${props.id}`, 
+  fetch(`${process.env.BASE_URL}gateway/user/get/${props.id}`, 
   {
     headers: {
       'Authorization': `Bearer ${user.tokenJwt}`
@@ -74,7 +74,7 @@ function update(event) {
 
   setLoading(true);
 
-  fetch(`${process.env.BASE_URL}api/user/update`, {
+  fetch(`${process.env.BASE_URL}gateway/user/update`, {
     crossDomain:true,
     mode:'cors', 
     method: 'PUT',
@@ -163,7 +163,7 @@ const formData = new FormData();
 
 formData.append('File', event.target.files[0]);
 
-fetch(`${process.env.BASE_URL}api/user/updateUserImage/${values.id}`, { 
+fetch(`${process.env.BASE_URL}gateway/user/updateuserimage/${values.id}`, { 
   method: 'PATCH',
   headers: { 
     'Authorization': `Bearer ${user.tokenJwt}`

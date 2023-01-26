@@ -52,7 +52,7 @@ function Calendar() {
   useEffect(() => {
     
     // fetch events in web api.
-    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/getall`, {
+    fetch(`${process.env.BASE_URL}gateway/event/getall`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${user.tokenJwt}`
@@ -105,7 +105,7 @@ function Calendar() {
       });
 
       // fetch event types in web api.
-      fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/getall/eventtypes`, {
+      fetch(`${process.env.BASE_URL}gateway/event/getall/eventtypes`, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${user.tokenJwt}`
@@ -216,7 +216,7 @@ function Calendar() {
   function CreateEventType(event){
     event.preventDefault();
 
-    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/create/eventype`, {
+    fetch(`${process.env.BASE_URL}gateway/event/create/eventype`, {
         crossDomain:true,
         headers: {
           'Content-Type': 'application/json',
@@ -258,7 +258,7 @@ function Calendar() {
   function CreateEvent(event){
     event.preventDefault();
 
-    fetch(`${process.env.TOOLS_API_BASE_URL}api/Event/create`, {
+    fetch(`${process.env.BASE_URL}gateway/event/create`, {
         crossDomain:true,
         headers: {
           'Content-Type': 'application/json',
