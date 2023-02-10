@@ -1,9 +1,9 @@
 import React from 'react';
 import Mail from './Mail';
 
-import mailUser01 from '../../images/user-40-11.jpg';
-import mailUser02 from '../../images/user-avatar-80.png';
-import mailImage from '../../images/inbox-image.jpg';
+import mailUser01 from '../../assets/images/user-40-11.jpg';
+import mailUser02 from '../../assets/images/user-avatar-80.png';
+import mailImage from '../../assets/images/inbox-image.jpg';
 
 function InboxBody({
   inboxSidebarOpen,

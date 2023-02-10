@@ -4,7 +4,7 @@ import FeedLeftContent from '../../partials/community/FeedLeftContent';
 import FeedPosts from '../../partials/community/FeedPosts';
 import FeedRightContent from '../../partials/community/FeedRightContent';
 
-import Avatar from '../../images/user-40-02.jpg';
+import Avatar from '../../assets/images/user-40-02.jpg';
 
 function Feed() {
   return (

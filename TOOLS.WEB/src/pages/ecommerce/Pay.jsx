@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import PayBg from '../../images/pay-bg.jpg';
-import User from '../../images/user-64-13.jpg';
+import PayBg from '../../assets/images/pay-bg.jpg';
+import User from '../../assets/images/user-64-13.jpg';
 
 function Pay() {
 

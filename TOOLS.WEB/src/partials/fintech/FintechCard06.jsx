@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UserImage from '../../images/user-36-05.jpg';
+import UserImage from '../../assets/images/user-36-05.jpg';
 
 function FintechCard06() {
   return (

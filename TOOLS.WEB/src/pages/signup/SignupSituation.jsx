@@ -1,21 +1,17 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 
-import AuthImage from '../../images/—Pngtree—2 5d learn know how_4117072.webp';
-import AuthDecoration from '../../images/auth-decoration.png';
+import AuthImage from '../../assets/images/—Pngtree—2 5d learn know how_4117072.webp';
+import AuthDecoration from '../../assets/images/auth-decoration.png';
 
 function SignupSituation() {
-  // -- INPUTS 
   const params = useLocation();
   const [values, setValues] = useState(initialState);
   const navigate = useNavigate();
 
-  // params obj
   const data = { situation: values.situation, unloadedanimation: false, intendedtype: params.state.intendedtype, firstname:  params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf,  birthday: params.state.birthday, rg: params.state.rg, gender: params.state.gender, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
 
-  
   function initialState() {
-
       return {
         situation: params.state.situation
     };
@@ -29,26 +25,25 @@ function SignupSituation() {
       [name]: value
     });
   }
-  // -- INPUTS
 
-  // -- FUNCTIONS
   function Next(event) {
     event.preventDefault();
 
     navigate(`/signup/basic`, { state:  data });
    }
-  // -- FUNCTIONS
 
-  // -- RETURN
   return (
   <main className="bg-white">
     <div className="relative md:flex">
+
       {/* Content */}
       <div className="md:w-1/2">
         <div className="min-h-screen h-full flex flex-col after:flex-1">
+
           {/* Header */}
           <div className="flex-1">
             <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+
               {/* Logo */}
               <NavLink end to="/" className="block">
                 <svg width="32" height="32" viewBox="0 0 32 32">
@@ -78,11 +73,14 @@ function SignupSituation() {
                   </g>
                 </svg>
               </NavLink>
+
               <div className="text-sm">
                   Já tem uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signin">Entrar</Link>
               </div>
+
             </div>
           </div>
+
           {/* Progress bar */}
           <div data-aos="fade-right" className="px-4 pt-12 pb-8">
             <div className="max-w-md mx-auto w-full">
@@ -105,9 +103,11 @@ function SignupSituation() {
               </div>
             </div>
           </div>
+
           <div className="px-4 py-8">
               <div className="max-w-md mx-auto">
                 <h1 data-aos="fade-left" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Qual sua situação <b className='text-indigo-100'>✨</b></h1>
+
                 {/* Form */}
                 <form>
                   <div className="space-y-3 mb-8">
@@ -140,10 +140,12 @@ function SignupSituation() {
                     <button onClick={Next} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">Próximo passo -&gt;</button>
                   </div>
                 </form>
+
               </div>
             </div>
           </div>
       </div>
+
       {/* Image */}
       <div className="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
         <picture>
@@ -151,10 +153,10 @@ function SignupSituation() {
         </picture>
         <img className="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block"  src={AuthDecoration} width="218" height="224" alt="Authentication decoration" />
       </div>
+
     </div>
   </main>
   );
-  // -- RETURN
 }
 
 export default SignupSituation;

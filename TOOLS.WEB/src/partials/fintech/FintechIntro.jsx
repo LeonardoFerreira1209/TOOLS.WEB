@@ -1,10 +1,10 @@
 import React from 'react';
 
-import UserImage from '../../images/user-64-14.jpg';
-import FintechIcon01 from '../../images/company-icon-01.svg';
-import FintechIcon02 from '../../images/company-icon-02.svg';
-import FintechIcon03 from '../../images/company-icon-03.svg';
-import FintechIcon04 from '../../images/company-icon-04.svg';
+import UserImage from '../../assets/images/user-64-14.jpg';
+import FintechIcon01 from '../../assets/images/company-icon-01.svg';
+import FintechIcon02 from '../../assets/images/company-icon-02.svg';
+import FintechIcon03 from '../../assets/images/company-icon-03.svg';
+import FintechIcon04 from '../../assets/images/company-icon-04.svg';
 
 function FintechIntro() {
   return (

@@ -1,8 +1,8 @@
 import React from 'react';
 
-import User01 from '../../images/user-40-11.jpg';
-import User02 from '../../images/user-40-12.jpg';
-import ChatImage from '../../images/chat-image.jpg';
+import User01 from '../../assets/images/user-40-11.jpg';
+import User02 from '../../assets/images/user-40-12.jpg';
+import ChatImage from '../../assets/images/chat-image.jpg';
 
 function ChatBotBody() {
   return (

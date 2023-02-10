@@ -2,15 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import EditMenu from '../../components/DropdownEditMenu';
 
-import UserImage02 from '../../images/user-40-02.jpg';
-import UserImage03 from '../../images/user-40-03.jpg';
-import UserImage04 from '../../images/user-40-04.jpg';
-import UserImage06 from '../../images/user-40-06.jpg';
-import UserImage08 from '../../images/user-40-08.jpg';
-import CommenterImage04 from '../../images/user-32-04.jpg';
-import CommenterImage05 from '../../images/user-32-05.jpg';
-import FeedImage01 from '../../images/feed-image-01.jpg';
-import FeedImage02 from '../../images/feed-image-02.jpg';
+import UserImage02 from '../../assets/images/user-40-02.jpg';
+import UserImage03 from '../../assets/images/user-40-03.jpg';
+import UserImage04 from '../../assets/images/user-40-04.jpg';
+import UserImage06 from '../../assets/images/user-40-06.jpg';
+import UserImage08 from '../../assets/images/user-40-08.jpg';
+import CommenterImage04 from '../../assets/images/user-32-04.jpg';
+import CommenterImage05 from '../../assets/images/user-32-05.jpg';
+import FeedImage01 from '../../assets/images/feed-image-01.jpg';
+import FeedImage02 from '../../assets/images/feed-image-02.jpg';
 
 function FeedPosts() {
   return (

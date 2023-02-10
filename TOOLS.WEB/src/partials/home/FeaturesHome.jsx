@@ -1,7 +1,7 @@
 import React from 'react';
 
-import FeatIllustration from '../../images/features-illustration - Editado.png';
-import FeatAvatar from '../../images/features-avatar.jpg';
+import FeatIllustration from '../../assets/images/features-illustration - Editado.png';
+import FeatAvatar from '../../assets/images/features-avatar.jpg';
 
 function FeaturesHome() {
   return (

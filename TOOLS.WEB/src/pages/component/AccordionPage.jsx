@@ -4,7 +4,7 @@ import AccordionBasic from '../../components/AccordionBasic';
 import AccordionTableItem from '../../components/AccordionTableItem';
 import AccordionTableRichItem from '../../components/AccordionTableRichItem';
 
-import Image01 from '../../images/user-40-07.jpg';
+import Image01 from '../../assets/images/user-40-07.jpg';
 
 function AccordionPage() {
   const items = [

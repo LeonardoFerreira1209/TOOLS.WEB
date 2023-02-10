@@ -1,5 +1,5 @@
 import React from "react";
-import useStorage from "../../utils/storage/UseStorage";
+import useStorage from "../../shared/utils/storage/UseStorage";
 import ContextUser from "./context/ContextUser";
 import ContextNotify from "./context/ContextNotify";
 import ContextHub from "./context/ContextHub";

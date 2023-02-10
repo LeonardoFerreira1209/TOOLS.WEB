@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 
 import JobListItem from '../../partials/job/JobListItem';
 
-import CompanyBg from '../../images/company-bg.jpg';
-import CompanyImage from '../../images/company-icon-01.svg';
+import CompanyBg from '../../assets/images/company-bg.jpg';
+import CompanyImage from '../../assets/images/company-icon-01.svg';
 
 function CompanyProfile() {
 

@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ReactTooltip from 'react-tooltip';
 
 // -- IMAGES --
-import businessImage from '../../images/—Pngtree—technology 2 5d gradient computer_4118115.jpg';
+import businessImage from '../../assets/images/—Pngtree—technology 2 5d gradient computer_4118115.jpg';
 import { Link } from 'react-router-dom';
 
 function BusinessPanel({ props }) {

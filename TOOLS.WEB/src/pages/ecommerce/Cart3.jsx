@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import ProductImage01 from '../../images/related-product-01.jpg';
-import ProductImage02 from '../../images/related-product-02.jpg';
-import ProductImage03 from '../../images/related-product-03.jpg';
+import ProductImage01 from '../../assets/images/related-product-01.jpg';
+import ProductImage02 from '../../assets/images/related-product-02.jpg';
+import ProductImage03 from '../../assets/images/related-product-03.jpg';
 
 function Cart3() {
   return (

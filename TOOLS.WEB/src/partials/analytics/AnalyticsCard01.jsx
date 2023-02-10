@@ -2,7 +2,7 @@ import React from 'react';
 import LineChart from '../../charts/LineChart03';
 
 // Import utilities
-import { tailwindConfig, hexToRGB } from '../../utils/Utils';
+import { tailwindConfig, hexToRGB } from '../../shared/utils/Utils';
 
 function AnalyticsCard01() {
 

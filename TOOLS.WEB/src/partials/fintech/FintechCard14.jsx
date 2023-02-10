@@ -2,7 +2,7 @@ import React from 'react';
 import LineChart from '../../charts/LineChart09';
 
 // Import utilities
-import { tailwindConfig } from '../../utils/Utils';
+import { tailwindConfig } from '../../shared/utils/Utils';
 
 function FintechCard14() {
 

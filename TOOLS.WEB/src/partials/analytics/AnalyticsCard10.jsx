@@ -2,7 +2,7 @@ import React from 'react';
 import PolarChart from '../../charts/PolarChart';
 
 // Import utilities
-import { tailwindConfig, hexToRGB } from '../../utils/Utils';
+import { tailwindConfig, hexToRGB } from '../../shared/utils/Utils';
 
 function AnalyticsCard10() {
 

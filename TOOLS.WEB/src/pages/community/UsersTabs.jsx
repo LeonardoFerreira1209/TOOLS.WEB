@@ -4,18 +4,18 @@ import SearchForm from '../../partials/actions/SearchForm';
 import UsersTabsCard from '../../partials/community/UsersTabsCard';
 import PaginationNumeric from '../../components/PaginationNumeric';
 
-import Image01 from '../../images/user-64-01.jpg';
-import Image02 from '../../images/user-64-02.jpg';
-import Image03 from '../../images/user-64-03.jpg';
-import Image04 from '../../images/user-64-04.jpg';
-import Image05 from '../../images/user-64-05.jpg';
-import Image06 from '../../images/user-64-06.jpg';
-import Image07 from '../../images/user-64-07.jpg';
-import Image08 from '../../images/user-64-08.jpg';
-import Image09 from '../../images/user-64-09.jpg';
-import Image10 from '../../images/user-64-10.jpg';
-import Image11 from '../../images/user-64-11.jpg';
-import Image12 from '../../images/user-64-12.jpg';
+import Image01 from '../../assets/images/user-64-01.jpg';
+import Image02 from '../../assets/images/user-64-02.jpg';
+import Image03 from '../../assets/images/user-64-03.jpg';
+import Image04 from '../../assets/images/user-64-04.jpg';
+import Image05 from '../../assets/images/user-64-05.jpg';
+import Image06 from '../../assets/images/user-64-06.jpg';
+import Image07 from '../../assets/images/user-64-07.jpg';
+import Image08 from '../../assets/images/user-64-08.jpg';
+import Image09 from '../../assets/images/user-64-09.jpg';
+import Image10 from '../../assets/images/user-64-10.jpg';
+import Image11 from '../../assets/images/user-64-11.jpg';
+import Image12 from '../../assets/images/user-64-12.jpg';
 
 function UsersTabs() {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UserImage from '../../images/user-40-04.jpg';
+import UserImage from '../../assets/images/user-40-04.jpg';
 
 function ForumPostRightContent() {
   return (

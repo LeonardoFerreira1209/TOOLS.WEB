@@ -10,7 +10,7 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 
 // Css
-import './css/style.scss';
+import './assets/css/style.scss';
 
 import './charts/ChartjsConfig';
 
@@ -135,6 +135,7 @@ function App() {
     || location.pathname === '/signup/user'
     || location.pathname === '/confirmEmail/:code/:userId'
     || location.pathname === '/reset-password'
+    || location.pathname === '/reset-password'
   };
 
   function AppRoutes(){
@@ -147,7 +148,6 @@ function App() {
         <Route path="/signup/situation" element={<SignupSituation />} />
         <Route path="/signup/basic" element={<SignupPersonalData />} />
         <Route path="/signup/user" element={<SignupUserData />} />
-        <Route path="/confirmEmail/:code/:userId" element={ <ConfirmEmail /> } />
         <Route path="/reset-password" element={<ResetPassword />} />
         {/* Required login */}
         <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />

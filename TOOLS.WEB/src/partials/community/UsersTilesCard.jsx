@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import EditMenu from '../../components/DropdownEditMenu';
-import FemaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7691478.png';
-import MaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7690723.png';
+import FemaleAvatar from '../../assets/images/—Pngtree—smiling people avatar set different_7691478.png';
+import MaleAvatar from '../../assets/images/—Pngtree—smiling people avatar set different_7690723.png';
 
 function UsersTilesCard(props) {
 

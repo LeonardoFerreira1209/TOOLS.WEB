@@ -1,12 +1,12 @@
 import React from 'react';
-import ProductImage from '../../images/product-image.jpg';
-import User03 from '../../images/user-32-03.jpg';
-import User04 from '../../images/user-32-04.jpg';
-import User05 from '../../images/user-32-05.jpg';
-import User07 from '../../images/user-32-07.jpg';
-import Related01 from '../../images/related-product-01.jpg';
-import Related02 from '../../images/related-product-02.jpg';
-import Related03 from '../../images/related-product-03.jpg';
+import ProductImage from '../../assets/images/product-image.jpg';
+import User03 from '../../assets/images/user-32-03.jpg';
+import User04 from '../../assets/images/user-32-04.jpg';
+import User05 from '../../assets/images/user-32-05.jpg';
+import User07 from '../../assets/images/user-32-07.jpg';
+import Related01 from '../../assets/images/related-product-01.jpg';
+import Related02 from '../../assets/images/related-product-02.jpg';
+import Related03 from '../../assets/images/related-product-03.jpg';
 
 function Product() {
   return (

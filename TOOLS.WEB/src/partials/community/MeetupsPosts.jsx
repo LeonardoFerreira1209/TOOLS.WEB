@@ -1,20 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import MeetupsThumb01 from '../../images/meetups-thumb-01.jpg';
-import MeetupsThumb02 from '../../images/meetups-thumb-02.jpg';
-import MeetupsThumb03 from '../../images/meetups-thumb-03.jpg';
-import MeetupsThumb04 from '../../images/meetups-thumb-04.jpg';
-import MeetupsThumb05 from '../../images/meetups-thumb-05.jpg';
-import MeetupsThumb06 from '../../images/meetups-thumb-06.jpg';
-import MeetupsThumb07 from '../../images/meetups-thumb-07.jpg';
-import MeetupsThumb08 from '../../images/meetups-thumb-08.jpg';
-import UserImage01 from '../../images/avatar-01.jpg';
-import UserImage02 from '../../images/avatar-02.jpg';
-import UserImage03 from '../../images/avatar-03.jpg';
-import UserImage04 from '../../images/avatar-04.jpg';
-import UserImage05 from '../../images/avatar-05.jpg';
-import UserImage06 from '../../images/avatar-06.jpg';
+import MeetupsThumb01 from '../../assets/images/meetups-thumb-01.jpg';
+import MeetupsThumb02 from '../../assets/images/meetups-thumb-02.jpg';
+import MeetupsThumb03 from '../../assets/images/meetups-thumb-03.jpg';
+import MeetupsThumb04 from '../../assets/images/meetups-thumb-04.jpg';
+import MeetupsThumb05 from '../../assets/images/meetups-thumb-05.jpg';
+import MeetupsThumb06 from '../../assets/images/meetups-thumb-06.jpg';
+import MeetupsThumb07 from '../../assets/images/meetups-thumb-07.jpg';
+import MeetupsThumb08 from '../../assets/images/meetups-thumb-08.jpg';
+import UserImage01 from '../../assets/images/avatar-01.jpg';
+import UserImage02 from '../../assets/images/avatar-02.jpg';
+import UserImage03 from '../../assets/images/avatar-03.jpg';
+import UserImage04 from '../../assets/images/avatar-04.jpg';
+import UserImage05 from '../../assets/images/avatar-05.jpg';
+import UserImage06 from '../../assets/images/avatar-06.jpg';
 
 function MeetupsPosts() {
   return (

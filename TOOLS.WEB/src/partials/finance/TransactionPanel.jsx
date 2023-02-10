@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import Image from '../../images/transactions-image-04.svg';
+import Image from '../../assets/images/transactions-image-04.svg';
 
 function TransactionPanel({
   transactionPanelOpen,

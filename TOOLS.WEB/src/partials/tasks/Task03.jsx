@@ -1,7 +1,7 @@
 import React from 'react';
 
-import UserImage01 from '../../images/user-28-03.jpg';
-import UserImage02 from '../../images/user-28-10.jpg';
+import UserImage01 from '../../assets/images/user-28-03.jpg';
+import UserImage02 from '../../assets/images/user-28-10.jpg';
 
 function Task03() {
   return (

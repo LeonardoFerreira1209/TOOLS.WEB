@@ -1,8 +1,8 @@
 import React from 'react';
 
-import UserImage05 from '../../images/user-32-05.jpg';
-import UserImage07 from '../../images/user-32-07.jpg';
-import UserImage08 from '../../images/user-32-08.jpg';
+import UserImage05 from '../../assets/images/user-32-05.jpg';
+import UserImage07 from '../../assets/images/user-32-07.jpg';
+import UserImage08 from '../../assets/images/user-32-08.jpg';
 
 function TasksList() {
   return (

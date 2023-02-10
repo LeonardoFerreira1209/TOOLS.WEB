@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Related01 from '../../images/related-product-01.jpg';
-import Related02 from '../../images/related-product-02.jpg';
-import Related03 from '../../images/related-product-03.jpg';
+import Related01 from '../../assets/images/related-product-01.jpg';
+import Related02 from '../../assets/images/related-product-02.jpg';
+import Related03 from '../../assets/images/related-product-03.jpg';
 
 function CartItems() {
   return (

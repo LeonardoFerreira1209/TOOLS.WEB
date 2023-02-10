@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Avatar01 from '../../images/avatar-01.jpg';
-import Avatar02 from '../../images/avatar-02.jpg';
-import Avatar03 from '../../images/avatar-03.jpg';
-import Avatar04 from '../../images/avatar-04.jpg';
-import Avatar05 from '../../images/avatar-05.jpg';
-import Avatar06 from '../../images/avatar-06.jpg';
+import Avatar01 from '../../assets/images/avatar-01.jpg';
+import Avatar02 from '../../assets/images/avatar-02.jpg';
+import Avatar03 from '../../assets/images/avatar-03.jpg';
+import Avatar04 from '../../assets/images/avatar-04.jpg';
+import Avatar05 from '../../assets/images/avatar-05.jpg';
+import Avatar06 from '../../assets/images/avatar-06.jpg';
 
 function AvatarPage() {
   return (

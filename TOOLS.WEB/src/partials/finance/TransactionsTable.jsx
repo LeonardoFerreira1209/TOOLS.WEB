@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import TransactionItem from './TransactionsTableItem';
 
-import Image01 from '../../images/transactions-image-01.svg';
-import Image02 from '../../images/transactions-image-02.svg';
-import Image03 from '../../images/user-36-05.jpg';
-import Image04 from '../../images/transactions-image-03.svg';
-import Image05 from '../../images/transactions-image-04.svg';
-import Image06 from '../../images/transactions-image-05.svg';
-import Image07 from '../../images/transactions-image-06.svg';
-import Image08 from '../../images/transactions-image-07.svg';
-import Image09 from '../../images/transactions-image-08.svg';
+import Image01 from '../../assets/images/transactions-image-01.svg';
+import Image02 from '../../assets/images/transactions-image-02.svg';
+import Image03 from '../../assets/images/user-36-05.jpg';
+import Image04 from '../../assets/images/transactions-image-03.svg';
+import Image05 from '../../assets/images/transactions-image-04.svg';
+import Image06 from '../../assets/images/transactions-image-05.svg';
+import Image07 from '../../assets/images/transactions-image-06.svg';
+import Image08 from '../../assets/images/transactions-image-07.svg';
+import Image09 from '../../assets/images/transactions-image-08.svg';
 
 function TransactionsTable({
   selectedItems

@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 
-import TabsImage01 from '../../images/tabs-image-01.jpg';
-import HeroImage01 from '../../images/hero-image-01.jpg';
-import Transition from '../../utils/Transition';
+import TabsImage01 from '../../assets/images/tabs-image-01.jpg';
+import HeroImage01 from '../../assets/images/hero-image-01.jpg';
+import Transition from '../../shared/utils/Transition';
 
 function Tabs() {
 

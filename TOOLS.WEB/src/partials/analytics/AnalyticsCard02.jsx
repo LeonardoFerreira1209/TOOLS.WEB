@@ -3,7 +3,7 @@ import LineChart from '../../charts/LineChart04';
 import { Link } from 'react-router-dom';
 
 // Import utilities
-import { tailwindConfig, hexToRGB } from '../../utils/Utils';
+import { tailwindConfig, hexToRGB } from '../../shared/utils/Utils';
 
 function AnalyticsCard02() {
 

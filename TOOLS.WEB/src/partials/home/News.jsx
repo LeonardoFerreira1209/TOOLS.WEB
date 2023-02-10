@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import NewsImage01 from '../../images/news-01.jpg';
-import NewsImage02 from '../../images/news-02.jpg';
-import NewsImage03 from '../../images/news-03.jpg';
-import NewsAuthor01 from '../../images/news-author-01.jpg';
-import NewsAuthor02 from '../../images/news-author-02.jpg';
-import NewsAuthor03 from '../../images/news-author-03.jpg';
+import NewsImage01 from '../../assets/images/news-01.jpg';
+import NewsImage02 from '../../assets/images/news-02.jpg';
+import NewsImage03 from '../../assets/images/news-03.jpg';
+import NewsAuthor01 from '../../assets/images/news-author-01.jpg';
+import NewsAuthor02 from '../../assets/images/news-author-02.jpg';
+import NewsAuthor03 from '../../assets/images/news-author-03.jpg';
 
 function News() {
   return (

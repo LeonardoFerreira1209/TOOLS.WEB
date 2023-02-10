@@ -2,7 +2,7 @@ import React from 'react';
 import BarChart from '../../charts/BarChart03';
 
 // Import utilities
-import { tailwindConfig } from '../../utils/Utils';
+import { tailwindConfig } from '../../shared/utils/Utils';
 
 function AnalyticsCard03() {
 

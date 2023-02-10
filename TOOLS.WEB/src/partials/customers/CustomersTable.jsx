@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Customer from './CustomersTableItem';
 
-import Image01 from '../../images/user-40-01.jpg';
-import Image02 from '../../images/user-40-02.jpg';
-import Image03 from '../../images/user-40-03.jpg';
-import Image04 from '../../images/user-40-04.jpg';
-import Image05 from '../../images/user-40-05.jpg';
-import Image06 from '../../images/user-40-06.jpg';
-import Image07 from '../../images/user-40-07.jpg';
-import Image08 from '../../images/user-40-08.jpg';
-import Image09 from '../../images/user-40-09.jpg';
-import Image10 from '../../images/user-40-10.jpg';
+import Image01 from '../../assets/images/user-40-01.jpg';
+import Image02 from '../../assets/images/user-40-02.jpg';
+import Image03 from '../../assets/images/user-40-03.jpg';
+import Image04 from '../../assets/images/user-40-04.jpg';
+import Image05 from '../../assets/images/user-40-05.jpg';
+import Image06 from '../../assets/images/user-40-06.jpg';
+import Image07 from '../../assets/images/user-40-07.jpg';
+import Image08 from '../../assets/images/user-40-08.jpg';
+import Image09 from '../../assets/images/user-40-09.jpg';
+import Image10 from '../../assets/images/user-40-10.jpg';
 
 function CustomersTable({
   selectedItems

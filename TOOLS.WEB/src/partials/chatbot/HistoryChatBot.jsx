@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UserImage01 from '../../images/user-32-01.jpg';
+import UserImage01 from '../../assets/images/user-32-01.jpg';
 
 function HistoryChatBot() {
   return (

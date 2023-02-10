@@ -6,7 +6,7 @@ import {
 import 'chartjs-adapter-moment';
 
 // Import utilities
-import { formatThousands } from '../utils/Utils';
+import { formatThousands } from '../shared/utils/Utils';
 
 Chart.register(LineController, LineElement, Filler, PointElement, LinearScale, TimeScale, Tooltip);
 

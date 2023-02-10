@@ -1,8 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.webp';
-import AuthDecoration from '../images/auth-decoration.png';
+import AuthImage from '../assets/images/—Pngtree—2 5d learn know how_4117072.webp';
+import AuthDecoration from '../assets/images/auth-decoration.png';
 
 function ResetPassword() {
   return (

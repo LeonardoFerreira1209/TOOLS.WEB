@@ -1,17 +1,17 @@
 import React from 'react';
 
-import AppImage21 from '../../images/applications-image-21.jpg';
-import AppImage22 from '../../images/applications-image-22.jpg';
-import AppImage23 from '../../images/applications-image-23.jpg';
-import AppImage24 from '../../images/applications-image-24.jpg';
-import AppImage25 from '../../images/applications-image-25.jpg';
-import AppImage26 from '../../images/applications-image-26.jpg';
-import AppImage27 from '../../images/applications-image-27.jpg';
-import AppImage28 from '../../images/applications-image-28.jpg';
-import AppImage29 from '../../images/applications-image-29.jpg';
-import AppImage30 from '../../images/applications-image-30.jpg';
-import AppImage31 from '../../images/applications-image-31.jpg';
-import AppImage32 from '../../images/applications-image-32.jpg';
+import AppImage21 from '../../assets/images/applications-image-21.jpg';
+import AppImage22 from '../../assets/images/applications-image-22.jpg';
+import AppImage23 from '../../assets/images/applications-image-23.jpg';
+import AppImage24 from '../../assets/images/applications-image-24.jpg';
+import AppImage25 from '../../assets/images/applications-image-25.jpg';
+import AppImage26 from '../../assets/images/applications-image-26.jpg';
+import AppImage27 from '../../assets/images/applications-image-27.jpg';
+import AppImage28 from '../../assets/images/applications-image-28.jpg';
+import AppImage29 from '../../assets/images/applications-image-29.jpg';
+import AppImage30 from '../../assets/images/applications-image-30.jpg';
+import AppImage31 from '../../assets/images/applications-image-31.jpg';
+import AppImage32 from '../../assets/images/applications-image-32.jpg';
 
 function ShopCards07() {
   return (

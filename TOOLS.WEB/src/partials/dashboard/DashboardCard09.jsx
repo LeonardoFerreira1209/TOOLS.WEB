@@ -3,7 +3,7 @@ import Tooltip from '../../components/Tooltip';
 import BarChart from '../../charts/BarChart02';
 
 // Import utilities
-import { tailwindConfig } from '../../utils/Utils';
+import { tailwindConfig } from '../../shared/utils/Utils';
 
 function DashboardCard09() {
 

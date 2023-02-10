@@ -6,7 +6,7 @@ import {
 import 'chartjs-adapter-moment';
 
 // Import utilities
-import { tailwindConfig } from '../utils/Utils';
+import { tailwindConfig } from '../shared/utils/Utils';
 
 Chart.register(LineController, LineElement, Filler, PointElement, LinearScale, TimeScale, Tooltip);
 

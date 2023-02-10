@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import UserAvatar from '../../images/user-40-02.jpg';
-import UserImage01 from '../../images/user-28-01.jpg';
-import UserImage02 from '../../images/user-28-02.jpg';
-import UserImage05 from '../../images/user-28-05.jpg';
-import UserImage09 from '../../images/user-28-09.jpg';
-import UserImage10 from '../../images/user-28-10.jpg';
+import UserAvatar from '../../assets/images/user-40-02.jpg';
+import UserImage01 from '../../assets/images/user-28-01.jpg';
+import UserImage02 from '../../assets/images/user-28-02.jpg';
+import UserImage05 from '../../assets/images/user-28-05.jpg';
+import UserImage09 from '../../assets/images/user-28-09.jpg';
+import UserImage10 from '../../assets/images/user-28-10.jpg';
 
 function ForumEntry() {
   return (

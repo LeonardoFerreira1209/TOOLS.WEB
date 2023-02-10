@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 import JobListItem from '../../partials/job/JobListItem';
 
-import Image03 from '../../images/company-icon-03.svg';
-import Image04 from '../../images/company-icon-07.svg';
-import Image05 from '../../images/company-icon-08.svg';
-import Image06 from '../../images/company-icon-01.svg';
+import Image03 from '../../assets/images/company-icon-03.svg';
+import Image04 from '../../assets/images/company-icon-07.svg';
+import Image05 from '../../assets/images/company-icon-08.svg';
+import Image06 from '../../assets/images/company-icon-01.svg';
 
 function JobPost() {
 

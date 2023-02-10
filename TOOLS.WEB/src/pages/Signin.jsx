@@ -1,15 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { parseJwt } from '../utils/Utils';
 import ContextUser from '../components/store/context/ContextUser';
+import { authetication, isInvalidAuthentication }  from '../shared/services/userService';
 
-import AuthImage from '../images/—Pngtree—2 5d learn know how_4117072.webp';
-import AuthDecoration from '../images/auth-decoration.png';
+import AuthImage from '../assets/images/—Pngtree—2 5d learn know how_4117072.webp';
+import AuthDecoration from '../assets/images/auth-decoration.png';
 
 import 'aos/dist/aos.css';
 
 function Signin() {
-  // -- CONSTS
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -17,11 +16,7 @@ function Signin() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  // CONTEXT
   const { setUser } = useContext(ContextUser);
-  // -- CONSTS
-
-  // -- INPUTS 
   const [values, setValues] = useState(initialState);
 
   function initialState() {
@@ -36,71 +31,17 @@ function Signin() {
         [name]: value
       });
   }
-  // -- INPUTS
 
-  // -- VALIDATES
-  function isInvalid() {
-    if(values.user === "") { setError("Preencha o campo usuário!");  setLoading(false); return true; }
-
-    if(values.password === "") { setError("Preencha o campo senha!"); setLoading(false); return true; }
-
-    return false;
-  };
-  // -- VALIDATES
-
-  // -- API CONSUMER
   function Signin(event) {
     setLoading(true);
 
     event.preventDefault();
 
-    if(!isInvalid())
-    {
-      fetch(`${process.env.BASE_URL}gateway/user/authetication`, {
-      headers: {
-        'username': values.user,
-        'password': values.password
-      },
-        crossDomain:true,
-        mode:'cors', 
-        method: 'GET',
-        cache: 'no-cache',
-        credentials:'same-origin',
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-      })
-      .then(response => response.json()).then((results) => {
-          if(results.sucesso){
-            setUser({
-              tokenJwt: results.dados.value,
-              tokenObj: parseJwt(results.dados.value)
-            });
-            
-            navigate(state?.path || "/dashboard");
-          }
-          else{
-            setError(results.notificacoes[0].mensagem); setLoading(false);
-          }
-        },
-        (error) => {
-          console.error(error);
-
-          setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
-        }
-
-      ).catch(error => {
-        console.error(error);
-
-        setError("Ops, tivemos um erro inesperado!"); setLoading(false);
-      });
-    }
+    if(!isInvalidAuthentication(values, setError, setLoading)) authetication(navigate, state, setUser, setError, setLoading, values);
   }
-  // -- API CONSUMER
 
-  // -- RETURN
   return (
     <main className="bg-white">
-
       <div className="relative md:flex">
 
         {/* Content */}
@@ -110,9 +51,9 @@ function Signin() {
             {/* Header */}
             <div className="flex-1">
               <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+
                 {/* Logo */}
                 <NavLink data-aos="fade-left" end to="/" className="block">
-                  
                   <svg width="32" height="32" viewBox="0 0 32 32">
                     <defs>
                       <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="a">
@@ -140,11 +81,13 @@ function Signin() {
                     </g>
                   </svg>
                 </NavLink>
+                
               </div>
             </div>
 
             <div className="max-w-sm mx-auto px-4 py-8">
               <h1 data-aos="fade-down" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Olá novamente! <b className='text-indigo-100'>✨</b></h1>
+
               {/* Form */}
               <form>
                 <div className="space-y-4">
@@ -178,6 +121,7 @@ function Signin() {
                     </button>
                   </div>
                 </div>
+
                 {/* Error */}
                 { error !== null && 
                     <div className="mt-5">
@@ -204,11 +148,13 @@ function Signin() {
                   </button>
                 </div>
               </form>
+
               {/* Footer */}
               <div className="pt-5 mt-6 border-t border-slate-200">
                 <div data-aos="fade-right" className="text-sm">
                   Não têm uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signup/intendedtype" state={ { intendedtype: "1", unloadedanimation: true } }>Se cadastrar</Link>
                 </div>
+
                 {/* Warning */}
                 <div data-aos="fade-up" className="mt-5">
                   <div className="bg-amber-100 text-amber-600 px-3 py-2 rounded">
@@ -220,9 +166,9 @@ function Signin() {
                     </span>
                   </div>
                 </div>
+
               </div>
             </div>
-
           </div>
         </div>
 
@@ -235,10 +181,8 @@ function Signin() {
         </div>
 
       </div>
-
     </main>
   );
-  // -- RETURN
 }
 
 export default Signin;

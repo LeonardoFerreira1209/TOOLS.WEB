@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import OnboardingImage from '../images/onboarding-image.jpg';
-import OnboardingDecoration from '../images/auth-decoration.png';
+import OnboardingImage from '../assets/images/onboarding-image.jpg';
+import OnboardingDecoration from '../assets/images/auth-decoration.png';
 
 function Onboarding01() {
   return (

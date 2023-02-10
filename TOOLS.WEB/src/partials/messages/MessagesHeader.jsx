@@ -1,7 +1,7 @@
 import React from 'react';
 
-import User01 from '../../images/user-32-01.jpg';
-import User02 from '../../images/user-32-07.jpg';
+import User01 from '../../assets/images/user-32-01.jpg';
+import User02 from '../../assets/images/user-32-07.jpg';
 
 function MessagesHeader({
   msgSidebarOpen,

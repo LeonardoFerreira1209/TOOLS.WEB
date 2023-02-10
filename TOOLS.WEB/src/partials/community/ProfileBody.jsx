@@ -1,15 +1,15 @@
 import React from 'react';
 
-import ProfileBg from '../../images/profile-bg.jpg';
-import UserAvatar from '../../images/user-128-01.jpg';
-import Icon02 from '../../images/icon-02.svg';
-import Icon03 from '../../images/icon-03.svg';
-import UserImage01 from '../../images/avatar-01.jpg';
-import UserImage02 from '../../images/avatar-02.jpg';
-import UserImage03 from '../../images/avatar-03.jpg';
-import UserImage04 from '../../images/avatar-04.jpg';
-import UserImage05 from '../../images/avatar-05.jpg';
-import UserImage06 from '../../images/avatar-06.jpg';
+import ProfileBg from '../../assets/images/profile-bg.jpg';
+import UserAvatar from '../../assets/images/user-128-01.jpg';
+import Icon02 from '../../assets/images/icon-02.svg';
+import Icon03 from '../../assets/images/icon-03.svg';
+import UserImage01 from '../../assets/images/avatar-01.jpg';
+import UserImage02 from '../../assets/images/avatar-02.jpg';
+import UserImage03 from '../../assets/images/avatar-03.jpg';
+import UserImage04 from '../../assets/images/avatar-04.jpg';
+import UserImage05 from '../../assets/images/avatar-05.jpg';
+import UserImage06 from '../../assets/images/avatar-06.jpg';
 
 function ProfileBody({
   profileSidebarOpen,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import NotFoundImage from '../../images/404-illustration.svg';
+import NotFoundImage from '../../assets/images/404-illustration.svg';
 
 function PageNotFound() {
   return (

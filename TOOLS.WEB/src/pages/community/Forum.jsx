@@ -4,7 +4,7 @@ import ForumLeftContent from '../../partials/community/ForumLeftContent';
 import ForumEntries from '../../partials/community/ForumEntries';
 import ForumRightContent from '../../partials/community/ForumRightContent';
 
-import Avatar from '../../images/user-40-02.jpg';
+import Avatar from '../../assets/images/user-40-02.jpg';
 
 function Forum() {
   return (

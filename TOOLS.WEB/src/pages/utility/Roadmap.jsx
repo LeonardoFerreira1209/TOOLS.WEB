@@ -1,12 +1,12 @@
 import React from 'react';
 
-import User01 from '../../images/user-28-01.jpg';
-import User02 from '../../images/user-28-02.jpg';
-import User03 from '../../images/user-28-03.jpg';
-import User05 from '../../images/user-28-05.jpg';
-import User06 from '../../images/user-28-06.jpg';
-import User08 from '../../images/user-28-08.jpg';
-import User09 from '../../images/user-28-09.jpg';
+import User01 from '../../assets/images/user-28-01.jpg';
+import User02 from '../../assets/images/user-28-02.jpg';
+import User03 from '../../assets/images/user-28-03.jpg';
+import User05 from '../../assets/images/user-28-05.jpg';
+import User06 from '../../assets/images/user-28-06.jpg';
+import User08 from '../../assets/images/user-28-08.jpg';
+import User09 from '../../assets/images/user-28-09.jpg';
 
 function Roadmap() {
   return (

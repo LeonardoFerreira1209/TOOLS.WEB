@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Transition from '../utils/Transition';
+import Transition from '../shared/utils/Transition';
 
-import DropdownImage from '../images/user-avatar-32.png';
-import DropdownImage01 from '../images/channel-01.png';
-import DropdownImage02 from '../images/channel-02.png';
-import DropdownImage03 from '../images/channel-03.png';
+import DropdownImage from '../assets/images/user-avatar-32.png';
+import DropdownImage01 from '../assets/images/channel-01.png';
+import DropdownImage02 from '../assets/images/channel-02.png';
+import DropdownImage03 from '../assets/images/channel-03.png';
 
 function DropdownSwitch({
   align

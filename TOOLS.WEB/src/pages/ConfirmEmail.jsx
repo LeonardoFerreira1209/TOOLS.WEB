@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import Image from '../images/—Pngtree—2 5d business office data_4115598.jpg';
+import Image from '../assets/images/—Pngtree—2 5d business office data_4115598.jpg';
 
 function ConfirmEmail() {
 
-  // -- CONSTS
   let {code, userId} = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  // -- CONSTS
 
-  // -- API CONSUMER
   function ConfirmEmail(event) {
     
     setLoading(true);
@@ -29,11 +26,10 @@ function ConfirmEmail() {
       referrerPolicy: 'no-referrer'
     })
     .then(response => response.json()).then((results) => {
-      
-        if(results.sucesso){
+        if(results.sucesso) {
           navigate("/signin");
         }
-        else{
+        else {
           setError(results.notificacoes[0].mensagem); setLoading(false);
         }
       },
@@ -42,9 +38,7 @@ function ConfirmEmail() {
       }
     )
   }
-  // -- API CONSUMER
 
-  // -- RETURNS
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
@@ -118,14 +112,11 @@ function ConfirmEmail() {
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
       </div>
     </section>
   );
-  // -- RETURNS
 }
 
 export default ConfirmEmail;

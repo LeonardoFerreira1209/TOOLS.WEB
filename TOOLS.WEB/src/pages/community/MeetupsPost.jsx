@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import MeetupImage from '../../images/meetup-image.jpg';
-import MeetupPhoto01 from '../../images/meetup-photo-01.jpg';
-import MeetupPhoto02 from '../../images/meetup-photo-02.jpg';
-import MeetupPhoto03 from '../../images/meetup-photo-03.jpg';
-import MeetupThumb from '../../images/meetups-thumb-02.jpg';
-import UserImage01 from '../../images/user-32-01.jpg';
-import UserImage02 from '../../images/user-32-02.jpg';
-import UserImage03 from '../../images/user-32-03.jpg';
-import UserImage04 from '../../images/user-32-04.jpg';
-import UserImage05 from '../../images/user-32-05.jpg';
-import UserImage06 from '../../images/user-32-06.jpg';
-import UserImage07 from '../../images/user-32-07.jpg';
-import UserImage08 from '../../images/user-32-08.jpg';
-import Avatar02 from '../../images/avatar-02.jpg';
-import Avatar03 from '../../images/avatar-03.jpg';
-import Avatar04 from '../../images/avatar-04.jpg';
+import MeetupImage from '../../assets/images/meetup-image.jpg';
+import MeetupPhoto01 from '../../assets/images/meetup-photo-01.jpg';
+import MeetupPhoto02 from '../../assets/images/meetup-photo-02.jpg';
+import MeetupPhoto03 from '../../assets/images/meetup-photo-03.jpg';
+import MeetupThumb from '../../assets/images/meetups-thumb-02.jpg';
+import UserImage01 from '../../assets/images/user-32-01.jpg';
+import UserImage02 from '../../assets/images/user-32-02.jpg';
+import UserImage03 from '../../assets/images/user-32-03.jpg';
+import UserImage04 from '../../assets/images/user-32-04.jpg';
+import UserImage05 from '../../assets/images/user-32-05.jpg';
+import UserImage06 from '../../assets/images/user-32-06.jpg';
+import UserImage07 from '../../assets/images/user-32-07.jpg';
+import UserImage08 from '../../assets/images/user-32-08.jpg';
+import Avatar02 from '../../assets/images/avatar-02.jpg';
+import Avatar03 from '../../assets/images/avatar-03.jpg';
+import Avatar04 from '../../assets/images/avatar-04.jpg';
 
 function MeetupsPost() {
   return (

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import Dropdown from "../../utils/Dropdown";
+import Dropdown from "../../shared/utils/Dropdown";
 
 
 function HomeHeader() {

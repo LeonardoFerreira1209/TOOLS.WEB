@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import Transition from '../../utils/Transition';
+import Transition from '../../shared/utils/Transition';
 
-import ChannelImage from '../../images/user-avatar-32.png';
-import ChannelImage01 from '../../images/channel-01.png';
-import ChannelImage02 from '../../images/channel-02.png';
-import ChannelImage03 from '../../images/channel-03.png';
+import ChannelImage from '../../assets/images/user-avatar-32.png';
+import ChannelImage01 from '../../assets/images/channel-01.png';
+import ChannelImage02 from '../../assets/images/channel-02.png';
+import ChannelImage03 from '../../assets/images/channel-03.png';
 
 function ChannelMenu() {
 

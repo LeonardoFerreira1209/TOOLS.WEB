@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Transition from '../utils/Transition';
+import Transition from '../shared/utils/Transition';
 
 function Tooltip({
   children,

@@ -3,7 +3,7 @@ import Tooltip from '../../components/Tooltip';
 import RealtimeChart from '../../charts/RealtimeChart';
 
 // Import utilities
-import { tailwindConfig, hexToRGB } from '../../utils/Utils';
+import { tailwindConfig, hexToRGB } from '../../shared/utils/Utils';
 
 function DashboardCard05() {
 

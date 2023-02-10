@@ -1,9 +1,9 @@
 import React from 'react';
 
-import AppImage13 from '../../images/applications-image-13.jpg';
-import AppImage14 from '../../images/applications-image-14.jpg';
-import AppImage15 from '../../images/applications-image-15.jpg';
-import AppImage16 from '../../images/applications-image-16.jpg';
+import AppImage13 from '../../assets/images/applications-image-13.jpg';
+import AppImage14 from '../../assets/images/applications-image-14.jpg';
+import AppImage15 from '../../assets/images/applications-image-15.jpg';
+import AppImage16 from '../../assets/images/applications-image-16.jpg';
 
 function ShopCards04() {
   return (

@@ -1,11 +1,11 @@
 import React from 'react';
 
-import UserImage01 from '../../images/avatar-01.jpg';
-import UserImage02 from '../../images/avatar-02.jpg';
-import UserImage03 from '../../images/avatar-03.jpg';
-import UserImage04 from '../../images/avatar-04.jpg';
-import UserImage05 from '../../images/avatar-05.jpg';
-import UserImage06 from '../../images/avatar-06.jpg';
+import UserImage01 from '../../assets/images/avatar-01.jpg';
+import UserImage02 from '../../assets/images/avatar-02.jpg';
+import UserImage03 from '../../assets/images/avatar-03.jpg';
+import UserImage04 from '../../assets/images/avatar-04.jpg';
+import UserImage05 from '../../assets/images/avatar-05.jpg';
+import UserImage06 from '../../assets/images/avatar-06.jpg';
 
 function ForumRightContent() {
   return (

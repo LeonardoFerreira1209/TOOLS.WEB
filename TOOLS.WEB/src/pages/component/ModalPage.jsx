@@ -6,8 +6,8 @@ import ModalBlank from '../../components/ModalBlank';
 import ModalAction from '../../components/ModalAction';
 import ModalSearch from '../../components/ModalSearch';
 
-import AnnouncementIcon from '../../images/announcement-icon.svg';
-import ModalImage from '../../images/modal-image.jpg';
+import AnnouncementIcon from '../../assets/images/announcement-icon.svg';
+import ModalImage from '../../assets/images/modal-image.jpg';
 
 function ModalPage() {
   const [basicModalOpen, setBasicModalOpen] = useState(false);

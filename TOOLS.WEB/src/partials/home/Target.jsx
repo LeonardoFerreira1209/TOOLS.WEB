@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TargetImage from '../../images/features-02-image.png';
+import TargetImage from '../../assets/images/features-02-image.png';
 
 function Target() {
   return (

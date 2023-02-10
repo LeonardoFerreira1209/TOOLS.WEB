@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-
 import InputMask from 'react-input-mask';
-
-import AuthImage from '../../images/—Pngtree—2 5d learn know how_4117072.webp';
-import AuthDecoration from '../../images/auth-decoration.png';
+import AuthImage from '../../assets/images/—Pngtree—2 5d learn know how_4117072.webp';
+import AuthDecoration from '../../assets/images/auth-decoration.png';
+import { isInvalidSignupUserData, create }  from '../../shared/services/userService';
 
 function SignupUserData() {
 
@@ -15,18 +14,6 @@ function SignupUserData() {
   const navigate = useNavigate();
   
   const data = { situation: params.state.situation, unloadedanimation: false, intendedtype: params.state.intendedtype, firstname: params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, birthday: params.state.birthday, rg: params.state.rg, gender: params.state.gender, username: values.username, password: values.password, email: values.email, phoneNumber: values.phoneNumber };
-
-  function isInvalid() {
-    if(values.username === "" || values.username === undefined) { setError("Preencha o campo nome de usuário!"); return true; }
-
-    if(values.password === "" || values.password === undefined) { setError("Preencha o campo senha!"); return true; }
-
-    if(values.email === "" || values.email === undefined) { setError("Preencha o campo e-mail!"); return true; }
-
-    if(values.phoneNumber === "" || values.phoneNumber === undefined) { setError("Preencha o campo celular!"); return true; }
-
-    return false;
-  };
 
   function initialState() {
       return {
@@ -50,64 +37,21 @@ function SignupUserData() {
     
     event.preventDefault();
 
-    setLoading(true);
-
-    if(!isInvalid())
-    {
-      fetch(`${process.env.BASE_URL}gateway/user/create`, 
-      {
-          crossDomain:true,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          mode:'cors', 
-          method: 'POST',
-          body: JSON.stringify({
-            FirstName: params.state.firstname,
-            LastName: params.state.lastname,
-            BirthDay: params.state.birthday,
-            Gender: params.state.gender,
-            RG: params.state.rg,
-            CPF: params.state.cpf,
-            UserName: values.username,
-            Email: values.email,
-            Password: values.password,
-            PhoneNumber: values.phoneNumber,
-            PlanId: `${process.env.PLAN_ID}`
-          })
-        })
-        .then(response => response.json()).then((results) => {
-            if(results.sucesso){    
-              navigate("/signin");
-            }
-            else{
-              setError(results.notificacoes[0].mensagem); setLoading(false);
-            }
-          },
-          (error) => {
-            console.error(error);
-
-            setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
-          }
-
-        ).catch(error => {
-          console.error(error);
-
-          setError("Ops, tivemos um erro inesperado!"); setLoading(false);
-      });
-    };
+    if(!isInvalidSignupUserData(values, setError)) create(navigate, setError, setLoading, values, params);
    }
 
-  // -- RETURN
   return (
   <main className="bg-white">
     <div className="relative md:flex">
+
       {/* Content */}
       <div className="md:w-1/2">
         <div className="min-h-screen h-full flex flex-col after:flex-1">
+
           {/* Header */}
           <div className="flex-1">
             <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+
               {/* Logo */}
               <NavLink end to="/" className="block">
                 <svg width="32" height="32" viewBox="0 0 32 32">
@@ -137,10 +81,12 @@ function SignupUserData() {
                   </g>
                 </svg>
               </NavLink>
+
               <div className="text-sm">
                   Já tem uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signin">Entrar</Link>
               </div>
             </div>
+
           </div>
 
           {/* Progress bar */}
@@ -168,6 +114,7 @@ function SignupUserData() {
 
           <div className="md:max-w-md lg:max-w-lg mx-auto px-4 py-8">
             <h1 data-aos="fade-left" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Informe os dados de usuário<b className='text-indigo-100'>✨</b></h1>
+
             {/* Form */}
             <form>
               <div className='grid gap-3 md:grid-cols-2 mt-2'>
@@ -218,6 +165,7 @@ function SignupUserData() {
                   </div>
                 </div>
               </div>
+
                {/* Error */}
                { error !== null && 
                   <div data-aos="fade-left" className="mt-5">
@@ -228,6 +176,7 @@ function SignupUserData() {
                       </span>
                     </div>
                   </div> }
+
               <div className="flex items-center justify-between mt-6">
                 <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup/basic`} state={ data }>&lt;- Voltar</Link>
                 <button onClick={Create} type="button" className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">
@@ -242,9 +191,11 @@ function SignupUserData() {
                   </button>
               </div>
             </form>
+
           </div>
         </div>
       </div>
+
       {/* Image */}
       <div className="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
         <picture>
@@ -252,10 +203,10 @@ function SignupUserData() {
         </picture>
         <img className="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block"  src={AuthDecoration} width="218" height="224" alt="Authentication decoration" />
       </div>
+
     </div>
   </main>
   );
-  // -- RETURN
 }
 
 export default SignupUserData;

@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import UserAvatar from '../../images/user-avatar-32.png';
-import UserImage01 from '../../images/user-32-01.jpg';
-import UserImage02 from '../../images/user-32-02.jpg';
-import UserImage03 from '../../images/user-32-03.jpg';
-import UserImage04 from '../../images/user-32-04.jpg';
-import UserImage05 from '../../images/user-32-05.jpg';
-import UserImage06 from '../../images/user-32-06.jpg';
-import UserImage07 from '../../images/user-32-07.jpg';
+import UserAvatar from '../../assets/images/user-avatar-32.png';
+import UserImage01 from '../../assets/images/user-32-01.jpg';
+import UserImage02 from '../../assets/images/user-32-02.jpg';
+import UserImage03 from '../../assets/images/user-32-03.jpg';
+import UserImage04 from '../../assets/images/user-32-04.jpg';
+import UserImage05 from '../../assets/images/user-32-05.jpg';
+import UserImage06 from '../../assets/images/user-32-06.jpg';
+import UserImage07 from '../../assets/images/user-32-07.jpg';
 
 function ForumEntries() {
   return (

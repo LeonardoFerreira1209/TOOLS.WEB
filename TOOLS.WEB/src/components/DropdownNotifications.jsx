@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { HubConnectionBuilder } from "@microsoft/signalr";
-import Transition from '../utils/Transition';
+import Transition from '../shared/utils/Transition';
 import CardNotifications from './CardNotifications';
 import ContextNotify from './store/context/ContextNotify';
 import ContextHub from './store/context/ContextHub';

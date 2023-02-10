@@ -2,7 +2,7 @@ import React from 'react';
 import DoughnutChart from '../../charts/DoughnutChart';
 
 // Import utilities
-import { tailwindConfig } from '../../utils/Utils';
+import { tailwindConfig } from '../../shared/utils/Utils';
 
 function DashboardCard06() {
 

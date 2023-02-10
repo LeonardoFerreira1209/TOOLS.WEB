@@ -1,37 +1,18 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-
 import InputMask from 'react-input-mask';
-
-import AuthImage from '../../images/—Pngtree—2 5d learn know how_4117072.webp';
-import AuthDecoration from '../../images/auth-decoration.png';
+import AuthImage from '../../assets/images/—Pngtree—2 5d learn know how_4117072.webp';
+import AuthDecoration from '../../assets/images/auth-decoration.png';
+import { isInvalidSignupPersonalData }  from '../../shared/services/userService';
 
 function SignupPersonalData() {
   
-  // -- INPUTS 
   const params = useLocation();
   const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
   const [error, setError] = useState(null);
 
-  // params obj
   const data = { situation: params.state.situation, unloadedanimation: false, intendedtype: params.state.intendedtype, firstname: values.firstName, lastname: values.lastName, cpf: values.cpf, rg: values.rg, gender: values.gender, birthday: values.birthday, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
-
-  // -- VALIDATES
-  function isInvalid() {
-    if(values.firstName === "" || values.firstName === undefined) { setError("Preencha o campo nome!"); return true; }
-
-    if(values.lastName === "" || values.lastName === undefined) { setError("Preencha o campo sobrenome!"); return true; }
-
-    if(values.rg === "" || values.rg === undefined) { setError("Preencha o campo de Registro geral!"); return true; }
-
-    if(values.cpf === "" || values.cpf === undefined) { setError("Preencha o campo Cadastro de pessoa física!"); return true; }
-
-    if(values.birthday === "" || values.birthday === undefined) { setError("Preencha o campo Aniversário!"); return true; }
-
-    return false;
-  };
-  // -- VALIDATES
 
   function initialState() {
       return {
@@ -52,27 +33,26 @@ function SignupPersonalData() {
       [name]: value
     });
   }
-  // -- INPUTS
 
-  // -- FUNCTIONS
   function Next(event) {
     event.preventDefault();
     
-    if(!isInvalid()) { navigate(`/signup/user`, { state: data }) };
+    if(!isInvalidSignupPersonalData(values, setError)) { navigate(`/signup/user`, { state: data }) };
 
    }
-  // -- FUNCTIONS
 
-  // -- RETURN
   return (
   <main className="bg-white">
     <div className="relative md:flex">
+
       {/* Content */}
       <div className="md:w-1/2">
         <div className="min-h-screen h-full flex flex-col after:flex-1">
+
           {/* Header */}
           <div className="flex-1">
             <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+
               {/* Logo */}
               <NavLink end to="/" className="block">
                 <svg width="32" height="32" viewBox="0 0 32 32">
@@ -102,9 +82,11 @@ function SignupPersonalData() {
                   </g>
                 </svg>
               </NavLink>
+
               <div className="text-sm">
                   Já tem uma conta? <Link className="font-medium bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-indigo-500" to="/signin">Entrar</Link>
               </div>
+
             </div>
           </div>
 
@@ -133,6 +115,7 @@ function SignupPersonalData() {
 
           <div className="md:max-w-md lg:max-w-lg mx-auto px-4 py-8">
             <h1 data-aos="fade-left" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Informe seus dados pessoais <b className='text-indigo-100'>✨</b></h1>
+
             {/* Form */}
             <form>
               <div className='grid gap-3 md:grid-cols-2 mt-2'>
@@ -210,6 +193,7 @@ function SignupPersonalData() {
                   </div>
                 </div>
               </div>
+
                {/* Error */}
                { error !== null && 
                   <div className="mt-5">
@@ -221,14 +205,17 @@ function SignupPersonalData() {
                     </div>
                   </div> 
                }
+
               <div className="flex items-center justify-between mt-6">
                 <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup/situation`} state={ data }>&lt;- Voltar</Link>
                 <button onClick={Next} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">Próximo passo -&gt;</button>
               </div>
             </form>
+
           </div>
         </div>
       </div>
+
       {/* Image */}
       <div className="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
         <picture>
@@ -236,10 +223,10 @@ function SignupPersonalData() {
         </picture>
         <img className="absolute top-1/4 left-0 transform -translate-x-1/2 ml-8 hidden lg:block"  src={AuthDecoration} width="218" height="224" alt="Authentication decoration" />
       </div>
+
     </div>
   </main>
   );
-  // -- RETURN
 }
 
 export default SignupPersonalData;

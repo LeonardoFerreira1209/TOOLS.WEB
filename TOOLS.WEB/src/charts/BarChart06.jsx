@@ -6,13 +6,13 @@ import {
 import 'chartjs-adapter-moment';
 
 // Import utilities
-import { tailwindConfig, formatValue } from '../utils/Utils';
+import { tailwindConfig, formatValue } from '../shared/utils/Utils';
 
 // Import images
-import revolutIcon from '../images/company-icon-01.svg';
-import hsbcIcon from '../images/company-icon-02.svg';
-import qontoIcon from '../images/company-icon-03.svg';
-import n26Icon from '../images/company-icon-04.svg';
+import revolutIcon from '../assets/images/company-icon-01.svg';
+import hsbcIcon from '../assets/images/company-icon-02.svg';
+import qontoIcon from '../assets/images/company-icon-03.svg';
+import n26Icon from '../assets/images/company-icon-04.svg';
 
 Chart.register(BarController, BarElement, LinearScale, CategoryScale, Tooltip, Legend);
 const images = [revolutIcon, hsbcIcon, qontoIcon, n26Icon];

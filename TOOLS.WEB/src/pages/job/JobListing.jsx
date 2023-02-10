@@ -5,13 +5,13 @@ import DropdownSort from '../../components/DropdownSort';
 import JobListItem from '../../partials/job/JobListItem';
 import PaginationNumeric from '../../components/PaginationNumeric';
 
-import Image01 from '../../images/company-icon-05.svg';
-import Image02 from '../../images/company-icon-06.svg';
-import Image03 from '../../images/company-icon-03.svg';
-import Image04 from '../../images/company-icon-07.svg';
-import Image05 from '../../images/company-icon-08.svg';
-import Image06 from '../../images/company-icon-01.svg';
-import Image07 from '../../images/company-icon-02.svg';
+import Image01 from '../../assets/images/company-icon-05.svg';
+import Image02 from '../../assets/images/company-icon-06.svg';
+import Image03 from '../../assets/images/company-icon-03.svg';
+import Image04 from '../../assets/images/company-icon-07.svg';
+import Image05 from '../../assets/images/company-icon-08.svg';
+import Image06 from '../../assets/images/company-icon-01.svg';
+import Image07 from '../../assets/images/company-icon-02.svg';
 
 function JobListing() {
 

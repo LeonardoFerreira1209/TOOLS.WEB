@@ -6,8 +6,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import ReactTooltip from 'react-tooltip';
 import InputMask from 'react-input-mask';
 
-import FemaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7691478.png';
-import MaleAvatar from '../../images/—Pngtree—smiling people avatar set different_7690723.png';
+import FemaleAvatar from '../../assets/images/—Pngtree—smiling people avatar set different_7691478.png';
+import MaleAvatar from '../../assets/images/—Pngtree—smiling people avatar set different_7690723.png';
 import { Link } from 'react-router-dom';
 
 function AccountPanel({ props }) {
