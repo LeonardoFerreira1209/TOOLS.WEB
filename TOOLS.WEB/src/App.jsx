@@ -87,8 +87,6 @@ import AccordionPage from './pages/component/AccordionPage';
 import IconsPage from './pages/component/IconsPage';
 import Home from './pages/Home';
 import RequireAuth from './components/auth/RequireAuth';
-import ConfirmEmail from './pages/ConfirmEmail';
-import User from './pages/settings/User';
 import Permission from './pages/settings/Permission';
 import Business from './pages/settings/Business';
 import Header from './partials/Header';
@@ -185,7 +183,6 @@ function App() {
         <Route path="/inbox" element={<RequireAuth><Inbox /></RequireAuth>} />
         <Route path="/calendar" element={<RequireAuth><Calendar /></RequireAuth>} />
         <Route path="/settings/account/:id" element={<RequireAuth><Account /></RequireAuth>}/>
-        <Route path="/settings/user/:id" element={<RequireAuth><User /></RequireAuth>} />
         <Route path="/settings/permission/:id" element={<RequireAuth><Permission /></RequireAuth>} />
         <Route path="/settings/business/:id" element={<RequireAuth><Business /></RequireAuth>} />
         <Route path="/settings/notifications/:id" element={<RequireAuth><Notifications /></RequireAuth>} />

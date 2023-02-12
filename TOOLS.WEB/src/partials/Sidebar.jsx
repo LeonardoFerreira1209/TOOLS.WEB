@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-
+import ContextUser from '../components/store/context/ContextUser';
 import SidebarLinkGroup from './SidebarLinkGroup';
 
 function Sidebar({
   sidebarOpen,
   setSidebarOpen
 }) {
+
+  const { user } = useContext(ContextUser);
 
   const location = useLocation();
   const { pathname } = location;
@@ -916,34 +918,38 @@ function Sidebar({
                 </NavLink>
               </li>
               {/* Calendar */}
-              <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('calendar') && 'bg-slate-900'}`}>
-                <NavLink
-                  end
-                  to="/calendar"
-                  className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
-                    pathname.includes('calendar') && 'hover:text-slate-200'
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                        <div className="grow flex items-center">
-                            <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
-                              <path className={`fill-current text-slate-600 ${pathname.includes('calendar') && 'text-indigo-500'}`} d="M1 3h22v20H1z" />
-                              <path
-                                className={`fill-current text-slate-400 ${pathname.includes('calendar') && 'text-indigo-300'}`}
-                                d="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z"
-                              />
-                            </svg>
-                            <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
-                              Calendário
-                            </span>
-                          </div>
-                          {/* Badge */}
-                          <div className="flex flex-shrink-0 ml-2">
-                            <span className="inline-flex items-center justify-center h-5 text-xs font-medium text-white bg-gradient-primary-500 px-2 rounded">5</span>
-                          </div>
-                    </div>
-                </NavLink>
-              </li>
+              {
+                (user.tokenObj.Event !== undefined) && (
+                  <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('calendar') && 'bg-slate-900'}`}>
+                    <NavLink
+                      end
+                      to="/calendar"
+                      className={`block text-slate-200 hover:text-white truncate transition duration-150 ${
+                        pathname.includes('calendar') && 'hover:text-slate-200'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                            <div className="grow flex items-center">
+                                <svg className="shrink-0 h-6 w-6" viewBox="0 0 24 24">
+                                  <path className={`fill-current text-slate-600 ${pathname.includes('calendar') && 'text-indigo-500'}`} d="M1 3h22v20H1z" />
+                                  <path
+                                    className={`fill-current text-slate-400 ${pathname.includes('calendar') && 'text-indigo-300'}`}
+                                    d="M21 3h2v4H1V3h2V1h4v2h10V1h4v2Z"
+                                  />
+                                </svg>
+                                <span className="text-sm font-medium ml-3 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">
+                                  Calendário
+                                </span>
+                              </div>
+                              {/* Badge */}
+                              <div className="flex flex-shrink-0 ml-2">
+                                <span className="inline-flex items-center justify-center h-5 text-xs font-medium text-white bg-gradient-primary-500 px-2 rounded">5</span>
+                              </div>
+                        </div>
+                    </NavLink>
+                  </li>
+                )
+              }
               {/* Campaigns */}
               <li className={`px-3 py-2 rounded-sm mb-0.5 last:mb-0 ${pathname.includes('campaigns') && 'bg-slate-900'}`}>
                 <NavLink
