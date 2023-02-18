@@ -120,3 +120,39 @@ export function create(navigate, setError, setLoading, values, params) {
     setError("Ops, tivemos um erro inesperado!"); setLoading(false);
   });
 }
+
+export function getRoles(tokenJwt, setRoles, setError, setLoading) {
+  fetch(`${process.env.BASE_URL}gateway/role/getall`, 
+  {
+      headers: {
+        'Authorization': `Bearer ${tokenJwt}`
+      },
+      crossDomain:true,
+      mode:'cors', 
+      method: 'GET',
+      cache: 'no-cache',
+      credentials:'same-origin',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+    .then(response => response.json()).then((results) => {
+      debugger
+      if(results.sucesso){
+        setRoles(results.dados);
+      }
+      else{
+        setError(results.notificacoes[0].mensagem); setLoading(false);
+      }
+    },
+    (error) => {
+      console.error(error);
+
+      setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+    }
+
+  ).catch(error => {
+    console.error(error);
+
+    setError("Ops, tivemos um erro inesperado!"); setLoading(false);
+  });
+}
