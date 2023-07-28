@@ -6,7 +6,7 @@ import HeroImage from '../../assets/images/—Pngtree—2 5d business office dat
 function HeroHome() {
 
   const [videoModalOpen, setVideoModalOpen] = useState(false);
-
+  
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative">
@@ -29,11 +29,11 @@ function HeroHome() {
 
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-16">
-            <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-indigo-500 h1 mb-4" data-aos="fade-up"><i className='bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500'>TOOLS.API</i> á sua ferramenta</h1>
-            <p className="text-xl mb-8 bg-clip-text text-transparent bg-gradient-to-l from-indigo-400 to-sky-900" data-aos="fade-up" data-aos-delay="200">O TOOLS.API é um projeto pessoal, projetado com multifuncionalidades no intuito de auxiliar outros projetos com APIS e ferramentas diversificadas.</p>
+            <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-indigo-500 h1 mb-4" data-aos="fade-up"> Olá! Seja bem-vindo ao meu <i className='bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500'>Portifólio Online.</i></h1>
+            <p className="text-xl mb-8 bg-clip-text text-transparent bg-gradient-to-l from-indigo-400 to-sky-900" data-aos="fade-up" data-aos-delay="200">"Esse projeto tem o intuito de demonstrar os demais conhecimentos que conquistei durante a minha carreira como Desenvolvedor Web."</p>
             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center">
               <div data-aos="fade-up" data-aos-delay="400">
-                <a className="btn text-white text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 w-full mb-4 sm:w-auto sm:mb-0" href="#0">Inicie um teste gratuito</a>
+                <a className="btn text-white text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 w-full mb-4 sm:w-auto sm:mb-0" href="/login">Inicie um teste gratuito</a>
               </div>
               <div data-aos="fade-up" data-aos-delay="600">
                 <a className="btn text-white bg-indigo-500 hover:bg-indigo-600 w-full sm:w-auto sm:ml-4" href="#0">Leia mais</a>

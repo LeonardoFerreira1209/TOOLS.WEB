@@ -10,11 +10,8 @@ function ConfirmEmail() {
   const [loading, setLoading] = useState(false);
 
   function ConfirmEmail(event) {
-    
     setLoading(true);
-
     event.preventDefault();
-
     fetch(`${process.env.BASE_URL}gateway/user/activate/${code}/${userId}`, 
     {
       crossDomain:true,

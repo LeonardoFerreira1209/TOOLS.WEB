@@ -94,12 +94,6 @@ function HomeHeader() {
                 <li>
                   <Link to="/contact" className="font-medium text-sm text-[#008df6] hover:text-sky-400 flex py-2 px-4 leading-tight">Fale conosco</Link>
                 </li>
-                <li>
-                  <Link to="/help" className="font-medium text-sm text-[#008df6] hover:text-sky-400 flex py-2 px-4 leading-tight">Centro de ajuda</Link>
-                </li>
-                <li>
-                  <Link to="/404" className="font-medium text-sm text-[#008df6] hover:text-sky-400 flex py-2 px-4 leading-tight">404</Link>
-                </li>
               </Dropdown>
             </ul>
 
@@ -148,12 +142,6 @@ function HomeHeader() {
                   <ul className="pl-4">
                     <li>
                       <Link to="/contact" className="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2">Fale conosco</Link>
-                    </li>
-                    <li>
-                      <Link to="/help" className="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2">Centro de ajuda</Link>
-                    </li>
-                    <li>
-                      <Link to="/404" className="text-sm flex font-medium text-gray-400 hover:text-gray-200 py-2">404</Link>
                     </li>
                   </ul>
                 </li>

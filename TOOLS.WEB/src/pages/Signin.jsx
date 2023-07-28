@@ -126,7 +126,7 @@ function Signin() {
                 { error !== null && 
                     <div className="mt-5">
                       <div data-aos="fade-left" className="bg-gradient-danger-500 text-white px-3 py-2 rounded">
-                        x&ensp;
+                        <b>x</b>&ensp;
                         <span className="text-sm">
                           {error}
                         </span>

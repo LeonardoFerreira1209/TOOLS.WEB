@@ -8,8 +8,8 @@ function Process() {
 
           {/* Section header */}
           <div className="max-w-3xl mx-auto text-center pb-12 md:pb-20">
-            <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-indigo-500 h2 mb-4" data-aos="fade-up">Projeto feito com as tecnologias mais atuais</h2>
-            <p className="text-xl text-sky-500 mb-8 bg-clip-text text-transparent bg-gradient-to-l from-indigo-400 to-sky-900" data-aos="fade-up" data-aos-delay="200">Temos variadas funcionalidades para facilitar o seu dia á dia.</p>
+            <h2 className="bg-clip-text text-transparent bg-gradient-to-r from-sky-500 to-indigo-500 h2 mb-4" data-aos="fade-up">Projeto desenvolvido buscando melhor estrutura e performance.</h2>
+            <p className="text-xl text-sky-500 mb-8 bg-clip-text text-transparent bg-gradient-to-l from-indigo-400 to-sky-900" data-aos="fade-up" data-aos-delay="200">Para que isso acontece optei pelas demais técnologias.</p>
           </div>
 
           {/* Items */}
@@ -24,7 +24,7 @@ function Process() {
                 <path className="stroke-current text-sky-100" d="M26 28h12M26 32h12M26 36h5" strokeWidth="2" strokeLinecap="square" />
               </svg>
               <h4 className="h4 mb-2"><span className="text-gray-400">1</span>. Design moderno</h4>
-              <p className="text-lg text-gray-400 text-center">O TOOLS.API conta com um design moderno e interativo.</p>
+              <p className="text-lg text-gray-400 text-center">O design escolhido foi DDD, sempre visando a aplicação dos principios do SOLID & Design Patterns!</p>
             </div>
 
             {/* 2nd item */}
@@ -38,7 +38,7 @@ function Process() {
                 </g>
               </svg>
               <h4 className="h4 mb-2"><span className="text-gray-400">2</span>. Funcionalidades</h4>
-              <p className="text-lg text-gray-400 text-center">Ferramentas váriadas para facilitar o seu dia.</p>
+              <p className="text-lg text-gray-400 text-center">O projeto conta com muitas funcionalides desde gerenciamento de usuários e outras ferramentas.</p>
             </div>
 
             {/* 3rd item */}
@@ -49,7 +49,7 @@ function Process() {
                 <path className="stroke-current text-sky-100" d="M42 29h-3M42 34h-7M42 39H31" strokeWidth="2" strokeLinecap="square" />
               </svg>
               <h4 className="h4 mb-2"><span className="text-gray-400">3</span>. Alta performance</h4>
-              <p className="text-lg text-gray-400 text-center">Foi projetado para ter o máximo de performance em suas atividades.</p>
+              <p className="text-lg text-gray-400 text-center">Foi projetado para ter o máximo de performance!</p>
             </div>
           </div>
         </div>

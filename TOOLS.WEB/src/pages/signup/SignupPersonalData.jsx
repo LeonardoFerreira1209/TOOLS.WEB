@@ -6,13 +6,25 @@ import AuthDecoration from '../../assets/images/auth-decoration.png';
 import { isInvalidSignupPersonalData }  from '../../shared/services/userService';
 
 function SignupPersonalData() {
-  
   const params = useLocation();
   const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
   const [error, setError] = useState(null);
 
-  const data = { situation: params.state.situation, unloadedanimation: false, intendedtype: params.state.intendedtype, firstname: values.firstName, lastname: values.lastName, cpf: values.cpf, rg: values.rg, gender: values.gender, birthday: values.birthday, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
+  const data = { 
+    situation: params.state.situation, 
+    unloadedanimation: false, 
+    intendedtype: params.state.intendedtype, 
+    firstname: values.firstName, 
+    lastname: values.lastName, 
+    cpf: values.cpf, 
+    rg: values.rg, 
+    gender: values.gender, 
+    username: params.state.username, 
+    password: params.state.password, 
+    email: params.state.email, 
+    phoneNumber: params.state.phoneNumber 
+  };
 
   function initialState() {
       return {
@@ -20,14 +32,12 @@ function SignupPersonalData() {
       lastName: params.state.lastname,
       gender: params.state.gender === undefined ? "1" : params.state.gender,
       rg: params.state.rg,
-      cpf: params.state.cpf,
-      birthday: params.state.birthday
+      cpf: params.state.cpf
     };
   }
 
   function onChange(event) {
     let {value, name} = event.target;
-    
     setValues(
     {...values, 
       [name]: value
@@ -36,10 +46,10 @@ function SignupPersonalData() {
 
   function Next(event) {
     event.preventDefault();
-    
-    if(!isInvalidSignupPersonalData(values, setError)) { navigate(`/signup/user`, { state: data }) };
-
-   }
+    if(!isInvalidSignupPersonalData(values, setError)) { 
+      navigate(`/signup/user`, { state: data }) 
+    };
+  }
 
   return (
   <main className="bg-white">
@@ -174,17 +184,6 @@ function SignupPersonalData() {
                       <option selected value={"1"}>Masculino</option>
                       <option value={"2"}>Feminino</option>
                     </select>
-                    <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
-                      <svg className="w-4 h-4 fill-current text-indigo-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
-                        <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-1" htmlFor="phoneNumber">Aniversário<span className="text-rose-500">*</span></label>
-                  <div className="relative">
-                    <InputMask mask={'99/99/9999'} onChange={onChange} value={values.birthday} id="birthday" name='birthday' className="form-input w-full pl-9" type="birthday" autoComplete="on"/>
                     <div className="absolute inset-0 right-auto flex items-center pointer-events-none">
                       <svg className="w-4 h-4 fill-current text-indigo-400 shrink-0 ml-3 mr-2" viewBox="0 0 16 16">
                         <path d="M11.7.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM4.6 14H2v-2.6l6-6L10.6 8l-6 6zM12 6.6L9.4 4 11 2.4 13.6 5 12 6.6z" />

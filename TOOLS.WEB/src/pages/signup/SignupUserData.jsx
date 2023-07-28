@@ -13,7 +13,20 @@ function SignupUserData() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
   
-  const data = { situation: params.state.situation, unloadedanimation: false, intendedtype: params.state.intendedtype, firstname: params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, birthday: params.state.birthday, rg: params.state.rg, gender: params.state.gender, username: values.username, password: values.password, email: values.email, phoneNumber: values.phoneNumber };
+  const data = { 
+    situation: params.state.situation, 
+    unloadedanimation: false, 
+    intendedtype: params.state.intendedtype, 
+    firstname: params.state.firstname, 
+    lastname:  params.state.lastname, 
+    cpf: params.state.cpf, 
+    rg: params.state.rg, 
+    gender: params.state.gender, 
+    username: values.username, 
+    password: values.password, 
+    email: values.email,
+    phoneNumber: values.phoneNumber 
+  };
 
   function initialState() {
       return {
@@ -26,7 +39,6 @@ function SignupUserData() {
 
   function onChange(event) {
     const {value, name} = event.target;
-
     setValues(
     {...values, 
       [name]: value
@@ -34,9 +46,7 @@ function SignupUserData() {
   }
 
    function Create(event) {
-    
     event.preventDefault();
-
     if(!isInvalidSignupUserData(values, setError)) create(navigate, setError, setLoading, values, params);
    }
 

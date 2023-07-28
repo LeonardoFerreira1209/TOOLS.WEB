@@ -5,13 +5,23 @@ import AuthImage from '../../assets/images/—Pngtree—2 5d learn know how_4117
 import AuthDecoration from '../../assets/images/auth-decoration.png';
 
 function SignupIntended() {
-  
   const params = useLocation();
   const [unloadedanimation] = useState(params.state.unloadedanimation);
   const [values, setValues] = useState(initialState);
   const navigate = useNavigate();
 
-  const data = { intendedtype: values.intendedtype, situation: params.state.situation, firstname: params.state.firstname, lastname:  params.state.lastname, cpf: params.state.cpf, birthday: params.state.birthday, rg: params.state.rg, gender: params.state.gender, username: params.state.username, password: params.state.password, email: params.state.email, phoneNumber: params.state.phoneNumber };
+  const data = { 
+    intendedtype: values.intendedtype, 
+    situation: params.state.situation, 
+    firstname: params.state.firstname, 
+    lastname:  params.state.lastname, 
+    cpf: params.state.cpf, 
+    rg: params.state.rg, 
+    gender: params.state.gender,
+    username: params.state.username, 
+    password: params.state.password, 
+    email: params.state.email, 
+    phoneNumber: params.state.phoneNumber };
 
   function initialState() {
       return {
@@ -21,7 +31,6 @@ function SignupIntended() {
 
   function onChange(event) {
     const {value, name} = event.target;
-
     setValues(
     {...values, 
       [name]: value
@@ -30,7 +39,6 @@ function SignupIntended() {
 
   function Next(event) {
     event.preventDefault();
-
     navigate(`/signup/situation`, { state:  data });
    }
 
@@ -119,8 +127,8 @@ function SignupIntended() {
                           <circle className="color-primary" cx="20" cy="20" r="20" />
                           <path className="color-primary" d="m26.371 23.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 24 17v-1.828A4.087 4.087 0 0 0 20 11a4.087 4.087 0 0 0-4 4.172V17a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V27a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
                         </svg>
-                        <div className="font-medium text-indigo-500 mb-1">Estudo</div>
-                        <div className="text-sm">Irei usar o sistema para estudos, sem arrecadação de lucros.</div>
+                        <div className="font-medium text-indigo-500 mb-1">Desenvolvedor</div>
+                        <div className="text-sm">Irei usar o portifólio para estudos, e aprendizados!</div>
                       </div>
                       <div className="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
                     </label>
@@ -134,8 +142,8 @@ function SignupIntended() {
                           <path className="color-primary" d="m30.377 22.749-3.709-1.5a1 1 0 0 1-.623-.926v-.878A3.989 3.989 0 0 0 28.027 16v-1.828c.047-2.257-1.728-4.124-3.964-4.172-2.236.048-4.011 1.915-3.964 4.172V16a3.989 3.989 0 0 0 1.982 3.445v.878a1 1 0 0 1-.623.928c-.906.266-1.626.557-2.159.872-.533.315-1.3 1.272-2.299 2.872 1.131.453 6.075-.546 6.072.682V28a2.99 2.99 0 0 1-.182 1h7.119A.996.996 0 0 0 31 28v-4.323a1 1 0 0 0-.623-.928Z" />
                           <path className="color-primary" d="m22.371 24.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 20 18v-1.828A4.087 4.087 0 0 0 16 12a4.087 4.087 0 0 0-4 4.172V18a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V28a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
                         </svg>
-                        <div className="font-medium text-indigo-500 mb-1">Profissional</div>
-                        <div className="text-sm">Irei usar o sistema profissionalmente, com arrecadação de lucros.</div>
+                        <div className="font-medium text-indigo-500 mb-1">Recrutador</div>
+                        <div className="text-sm">Irei analisar o portifólio para afins de contraração!</div>
                       </div>
                       <div className="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
                     </label>
