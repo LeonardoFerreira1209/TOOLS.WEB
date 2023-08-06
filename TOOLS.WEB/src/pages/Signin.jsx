@@ -96,7 +96,7 @@ function Signin() {
               <h1 data-aos="fade-down" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Olá novamente! <b className='text-indigo-100'>✨</b></h1>
 
               {/* Form */}
-              <form>
+              <form netlify>
                 <div className="space-y-4">
                   <div data-aos="fade-left">
                     <label className="block text-sm font-medium mb-1" htmlFor="user">Usuário<span className="text-rose-500">*</span></label>
