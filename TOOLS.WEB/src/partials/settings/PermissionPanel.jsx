@@ -19,7 +19,6 @@ const [roles, setRoles] = useState([]);
 const { user } = useContext(StoreContext)
 
 useEffect(() => {
-  debugger
   getRoles(user.tokenJwt, setRoles, setError, setLoading);
 
 }, [])

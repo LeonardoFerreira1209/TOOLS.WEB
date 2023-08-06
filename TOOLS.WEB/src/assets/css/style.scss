@@ -112,5 +112,11 @@ Link .color-primary-400 {
     background-color: hsla(0, 0%, 0%, 0);
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 @tailwind utilities;
 

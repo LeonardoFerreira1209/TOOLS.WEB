@@ -1,48 +1,54 @@
 import { parseJwt } from '../utils/Utils';
+import { toast } from 'react-toastify';
 
-export function isInvalidAuthentication(values, setError, setLoading) {
+export function isInvalidAuthentication(values) {
+    let errors = [];
     if(values.user === "") { 
-      setError("Preencha o campo usuário!");  setLoading(false); return true; 
+      errors.push("Preencha o campo usuário!!");
     }
     if(values.password === "") { 
-      setError("Preencha o campo senha!"); setLoading(false); return true; 
+      errors.push("Preencha o campo senha!");
     }
-    return false; 
+    return errors; 
 }
 
-export function isInvalidSignupPersonalData(values, setError) {
+export function isInvalidSignupPersonalData(values) {
+  let errors = [];
+  
   if(values.firstName === "" || values.firstName === undefined) { 
-    setError("Preencha o campo nome!"); return true; 
+    errors.push("Preencha o campo nome!");
   }
   if(values.lastName === "" || values.lastName === undefined) { 
-    setError("Preencha o campo sobrenome!"); return true; 
+    errors.push("Preencha o campo sobrenome!") 
   }
   if(values.rg === "" || values.rg === undefined) { 
-    setError("Preencha o campo de Registro geral!"); return true; 
+    errors.push("Preencha o campo rg!") 
   }
   if(values.cpf === "" || values.cpf === undefined) { 
-    setError("Preencha o campo Cadastro de pessoa física!"); return true; 
+    errors.push("Preencha o campo cadastro de pessoa física!") 
   }
-  return false;
+  return errors;
 }
 
-export function isInvalidSignupUserData(values, setError) {
+export function isInvalidSignupUserData(values) {
+    let errors = [];
+
     if(values.username === "" || values.username === undefined) { 
-      setError("Preencha o campo nome de usuário!"); return true; 
+      errors.push("Preencha o campo nome de usuário!");
     }
     if(values.password === "" || values.password === undefined) { 
-      setError("Preencha o campo senha!"); return true; 
+      errors.push("Preencha o campo senha!"); 
     }
     if(values.email === "" || values.email === undefined) { 
-      setError("Preencha o campo e-mail!"); return true; 
+      errors.push("Preencha o campo e-mail!"); 
     }
     if(values.phoneNumber === "" || values.phoneNumber === undefined) { 
-      setError("Preencha o campo celular!"); return true; 
+      errors.push("Preencha o campo celular!"); 
     }
-    return false;
+    return errors;
 }
 
-export function authetication(navigate, state, setUser, setError, setLoading, values) {
+export function authetication(navigate, state, setUser, setLoading, values) {
     fetch(`${process.env.BASE_URL}api/usermanager/authetication`, 
     {
       headers: {
@@ -69,21 +75,70 @@ export function authetication(navigate, state, setUser, setError, setLoading, va
           navigate(state?.path || "/dashboard");
         }
         else{
-          setError(results.Notificacoes[0].Mensagem) ?? "Erro não tratado no servidor!"; setLoading(false);
+          setLoading(false);
+          results.Notificacoes.forEach((error) => {
+            toast.error(error.Mensagem, {
+              theme: 'light',
+              autoClose: true
+            })
+          })
         }
       },
       (error) => {
         console.error(error);
-        setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+        toast.error("Ops, não conseguimos fazer a requisição!", {
+          theme: 'light',
+          autoClose: true
+        })
+        setLoading(false)
       }
 
     ).catch(error => {
       console.error(error);
-      setError("Ops, tivemos um erro inesperado!"); setLoading(false);
+      toast.error("Ops, tivemos um erro inesperado!", {
+        theme: 'light',
+        autoClose: true
+      })
+      setLoading(false);
     });
 }
 
-export function create(navigate, setError, setLoading, values, params) {
+export function confirmEmail(navigate, setError, setLoading, userId, code) {
+  fetch(`${process.env.BASE_URL}api/usermanager/activate/user/code/${code}/userid/${userId}`, 
+  {
+      crossDomain:true,
+      mode:'cors', 
+      method: 'GET',
+      cache: 'no-cache',
+      credentials:'same-origin',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+    })
+    .then(response => response.json()).then(
+      (results) => {
+      if(results.Sucesso){
+        navigate("/signin");
+      }
+      else{
+        setError(results.Notificacoes[0].Mensagem) 
+        ?? "Erro não tratado no servidor!"; 
+        setLoading(false);
+      }
+    },
+    (error) => {
+      console.error(error);
+      setError("Ops, não conseguimos fazer a requisição!"); 
+      setLoading(false);
+    }
+
+  ).catch(error => {
+    console.error(error);
+    setError("Ops, tivemos um erro inesperado!"); 
+    setLoading(false);
+  });
+}
+
+export function create(navigate, setLoading, values, params) {
   setLoading(true);
 
   fetch(`${process.env.BASE_URL}api/usermanager/create/user`, 
@@ -106,22 +161,39 @@ export function create(navigate, setError, setLoading, values, params) {
       PhoneNumber: values.phoneNumber
     })
   })
-  .then(response => response.json()).then((results) => {
+  .then(response => response.json()).then(
+    (results) => {
       if(results.Sucesso){    
-        navigate("/signin");
+        navigate(
+          `/confirm-email/userId/${results.Dados.id}`
+          )
       }
       else{
-        setError(results.notificacoes[0]?.mensagem) ?? "Erro não tratado no servidor!"; setLoading(false);
+          setLoading(false);
+          results.Notificacoes.forEach((error) => {
+            toast.error(error.Mensagem, {
+              theme: 'light',
+              autoClose: true
+            })
+          })
       }
     },
     (error) => {
       console.error(error);
-      setError("Ops, não conseguimos fazer a requisição!"); setLoading(false);
+      toast.error("Ops, não conseguimos fazer a requisição!", {
+        theme: 'light',
+        autoClose: true
+      })
+      setLoading(false)
     }
 
   ).catch(error => {
     console.error(error);
-    setError("Ops, tivemos um erro inesperado!"); setLoading(false);
+    toast.error("Ops, tivemos um erro inesperado!", {
+      theme: 'light',
+      autoClose: true
+    })
+    setLoading(false);
   });
 }
 
@@ -140,7 +212,6 @@ export function getRoles(tokenJwt, setRoles, setError, setLoading) {
       referrerPolicy: 'no-referrer',
     })
     .then(response => response.json()).then((results) => {
-      debugger
       if(results.sucesso){
         setRoles(results.dados);
       }

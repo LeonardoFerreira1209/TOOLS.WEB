@@ -4,12 +4,12 @@ import InputMask from 'react-input-mask';
 import AuthImage from '../../assets/images/—Pngtree—2 5d learn know how_4117072.webp';
 import AuthDecoration from '../../assets/images/auth-decoration.png';
 import { isInvalidSignupPersonalData }  from '../../shared/services/userService';
+import { ToastContainer, toast } from 'react-toastify';
 
 function SignupPersonalData() {
   const params = useLocation();
   const navigate = useNavigate();
   const [values, setValues] = useState(initialState);
-  const [error, setError] = useState(null);
 
   const data = { 
     situation: params.state.situation, 
@@ -46,23 +46,31 @@ function SignupPersonalData() {
 
   function Next(event) {
     event.preventDefault();
-    if(!isInvalidSignupPersonalData(values, setError)) { 
+    let errors = isInvalidSignupPersonalData(values);
+    if(errors.length == 0) { 
       navigate(`/signup/user`, { state: data }) 
-    };
+    }
+    else{
+      errors.forEach((error) => {
+        toast.error(error, {
+          theme: 'light',
+          autoClose: true
+        });
+      })
+    }
   }
 
   return (
   <main className="bg-white">
     <div className="relative md:flex">
-
+      {/* IziToast */}
+      <ToastContainer position="top-right"></ToastContainer>
       {/* Content */}
       <div className="md:w-1/2">
         <div className="min-h-screen h-full flex flex-col after:flex-1">
-
           {/* Header */}
           <div className="flex-1">
             <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
-
               {/* Logo */}
               <NavLink end to="/" className="block">
                 <svg width="32" height="32" viewBox="0 0 32 32">
@@ -118,6 +126,9 @@ function SignupPersonalData() {
                   <li>
                     <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">4</div>
                   </li>
+                  <li>
+                    <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold bg-slate-100 text-slate-500">5</div>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -125,7 +136,6 @@ function SignupPersonalData() {
 
           <div className="md:max-w-md lg:max-w-lg mx-auto px-4 py-8">
             <h1 data-aos="fade-left" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Informe seus dados pessoais <b className='text-indigo-100'>✨</b></h1>
-
             {/* Form */}
             <form>
               <div className='grid gap-3 md:grid-cols-2 mt-2'>
@@ -192,25 +202,11 @@ function SignupPersonalData() {
                   </div>
                 </div>
               </div>
-
-               {/* Error */}
-               { error !== null && 
-                  <div className="mt-5">
-                    <div data-aos="fade-left" className="bg-gradient-danger-500 text-white px-3 py-2 rounded">
-                      x&ensp;
-                      <span className="text-sm">
-                        {error}
-                      </span>
-                    </div>
-                  </div> 
-               }
-
               <div className="flex items-center justify-between mt-6">
                 <Link className="text-sm underline text-red-300 hover:no-underline" to={`/signup/situation`} state={ data }>&lt;- Voltar</Link>
                 <button onClick={Next} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-auto">Próximo passo -&gt;</button>
               </div>
             </form>
-
           </div>
         </div>
       </div>

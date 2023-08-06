@@ -67,6 +67,7 @@ import SignupIntended from './pages/signup/SignupIntended';
 import SignupSituation from './pages/signup/SignupSituation';
 import SignupPersonalData from './pages/signup/SignupPersonalData';
 import SignupUserData from './pages/signup/SignupUserData';
+import ConfirmEmail from './pages/signup/ConfirmEmail';
 import ResetPassword from './pages/ResetPassword';
 import Onboarding01 from './pages/Onboarding01';
 import Onboarding02 from './pages/Onboarding02';
@@ -131,7 +132,7 @@ function App() {
     || location.pathname === '/signup/situation' 
     || location.pathname === '/signup/basic' 
     || location.pathname === '/signup/user'
-    || location.pathname === '/confirmEmail/:code/:userId'
+    || location.pathname === '/confirm-email/:userId'
     || location.pathname === '/reset-password'
     || location.pathname === '/reset-password'
   };
@@ -146,6 +147,7 @@ function App() {
         <Route path="/signup/situation" element={<SignupSituation />} />
         <Route path="/signup/basic" element={<SignupPersonalData />} />
         <Route path="/signup/user" element={<SignupUserData />} />
+        <Route path="/confirm-email/userId/:userId" element={<ConfirmEmail />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         {/* Required login */}
         <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />

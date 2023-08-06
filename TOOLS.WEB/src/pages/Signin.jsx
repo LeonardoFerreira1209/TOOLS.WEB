@@ -2,17 +2,15 @@ import React, { useState, useContext } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import ContextUser from '../components/store/context/ContextUser';
 import { authetication, isInvalidAuthentication }  from '../shared/services/userService';
-
 import AuthImage from '../assets/images/—Pngtree—2 5d learn know how_4117072.webp';
 import AuthDecoration from '../assets/images/auth-decoration.png';
+import { ToastContainer, toast } from 'react-toastify';
 
 import 'aos/dist/aos.css';
 
 function Signin() {
   const navigate = useNavigate();
   const { state } = useLocation();
-
-  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,7 +23,6 @@ function Signin() {
 
   function onChange(event) {
     const {value, name} = event.target;
-
     setValues(
       {...values, 
         [name]: value
@@ -36,22 +33,32 @@ function Signin() {
     setLoading(true);
 
     event.preventDefault();
-
-    if(!isInvalidAuthentication(values, setError, setLoading)) authetication(navigate, state, setUser, setError, setLoading, values);
+    let errors = isInvalidAuthentication(values);
+    if(errors.length == 0) {
+      authetication(navigate, state, setUser, setLoading, values);
+    }
+    else {
+      setLoading(false);
+      errors.forEach((error) => {
+        toast.error(error, {
+          theme: 'light',
+          autoClose: true
+        });
+      })
+    }
   }
 
   return (
     <main className="bg-white">
+      {/* IziToast */}
+      <ToastContainer position="top-right"></ToastContainer>
       <div className="relative md:flex">
-
         {/* Content */}
         <div className="md:w-1/2">
           <div className="min-h-screen h-full flex flex-col after:flex-1">
-
             {/* Header */}
             <div className="flex-1">
               <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
-
                 {/* Logo */}
                 <NavLink data-aos="fade-left" end to="/" className="block">
                   <svg width="32" height="32" viewBox="0 0 32 32">
@@ -121,17 +128,6 @@ function Signin() {
                     </button>
                   </div>
                 </div>
-
-                {/* Error */}
-                { error !== null && 
-                    <div className="mt-5">
-                      <div data-aos="fade-left" className="bg-gradient-danger-500 text-white px-3 py-2 rounded">
-                        <b>x</b>&ensp;
-                        <span className="text-sm">
-                          {error}
-                        </span>
-                      </div>
-                    </div> }
                 <div className="flex items-center justify-between mt-6">
                   <div data-aos="fade-up" className="mr-1">
                     <Link className="text-sm underline hover:no-underline" to="/reset-password">Esqueceu a senha?</Link>
@@ -166,7 +162,6 @@ function Signin() {
                     </span>
                   </div>
                 </div>
-
               </div>
             </div>
           </div>
