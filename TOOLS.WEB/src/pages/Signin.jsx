@@ -5,7 +5,6 @@ import { authetication, isInvalidAuthentication }  from '../shared/services/user
 import AuthImage from '../assets/images/—Pngtree—2 5d learn know how_4117072.webp';
 import AuthDecoration from '../assets/images/auth-decoration.png';
 import { ToastContainer, toast } from 'react-toastify';
-import { GoogleLogin } from '@leecheuk/react-google-login';
 
 import 'aos/dist/aos.css';
 
@@ -46,11 +45,6 @@ function Signin() {
         });
       })
     }
-  }
-
-  const responseGoogle = (response) => {
-    debugger
-    console.log(response);
   }
 
   return (
@@ -101,7 +95,7 @@ function Signin() {
               <h1 data-aos="fade-down" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Olá novamente! <b className='text-indigo-100'>✨</b></h1>
 
               {/* Form */}
-              <form netlify>
+              <form netlify="true">
                 <div className="space-y-4">
                   <div data-aos="fade-left">
                     <label className="block text-sm font-medium mb-1" htmlFor="user">Usuário<span className="text-rose-500">*</span></label>
@@ -137,13 +131,6 @@ function Signin() {
                   <div data-aos="fade-up" className="mr-1">
                     <Link className="text-sm underline hover:no-underline" to="/reset-password">Esqueceu a senha?</Link>
                   </div>
-                  <GoogleLogin
-                    clientId="746955105450-3usa2tnk1kjh82foeqhbt7fm00qf60ar.apps.googleusercontent.com"
-                    buttonText=""
-                    onSuccess={responseGoogle}
-                    onFailure={responseGoogle}
-                    cookiePolicy={'single_host_origin'}
-                  />,
                   <button data-aos="fade-up" onClick={Signin} className="btn text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 ml-3">
                     {loading === false  ? ("Entrar") : (
                       <lord-icon
