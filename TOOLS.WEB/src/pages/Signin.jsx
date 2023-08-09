@@ -5,7 +5,7 @@ import { authetication, isInvalidAuthentication }  from '../shared/services/user
 import AuthImage from '../assets/images/—Pngtree—2 5d learn know how_4117072.webp';
 import AuthDecoration from '../assets/images/auth-decoration.png';
 import { ToastContainer, toast } from 'react-toastify';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin } from '@leecheuk/react-google-login';
 
 import 'aos/dist/aos.css';
 

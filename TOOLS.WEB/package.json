@@ -7,6 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@leecheuk/react-google-login": "^5.4.1",
     "@microsoft/signalr": "^6.0.9",
     "@tailwindcss/forms": "^0.5.3",
     "aos": "^3.0.0-beta.6",
@@ -22,7 +23,6 @@
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-flatpickr": "^3.10.13",
-    "react-google-login": "^5.2.2",
     "react-input-mask": "^2.0.4",
     "react-placeholder-loading": "^0.5.30",
     "react-router-dom": "^6.4.0",
