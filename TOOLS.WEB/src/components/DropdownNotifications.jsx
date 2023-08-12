@@ -1,18 +1,22 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
-import { HubConnectionBuilder } from "@microsoft/signalr";
 import Transition from '../shared/utils/Transition';
 import CardNotifications from './CardNotifications';
 import ContextNotify from './store/context/ContextNotify';
-import ContextHub from './store/context/ContextHub';
+import { HubConnectionBuilder } from '@microsoft/signalr';
+import ContextUser from './store/context/ContextUser';
 
 function DropdownNotifications({align}) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef(null);
   const dropdown = useRef(null);
+  const { user } = useContext(ContextUser);
   
-  const { setNotifications, setRemoveNotifications } = useContext(ContextNotify);
-  const { hub, setHub } = useContext(ContextHub);
-  const [ hubcx, setHubcx ] = useState();
+  debugger
+  const { notifications, setNotifications, setResetNotifications } = useContext(ContextNotify);
+
+  if(notifications === null | undefined) {
+      setNotifications([]);
+  }
 
   useEffect(() => {
     const clickHandler = ({ target }) => {
@@ -26,43 +30,39 @@ function DropdownNotifications({align}) {
   });
   
   useEffect(() => {
-    const keyHandler = ({ keyCode }) => {
-      if (!dropdownOpen || keyCode !== 27) return;
-      setDropdownOpen(false);
+    const connection = new HubConnectionBuilder()
+      .withUrl(`${process.env.BASE_URL}notifications?userId=${user.tokenObj.id}`)
+      .build();
 
-    }; document.addEventListener('keydown', keyHandler);
+    connection.start()
+      .then(() => console.log('Conexão iniciada'))
+      .catch(err => console.log('Erro ao iniciar a conexão: ' + err));
 
-    return () => document.removeEventListener('keydown', keyHandler);
-  });
-  
-  useEffect(() => {
-      const newConnection = new HubConnectionBuilder()
-        .withUrl(`${process.env.TOOLS_API_BASE_URL}notify`)
-        .withAutomaticReconnect()
-        .build()
+    connection.on("ReceberMensagem", response => {
+      debugger
+      setNotifications((prev) => [...prev, {
+        id: response.id,
+        theme: response.type,
+        message: response.message,
+        date: response.createdDate
+      }]);
+    });
 
-        setHubcx(newConnection);
+    connection.onclose(() => {
+      setTimeout(() => {
+        connection.start();
+      }, 5000);
+    });
+
+    return () => {
+      connection.stop();
+    };
+
   }, []);
 
-  useEffect(() => { // HUB RECEIVER
-    if(hubcx) {
-        hubcx.start().then(() => {
-          hubcx.on("ReceiveMessage", (notify) =>  {
-            const { notificationsTeste } = useContext(ContextNotify);
-            setNotifications([...notificationsTeste, notify]);
-          });
-
-          setHub(hubcx);
-
-        }).catch(e => console.log('Connection failed: ', e));
-    }
-
-  }, [hubcx]);
-
-  function cleanNotify(event) {
-    event.preventDefault();
-
-    setRemoveNotifications();
+  function cleanNotify() {
+    debugger
+    setResetNotifications([]);
   }
 
   return (

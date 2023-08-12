@@ -3,7 +3,7 @@ import { createContext } from "react";
 const ContextNotify = createContext({ 
     notifications: [], 
     setNotifications: () => {},
-    setRemoveNotifications: () => {}
+    setResetNotifications: () => {}
 });
 
 export default ContextNotify;

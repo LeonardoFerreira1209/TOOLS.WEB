@@ -10,12 +10,12 @@ export default function useStorage(key) {
 
   }, [key]);
 
-  const remove = useCallback(() => {
+  const reset = useCallback(newValue => {
     storage.remove(key);
-    setState(undefined);
+    setState(newValue);
 
   }, [key]);
 
-  return [state, set, remove];
+  return [state, set, reset];
 
 }
