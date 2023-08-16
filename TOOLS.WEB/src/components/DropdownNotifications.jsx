@@ -4,6 +4,7 @@ import CardNotifications from './CardNotifications';
 import ContextNotify from './store/context/ContextNotify';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import ContextUser from './store/context/ContextUser';
+import audio from '../assets/audio/H42VWCD-notification.mp3';
 
 function DropdownNotifications({align}) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -11,7 +12,11 @@ function DropdownNotifications({align}) {
   const dropdown = useRef(null);
   const { user } = useContext(ContextUser);
   
-  debugger
+  const audioRef = useRef(null);
+  const playNotificationSound = () => {
+      audioRef.current.play();
+  };
+
   const { notifications, setNotifications, setResetNotifications } = useContext(ContextNotify);
 
   if(notifications === null | undefined) {
@@ -42,10 +47,13 @@ function DropdownNotifications({align}) {
       debugger
       setNotifications((prev) => [...prev, {
         id: response.id,
-        theme: response.type,
+        theme: response.typeDescription,
         message: response.message,
-        date: response.createdDate
+        date: new Date(response.createdDate).toLocaleString(),
+        type: response.type
       }]);
+
+      playNotificationSound([]);
     });
 
     connection.onclose(() => {
@@ -61,7 +69,6 @@ function DropdownNotifications({align}) {
   }, []);
 
   function cleanNotify() {
-    debugger
     setResetNotifications([]);
   }
 
@@ -70,6 +77,9 @@ function DropdownNotifications({align}) {
       {
         notifyContext => (
           <div className="relative inline-flex">
+            <audio ref={audioRef}>
+                <source src={audio} type="audio/mpeg" />
+            </audio>
             <button
               ref={trigger}
               className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 transition duration-150 rounded-full ${dropdownOpen && 'bg-slate-200'}`}
@@ -103,19 +113,19 @@ function DropdownNotifications({align}) {
                 onFocus={() => setDropdownOpen(true)}
                 onBlur={() => setDropdownOpen(false)}
               >
-                <div className='grid grid-cols-2'>
-                  <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notificações</div>
+              <div className='grid grid-cols-2'>
+              <div className="text-xs font-semibold text-slate-400 uppercase pt-1.5 pb-2 px-4">Notificações</div>
+                {
+                  notifyContext.notifications && notifyContext.notifications.length > 0 && <button style={{ cursor:"pointer" }} onClick={cleanNotify} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button>
+                }
+              </div>
+                <ul id='notifications'>
                   {
-                    notifyContext.notifications && notifyContext.notifications.length > 0 && <button style={{ cursor:"pointer" }} onClick={cleanNotify} className="text-xs font-semibold text-slate-400 text-right uppercase pt-1.5 pb-2 px-4">Limpar tudo</button>
+                    notifyContext.notifications && notifyContext.notifications.length > 0 && notifyContext.notifications.map(notify => {
+                      return (<CardNotifications key={notify.id} id={notify.id} icon={notify.type} date={notify.date.toString("dd-mm-yyyy")} theme={notify.theme} message={notify.message} />)
+                    })
                   }
-                  </div>
-                  <ul id='notifications'>
-                    {
-                      notifyContext.notifications && notifyContext.notifications.length > 0 && notifyContext.notifications.map(notify => {
-                        return (<CardNotifications key={notify.id} id={notify.id} icon={notify.icon} date={notify.date} theme={notify.theme} message={notify.message} />)
-                      })
-                    }
-                  </ul>
+                </ul>
               </div>
             </Transition>
           </div>
