@@ -11,40 +11,45 @@ function DropdownNotifications({align}) {
   const trigger = useRef(null);
   const dropdown = useRef(null);
   const { user } = useContext(ContextUser);
-  
+  const { notifications, setNotifications, setResetNotifications } = useContext(ContextNotify);
   const audioRef = useRef(null);
+  const [connection, setConnection] = useState(null);
+  const reconnectDelay = 5000;
   const playNotificationSound = () => {
       audioRef.current.play();
   };
 
-  const { notifications, setNotifications, setResetNotifications } = useContext(ContextNotify);
-
   if(notifications === null | undefined) {
-      setNotifications([]);
-  }
+    setNotifications([]);
+  } 
 
-  useEffect(() => {
-    const clickHandler = ({ target }) => {
-      if (!dropdown.current) return;
-      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
-      setDropdownOpen(false);
-
-    }; document.addEventListener('click', clickHandler);
-
-    return () => document.removeEventListener('click', clickHandler);
+const startConnection = (conn) => {
+  return new Promise((resolve, reject) => {
+    conn.start()
+      .then(() => {
+          console.log('Conectado com SignalR!');
+          resolve();
+      })
+      .catch(error => {
+          console.error('Falha ao conectar com SignalR:', error);
+          setTimeout(() => startConnection(conn), reconnectDelay);
+          reject(error);
+      });
   });
+};
   
-  useEffect(() => {
-    const connection = new HubConnectionBuilder()
-      .withUrl(`${process.env.BASE_URL}notifications?userId=${user.tokenObj.id}`)
-      .build();
+useEffect(() => {
+  const newConnection = new HubConnectionBuilder()
+    .withUrl(`${process.env.BASE_URL}notifications?userId=${user.tokenObj.id}`)
+    .withAutomaticReconnect([0, 2000, 5000, 10000])
+    .build();
 
-    connection.start()
-      .then(() => console.log('Conexão iniciada'))
-      .catch(err => console.log('Erro ao iniciar a conexão: ' + err));
+  setConnection(newConnection);
+}, []);
 
+useEffect(() => {
+  if (connection) {
     connection.on("ReceberMensagem", response => {
-      debugger
       setNotifications((prev) => [...prev, {
         id: response.id,
         theme: response.typeDescription,
@@ -52,20 +57,47 @@ function DropdownNotifications({align}) {
         date: new Date(response.createdDate).toLocaleString(),
         type: response.type
       }]);
-
       playNotificationSound([]);
     });
 
-    connection.onclose(() => {
-      setTimeout(() => {
-        connection.start();
-      }, 5000);
+    connection.onclose(error => {
+      console.error('Conexão com SignalR fechada:', error);
+      setTimeout(() => startConnection(connection), reconnectDelay);
+      reject(error);
     });
 
-    return () => {
-      connection.stop();
-    };
+    startConnection(connection).then(() => {
+      connection.invoke("SendNotificationAsync", "arg2", null)
+        .then(() => {
+          console.log("Método invocado com sucesso!");
+        })
+        .catch(err => {
+          console.error("Erro ao invocar o método no Hub:", err);
+        });
+    });
+  }
 
+  return () => {
+    if (connection) {
+      connection.stop();
+    }
+  };
+
+}, [connection]);
+
+  useEffect(() => {
+    const clickHandler = ({ target }) => {
+      if (!dropdown.current) return;
+      if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
+      setDropdownOpen(false);
+    }; document.addEventListener('click', clickHandler);
+    return () => document.removeEventListener('click', clickHandler);
+  });
+
+  useEffect(() => {
+    const newConnection = new HubConnectionBuilder()
+      .withUrl(`${process.env.BASE_URL}notifications?userId=${user.tokenObj.id}`).build();
+    setConnection(newConnection);
   }, []);
 
   function cleanNotify() {
