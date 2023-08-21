@@ -44,7 +44,7 @@ function SignupSituation() {
    }
 
   return (
-  <main className="bg-white">
+  <main className="bg-white dark:bg-slate-800">
     <div className="relative md:flex">
 
       {/* Content */}
@@ -127,7 +127,7 @@ function SignupSituation() {
                   <div className="space-y-3 mb-8">
                     <label className="relative block cursor-pointer">
                       <input onChange={onChange} value="1" type="radio" name="situation" className="peer situation sr-only" checked={values.situation === '1' || values.situation === undefined}/>
-                      <div className="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
+                      <div className="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 dark:bg-slate-800 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
                         <svg className="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
                           <path className="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />
                           <path className="text-sky-500" d="m11 12.588-9-5V18a1 1 0 0 0 .514.874L11 23.588v-11Z" />
@@ -139,7 +139,7 @@ function SignupSituation() {
                     </label>
                     <label className="relative block cursor-pointer">
                       <input onChange={onChange} value="2" type="radio" name="situation" className="peer situation sr-only" checked={values.situation === '2'}/>
-                      <div className="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
+                      <div className="flex items-center bg-white text-sm font-medium text-slate-800 p-4 rounded border border-slate-200 dark:bg-slate-800 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
                         <svg className="w-6 h-6 shrink-0 fill-current mr-4" viewBox="0 0 24 24">
                           <path className="text-indigo-500" d="m12 10.856 9-5-8.514-4.73a1 1 0 0 0-.972 0L3 5.856l9 5Z" />
                           <path className="text-sky-500" d="m11 12.588-9-5V18a1 1 0 0 0 .514.874L11 23.588v-11Z" />

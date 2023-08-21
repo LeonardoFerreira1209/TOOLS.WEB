@@ -19,9 +19,11 @@ function DropdownNotifications({align}) {
       audioRef.current.play();
   };
 
+ useEffect(() => {
   if(notifications === null | undefined) {
     setNotifications([]);
   } 
+ }, []);
 
 const startConnection = (conn) => {
   return new Promise((resolve, reject) => {
@@ -53,6 +55,7 @@ useEffect(() => {
       setNotifications((prev) => [...prev, {
         id: response.id,
         theme: response.typeDescription,
+        description: response.description,
         message: response.message,
         date: new Date(response.createdDate).toLocaleString(),
         type: response.type
@@ -114,7 +117,7 @@ useEffect(() => {
             </audio>
             <button
               ref={trigger}
-              className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 transition duration-150 rounded-full ${dropdownOpen && 'bg-slate-200'}`}
+              className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-full ${dropdownOpen && 'bg-slate-200'}`}
               aria-haspopup="true"
               onClick={() => setDropdownOpen(!dropdownOpen)}
               aria-expanded={dropdownOpen}
@@ -123,6 +126,7 @@ useEffect(() => {
               <lord-icon
                   src="https://cdn.lordicon.com/ujkjgorh.json"
                   trigger="hover"
+                  style={{ with: "80%" }}
                   >
               </lord-icon>
               {
@@ -131,7 +135,7 @@ useEffect(() => {
             </button>
 
             <Transition
-              className={`origin-top-right z-10 absolute top-full -mr-48 sm:mr-0 min-w-80 max-h-80 bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-auto mt-1 ${align === 'right' ? 'right-0' : 'left-0'}`}
+              className={`origin-top-right z-10 absolute top-full -mr-48 sm:mr-0 min-w-80 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1 ${align === 'right' ? 'right-0' : 'left-0'}`}
               show={dropdownOpen}
               enter="transition ease-out duration-200 transform"
               enterStart="opacity-0 -translate-y-2"
@@ -154,7 +158,7 @@ useEffect(() => {
                 <ul id='notifications'>
                   {
                     notifyContext.notifications && notifyContext.notifications.length > 0 && notifyContext.notifications.map(notify => {
-                      return (<CardNotifications key={notify.id} id={notify.id} icon={notify.type} date={notify.date.toString("dd-mm-yyyy")} theme={notify.theme} message={notify.message} />)
+                      return (<CardNotifications key={notify.id} id={notify.id} icon={notify.type} date={notify.date.toString("dd-mm-yyyy")} theme={notify.theme} description={notify.description} message={notify.message} />)
                     })
                   }
                 </ul>

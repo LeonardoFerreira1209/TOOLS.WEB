@@ -6,11 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name=description content="Projeto de potifólio feito para aprendizado e estudos!"/>
     <title>HYPER.IO</title>
+    <script>
+      if (localStorage.theme === 'dark' || !('theme' in localStorage)) {
+        document.querySelector('html').classList.add('dark');
+        document.querySelector('html').style.colorScheme = 'dark';
+      } else {
+        document.querySelector('html').classList.remove('dark');
+        document.querySelector('html').style.colorScheme = 'light';
+      }        
+    </script>      
   </head>
-  <body class="font-inter antialiased text-slate-600">
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-     <!--Start of Tawk.to Script-->
-     <!-- <script type="text/javascript">
+  <body class="font-inter antialiased bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400">
+    <!--Start of Tawk.to Script-->
+    <!-- <script type="text/javascript">
       var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
       (function () {
           var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
@@ -19,9 +27,10 @@
           s1.charset = 'UTF-8';
           s1.setAttribute('crossorigin', '*');
           s0.parentNode.insertBefore(s1, s0);
-      })();
-    </script> -->
-    <!--End of Tawk.to Script-->
+        })();
+      </script> -->
+      <!--End of Tawk.to Script-->
+    <noscript>You need to enable JavaScript to run this app.</noscript>
     <script>
         if (localStorage.getItem('sidebar-expanded') == 'true') {
             document.querySelector('body').classList.add('sidebar-expanded');

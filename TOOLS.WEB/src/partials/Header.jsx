@@ -4,6 +4,7 @@ import SearchModal from '../components/ModalSearch';
 import Notifications from '../components/DropdownNotifications';
 import Help from '../components/DropdownHelp';
 import UserMenu from '../components/DropdownProfile';
+import ThemeToggle from '../components/ThemeToggle';
 
 function Header({
   notifications,
@@ -15,7 +16,7 @@ function Header({
   const [searchModalOpen, setSearchModalOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 bg-white border-b border-slate-200 z-30">
+    <header className="sticky top-0 bg-white dark:bg-[#182235] border-b border-slate-200 dark:border-slate-700 z-30">
       <div className="px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 -mb-px">
 
@@ -41,13 +42,15 @@ function Header({
           {/* Header: Right side */}
           <div data-aos="fade-left"  className="flex items-center space-x-3">
             <button
-              className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 transition duration-150 rounded-full ml-3 ${searchModalOpen && 'bg-slate-200'}`}
+              className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-full ml-3 ${searchModalOpen && 'bg-slate-200'}`}
               onClick={(e) => { e.stopPropagation(); setSearchModalOpen(true); }}
               aria-controls="search-modal"
             >
               <span className="sr-only">Busca</span>
               <lord-icon
                 src="https://cdn.lordicon.com/osbjlbsb.json"
+                colors="outline:#121331,secondary:#b26836,secondary2:#4bb3fd,quaternary:#ebe6ef"
+                style={{ width: "80%" }}
                 trigger="morph"
                 >
               </lord-icon>
@@ -55,8 +58,9 @@ function Header({
             <SearchModal id="search-modal" searchId="search" modalOpen={searchModalOpen} setModalOpen={setSearchModalOpen} />
             <Notifications notifications={notifications} setNotifications={setNotifications} align="right" />
             <Help align="right" />
+            <ThemeToggle />
             {/*  Divider */}
-            <hr className="w-px h-6 bg-slate-200 mx-3" />
+            <hr className="w-px h-6 bg-slate-200 dark:bg-slate-700 border-none" />
             <UserMenu align="right" />
           </div>
         </div>

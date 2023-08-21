@@ -43,7 +43,7 @@ function SignupIntended() {
    }
 
   return (
-  <main className="bg-white">
+  <main className="bg-white dark:bg-slate-800">
     <div className="relative md:flex">
 
       {/* Content */}
@@ -125,7 +125,7 @@ function SignupIntended() {
                   <div className="sm:flex space-y-3 sm:space-y-0 sm:space-x-4 mb-8">
                     <label className="flex-1 relative block cursor-pointer">
                       <input onChange={onChange} value="1" type="radio" name="intendedtype" className="peer sr-only" checked={values.intendedtype === '1'} />
-                      <div className="h-full text-center bg-white px-4 py-6 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
+                      <div className="h-full text-center bg-white px-4 py-6 rounded border border-slate-200 hover:border-slate-300 dark:bg-slate-800 shadow-sm duration-150 ease-in-out">
                         <svg className="inline-flex w-10 h-10 shrink-0 fill-current mb-2" viewBox="0 0 40 40">
                           <circle className="color-primary" cx="20" cy="20" r="20" />
                           <path className="color-primary" d="m26.371 23.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 24 17v-1.828A4.087 4.087 0 0 0 20 11a4.087 4.087 0 0 0-4 4.172V17a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V27a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
@@ -137,7 +137,7 @@ function SignupIntended() {
                     </label>
                     <label className="flex-1 relative block cursor-pointer">
                       <input onChange={onChange} value="2" type="radio" name="intendedtype" className="peer sr-only" checked={values.intendedtype === '2'} />
-                      <div className="h-full text-center bg-white px-4 py-6 rounded border border-slate-200 hover:border-slate-300 shadow-sm duration-150 ease-in-out">
+                      <div className="h-full text-center bg-white px-4 py-6 rounded border border-slate-200 hover:border-slate-300 dark:bg-slate-800 shadow-sm duration-150 ease-in-out">
                         <svg className="inline-flex w-10 h-10 shrink-0 fill-current mb-2" viewBox="0 0 40 40">
                           <circle className="color-primary" cx="20" cy="20" r="20" />
                           <path className="color-primary" d="m26.371 23.749-3.742-1.5a1 1 0 0 1-.629-.926v-.878A3.982 3.982 0 0 0 24 17v-1.828A4.087 4.087 0 0 0 20 11a4.087 4.087 0 0 0-4 4.172V17a3.982 3.982 0 0 0 2 3.445v.878a1 1 0 0 1-.629.928l-3.742 1.5a1 1 0 0 0-.629.926V27a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.323a1 1 0 0 0-.629-.928Z" />
@@ -159,7 +159,7 @@ function SignupIntended() {
                     <div className="flex items-center">
                       <div className="form-switch">
                         <input type="checkbox" id="switch" className="sr-only" defaultChecked />
-                        <label className="bg-slate-400" htmlFor="switch">
+                        <label className="bg-slate-400 dark:border-slate-800" htmlFor="switch">
                           <span className="bg-white shadow-sm" aria-hidden="true"></span>
                           <span className="sr-only">Switch label</span>
                         </label>

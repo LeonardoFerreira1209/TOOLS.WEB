@@ -6,12 +6,13 @@ import MessagesBody from '../partials/messages/MessagesBody';
 import MessagesFooter from '../partials/messages/MessagesFooter';
 
 function Messages() {
-  //const contentArea = useRef(null)
+
+  const contentArea = useRef(null)
 
   const [msgSidebarOpen, setMsgSidebarOpen] = useState(true);
 
   useEffect(() => {
-    //contentArea.current.scrollTop = 99999999
+    // contentArea.current.scrollTop = msgSidebarOpen ? 0 : 99999999;
   }, [msgSidebarOpen]); // automatically scroll the chat and make the most recent message visible
 
   return (

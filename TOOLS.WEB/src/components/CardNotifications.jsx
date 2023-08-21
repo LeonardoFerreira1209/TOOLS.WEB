@@ -6,11 +6,10 @@ function CardNotifications(notify){
     case 1:
       icon = (
         <lord-icon
-            src="https://cdn.lordicon.com/oldfbnoo.json"
+            src="https://cdn.lordicon.com/wzffrbuw.json"
             trigger="loop"
-            delay="0"
-            colors="primary:#646e78,secondary:#92140c,tertiary:#4bb3fd,quaternary:#ebe6ef"
-            style={{width:'30px', height:'30px', position:'relative', bottom: '5px'}}>
+            colors="outline:#121331,primary:#3a3347,secondary:#ffc738"
+            style={{width:'30px', height:'30px'}}>
         </lord-icon>  
       );
       break;
@@ -61,13 +60,12 @@ function CardNotifications(notify){
   }
 
   return(
-      <li id={notify.id} className="border-b border-slate-200 last:border-0">
-        <div to="#" className="block py-2 px-4 hover:bg-slate-50">
+      <li id={notify.id} className="border-b border-slate-200 dark:border-slate-700 last:border-0">
+        <div to="#" className="block py-2 px-4 hover:bg-slate-50 dark:hover:bg-slate-700/20">
             <span className="block text-sm mb-2">
-            { icon }
-            <span className="font-medium text-slate-800">{notify.theme}</span><br/>{notify.message}</span>
+            { icon }<span className="font-medium text-slate-800 dark:text-slate-100">{notify.description}</span><br/>{notify.message}</span>
             <div className="grid grid-cols-2">
-              <span className="block text-xs font-medium text-slate-400">{notify.date}</span>
+              <span className="block text-xs font-medium text-slate-400 dark:text-slate-500">{notify.date}</span>
               <div className="text-right">
                 <a className="block text-xs font-medium text-slate-400" href="#0">Verificar -&gt;</a>
               </div>

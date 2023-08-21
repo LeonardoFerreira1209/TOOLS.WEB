@@ -61,7 +61,7 @@ function SignupPersonalData() {
   }
 
   return (
-  <main className="bg-white">
+  <main className="bg-white dark:bg-slate-800">
     <div className="relative md:flex">
       {/* IziToast */}
       <ToastContainer position="top-right"></ToastContainer>

@@ -12,7 +12,6 @@ function SignupUserData() {
   const [loading, setLoading] = useState(false);
   const [values, setValues] = useState(initialState);
   const navigate = useNavigate();
-  const [errors, setErrors] = useState([]);
   
   const data = { 
     situation: params.state.situation, 
@@ -63,7 +62,7 @@ function SignupUserData() {
    }
 
   return (
-  <main className="bg-white">
+  <main className="bg-white dark:bg-slate-800">
     <div className="relative md:flex">
       {/* IziToast */}
       <ToastContainer position="top-right"></ToastContainer>

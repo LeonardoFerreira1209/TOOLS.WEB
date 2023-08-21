@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ChatBotFooter from '../partials/chatbot/ChatBotFooter';
 import ChatBotBody from '../partials/chatbot/ChatBotBody';
 import ChatBotHeader from '../partials/chatbot/ChatBotHeader';
@@ -6,14 +6,12 @@ import ChatBotSidebar from '../partials/chatbot/ChatBotSidebar';
 import UserContext from '../components/store/context/ContextUser';
 
 function ChatBot() {
-  //const contentArea = useRef(null)
-
-  
-
+  const contentArea = useRef(null)
   const [msgSidebarOpen, setMsgSidebarOpen] = useState(true);
 
   useEffect(() => {
-    //contentArea.current.scrollTop = 99999999
+    debugger
+    contentArea.current.scrollTop = 99999999
   }, [msgSidebarOpen]); // automatically scroll the chat and make the most recent message visible
 
   return (
