@@ -57,7 +57,7 @@ function DropdownClassic() {
     <div className="relative inline-flex">
       <button
         ref={trigger}
-        className="btn justify-between min-w-44 bg-white border-slate-200 hover:border-slate-300 text-slate-500 hover:text-slate-600"
+        className="btn justify-between min-w-44 bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 text-slate-500 hover:text-slate-600 dark:text-slate-300 dark:hover:text-slate-200"
         aria-label="Select date range"
         aria-haspopup="true"
         onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -73,7 +73,7 @@ function DropdownClassic() {
       <Transition
         show={dropdownOpen}
         tag="div"
-        className="z-10 absolute top-full left-0 w-full bg-white border border-slate-200 py-1.5 rounded shadow-lg overflow-hidden mt-1"
+        className="z-10 absolute top-full left-0 w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1"
         enter="transition ease-out duration-100 transform"
         enterStart="opacity-0 -translate-y-2"
         enterEnd="opacity-100 translate-y-0"
@@ -83,7 +83,7 @@ function DropdownClassic() {
       >
         <div
           ref={dropdown}
-          className="font-medium text-sm text-slate-600"
+          className="font-medium text-sm text-slate-600 dark:text-slate-300"
           onFocus={() => setDropdownOpen(true)}
           onBlur={() => setDropdownOpen(false)}
         >
@@ -93,10 +93,10 @@ function DropdownClassic() {
                 <button
                   key={option.id}
                   tabIndex="0"
-                  className={`flex items-center w-full hover:bg-slate-50 py-1 px-3 cursor-pointer ${option.id === selected && 'color-primary'}`}
+                  className={`flex items-center w-full hover:bg-slate-50 hover:dark:bg-slate-700/20 py-1 px-3 cursor-pointer ${option.id === selected && 'text-indigo-500'}`}
                   onClick={() => { setSelected(option.id); setDropdownOpen(false); }}
                 >
-                  <svg className={`shrink-0 mr-2 fill-current color-primary ${option.id !== selected && 'invisible'}`} width="12" height="9" viewBox="0 0 12 9">
+                  <svg className={`shrink-0 mr-2 fill-current text-indigo-500 ${option.id !== selected && 'invisible'}`} width="12" height="9" viewBox="0 0 12 9">
                     <path d="M10.28.28L3.989 6.575 1.695 4.28A1 1 0 00.28 5.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28.28z" />
                   </svg>
                   <span>{option.period}</span>

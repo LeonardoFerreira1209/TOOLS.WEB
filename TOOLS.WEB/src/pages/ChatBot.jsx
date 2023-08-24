@@ -11,7 +11,7 @@ function ChatBot() {
 
   useEffect(() => {
     debugger
-    contentArea.current.scrollTop = 99999999
+    //contentArea.current.scrollTop = 99999999
   }, [msgSidebarOpen]); // automatically scroll the chat and make the most recent message visible
 
   return (

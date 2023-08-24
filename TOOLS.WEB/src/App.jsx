@@ -45,7 +45,6 @@ import JobListing from './pages/job/JobListing';
 import JobPost from './pages/job/JobPost';
 import CompanyProfile from './pages/job/CompanyProfile';
 import Messages from './pages/Messages';
-import ChatBot from './pages/ChatBot';
 import TasksKanban from './pages/tasks/TasksKanban';
 import TasksList from './pages/tasks/TasksList';
 import Inbox from './pages/Inbox';
@@ -179,7 +178,6 @@ function App() {
         <Route path="/job/job-post" element={<RequireAuth><JobPost /></RequireAuth>} />
         <Route path="/job/company-profile" element={<RequireAuth><CompanyProfile /></RequireAuth>} />
         <Route path="/messages" element={<RequireAuth><Messages /></RequireAuth>} />
-        <Route path="/chatbot" element={<RequireAuth><ChatBot /></RequireAuth>} />
         <Route path="/tasks/kanban" element={<RequireAuth><TasksKanban /></RequireAuth>} />
         <Route path="/tasks/list" element={<RequireAuth><TasksList /></RequireAuth>} />
         <Route path="/inbox" element={<RequireAuth><Inbox /></RequireAuth>} />
