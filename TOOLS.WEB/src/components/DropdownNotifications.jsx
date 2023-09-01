@@ -54,8 +54,7 @@ useEffect(() => {
     connection.on("ReceberMensagem", response => {
       setNotifications((prev) => [...prev, {
         id: response.id,
-        theme: response.typeDescription,
-        description: response.description,
+        description: response.typeDescription,
         message: response.message,
         date: new Date(response.createdDate).toLocaleString(),
         type: response.type
@@ -144,7 +143,7 @@ useEffect(() => {
               leaveStart="opacity-100"
               leaveEnd="opacity-0"
             >
-              <div
+              <div style={{overflow: "auto"}} className="max-h-80"
                 ref={dropdown}
                 onFocus={() => setDropdownOpen(true)}
                 onBlur={() => setDropdownOpen(false)}
@@ -157,8 +156,8 @@ useEffect(() => {
               </div>
                 <ul id='notifications'>
                   {
-                    notifyContext.notifications && notifyContext.notifications.length > 0 && notifyContext.notifications.map(notify => {
-                      return (<CardNotifications key={notify.id} id={notify.id} icon={notify.type} date={notify.date.toString("dd-mm-yyyy")} theme={notify.theme} description={notify.description} message={notify.message} />)
+                    notifyContext.notifications && notifyContext.notifications.length > 0 && notifyContext.notifications.map((notify, index) => {
+                      return (<CardNotifications key={index} id={notify.id} icon={notify.type} date={notify.date.toString("dd-mm-yyyy")} theme={notify.theme} description={notify.description} message={notify.message} />)
                     })
                   }
                 </ul>

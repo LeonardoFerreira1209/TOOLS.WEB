@@ -92,7 +92,6 @@ export function authetication(navigate, state, setUser, setLoading, values) {
         })
         setLoading(false)
       }
-
     ).catch(error => {
       console.error(error);
       toast.error("Ops, tivemos um erro inesperado!", {
@@ -101,6 +100,94 @@ export function authetication(navigate, state, setUser, setLoading, values) {
       })
       setLoading(false);
     });
+}
+
+export function getUsers(tokenJwt, setUsers, value){
+    fetch(`${process.env.BASE_URL}api/usermanager/get/users/by/name?name=${value}`, 
+    {
+      headers: {
+        'Authorization': `Bearer ${tokenJwt}`
+      },
+        crossDomain:true,
+        mode:'cors', 
+        cache: 'no-cache',
+        credentials:'same-origin',
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        method: 'GET',
+      })
+      .then(response => response.json()).then((results) => {
+        if(results.Sucesso){
+          setUsers(results.Dados.users);
+        }
+        else{
+          setLoading(false);
+            results.Notificacoes.forEach((error) => {
+              toast.error(error.Mensagem, {
+                theme: 'light',
+                autoClose: true
+              })
+            })
+        }
+      },
+      (error) => {
+        console.error(error);
+        toast.error("Ops, não conseguimos fazer a requisição!", {
+          theme: 'light',
+          autoClose: true
+        })
+      }
+    ).catch(error => {
+      console.error(error);
+      toast.error("Ops, tivemos um erro inesperado!", {
+        theme: 'light',
+        autoClose: true
+      })
+    });
+}
+
+export function getChats(tokenJwt, setChats, value){
+  fetch(`${process.env.BASE_URL}api/chatmanager/get/chats/by/user/${value}`, 
+  {
+    headers: {
+      'Authorization': `Bearer ${tokenJwt}`
+    },
+      crossDomain:true,
+      mode:'cors', 
+      cache: 'no-cache',
+      credentials:'same-origin',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      method: 'GET',
+    })
+    .then(response => response.json()).then((results) => {
+      if(results.Sucesso){
+        setChats(results.Dados.chats);
+      }
+      else{
+        setLoading(false);
+          results.Notificacoes.forEach((error) => {
+            toast.error(error.Mensagem, {
+              theme: 'light',
+              autoClose: true
+            })
+          })
+      }
+    },
+    (error) => {
+      console.error(error);
+      toast.error("Ops, não conseguimos fazer a requisição!", {
+        theme: 'light',
+        autoClose: true
+      })
+    }
+  ).catch(error => {
+    console.error(error);
+    toast.error("Ops, tivemos um erro inesperado!", {
+      theme: 'light',
+      autoClose: true
+    })
+  });
 }
 
 export function confirmEmail(navigate, setError, setLoading, userId, code) {
@@ -163,9 +250,9 @@ export function create(navigate, setLoading, values, params) {
   })
   .then(response => response.json()).then(
     (results) => {
-      if(results.Sucesso){    
+      if(results.Sucesso){
         navigate(
-          `/confirm-email/userId/${results.Dados.id}`
+          `/confirm-email`,  { state: results.Dados.id }
           )
       }
       else{

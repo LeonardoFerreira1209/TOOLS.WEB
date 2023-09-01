@@ -56,7 +56,7 @@ function Header({
               </lord-icon>
             </button>
             <SearchModal id="search-modal" searchId="search" modalOpen={searchModalOpen} setModalOpen={setSearchModalOpen} />
-            <Notifications notifications={notifications} setNotifications={setNotifications} align="right" />
+            <Notifications style={{overflow:"auto"}} className="max-h-20" notifications={notifications} setNotifications={setNotifications} align="right" />
             <Help align="right" />
             <ThemeToggle />
             {/*  Divider */}

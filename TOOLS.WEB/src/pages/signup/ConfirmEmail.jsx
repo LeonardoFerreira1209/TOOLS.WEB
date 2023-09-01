@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { confirmEmail }  from '../../shared/services/userService';
 import InputMask from 'react-input-mask';
 
@@ -10,8 +10,8 @@ import 'aos/dist/aos.css';
 import { ToastContainer } from 'react-toastify';
 
 function Signin() {
+  const params = useLocation();
   const navigate = useNavigate();
-  const params = useParams("userId");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
@@ -22,7 +22,8 @@ function Signin() {
       codeNumber1: '', 
       codeNumber2: '', 
       codeNumber3: '', 
-      codeNumber4: ''};
+      codeNumber4: ''
+    };
   }
 
   function onChange(event) {
@@ -37,7 +38,7 @@ function Signin() {
     setLoading(true);
     event.preventDefault();
     let code = Object.values(values).join("");
-    confirmEmail(navigate, setError, setLoading, params.userId, code);
+    confirmEmail(navigate, setError, setLoading, params.state, code);
   }
 
   return (

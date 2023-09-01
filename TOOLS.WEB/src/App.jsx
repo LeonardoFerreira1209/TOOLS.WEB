@@ -131,8 +131,7 @@ function App() {
     || location.pathname === '/signup/situation' 
     || location.pathname === '/signup/basic' 
     || location.pathname === '/signup/user'
-    || location.pathname === '/confirm-email/:userId'
-    || location.pathname === '/reset-password'
+    || location.pathname === '/confirm-email'
     || location.pathname === '/reset-password'
   };
 
@@ -146,7 +145,7 @@ function App() {
         <Route path="/signup/situation" element={<SignupSituation />} />
         <Route path="/signup/basic" element={<SignupPersonalData />} />
         <Route path="/signup/user" element={<SignupUserData />} />
-        <Route path="/confirm-email/userId/:userId" element={<ConfirmEmail />} />
+        <Route path="/confirm-email" element={<ConfirmEmail />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         {/* Required login */}
         <Route path="/dashboard" element={<RequireAuth><Dashboard /></RequireAuth>} />
