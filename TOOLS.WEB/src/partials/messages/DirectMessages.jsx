@@ -18,7 +18,7 @@ function DirectMessages({
     return () => {
       
     };
-  }, [usersChatSelected]);
+  }, [usersChatSelected]); 
 
   function click(event){
     setMsgSidebarOpen(false);
