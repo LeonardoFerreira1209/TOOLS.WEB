@@ -190,6 +190,56 @@ export function getChats(tokenJwt, setChats, value){
   });
 }
 
+export function createChat(tokenJwt, setusersChatSelected, values){
+  fetch(`${process.env.BASE_URL}api/chatmanager/create/chat`, 
+  {
+    headers: {
+      'Authorization': `Bearer ${tokenJwt}`,
+      'Content-Type': 'application/json',
+    },
+      crossDomain:true,
+      mode:'cors', 
+      cache: 'no-cache',
+      credentials:'same-origin',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      method: 'POST',
+      body: JSON.stringify({
+        FirstUserId: values.FirstUserId,
+        SecondUserId: values.SecondUserId
+      })
+    })
+    .then(response => response.json()).then((results) => {
+      debugger
+      if(results.Sucesso){
+        setusersChatSelected(values.SecondUserId);
+      }
+      else{
+        setLoading(false);
+          results.Notificacoes.forEach((error) => {
+            toast.error(error.Mensagem, {
+              theme: 'light',
+              autoClose: true
+            })
+          })
+      }
+    },
+    (error) => {
+      console.error(error);
+      toast.error("Ops, não conseguimos fazer a requisição!", {
+        theme: 'light',
+        autoClose: true
+      })
+    }
+  ).catch(error => {
+    console.error(error);
+    toast.error("Ops, tivemos um erro inesperado!", {
+      theme: 'light',
+      autoClose: true
+    })
+  });
+}
+
 export function confirmEmail(navigate, setError, setLoading, userId, code) {
   fetch(`${process.env.BASE_URL}api/usermanager/activate/user/code/${code}/userid/${userId}`, 
   {
@@ -227,7 +277,6 @@ export function confirmEmail(navigate, setError, setLoading, userId, code) {
 
 export function create(navigate, setLoading, values, params) {
   setLoading(true);
-
   fetch(`${process.env.BASE_URL}api/usermanager/create/user`, 
   {
     crossDomain:true,

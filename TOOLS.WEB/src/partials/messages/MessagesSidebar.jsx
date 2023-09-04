@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import DirectMessages from './DirectMessages';
-import { getUsers } from '../../shared/services/userService';
+import { createChat, getUsers } from '../../shared/services/userService';
 
 import UserImage01 from '../../assets/images/user-32-01.jpg';
 
@@ -16,7 +16,17 @@ function MessagesSidebar({
   function onchange(event){
     getUsers(user.tokenJwt, setUsers, event.target.value);
   }
-  debugger
+
+  function onClick(event){
+    debugger
+    setMsgSidebarOpen(false);
+    setUsers([]);
+    createChat(user.tokenJwt, setusersChatSelected, {
+      FirstUserId: user.tokenObj.id,
+      SecondUserId: event.currentTarget.id
+    })
+  }
+
   return (
     <div
       id="messages-sidebar"
@@ -40,10 +50,10 @@ function MessagesSidebar({
               <div className="text-xs font-semibold text-slate-400 uppercase mb-3">{ users && users.length > 0 ? "Usuários" : "" }</div>
               <ul style={{overflow:"auto"}} className="max-h-32">
               {
-                  users && users.map((user, index) => (
+                  users && users.map((user) => (
                     <>
-                      <li key={index} className="mt-1 hover:bg-slate-200">
-                        <button className="flex items-center justify-between w-full p-2" onClick={() => setMsgSidebarOpen(false)}>
+                      <li key={user.id} className="mt-1 hover:bg-slate-200">
+                        <button id={user.id} className="flex items-center justify-between w-full p-2" onClick={onClick}>
                           <div className="flex items-center truncate">
                             <img className="w-8 h-8 rounded-full mr-2" src={UserImage01} width="32" height="32" alt="User 01" />
                             <div className="truncate">

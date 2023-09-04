@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import User01 from '../../assets/images/user-40-11.jpg';
 import User02 from '../../assets/images/user-40-12.jpg';
@@ -7,7 +7,11 @@ import ChatImage from '../../assets/images/chat-image.jpg';
 function MessagesBody({
   usersChatSelected
 }) {
-  debugger
+
+  useEffect(() =>{
+    
+  });
+
   return (
     <div className="grow px-4 sm:px-6 md:px-5 py-6">
      {
