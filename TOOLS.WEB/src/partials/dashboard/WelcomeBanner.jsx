@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import ContextUser from '../../components/store/context/ContextUser';
+import { useUserProvider } from '../../components/store/context/UserContext';
 
 function 
 WelcomeBanner() {
 
-  const { user } = useContext(ContextUser);
+  const { user } = useUserProvider();
 
   return (
     <div className="relative bg-indigo-200 dark:bg-indigo-500 p-4 sm:p-6 rounded-sm overflow-hidden mb-8">

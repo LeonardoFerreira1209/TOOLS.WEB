@@ -1,17 +1,17 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import Transition from '../shared/utils/Transition';
 import CardNotifications from './CardNotifications';
-import ContextNotify from './store/context/ContextNotify';
+import NotifyContext from './store/context/NotifyContext';
 import { HubConnectionBuilder } from '@microsoft/signalr';
-import ContextUser from './store/context/ContextUser';
+import { useUserProvider } from './store/context/UserContext';
 import audio from '../assets/audio/H42VWCD-notification.mp3';
 
 function DropdownNotifications({align}) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef(null);
   const dropdown = useRef(null);
-  const { user } = useContext(ContextUser);
-  const { notifications, setNotifications, setResetNotifications } = useContext(ContextNotify);
+  const { user } = useUserProvider();
+  const { notifications, setNotifications, setResetNotifications } = useContext(NotifyContext);
   const audioRef = useRef(null);
   const [connection, setConnection] = useState(null);
   const reconnectDelay = 5000;
@@ -107,7 +107,7 @@ useEffect(() => {
   }
 
   return (
-    <ContextNotify.Consumer>
+    <NotifyContext.Consumer>
       {
         notifyContext => (
           <div className="relative inline-flex">
@@ -166,7 +166,7 @@ useEffect(() => {
           </div>
         )
       }
-    </ContextNotify.Consumer>
+    </NotifyContext.Consumer>
   )
 }
 

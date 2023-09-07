@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import StoreContext from "../../components/store/context/ContextUser";
 import PlaceholderLoading from 'react-placeholder-loading'
 import { ToastContainer, toast } from 'react-toastify';
+import { useUserProvider } from '../../components/store/context/UserContext';
 import 'react-toastify/dist/ReactToastify.css';
 import ReactTooltip from 'react-tooltip';
 import InputMask from 'react-input-mask';
@@ -15,8 +15,8 @@ function AccountPanel({ props }) {
 const [loading, setLoading] = useState(false);
 const [showPassword, setShowPassword] = useState(false);
 const [values, setValues] = useState();
-const [avatarImage, setAvatarImage] = useState()
-const { user } = useContext(StoreContext)
+const [avatarImage, setAvatarImage] = useState();
+const { user } = useUserProvider();
 
  useEffect(() => {
   fetch(`${process.env.BASE_URL}gateway/user/get/${props.id}`, 

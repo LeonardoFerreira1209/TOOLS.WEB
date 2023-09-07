@@ -1,6 +1,6 @@
 // -- REACT --
 import React, { useContext, useEffect, useState } from 'react';
-import StoreContext from "../../components/store/context/ContextUser";
+import StoreContext from "../../components/store/context/UserContext";
 import PlaceholderLoading from 'react-placeholder-loading'
 
 // -- TOASTIFY --

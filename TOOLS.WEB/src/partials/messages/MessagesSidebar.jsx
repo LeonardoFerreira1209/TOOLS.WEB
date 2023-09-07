@@ -11,14 +11,14 @@ function MessagesSidebar({
   users,
   setUsers,
   usersChatSelected,
-  setusersChatSelected
+  setusersChatSelected,
+  setChatSelected
 }) {
   function onchange(event){
     getUsers(user.tokenJwt, setUsers, event.target.value);
   }
 
   function onClick(event){
-    debugger
     setMsgSidebarOpen(false);
     setUsers([]);
     createChat(user.tokenJwt, setusersChatSelected, {
@@ -50,26 +50,32 @@ function MessagesSidebar({
               <div className="text-xs font-semibold text-slate-400 uppercase mb-3">{ users && users.length > 0 ? "Usuários" : "" }</div>
               <ul style={{overflow:"auto"}} className="max-h-32">
               {
-                  users && users.map((user) => (
-                    <>
-                      <li key={user.id} className="mt-1 hover:bg-slate-200">
-                        <button id={user.id} className="flex items-center justify-between w-full p-2" onClick={onClick}>
-                          <div className="flex items-center truncate">
-                            <img className="w-8 h-8 rounded-full mr-2" src={UserImage01} width="32" height="32" alt="User 01" />
-                            <div className="truncate">
-                              <span className="text-sm font-medium text-slate-800">{user.firstName} {user.lastName}</span>
-                            </div>
+                users && users.map((user) => (
+                  <>
+                    <li key={user.id} className="mt-1 hover:bg-slate-200">
+                      <button id={user.id} className="flex items-center justify-between w-full p-2" onClick={onClick}>
+                        <div className="flex items-center truncate">
+                          <img className="w-8 h-8 rounded-full mr-2" src={UserImage01} width="32" height="32" alt="User 01" />
+                          <div className="truncate">
+                            <span className="text-sm font-medium text-slate-800">{user.firstName} {user.lastName}</span>
                           </div>
-                        </button>
-                      </li>
-                    </>
-                  ))
+                        </div>
+                      </button>
+                    </li>
+                  </>
+                ))
               }
               </ul>
             </div>
           </div>
           <div className="px-5 py-4">
-            <DirectMessages msgSidebarOpen={msgSidebarOpen} setMsgSidebarOpen={setMsgSidebarOpen} user={user} usersChatSelected={usersChatSelected} setusersChatSelected={setusersChatSelected} />
+            <DirectMessages 
+              msgSidebarOpen={msgSidebarOpen} 
+              setMsgSidebarOpen={setMsgSidebarOpen} 
+              user={user} 
+              usersChatSelected={usersChatSelected} 
+              setusersChatSelected={setusersChatSelected} 
+              setChatSelected={setChatSelected} />
           </div>
         </div>
     </div>

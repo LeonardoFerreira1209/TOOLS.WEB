@@ -1,24 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import User01 from '../../assets/images/user-40-11.jpg';
 import User02 from '../../assets/images/user-40-12.jpg';
 import ChatImage from '../../assets/images/chat-image.jpg';
+import { getChatMessages } from '../../shared/services/userService';
 
 function MessagesBody({
-  usersChatSelected
+  usersChatSelected,
+  user,
+  chatSelected
 }) {
+  const [chatMessages, setChatMessages] = useState([]);
 
   useEffect(() =>{
-    
-  });
+    chatSelected && getChatMessages(user.tokenJwt, setChatMessages, chatSelected);
+  }, [usersChatSelected]);
 
   return (
     <div className="grow px-4 sm:px-6 md:px-5 py-6">
      {
-        usersChatSelected !== null && (
+        chatMessages && chatMessages.map((message) => (
           <>
-            {/* Chat msg */}
             <div className="flex items-start mb-4 last:mb-0">
+              <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />
+              <div>
+                <div className={`text-sm ${user.tokenObj.id == message.userId ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1`}>
+                  {message.message}
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-slate-500 font-medium">{new Date(message.created).toLocaleTimeString()}</div>
+                </div>
+              </div>
+            </div>
+
+            {/* <div className="flex items-start mb-4 last:mb-0">
               <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />
               <div>
                 <div className="text-sm bg-white text-slate-800 p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1">
@@ -29,7 +44,7 @@ function MessagesBody({
                 </div>
               </div>
             </div>
-            {/* Chat msg */}
+
             <div className="flex items-start mb-4 last:mb-0">
               <img className="rounded-full mr-4" src={User02} width="40" height="40" alt="User 02" />
               <div>
@@ -45,7 +60,7 @@ function MessagesBody({
                 </div>
               </div>
             </div>
-            {/* Chat msg */}
+
             <div className="flex items-start mb-4 last:mb-0">
               <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />
               <div>
@@ -63,7 +78,7 @@ function MessagesBody({
                 </div>
               </div>
             </div>
-            {/* Chat msg */}
+    
             <div className="flex items-start mb-4 last:mb-0">
               <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />
               <div>
@@ -75,7 +90,7 @@ function MessagesBody({
                 </div>
               </div>
             </div>
-            {/* Chat msg */}
+            
             <div className="flex items-start mb-4 last:mb-0">
               <img className="rounded-full mr-4" src={User02} width="40" height="40" alt="User 02" />
               <div>
@@ -91,13 +106,14 @@ function MessagesBody({
                 </div>
               </div>
             </div>
-            {/* Date separator */}
+
+            
             <div className="flex justify-center">
               <div className="inline-flex items-center justify-center text-xs font-medium px-2.5 py-1 bg-white border border-slate-200 rounded-full my-5">
                 Tuesday, 20 January
                 </div>
             </div>
-            {/* Chat msg */}
+            
             <div className="flex items-start mb-4 last:mb-0">
               <img className="rounded-full mr-4" src={User02} width="40" height="40" alt="User 02" />
               <div>
@@ -112,7 +128,7 @@ function MessagesBody({
                 </div>
               </div>
             </div>
-            {/* Chat msg */}
+            
             <div className="flex items-start mb-4 last:mb-0">
               <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />
               <div>
@@ -130,9 +146,9 @@ function MessagesBody({
                   </svg>
                 </div>
               </div>
-            </div>
+            </div> */}
           </>
-        )
+        ))
      }
     </div>
   );

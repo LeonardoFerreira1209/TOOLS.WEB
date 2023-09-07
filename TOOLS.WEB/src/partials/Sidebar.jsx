@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import ContextUser from '../components/store/context/ContextUser';
+import { useUserProvider } from '../components/store/context/UserContext';
 import SidebarLinkGroup from './SidebarLinkGroup';
 
 function Sidebar({
@@ -8,7 +8,8 @@ function Sidebar({
   setSidebarOpen
 }) {
 
-  const { user } = useContext(ContextUser);
+  debugger
+  const { user } = useUserProvider();
 
   const location = useLocation();
   const { pathname } = location;
