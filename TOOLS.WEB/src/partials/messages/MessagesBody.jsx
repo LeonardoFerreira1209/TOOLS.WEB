@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import User01 from '../../assets/images/user-40-11.jpg';
 import { getChatMessages } from '../../shared/services/userService';
 import { HubConnectionBuilder } from '@microsoft/signalr';
@@ -11,6 +11,15 @@ function MessagesBody({
 }) {
   const [chatMessages, setChatMessages] = useState([]);
   const [connection, setConnection] = useState(null);
+  const messagesEndRef = useRef(null);
+  const reconnectDelay = 5000;
+
+  useEffect(() => {
+    debugger
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [chatMessages]);
 
   const startConnection = (conn) => {
     return new Promise((resolve, reject) => {
@@ -28,7 +37,6 @@ function MessagesBody({
   };
 
   const sendMessage = async (message) => {
-    debugger
     try {
       await connection.invoke('SendMessageToChatAsync', user.tokenObj.id , `chat-${chatSelected}`, message);
     } catch (error) {
@@ -47,12 +55,11 @@ function MessagesBody({
   
   useEffect(() => {
     if (connection) {
+      debugger
       startConnection(connection).then(() => {
-        debugger
         connection.invoke("JoinGroup", chatSelected);
       });
       connection.on("ReceberMensagem", response => {
-        debugger
         setChatMessages((prev) => [...prev, {
           userId: response.userId,
           message: response.message
@@ -214,6 +221,7 @@ function MessagesBody({
           ))
         }
       </div>
+      <div ref={messagesEndRef}></div>
       <MessagesFooter sendMessage={sendMessage} />
     </>
   );

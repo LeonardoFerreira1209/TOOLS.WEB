@@ -3,7 +3,6 @@ import { ToastContainer } from 'react-toastify';
 import MessagesSidebar from '../partials/messages/MessagesSidebar';
 import MessagesHeader from '../partials/messages/MessagesHeader';
 import MessagesBody from '../partials/messages/MessagesBody';
-import MessagesFooter from '../partials/messages/MessagesFooter';
 import { useUserProvider } from '../components/store/context/UserContext';
 
 function Messages() {
