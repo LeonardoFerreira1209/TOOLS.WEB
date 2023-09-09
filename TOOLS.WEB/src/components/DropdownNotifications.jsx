@@ -51,6 +51,7 @@ useEffect(() => {
 
 useEffect(() => {
   if (connection) {
+    startConnection(connection);
     connection.on("ReceberMensagem", response => {
       setNotifications((prev) => [...prev, {
         id: response.id,
@@ -66,16 +67,6 @@ useEffect(() => {
       console.error('Conexão com SignalR fechada:', error);
       setTimeout(() => startConnection(connection), reconnectDelay);
       reject(error);
-    });
-
-    startConnection(connection).then(() => {
-      connection.invoke("SendNotificationAsync", "arg2", null)
-        .then(() => {
-          console.log("Método invocado com sucesso!");
-        })
-        .catch(err => {
-          console.error("Erro ao invocar o método no Hub:", err);
-        });
     });
   }
 
@@ -95,12 +86,6 @@ useEffect(() => {
     }; document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
   });
-
-  useEffect(() => {
-    const newConnection = new HubConnectionBuilder()
-      .withUrl(`${process.env.BASE_URL}notifications?userId=${user.tokenObj.id}`).build();
-    setConnection(newConnection);
-  }, []);
 
   function cleanNotify() {
     setResetNotifications([]);

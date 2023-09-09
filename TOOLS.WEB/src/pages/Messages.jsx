@@ -30,8 +30,7 @@ function Messages() {
           {/* IziToast */}
           <ToastContainer position="top-right"></ToastContainer>
           <MessagesHeader msgSidebarOpen={msgSidebarOpen} setMsgSidebarOpen={setMsgSidebarOpen} />
-          <MessagesBody usersChatSelected={usersChatSelected} user={user} chatSelected={chatSelected} />
-          <MessagesFooter />
+          { chatSelected && <MessagesBody usersChatSelected={usersChatSelected} user={user} chatSelected={chatSelected} /> }
         </div>
       </div>
     </main>

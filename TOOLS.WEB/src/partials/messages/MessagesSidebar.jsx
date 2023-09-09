@@ -50,7 +50,7 @@ function MessagesSidebar({
               <div className="text-xs font-semibold text-slate-400 uppercase mb-3">{ users && users.length > 0 ? "Usuários" : "" }</div>
               <ul style={{overflow:"auto"}} className="max-h-32">
               {
-                users && users.map((user) => (
+                users && users.map(user => (
                   <>
                     <li key={user.id} className="mt-1 hover:bg-slate-200">
                       <button id={user.id} className="flex items-center justify-between w-full p-2" onClick={onClick}>
