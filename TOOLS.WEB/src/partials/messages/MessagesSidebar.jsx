@@ -21,10 +21,10 @@ function MessagesSidebar({
   function onClick(event){
     setMsgSidebarOpen(false);
     setUsers([]);
-    createChat(user.tokenJwt, setusersChatSelected, {
+    createChat(user.tokenJwt, setusersChatSelected, setChatSelected, {
       FirstUserId: user.tokenObj.id,
       SecondUserId: event.currentTarget.id
-    })
+    });
   }
 
   return (

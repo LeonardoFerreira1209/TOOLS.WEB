@@ -44,22 +44,22 @@ function MessagesBody({
   }
     
   useEffect(() => {
+    if(connection) connection.stop();
+
     const newConnection = new HubConnectionBuilder()
       .withUrl(`${process.env.BASE_URL}chats?userId=${user.tokenObj.id}`)
       .withAutomaticReconnect()
       .build();
   
     setConnection(newConnection);
-  }, []);
+  }, [chatSelected]);
   
   useEffect(() => {
     if (connection) {
       startConnection(connection).then(() => {
-        debugger
         connection.invoke("JoinGroup", chatSelected);
       });
       connection.on("ReceberMensagem", response => {
-          debugger
           if(response.chatId === chatSelected)
             setChatMessages((prev) => [...prev, response]);
       });

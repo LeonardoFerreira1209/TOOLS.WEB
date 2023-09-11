@@ -15,7 +15,7 @@ function Messages() {
   const [chatSelected, setChatSelected] = useState(null);
 
   useEffect(() => {
-    // contentArea.current.scrollTop = msgSidebarOpen ? 0 : 99999999;
+    contentArea.current.scrollTop = msgSidebarOpen;
   }, [msgSidebarOpen]); // automatically scroll the chat and make the most recent message visible
 
   return (
@@ -32,6 +32,7 @@ function Messages() {
           { chatSelected && <MessagesBody usersChatSelected={usersChatSelected} user={user} chatSelected={chatSelected} /> }
         </div>
       </div>
+      <div ref={contentArea}></div>
     </main>
   );
 }
