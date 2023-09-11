@@ -14,7 +14,6 @@ function Signin() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  debugger
   const { setUser } = useUserProvider();
   const [values, setValues] = useState(initialState);
 

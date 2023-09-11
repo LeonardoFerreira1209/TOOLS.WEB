@@ -6,7 +6,6 @@ function MessagesFooter({
   const [message, setMessage] = useState("");
 
   function onChange(event){
-    debugger
     setMessage(event.target.value);
   }
 

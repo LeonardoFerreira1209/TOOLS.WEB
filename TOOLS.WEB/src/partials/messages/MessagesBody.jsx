@@ -15,7 +15,6 @@ function MessagesBody({
   const reconnectDelay = 5000;
 
   useEffect(() => {
-    debugger
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
@@ -38,7 +37,7 @@ function MessagesBody({
 
   const sendMessage = async (message) => {
     try {
-      await connection.invoke('SendMessageToChatAsync', user.tokenObj.id , `chat-${chatSelected}`, message);
+      await connection.invoke('SendMessageToChatAsync', user.tokenObj.id, chatSelected, `chat-${chatSelected}`, message);
     } catch (error) {
       console.error(error);
     }
@@ -55,15 +54,14 @@ function MessagesBody({
   
   useEffect(() => {
     if (connection) {
-      debugger
       startConnection(connection).then(() => {
+        debugger
         connection.invoke("JoinGroup", chatSelected);
       });
       connection.on("ReceberMensagem", response => {
-        setChatMessages((prev) => [...prev, {
-          userId: response.userId,
-          message: response.message
-        }]);
+          debugger
+          if(response.chatId === chatSelected)
+            setChatMessages((prev) => [...prev, response]);
       });
       
       connection.onclose(error => {
@@ -91,17 +89,33 @@ function MessagesBody({
         {
           chatMessages && chatMessages.map(message => (
             <>
-              <div key={message.id} className="flex items-start mb-4 last:mb-0">
-                <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />
-                <div>
-                  <div className={`text-sm ${user.tokenObj.id == message.userId ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1`}>
-                    {message.message}
+              {
+                user.tokenObj.id === message.userId ? (
+                  <div key={message.id} className="flex items-start mb-4 last:mb-0 justify-end">
+                    <div>
+                      <div className={`text-sm ${user.tokenObj.id == message.userId ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1`}>
+                        {message.message}
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="text-xs text-slate-500 font-medium">{new Date(message.created).toLocaleTimeString()}</div>
+                      </div>
+                    </div>
+                    <img className="rounded-full ml-4" src={User01} width="40" height="40" alt="User 01" />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs text-slate-500 font-medium">{new Date(message.created).toLocaleTimeString()}</div>
+                ) : (
+                  <div key={message.id} className="flex items-start mb-4 last:mb-0">
+                    <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />
+                    <div>
+                      <div className={`text-sm ${user.tokenObj.id == message.userId ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1`}>
+                        {message.message}
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="text-xs text-slate-500 font-medium">{new Date(message.created).toLocaleTimeString()}</div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                )
+              }
 
               {/* <div className="flex items-start mb-4 last:mb-0">
                 <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />

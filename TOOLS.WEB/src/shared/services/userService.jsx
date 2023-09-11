@@ -162,7 +162,7 @@ export function getChats(tokenJwt, setChats, value){
     })
     .then(response => response.json()).then((results) => {
       if(results.Sucesso){
-        setChats(results.Dados.chats);
+        setChats(results.Dados);
       }
       else{
         setLoading(false);
@@ -206,7 +206,7 @@ export function getChatMessages(tokenJwt, setChatMessages, value){
     })
     .then(response => response.json()).then((results) => {
       if(results.Sucesso){
-        setChatMessages(results.Dados.messages);
+        setChatMessages(results.Dados);
       }
       else{
         setLoading(false);
@@ -254,7 +254,6 @@ export function createChat(tokenJwt, setusersChatSelected, values){
       })
     })
     .then(response => response.json()).then((results) => {
-      debugger
       if(results.Sucesso){
         setusersChatSelected(values.SecondUserId);
       }

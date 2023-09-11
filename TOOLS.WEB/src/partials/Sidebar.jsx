@@ -8,7 +8,6 @@ function Sidebar({
   setSidebarOpen
 }) {
 
-  debugger
   const { user } = useUserProvider();
 
   const location = useLocation();
