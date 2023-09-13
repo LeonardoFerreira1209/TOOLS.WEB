@@ -3,11 +3,7 @@ import React, { useState } from 'react';
 function MessagesFooter({
   sendMessage
 }) {
-  const [message, setMessage] = useState("");
-
-  function onChange(event){
-    setMessage(event.target.value);
-  }
+  const [message, setMessage] = useState(null);
 
   return (
     <div className="sticky bottom-0">
@@ -23,9 +19,11 @@ function MessagesFooter({
         <form className="grow flex">
           <div className="grow mr-3">
             <label htmlFor="message-input" className="sr-only">Type a message</label>
-            <input onChange={onChange} id="message-input" className="form-input w-full bg-slate-100 border-transparent focus:bg-white focus:border-slate-300" type="text" placeholder="Aa" />
+            <input value={message || ""} onChange={(event) => setMessage(event.target.value)} id="message-input" className="form-input w-full bg-slate-100 border-transparent focus:bg-white focus:border-slate-300" type="text" placeholder="Aa" />
           </div>
-          <button type="button" onClick={() => sendMessage(message)} className="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap">Send -&gt;</button>
+          <button type="button" onClick={() => message.length > 0 && sendMessage(message).then(() => {
+            setMessage(null);
+          })} className="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap">Send -&gt;</button>
         </form>
       </div>
     </div>

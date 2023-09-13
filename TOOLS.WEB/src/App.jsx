@@ -15,7 +15,6 @@ import './assets/css/style.scss';
 import './charts/ChartjsConfig';
 
 // Import pages
-import ContextProvider from './components/store/ContextProvider';
 import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
 import Fintech from './pages/Fintech';

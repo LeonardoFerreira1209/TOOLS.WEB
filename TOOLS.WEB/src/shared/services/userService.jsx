@@ -234,7 +234,7 @@ export function getChatMessages(tokenJwt, setChatMessages, value){
   });
 }
 
-export function createChat(tokenJwt, setusersChatSelected, values){
+export function createChat(tokenJwt, setusersChatSelected, setChatSelected, values){
   fetch(`${process.env.BASE_URL}api/chatmanager/create/chat`, 
   {
     headers: {
@@ -255,7 +255,8 @@ export function createChat(tokenJwt, setusersChatSelected, values){
     })
     .then(response => response.json()).then((results) => {
       if(results.Sucesso){
-        setusersChatSelected(values.SecondUserId);
+        setusersChatSelected(results.Dados.secondUserId);
+        setChatSelected(results.Dados.id);
       }
       else{
         setLoading(false);

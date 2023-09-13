@@ -32,10 +32,10 @@ function DirectMessages({
       <div className="text-xs font-semibold text-slate-400 uppercase mb-3">Seus Chats</div>
       <ul className="mb-6">
         {
-          chats && chats.map((chat) => {
+          chats && chats.map((chat, index) => {
             const userToSendMessage = user.tokenObj.id === chat.firstUser.id ? chat.secondUser : chat.firstUser;
             return (
-              <li key={chat.id} id={chat.id} className="-mx-2">
+              <li key={index} id={chat.id} className="-mx-2">
               <button onClick={click}  id={userToSendMessage.id} className={`flex items-center justify-between w-full p-2 my-1 rounded ${usersChatSelected === userToSendMessage.id ? "bg-indigo-100" : "hover:bg-indigo-50"}`}>
                 <div className="flex items-center truncate">
                   <img className="w-8 h-8 rounded-full mr-2" src={UserImage01} width="32" height="32" alt="User 01" />

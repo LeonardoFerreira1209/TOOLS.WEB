@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ToastContainer } from 'react-toastify';
 import MessagesSidebar from '../partials/messages/MessagesSidebar';
 import MessagesHeader from '../partials/messages/MessagesHeader';
-import MessagesBody from '../partials/messages/MessagesBody';
 import { useUserProvider } from '../components/store/context/UserContext';
+import ChatContainer from '../partials/messages/ChatContainer';
 
 function Messages() {
   const contentArea = useRef(null)
@@ -15,7 +15,7 @@ function Messages() {
   const [chatSelected, setChatSelected] = useState(null);
 
   useEffect(() => {
-    // contentArea.current.scrollTop = msgSidebarOpen ? 0 : 99999999;
+    contentArea.current.scrollTop = msgSidebarOpen;
   }, [msgSidebarOpen]); // automatically scroll the chat and make the most recent message visible
 
   return (
@@ -29,9 +29,10 @@ function Messages() {
           {/* IziToast */}
           <ToastContainer position="top-right"></ToastContainer>
           <MessagesHeader msgSidebarOpen={msgSidebarOpen} setMsgSidebarOpen={setMsgSidebarOpen} />
-          { chatSelected && <MessagesBody usersChatSelected={usersChatSelected} user={user} chatSelected={chatSelected} /> }
+          { chatSelected && <ChatContainer usersChatSelected={usersChatSelected} user={user} chatSelected={chatSelected} /> }
         </div>
       </div>
+      <div ref={contentArea}></div>
     </main>
   );
 }

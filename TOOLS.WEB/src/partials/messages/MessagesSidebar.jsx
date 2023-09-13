@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import DirectMessages from './DirectMessages';
 import { createChat, getUsers } from '../../shared/services/userService';
 
@@ -21,10 +21,10 @@ function MessagesSidebar({
   function onClick(event){
     setMsgSidebarOpen(false);
     setUsers([]);
-    createChat(user.tokenJwt, setusersChatSelected, {
+    createChat(user.tokenJwt, setusersChatSelected, setChatSelected, {
       FirstUserId: user.tokenObj.id,
       SecondUserId: event.currentTarget.id
-    })
+    });
   }
 
   return (
