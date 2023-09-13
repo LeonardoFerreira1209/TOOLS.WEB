@@ -1,123 +1,39 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import User01 from '../../assets/images/user-40-11.jpg';
-import { getChatMessages } from '../../shared/services/userService';
-import { HubConnectionBuilder } from '@microsoft/signalr';
-import MessagesFooter from './MessagesFooter';
 
 function MessagesBody({
-  usersChatSelected,
-  user,
-  chatSelected
+  message,
+  myUser,
 }) {
-  const [chatMessages, setChatMessages] = useState([]);
-  const [connection, setConnection] = useState(null);
-  const messagesEndRef = useRef(null);
-  const reconnectDelay = 5000;
-
-  useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [chatMessages]);
-
-  const startConnection = (conn) => {
-    return new Promise((resolve, reject) => {
-      conn.start()
-        .then(() => {
-            console.log('Conectado com SignalR chats!');
-            resolve();
-        })
-        .catch(error => {
-            console.error('Falha ao conectar com SignalR:', error);
-            setTimeout(() => startConnection(conn), reconnectDelay);
-            reject(error);
-        });
-    });
-  };
-
-  const sendMessage = async (message) => {
-    try {
-      await connection.invoke('SendMessageToChatAsync', user.tokenObj.id, chatSelected, `chat-${chatSelected}`, message);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-    
-  useEffect(() => {
-    const newConnection = new HubConnectionBuilder()
-      .withUrl(`${process.env.BASE_URL}chats?userId=${user.tokenObj.id}`)
-      .withAutomaticReconnect()
-      .build();
-  
-    setConnection(newConnection);
-  }, []);
-  
-  useEffect(() => {
-    if (connection) {
-      startConnection(connection).then(() => {
-        debugger
-        connection.invoke("JoinGroup", chatSelected);
-      });
-      connection.on("ReceberMensagem", response => {
-          debugger
-          if(response.chatId === chatSelected)
-            setChatMessages((prev) => [...prev, response]);
-      });
-      
-      connection.onclose(error => {
-        console.error('Conexão com SignalR fechada:', error);
-        setTimeout(() => startConnection(connection), reconnectDelay);
-        reject(error);
-      });
-    }
-  
-    return () => {
-      if (connection) {
-        connection.stop();
-      }
-    };
-  
-  }, [connection]);
-
-  useEffect(() =>{
-    chatSelected && getChatMessages(user.tokenJwt, setChatMessages, chatSelected);
-  }, [usersChatSelected]);
-
   return (
-    <>
-      <div className="grow px-4 sm:px-6 md:px-5 py-6">
+      <>
         {
-          chatMessages && chatMessages.map(message => (
-            <>
+          <div className="grow px-4 sm:px-6 md:px-5 py-6">
+            <div className={`flex items-start mb-4 last:mb-0 ${myUser && 'justify-end'}`}>
               {
-                user.tokenObj.id === message.userId ? (
-                  <div key={message.id} className="flex items-start mb-4 last:mb-0 justify-end">
-                    <div>
-                      <div className={`text-sm ${user.tokenObj.id == message.userId ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1`}>
-                        {message.message}
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="text-xs text-slate-500 font-medium">{new Date(message.created).toLocaleTimeString()}</div>
-                      </div>
-                    </div>
-                    <img className="rounded-full ml-4" src={User01} width="40" height="40" alt="User 01" />
-                  </div>
-                ) : (
-                  <div key={message.id} className="flex items-start mb-4 last:mb-0">
-                    <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />
-                    <div>
-                      <div className={`text-sm ${user.tokenObj.id == message.userId ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1`}>
-                        {message.message}
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="text-xs text-slate-500 font-medium">{new Date(message.created).toLocaleTimeString()}</div>
-                      </div>
-                    </div>
-                  </div>
-                )
+                !myUser && <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />
               }
+              <div>
+                <div className={`text-sm ${myUser ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1`}>
+                  {message.message}
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-slate-500 font-medium">{new Date(message.created).toLocaleTimeString()}</div>
+                </div>
+              </div>
+              {
+                myUser && <img className="rounded-full ml-4" src={User01} width="40" height="40" alt="User 01" />
+              }
+            </div>
+          </div>
+        }
+      </>
+  );
+}
 
-              {/* <div className="flex items-start mb-4 last:mb-0">
+export default MessagesBody;
+
+ /* <div className="flex items-start mb-4 last:mb-0">
                 <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />
                 <div>
                   <div className="text-sm bg-white text-slate-800 p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1">
@@ -230,15 +146,4 @@ function MessagesBody({
                     </svg>
                   </div>
                 </div>
-              </div> */}
-            </>
-          ))
-        }
-      </div>
-      <div ref={messagesEndRef}></div>
-      <MessagesFooter sendMessage={sendMessage} />
-    </>
-  );
-}
-
-export default MessagesBody;
+              </div> */
