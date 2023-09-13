@@ -43,7 +43,7 @@ const startConnection = (conn) => {
 useEffect(() => {
   const newConnection = new HubConnectionBuilder()
     .withUrl(`${process.env.BASE_URL}notifications?userId=${user.tokenObj.id}`)
-    .withAutomaticReconnect([0, 2000, 5000, 10000])
+    .withAutomaticReconnect()
     .build();
 
   setConnection(newConnection);
@@ -61,12 +61,6 @@ useEffect(() => {
         type: response.type
       }]);
       playNotificationSound([]);
-    });
-
-    connection.onclose(error => {
-      console.error('Conexão com SignalR fechada:', error);
-      setTimeout(() => startConnection(connection), reconnectDelay);
-      reject(error);
     });
   }
 

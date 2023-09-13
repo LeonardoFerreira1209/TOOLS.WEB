@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import DirectMessages from './DirectMessages';
 import { createChat, getUsers } from '../../shared/services/userService';
 

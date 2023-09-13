@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { ToastContainer } from 'react-toastify';
 import MessagesSidebar from '../partials/messages/MessagesSidebar';
 import MessagesHeader from '../partials/messages/MessagesHeader';
-import MessagesBody from '../partials/messages/MessagesBody';
 import { useUserProvider } from '../components/store/context/UserContext';
+import ChatContainer from '../partials/messages/ChatContainer';
 
 function Messages() {
   const contentArea = useRef(null)
@@ -29,7 +29,7 @@ function Messages() {
           {/* IziToast */}
           <ToastContainer position="top-right"></ToastContainer>
           <MessagesHeader msgSidebarOpen={msgSidebarOpen} setMsgSidebarOpen={setMsgSidebarOpen} />
-          { chatSelected && <MessagesBody usersChatSelected={usersChatSelected} user={user} chatSelected={chatSelected} /> }
+          { chatSelected && <ChatContainer usersChatSelected={usersChatSelected} user={user} chatSelected={chatSelected} /> }
         </div>
       </div>
       <div ref={contentArea}></div>
