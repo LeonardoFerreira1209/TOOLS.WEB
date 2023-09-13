@@ -5,7 +5,7 @@ import UsersTilesCard from '../../partials/community/UsersTilesCard';
 import PaginationNumeric from '../../components/PaginationNumeric';
 import ModalBasic from '../../components/ModalBasic';
 import { HubConnectionBuilder } from "@microsoft/signalr";
-import StoreContext from "../../components/store/context/ContextUser";
+import { useUserProvider } from '../../components/store/context/UserContext';
 
 function UsersTiles() {
 
@@ -15,7 +15,7 @@ function UsersTiles() {
   // -- SIGNALR
   const [hubCx, setHubCx] = useState(null);
   // -- CONTEXT
-  const { user } = useContext(StoreContext)
+  const { user } = useUserProvider();
   // -- CONST
 
   // -- API CONSUMER

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useThemeProvider } from '../components/store/context/ThemeContext';
 
 import { chartColors } from './ChartjsConfig';
 import {
@@ -8,7 +9,6 @@ import 'chartjs-adapter-moment';
 
 // Import utilities
 import { tailwindConfig, formatValue } from '../shared/utils/Utils';
-import { useThemeProvider } from '../shared/utils/ThemeContext';
 
 Chart.register(BarController, BarElement, LinearScale, TimeScale, Tooltip, Legend);
 

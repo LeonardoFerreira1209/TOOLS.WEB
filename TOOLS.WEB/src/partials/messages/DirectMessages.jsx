@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getChats } from '../../shared/services/userService';
 
 import UserImage01 from '../../assets/images/user-32-01.jpg';
@@ -7,22 +7,24 @@ function DirectMessages({
   setMsgSidebarOpen,
   user,
   usersChatSelected,
-  setusersChatSelected
+  setusersChatSelected,
+  setChatSelected
 }) {
   const [chats, setChats] = useState([]);
 
   useEffect(() => {
-    debugger
     getChats(user.tokenJwt, setChats, user.tokenObj.id)
 
     return () => {
-      
+
     };
+    
   }, [usersChatSelected]);
 
   function click(event){
     setMsgSidebarOpen(false);
     setusersChatSelected(event.currentTarget.id)
+    setChatSelected(event.currentTarget.parentNode.id)
   }
   
   return (
@@ -33,7 +35,7 @@ function DirectMessages({
           chats && chats.map((chat) => {
             const userToSendMessage = user.tokenObj.id === chat.firstUser.id ? chat.secondUser : chat.firstUser;
             return (
-              <li key={chat.id} className="-mx-2">
+              <li key={chat.id} id={chat.id} className="-mx-2">
               <button onClick={click}  id={userToSendMessage.id} className={`flex items-center justify-between w-full p-2 my-1 rounded ${usersChatSelected === userToSendMessage.id ? "bg-indigo-100" : "hover:bg-indigo-50"}`}>
                 <div className="flex items-center truncate">
                   <img className="w-8 h-8 rounded-full mr-2" src={UserImage01} width="32" height="32" alt="User 01" />

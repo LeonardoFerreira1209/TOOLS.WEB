@@ -17,5 +17,4 @@ export default function useStorage(key) {
   }, [key]);
 
   return [state, set, reset];
-
 }

@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-function MessagesFooter() {
+function MessagesFooter({
+  sendMessage
+}) {
+  const [message, setMessage] = useState("");
+
+  function onChange(event){
+    setMessage(event.target.value);
+  }
+
   return (
     <div className="sticky bottom-0">
       <div className="flex items-center justify-between bg-white border-t border-slate-200 px-4 sm:px-6 md:px-5 h-16">
@@ -15,9 +23,9 @@ function MessagesFooter() {
         <form className="grow flex">
           <div className="grow mr-3">
             <label htmlFor="message-input" className="sr-only">Type a message</label>
-            <input id="message-input" className="form-input w-full bg-slate-100 border-transparent focus:bg-white focus:border-slate-300" type="text" placeholder="Aa" />
+            <input onChange={onChange} id="message-input" className="form-input w-full bg-slate-100 border-transparent focus:bg-white focus:border-slate-300" type="text" placeholder="Aa" />
           </div>
-          <button type="submit" className="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap">Send -&gt;</button>
+          <button type="button" onClick={() => sendMessage(message)} className="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap">Send -&gt;</button>
         </form>
       </div>
     </div>
