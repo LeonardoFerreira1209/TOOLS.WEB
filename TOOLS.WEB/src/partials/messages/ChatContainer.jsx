@@ -89,39 +89,37 @@ function ChatContainer({
   }, [usersChatSelected]);
 
   function getDayOfYear(date) {
-    debugger
     const start = new Date(date.getFullYear(), 0, 0);
     const diff = date - start + ((start.getTimezoneOffset() - date.getTimezoneOffset()) * 60 * 1000);
     const oneDay = 1000 * 60 * 60 * 24;
     const day = Math.floor(diff / oneDay);
     return day;
   }
-  
 
   let lastMessageCreatedDate = new Date(0); 
   return (
     <>
         <div className="grow px-4 sm:px-6 md:px-5 py-6">
             {
-                chatMessages && chatMessages.map((message, index) => {
-                
-                const showMessageDate = (getDayOfYear(new Date(message.created)) > getDayOfYear(lastMessageCreatedDate)) || index === 0;
+              chatMessages && chatMessages.map((message, index) => {
+              
+              const showMessageDate = (getDayOfYear(new Date(message.created)) > getDayOfYear(lastMessageCreatedDate)) || index === 0;
 
-                lastMessageCreatedDate = new Date(message.created);
+              lastMessageCreatedDate = new Date(message.created);
 
-                return (
-                    <>
-                        { 
-                            showMessageDate && 
-                            <div className="flex justify-center">
-                                <div className="inline-flex items-center justify-center text-xs font-medium px-2.5 py-1 bg-white border border-slate-200 rounded-full my-5">
-                                { new Date(message.created).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) }
-                                </div>
-                            </div>
-                        }
-                        <MessagesBody key={index} myUser={user.tokenObj.id == message.userId} message={message}/>
-                    </>
-                )})
+              return (
+                  <>
+                    { 
+                      showMessageDate && 
+                      <div className="flex justify-center">
+                          <div className="inline-flex items-center justify-center text-xs font-medium px-2.5 py-1 bg-white border border-slate-200 rounded-full my-5">
+                          { new Date(message.created).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' }) }
+                          </div>
+                      </div>
+                    }
+                    <MessagesBody key={index} myUser={user.tokenObj.id == message.userId} message={message}/>
+                  </>
+              )})
             }
         </div>
         <div ref={messagesEndRef}></div>

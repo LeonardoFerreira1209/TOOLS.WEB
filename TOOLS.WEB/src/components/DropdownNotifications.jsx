@@ -15,10 +15,17 @@ function DropdownNotifications({align}) {
   const audioRef = useRef(null);
   const [connection, setConnection] = useState(null);
   const reconnectDelay = 5000;
+  const lastNotificationRef = useRef(null);
   const playNotificationSound = () => {
       audioRef.current.play();
   };
 
+  useEffect(() => {
+    if (lastNotificationRef.current) {
+      lastNotificationRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [notifications]);
+  
  useEffect(() => {
   if(notifications === null | undefined) {
     setNotifications([]);
@@ -136,9 +143,10 @@ useEffect(() => {
                 <ul id='notifications'>
                   {
                     notifyContext.notifications && notifyContext.notifications.length > 0 && notifyContext.notifications.map((notify, index) => {
-                      return (<CardNotifications key={index} id={notify.id} icon={notify.type} date={notify.date.toString("dd-mm-yyyy")} theme={notify.theme} description={notify.description} message={notify.message} />)
+                      return (<CardNotifications key={index} ref={index === notifyContext.notifications.length - 1 ? lastNotificationRef : null} id={notify.id} icon={notify.type} date={notify.date.toString("dd-mm-yyyy")} theme={notify.theme} description={notify.description} message={notify.message} />)
                     })
                   }
+                  <div ref={lastNotificationRef}></div>
                 </ul>
               </div>
             </Transition>
