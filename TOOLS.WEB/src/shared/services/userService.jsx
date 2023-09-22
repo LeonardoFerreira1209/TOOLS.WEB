@@ -121,13 +121,12 @@ export function getUsers(tokenJwt, setUsers, value){
           setUsers(results.Dados.users);
         }
         else{
-          setLoading(false);
-            results.Notificacoes.forEach((error) => {
-              toast.error(error.Mensagem, {
-                theme: 'light',
-                autoClose: true
-              })
+          results.Notificacoes.forEach((error) => {
+            toast.error(error.Mensagem, {
+              theme: 'light',
+              autoClose: true
             })
+          })
         }
       },
       (error) => {
@@ -165,13 +164,12 @@ export function getChats(tokenJwt, setChats, value){
         setChats(results.Dados);
       }
       else{
-        setLoading(false);
-          results.Notificacoes.forEach((error) => {
-            toast.error(error.Mensagem, {
-              theme: 'light',
-              autoClose: true
-            })
+        results.Notificacoes.forEach((error) => {
+          toast.error(error.Mensagem, {
+            theme: 'light',
+            autoClose: true
           })
+        })
       }
     },
     (error) => {
@@ -209,13 +207,12 @@ export function getChatMessages(tokenJwt, setChatMessages, value){
         setChatMessages(results.Dados);
       }
       else{
-        setLoading(false);
-          results.Notificacoes.forEach((error) => {
-            toast.error(error.Mensagem, {
-              theme: 'light',
-              autoClose: true
-            })
+        results.Notificacoes.forEach((error) => {
+          toast.error(error.Mensagem, {
+            theme: 'light',
+            autoClose: true
           })
+        })
       }
     },
     (error) => {
