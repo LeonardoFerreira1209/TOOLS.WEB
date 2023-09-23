@@ -13,14 +13,14 @@ function DirectMessages({
   const [chats, setChats] = useState([]);
 
   useEffect(() => {
-    getChats(user.tokenJwt, setChats, user.tokenObj.id)
-
+    getChats(user.tokenJwt, setChats, user.tokenObj.id);
+    
     return () => {
 
     };
     
   }, [usersChatSelected]);
-
+ 
   function click(event){
     setMsgSidebarOpen(false);
     setusersChatSelected(event.currentTarget.id)
