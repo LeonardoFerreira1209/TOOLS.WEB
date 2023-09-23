@@ -13,4 +13,4 @@ export default function NotifyProvider({children}) {
     return <NotifyContext.Provider value={{ notifications, setNotifications, setResetNotifications }}>{children}</NotifyContext.Provider>;
 }
 
-export const useNorifyProvider = () => useContext(NotifyContext);
+export const useNotifyProvider = () => useContext(NotifyContext);

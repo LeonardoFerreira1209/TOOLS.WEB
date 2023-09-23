@@ -1,17 +1,18 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import Transition from '../shared/utils/Transition';
 import CardNotifications from './CardNotifications';
-import { useNorifyProvider } from './store/context/NotifyContext';
+import { useNotifyProvider } from './store/context/NotifyContext';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import { useUserProvider } from './store/context/UserContext';
 import audio from '../assets/audio/H42VWCD-notification.mp3';
+
 
 function DropdownNotifications({align}) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef(null);
   const dropdown = useRef(null);
   const { user } = useUserProvider();
-  const { notifications, setNotifications, setResetNotifications } = useNorifyProvider();
+  const { notifications, setNotifications, setResetNotifications } = useNotifyProvider();
   const audioRef = useRef(null);
   const [connection, setConnection] = useState(null);
   const reconnectDelay = 5000;
