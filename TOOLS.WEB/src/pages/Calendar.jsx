@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import moment from 'moment';
 import ModalBasic from '../components/ModalBasic';
 import DatepickerCalendar from '../components/DatepickerCalendar';
-import StoreContext from "../components/store/context/ContextUser";
+import { useUserProvider } from '../components/store/context/UserContext';
 import { BlockPicker  } from 'react-color';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -25,7 +25,7 @@ function Calendar() {
   const [eventTypeModalOpen, setEventTypeModalOpen] = useState(false);
   const [eventValues, setEventValues] = useState(initializeEventValues);
   const [eventTypeValues, setEventTypeValues] = useState(initializeEventTypeValues);
-  const { user } = useContext(StoreContext);
+  const { user } = useUserProvider();
 
   // initialize event state.
   function initializeEventValues(){

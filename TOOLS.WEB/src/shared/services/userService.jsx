@@ -121,13 +121,12 @@ export function getUsers(tokenJwt, setUsers, value){
           setUsers(results.Dados.users);
         }
         else{
-          setLoading(false);
-            results.Notificacoes.forEach((error) => {
-              toast.error(error.Mensagem, {
-                theme: 'light',
-                autoClose: true
-              })
+          results.Notificacoes.forEach((error) => {
+            toast.error(error.Mensagem, {
+              theme: 'light',
+              autoClose: true
             })
+          })
         }
       },
       (error) => {
@@ -162,16 +161,15 @@ export function getChats(tokenJwt, setChats, value){
     })
     .then(response => response.json()).then((results) => {
       if(results.Sucesso){
-        setChats(results.Dados.chats);
+        setChats(results.Dados);
       }
       else{
-        setLoading(false);
-          results.Notificacoes.forEach((error) => {
-            toast.error(error.Mensagem, {
-              theme: 'light',
-              autoClose: true
-            })
+        results.Notificacoes.forEach((error) => {
+          toast.error(error.Mensagem, {
+            theme: 'light',
+            autoClose: true
           })
+        })
       }
     },
     (error) => {
@@ -190,7 +188,50 @@ export function getChats(tokenJwt, setChats, value){
   });
 }
 
-export function createChat(tokenJwt, setusersChatSelected, values){
+export function getChatMessages(tokenJwt, setChatMessages, value){
+  fetch(`${process.env.BASE_URL}api/chatmanager/get/messages/by/chat/${value}`, 
+  {
+    headers: {
+      'Authorization': `Bearer ${tokenJwt}`
+    },
+      crossDomain:true,
+      mode:'cors', 
+      cache: 'no-cache',
+      credentials:'same-origin',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      method: 'GET',
+    })
+    .then(response => response.json()).then((results) => {
+      if(results.Sucesso){
+        setChatMessages(results.Dados);
+      }
+      else{
+        results.Notificacoes.forEach((error) => {
+          toast.error(error.Mensagem, {
+            theme: 'light',
+            autoClose: true
+          })
+        })
+      }
+    },
+    (error) => {
+      console.error(error);
+      toast.error("Ops, não conseguimos fazer a requisição!", {
+        theme: 'light',
+        autoClose: true
+      })
+    }
+  ).catch(error => {
+    console.error(error);
+    toast.error("Ops, tivemos um erro inesperado!", {
+      theme: 'light',
+      autoClose: true
+    })
+  });
+}
+
+export function createChat(tokenJwt, setusersChatSelected, setChatSelected, values){
   fetch(`${process.env.BASE_URL}api/chatmanager/create/chat`, 
   {
     headers: {
@@ -210,9 +251,9 @@ export function createChat(tokenJwt, setusersChatSelected, values){
       })
     })
     .then(response => response.json()).then((results) => {
-      debugger
       if(results.Sucesso){
-        setusersChatSelected(values.SecondUserId);
+        setusersChatSelected(results.Dados.secondUserId);
+        setChatSelected(results.Dados.id);
       }
       else{
         setLoading(false);

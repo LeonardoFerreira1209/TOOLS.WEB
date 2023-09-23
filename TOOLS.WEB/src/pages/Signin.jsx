@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
-import ContextUser from '../components/store/context/ContextUser';
+import { useUserProvider } from '../components/store/context/UserContext';
 import { authetication, isInvalidAuthentication }  from '../shared/services/userService';
 import AuthImage from '../assets/images/—Pngtree—2 5d learn know how_4117072.webp';
 import AuthDecoration from '../assets/images/auth-decoration.png';
@@ -14,7 +14,7 @@ function Signin() {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  const { setUser } = useContext(ContextUser);
+  const { setUser } = useUserProvider();
   const [values, setValues] = useState(initialState);
 
   function initialState() {

@@ -1,17 +1,12 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import ContextUser from "../store/context/ContextUser";
+import { useUserProvider } from "../store/context/UserContext";
 
 function RequireAuth({ children }) {
-    
+    const { user } = useUserProvider();
+
     return (
-        <ContextUser.Consumer>
-            {
-                userContext => (
-                    userContext.user ? children : (<Navigate to="/signin" replace state={{path: location.pathname}} />)
-                )
-            }
-        </ContextUser.Consumer>
+        user ? children : (<Navigate to="/signin" replace state={{path: location.pathname}} />)
     );
 }
 

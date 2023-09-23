@@ -1,12 +1,12 @@
 // -- REACT --
 import React, { useContext, useEffect, useState } from 'react';
-import StoreContext from "../../components/store/context/ContextUser";
 import PlaceholderLoading from 'react-placeholder-loading';
+import { useUserProvider } from '../../components/store/context/UserContext';
 import { getRoles }  from '../../shared/services/userService';
 import ModalBasic from '../../components/ModalBasic';
 
 // -- TOASTIFY --
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +16,7 @@ const [basicModalOpen, setBasicModalOpen] = useState(false);
 const [error, setError] = useState(null);
 const [loading, setLoading] = useState(false);
 const [roles, setRoles] = useState([]);
-const { user } = useContext(StoreContext)
+const { user } = useUserProvider();
 
 useEffect(() => {
   getRoles(user.tokenJwt, setRoles, setError, setLoading);

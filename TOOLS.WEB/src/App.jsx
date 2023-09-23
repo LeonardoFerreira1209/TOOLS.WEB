@@ -15,7 +15,6 @@ import './assets/css/style.scss';
 import './charts/ChartjsConfig';
 
 // Import pages
-import ContextProvider from './components/store/ContextProvider';
 import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
 import Fintech from './pages/Fintech';
@@ -218,25 +217,25 @@ function App() {
   }
 
   return (
-    <ContextProvider>
-          {/* Show Header & Sidebar */}
-          {!dontShowGlobalComponents() ?
-            (<div className='flex h-screen overflow-hidden'>
-                {/* Sidebar */}
-                <Sidebar/>
-                <div className='relative flex flex-col flex-1 no-scrollbar overflow-x-hidden'>
-                  {/* Header */}
-                  <Header/>
-                  {/* AppRoutes */}
-                  <AppRoutes/>
-                </div>
-              </div>) :
-            (<div className='bg-white flex flex-col min-h-screen no-scrollbar-ms overflow-hidden'>
+    <>
+      {/* Show Header & Sidebar */}
+      {!dontShowGlobalComponents() ?
+        (<div className='flex h-screen overflow-hidden'>
+            {/* Sidebar */}
+            <Sidebar/>
+            <div className='relative flex flex-col flex-1 no-scrollbar overflow-x-hidden'>
+              {/* Header */}
+              <Header/>
               {/* AppRoutes */}
               <AppRoutes/>
-            </div>)
-          }
-      </ContextProvider>
+            </div>
+          </div>) :
+        (<div className='bg-white flex flex-col min-h-screen no-scrollbar-ms overflow-hidden'>
+          {/* AppRoutes */}
+          <AppRoutes/>
+        </div>)
+      }
+    </>
   );
 }
 
