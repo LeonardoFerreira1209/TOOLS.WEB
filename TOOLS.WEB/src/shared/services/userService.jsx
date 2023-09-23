@@ -145,6 +145,65 @@ export function getUsers(tokenJwt, setUsers, value){
     });
 }
 
+export function getProfileUser(userId, tokenJwt, setValues, setAvatarImage, setLoading){
+  fetch(`${process.env.BASE_URL}api/usermanager/get/user/userid/${userId}`, 
+  {
+    headers: {
+      'Authorization': `Bearer ${tokenJwt}`
+    },
+    crossDomain:true,
+    mode:'cors', 
+    method: 'GET',
+    cache: 'no-cache',
+    credentials:'same-origin',
+    redirect: 'follow',
+    referrerPolicy: 'no-referrer',
+  })
+  .then(response => response.json()).then((results) => {
+      if(results.Sucesso){
+        setTimeout(() => {
+          setValues({
+            id: results.Dados.id,
+            username: results.Dados.userName,
+            password: results.Dados.password,
+            email: results.Dados.email,
+            phoneNumber: results.Dados.phoneNumber,
+            firstName: results.Dados.firstName,
+            lastName: results.Dados.lastName,
+            gender: results.Dados.gender,
+            rg: results.Dados.rg,
+            cpf: results.Dados.cpf,
+            status: results.Dados.status
+          })}, 1000);
+  
+        setAvatarImage(results.Dados.imageUri);
+      }
+      else {
+        setLoading(false);
+        results.Notificacoes.forEach((error) => {
+          toast.error(error.Mensagem, {
+            theme: 'light',
+            autoClose: true
+          })
+        })
+      }
+    },
+    (error) => {
+      console.error(error);
+      toast.error("Ops, não conseguimos fazer a requisição!", {
+        theme: 'light',
+        autoClose: true
+      })
+    }
+  ).catch(error => {
+    console.error(error);
+    toast.error("Ops, tivemos um erro inesperado!", {
+      theme: 'light',
+      autoClose: true
+    })
+  });
+}
+
 export function getChats(tokenJwt, setChats, value){
   fetch(`${process.env.BASE_URL}api/chatmanager/get/chats/by/user/${value}`, 
   {
@@ -162,6 +221,50 @@ export function getChats(tokenJwt, setChats, value){
     .then(response => response.json()).then((results) => {
       if(results.Sucesso){
         setChats(results.Dados);
+      }
+      else{
+        setLoading(false);
+          results.Notificacoes.forEach((error) => {
+            toast.error(error.Mensagem, {
+              theme: 'light',
+              autoClose: true
+            })
+          })
+      }
+    },
+    (error) => {
+      console.error(error);
+      toast.error("Ops, não conseguimos fazer a requisição!", {
+        theme: 'light',
+        autoClose: true
+      })
+    }
+  ).catch(error => {
+    console.error(error);
+    toast.error("Ops, tivemos um erro inesperado!", {
+      theme: 'light',
+      autoClose: true
+    })
+  });
+}
+
+export function getChatMessages(tokenJwt, setChatMessages, value){
+  fetch(`${process.env.BASE_URL}api/chatmanager/get/messages/by/chat/${value}`, 
+  {
+    headers: {
+      'Authorization': `Bearer ${tokenJwt}`
+    },
+      crossDomain:true,
+      mode:'cors', 
+      cache: 'no-cache',
+      credentials:'same-origin',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      method: 'GET',
+    })
+    .then(response => response.json()).then((results) => {
+      if(results.Sucesso){
+        setChatMessages(results.Dados);
       }
       else{
         results.Notificacoes.forEach((error) => {
@@ -353,6 +456,66 @@ export function create(navigate, setLoading, values, params) {
               autoClose: true
             })
           })
+      }
+    },
+    (error) => {
+      console.error(error);
+      toast.error("Ops, não conseguimos fazer a requisição!", {
+        theme: 'light',
+        autoClose: true
+      })
+      setLoading(false)
+    }
+
+  ).catch(error => {
+    console.error(error);
+    toast.error("Ops, tivemos um erro inesperado!", {
+      theme: 'light',
+      autoClose: true
+    })
+    setLoading(false);
+  });
+}
+
+export function update(tokenJwt, values, setLoading) {
+  fetch(`${process.env.BASE_URL}api/usermanager/update/user`, {
+    crossDomain:true,
+    mode:'cors', 
+    method: 'PUT',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${tokenJwt}`
+    },
+    body: JSON.stringify({
+      Id: values.id,
+      Username: values.username,
+      CurrentPassword: values.currentPassword,
+      Password: values.password,
+      Email: values.email,
+      PhoneNumber: values.phoneNumber,
+      FirstName: values.firstName,
+      LastName: values.lastName,
+      Gender: values.gender,
+      Rg: values.rg,
+      Cpf: values.cpf,
+      status: values.status,
+      imageUri: values.imageUri
+    })
+  })
+  .then(response => response.json()).then((results) => {
+      if(results.Sucesso) {
+        toast.success("Edição realizada com sucesso!", {
+          theme: 'light',
+          autoClose: true
+        });
+        setLoading(false);
+      }
+      else {
+        toast.info(results.Notificacoes[0].Mensagem, {
+          theme: 'light',
+          autoClose: true
+        });
+        setLoading(false);
       }
     },
     (error) => {
