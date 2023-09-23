@@ -55,11 +55,10 @@ function MessagesBody({
   useEffect(() => {
     if (connection) {
       startConnection(connection).then(() => {
-        debugger
         connection.invoke("JoinGroup", chatSelected);
       });
+      
       connection.on("ReceberMensagem", response => {
-          debugger
           if(response.chatId === chatSelected)
             setChatMessages((prev) => [...prev, response]);
       });
