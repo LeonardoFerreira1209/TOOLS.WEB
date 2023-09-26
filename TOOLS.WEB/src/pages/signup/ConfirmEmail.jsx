@@ -9,7 +9,7 @@ import AuthDecoration from '../../assets/images/auth-decoration.png';
 import 'aos/dist/aos.css';
 import { ToastContainer } from 'react-toastify';
 
-function Signin() {
+function ConfirmEmaill() {
   const params = useLocation();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -38,7 +38,7 @@ function Signin() {
     setLoading(true);
     event.preventDefault();
     let code = Object.values(values).join("");
-    confirmEmail(navigate, setError, setLoading, params.state, code);
+    confirmEmail(navigate, setError, setLoading, params.state.userId, code);
   }
 
   return (
@@ -85,31 +85,34 @@ function Signin() {
               </div>
             </div>
 
-            {/* Progress bar */}
-            <div data-aos="fade-right" className="px-4 pt-12 pb-8">
-              <div className="max-w-md mx-auto w-full">
-                <div className="relative">
-                  <div className="absolute left-0 top-1/2 -mt-px w-full h-0.5 bg-slate-200" aria-hidden="true"></div>
-                  <ul className="relative flex justify-between w-full">
-                    <li>
-                      <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">1</div>
-                    </li>
-                    <li>
-                      <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">2</div>
-                    </li>
-                    <li>
-                      <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">3</div>
-                    </li>
-                    <li>
-                      <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">4</div>
-                    </li>
-                    <li>
-                      <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">5</div>
-                    </li>
-                  </ul>
+            {
+              params.state.progressBarEnabled && (
+                  <div data-aos="fade-right" className="px-4 pt-12 pb-8">
+                  <div className="max-w-md mx-auto w-full">
+                    <div className="relative">
+                      <div className="absolute left-0 top-1/2 -mt-px w-full h-0.5 bg-slate-200" aria-hidden="true"></div>
+                      <ul className="relative flex justify-between w-full">
+                        <li>
+                          <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">1</div>
+                        </li>
+                        <li>
+                          <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">2</div>
+                        </li>
+                        <li>
+                          <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">3</div>
+                        </li>
+                        <li>
+                          <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">4</div>
+                        </li>
+                        <li>
+                          <div className="flex items-center justify-center w-6 h-6 rounded-full text-xs font-semibold text-white bg-gradient-to-r from-sky-500 to-indigo-500 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-indigo-500 text-white">5</div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              )
+            }
 
             <div className="max-w-sm mx-auto px-4 py-8">
               <h1 data-aos="fade-down" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold">Estamos quase lá <b className='text-indigo-100'>✨</b></h1>
@@ -177,4 +180,4 @@ function Signin() {
   );
 }
 
-export default Signin;
+export default ConfirmEmaill;
