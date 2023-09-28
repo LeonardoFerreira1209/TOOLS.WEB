@@ -71,7 +71,6 @@ export function authetication(navigate, state, setUser, setLoading, values) {
             refreshTokenJwt: results.Dados.refreshToken,
             tokenObj: parseJwt(results.Dados.token),
           });
-          
           navigate(state?.path || "/dashboard");
         }
         else{
@@ -82,6 +81,13 @@ export function authetication(navigate, state, setUser, setLoading, values) {
               autoClose: true
             })
           })
+          if(results.Dados.isNotAllowed) 
+            navigate(
+              `/confirm-email`, { state: {
+                userId: results.Dados.userId,
+                progressBarEnabled: false
+              }
+            })
         }
       },
       (error) => {
@@ -118,7 +124,7 @@ export function getUsers(tokenJwt, setUsers, value){
       })
       .then(response => response.json()).then((results) => {
         if(results.Sucesso){
-          setUsers(results.Dados.users);
+          setUsers(results.Dados);
         }
         else{
           results.Notificacoes.forEach((error) => {
@@ -402,8 +408,11 @@ export function create(navigate, setLoading, values, params) {
     (results) => {
       if(results.Sucesso){
         navigate(
-          `/confirm-email`,  { state: results.Dados.id }
-          )
+          `/confirm-email`, { state: {
+            userid: results.Dados.id,
+            progressBarEnabled: true
+          } 
+        })
       }
       else{
           setLoading(false);
