@@ -116,6 +116,7 @@ function ConfirmEmaill() {
 
             <div className="max-w-sm mx-auto px-4 py-8">
               <h1 data-aos="fade-down" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold">Estamos quase lá <b className='text-indigo-100'>✨</b></h1>
+              <h2 className="text-sky-600 font-bold mb-4">Enviamos um código para o seu e-mail, verifique e siga os passos abaixo!</h2>
               <p className='bg-clip-text text-transparent bg-gradient-to-l from-indigo-400 to-sky-900 mb-6'>Adicione o código abaixo, para liberar o seu acesso!</p>
               {/* Form */}
               <form className='text-center'>
