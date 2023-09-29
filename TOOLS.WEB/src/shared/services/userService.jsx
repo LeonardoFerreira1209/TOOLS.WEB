@@ -170,6 +170,8 @@ export function getProfileUser(userId, tokenJwt, setValues, setAvatarImage, setL
         setTimeout(() => {
           setValues({
             id: results.Dados.id,
+            fileId: results.Dados.fileId,
+            file: results.Dados?.file,
             username: results.Dados.userName,
             password: results.Dados.password,
             email: results.Dados.email,
@@ -182,7 +184,7 @@ export function getProfileUser(userId, tokenJwt, setValues, setAvatarImage, setL
             status: results.Dados.status
           })}, 1000);
   
-        setAvatarImage(results.Dados.imageUri);
+        setAvatarImage(results.Dados.file?.url);
       }
       else {
         setLoading(false);
@@ -252,6 +254,48 @@ export function getChats(tokenJwt, setChats, value){
       autoClose: true
     })
   });
+}
+
+export function changeUserImage(tokenJwt, setAvatarImage, userId, formData){
+  fetch(`${process.env.BASE_URL}api/usermanager/user/imagem/userid/${userId}`, { 
+    method: 'PATCH',
+    headers: { 
+      'Authorization': `Bearer ${tokenJwt}`
+    },
+      body: formData,
+      dataType: "jsonp"
+    })
+    .then(response => response.json()).then((results) => {
+      if(results.Sucesso) {
+        const avatar = results.Dados.file.url;
+        setAvatarImage(avatar);
+        toast.success("Imagem atualizada com sucesso!", {
+            theme: 'light',
+            autoClose: true
+        });
+      }
+      else {
+        toast.info(results.Notificacoes[0].mensagem, {
+          theme: 'light',
+          autoClose: true
+        });
+      }
+    },
+    (error) => {
+      console.error(error.message);
+      toast.error("Ops, Falha ao atualizar imagem", {
+        theme: 'light',
+        autoClose: true
+      });
+    }
+  ).catch((error) => {
+      console.error(error.message);
+      toast.error("Ops, Falha ao atualizar imagem!", {
+        theme: 'light',
+        autoClose: true
+      });
+    }
+  )
 }
 
 export function getChatMessages(tokenJwt, setChatMessages, value){
