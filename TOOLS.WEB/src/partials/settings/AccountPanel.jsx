@@ -4,7 +4,7 @@ import { useUserProvider } from '../../components/store/context/UserContext';
 import ReactTooltip from 'react-tooltip';
 import InputMask from 'react-input-mask';
 import { Link } from 'react-router-dom';
-import { getProfileUser, update } from '../../shared/services/userService';
+import { getProfileUser, update, changeUserImage } from '../../shared/services/userService';
 
 function AccountPanel({ props }) {
   const [loading, setLoading] = useState(false);
@@ -33,49 +33,8 @@ function AccountPanel({ props }) {
 
   function changeImage(event) {
     const formData = new FormData();
-
-    formData.append('File', event.target.files[0]);
-
-    fetch(`${process.env.BASE_URL}gateway/user/updateuserimage/${values.id}`, { 
-      method: 'PATCH',
-      headers: { 
-        'Authorization': `Bearer ${user.tokenJwt}`
-      },
-        body: formData,
-        dataType: "jsonp"
-      })
-      .then(response => response.json()).then((results) => {
-        if(results.sucesso) {
-          const avatar = results.Dados.fileUri;
-          setAvatarImage(avatar);
-          toast.success("Imagem atualizada com sucesso!", {
-              theme: 'light',
-              autoClose: true
-          });
-        }
-        else {
-          toast.info(results.notificacoes[0].mensagem, {
-            theme: 'light',
-            autoClose: true
-          });
-        }
-      },
-      (error) => {
-        console.error(error.message);
-        toast.error("Ops, Falha ao atualizar imagem", {
-          theme: 'light',
-          autoClose: true
-        });
-      }
-
-    ).catch((error) => {
-        console.error(error.message);
-        toast.error("Ops, Falha ao atualizar imagem!", {
-          theme: 'light',
-          autoClose: true
-        });
-      }
-    )
+    formData.append('file', event.target.files[0]);
+    changeUserImage(user.tokenJwt, setAvatarImage, user.tokenObj.id, formData);
   };
 
   {
