@@ -3,6 +3,8 @@ import { getChatMessages } from '../../shared/services/userService';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import MessagesFooter from './MessagesFooter';
 import MessagesBody from './MessagesBody';
+import MessageLoading from './MessageLoading';
+import gptLogo from '../../assets/images/ChatGPT-Logo-PNG-1.png';
 
 function ChatContainer({
   usersChatSelected,
@@ -11,6 +13,7 @@ function ChatContainer({
 }) {
   const [chatMessages, setChatMessages] = useState([]);
   const [connection, setConnection] = useState(null);
+  const [messageLoading, setMessageLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const reconnectDelay = 5000;
 
@@ -46,9 +49,10 @@ function ChatContainer({
   useEffect(() => {
     if(connection) connection.stop();
 
+    const hubChatId = `chat-${user.tokenObj.id}`;
     const newConnection = new HubConnectionBuilder()
-      .withUrl(`${process.env.BASE_URL}chats?userId=${user.tokenObj.id}`)
-      .withAutomaticReconnect()
+      .withUrl(`${process.env.BASE_URL}chats?userId=${hubChatId}`)
+      .withAutomaticReconnect([0, 10, 30, 50, 70, 100])
       .build();
   
     setConnection(newConnection);
@@ -62,7 +66,10 @@ function ChatContainer({
       });
       connection.on("ReceberMensagem", response => {
           if(response.chatId === chatSelected)
+          {
+            response.isChatBot ? setMessageLoading(false) : response.hasCommand && !response.isChatBot && setMessageLoading(true);
             setChatMessages((prev) => [...prev, response]);
+          }
       });
       
       connection.onreconnecting(error => {
@@ -95,20 +102,19 @@ function ChatContainer({
     const day = Math.floor(diff / oneDay);
     return day;
   }
-
-  let lastMessageCreatedDate = new Date(0); 
+  let lastMessageCreatedDate = new Date(0);
+  
   return (
     <>
         <div className="grow px-4 sm:px-6 md:px-5 py-6">
             {
               chatMessages && chatMessages.map((message, index) => {
-              
-              const showMessageDate = (getDayOfYear(new Date(message.created)) > getDayOfYear(lastMessageCreatedDate)) || index === 0;
+                const showMessageDate = (getDayOfYear(new Date(message.created)) > getDayOfYear(lastMessageCreatedDate)) || index === 0;
+                const myUser = (user.tokenObj.id == message.userId && !message.isChatBot);
+                lastMessageCreatedDate = new Date(message.created);
 
-              lastMessageCreatedDate = new Date(message.created);
-
-              return (
-                  <>
+                return (
+                  <div key={index}>
                     { 
                       showMessageDate && 
                       <div className="flex justify-center">
@@ -117,10 +123,11 @@ function ChatContainer({
                           </div>
                       </div>
                     }
-                    <MessagesBody key={index} myUser={user.tokenObj.id == message.userId} message={message}/>
-                  </>
+                    <MessagesBody myUser={myUser} isChatBot={message.isChatBot} chatMessage={message}/>
+                  </div>
               )})
             }
+        { messageLoading && <MessageLoading userImage={gptLogo} /> }
         </div>
         <div ref={messagesEndRef}></div>
         <MessagesFooter sendMessage={sendMessage} />

@@ -42,10 +42,10 @@ function Header({
           {/* Header: Right side */}
           <div data-aos="fade-left"  className="flex items-center space-x-3">
             <button
-              className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-full ml-3 ${searchModalOpen && 'bg-slate-200'}`}
-              onClick={(e) => { e.stopPropagation(); setSearchModalOpen(true); }}
-              aria-controls="search-modal"
-            >
+                className={`w-8 h-8 flex items-center justify-center bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600/80 rounded-full ml-3 ${searchModalOpen && 'bg-slate-200'}`}
+                onClick={(e) => { e.stopPropagation(); setSearchModalOpen(true); }}
+                aria-controls="search-modal"
+              >
               <span className="sr-only">Busca</span>
               <lord-icon
                 src="https://cdn.lordicon.com/osbjlbsb.json"

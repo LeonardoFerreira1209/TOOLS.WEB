@@ -51,7 +51,7 @@ const startConnection = (conn) => {
 useEffect(() => {
   const newConnection = new HubConnectionBuilder()
     .withUrl(`${process.env.BASE_URL}notifications?userId=${user.tokenObj.id}`)
-    .withAutomaticReconnect()
+    .withAutomaticReconnect([0, 10, 30, 50, 70, 100])
     .build();
 
   setConnection(newConnection);

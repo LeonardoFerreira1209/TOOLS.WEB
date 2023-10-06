@@ -5,16 +5,13 @@ import {
   useLocation
 } from 'react-router-dom';
 
+
 import 'aos/dist/aos.css';
-
 import AOS from 'aos';
-
-// Css
 import './assets/css/style.scss';
-
 import './charts/ChartjsConfig';
+import './assets/translate/i18n';
 
-// Import pages
 import Dashboard from './pages/Dashboard';
 import Analytics from './pages/Analytics';
 import Fintech from './pages/Fintech';
@@ -91,11 +88,9 @@ import Business from './pages/settings/Business';
 import Header from './partials/Header';
 import Sidebar from './partials/Sidebar';
 
-// Lord icons.
 import { loadAnimation } from "lottie-web";
 import { defineLordIconElement } from "lord-icon-element";
 
-// register lottie and define custom element
 defineLordIconElement(loadAnimation);
 
 function App() {
@@ -117,12 +112,11 @@ function App() {
 
     document.querySelector('html').style.scrollBehavior = ''
 
-  }, [location.pathname]); // triggered on route change
+  }, [location.pathname]);
 
   const dontShowGlobalComponents = () => {
     const user = JSON.parse(localStorage.getItem("user") ?? null);
 
-    // verifica se a rota atual é uma das que devem mostrar o menu lateral
     return user === null 
     || location.pathname === '/' 
     || location.pathname === '/signin' 

@@ -4,6 +4,7 @@ import { useUserProvider } from '../../components/store/context/UserContext';
 import ReactTooltip from 'react-tooltip';
 import InputMask from 'react-input-mask';
 import { Link } from 'react-router-dom';
+import defaultUserLogo from '../../assets/images/channel-01.png';
 import { getProfileUser, update, changeUserImage } from '../../shared/services/userService';
 
 function AccountPanel({ props }) {
@@ -14,7 +15,7 @@ function AccountPanel({ props }) {
   const { user } = useUserProvider();
 
   useEffect(() => {
-    getProfileUser(props.id, user.tokenJwt, setValues, setAvatarImage, setLoading);
+    getProfileUser(props.id, user.tokenJwt, setValues, setAvatarImage, defaultUserLogo, setLoading);
   }, [])
 
   function onChange(event) {

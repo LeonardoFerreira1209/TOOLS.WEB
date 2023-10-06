@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState  } from 'react';
 
 function MessagesFooter({
   sendMessage
@@ -12,6 +12,10 @@ function MessagesFooter({
     }
   };
 
+  const onChange = (event) => {
+    setMessage(event.target.value)
+  }
+
   return (
     <div className="sticky bottom-0">
       <div className="flex items-center justify-between bg-white border-t border-slate-200 px-4 sm:px-6 md:px-5 h-16">
@@ -24,13 +28,11 @@ function MessagesFooter({
         </button>
         {/* Message input */}
         <div onKeyDown={handleKeyDown} className="grow flex">
-          <div className="grow mr-3">
-            <label htmlFor="message-input" className="sr-only">Escreva uma mensagem</label>
-            <input value={message || ""} onChange={(event) => setMessage(event.target.value)} id="message-input" className="form-input w-full bg-slate-100 border-transparent focus:bg-white focus:border-slate-300" type="text" placeholder="Aa" />
-          </div>
-          <button ref={buttonRef} onClick={() => message.length > 0 && sendMessage(message).then(() => {
-            setMessage(null);
-          })} className="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap">Enviar -&gt;</button>
+        <div className="grow mr-3">
+        <label htmlFor="message-input" className="sr-only">Escreva uma mensagem</label>
+        <input value={message || ""} onChange={onChange} id="message-input" className="form-input w-full bg-slate-100 border-transparent focus:bg-white focus:border-slate-300" type="text" placeholder="Aa" />
+        </div>
+        <button ref={buttonRef} onClick={() => message.length > 0 && (sendMessage(message), setMessage(null))} className="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap">Enviar -&gt;</button>
         </div>
       </div>
     </div>

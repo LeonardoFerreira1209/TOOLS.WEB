@@ -151,7 +151,7 @@ export function getUsers(tokenJwt, setUsers, value){
     });
 }
 
-export function getProfileUser(userId, tokenJwt, setValues, setAvatarImage, setLoading){
+export function getProfileUser(userId, tokenJwt, setValues, setAvatarImage, defaultUserLogo, setLoading){
   fetch(`${process.env.BASE_URL}api/usermanager/get/user/userid/${userId}`, 
   {
     headers: {
@@ -183,8 +183,7 @@ export function getProfileUser(userId, tokenJwt, setValues, setAvatarImage, setL
             cpf: results.Dados.cpf,
             status: results.Dados.status
           })}, 1000);
-  
-        setAvatarImage(results.Dados.file?.url);
+        setAvatarImage(results.Dados?.file?.url ?? defaultUserLogo);
       }
       else {
         setLoading(false);
@@ -212,8 +211,8 @@ export function getProfileUser(userId, tokenJwt, setValues, setAvatarImage, setL
   });
 }
 
-export function getChats(tokenJwt, setChats, value){
-  fetch(`${process.env.BASE_URL}api/chatmanager/get/chats/by/user/${value}`, 
+export function getChats(tokenJwt, setChats, value, ordered = false){
+  fetch(`${process.env.BASE_URL}api/chatmanager/get/chats/by/user/${value}/ordered/${ordered}`, 
   {
     headers: {
       'Authorization': `Bearer ${tokenJwt}`
@@ -231,7 +230,6 @@ export function getChats(tokenJwt, setChats, value){
         setChats(results.Dados);
       }
       else{
-        setLoading(false);
           results.Notificacoes.forEach((error) => {
             toast.error(error.Mensagem, {
               theme: 'light',
