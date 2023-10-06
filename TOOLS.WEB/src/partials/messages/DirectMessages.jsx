@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getChats } from '../../shared/services/userService';
-
-import UserImage01 from '../../assets/images/user-32-01.jpg';
+import defaultUserLogo from '../../assets/images/channel-01.png';
+import { HubConnectionBuilder } from '@microsoft/signalr';
 
 function DirectMessages({
   setMsgSidebarOpen,
@@ -11,14 +11,57 @@ function DirectMessages({
   setChatSelected
 }) {
   const [chats, setChats] = useState([]);
+  const [connection, setConnection] = useState(null);
 
   useEffect(() => {
-    getChats(user.tokenJwt, setChats, user.tokenObj.id);
+    getChats(user.tokenJwt, setChats, user.tokenObj.id, true);
+
     return () => {
       
     };
   }, [usersChatSelected]); 
  
+  const startConnection = (conn) => {
+    return new Promise((resolve, reject) => {
+      conn.start()
+        .then(() => {
+            console.log('Conectado com SignalR Chats!');
+            resolve();
+        })
+        .catch(error => {
+            console.error('Falha ao conectar com SignalR:', error);
+            setTimeout(() => startConnection(conn), reconnectDelay);
+            reject(error);
+        });
+    });
+  };
+    
+  useEffect(() => {
+    const hubConnectionDirectChatsId = `direct-${user.tokenObj.id}`;
+    const newConnection = new HubConnectionBuilder()
+      .withUrl(`${process.env.BASE_URL}chats?userId=${hubConnectionDirectChatsId}`)
+      .withAutomaticReconnect([0, 10, 30, 50, 70, 100])
+      .build();
+  
+    setConnection(newConnection);
+  }, []);
+  
+  useEffect(() => {
+    if (connection) {
+      startConnection(connection);
+      connection.on("ReceiveChats", response => {
+        setChats((prev) => [...prev, response]);
+      });
+    }
+  
+    return () => {
+      if (connection) {
+        connection.stop();
+      }
+    };
+  
+  }, [connection]);
+
   function click(event){
     setMsgSidebarOpen(false);
     setusersChatSelected(event.currentTarget.id)
@@ -36,7 +79,7 @@ function DirectMessages({
               <li key={index} id={chat.id} className="-mx-2">
               <button onClick={click}  id={userToSendMessage.id} className={`flex items-center justify-between w-full p-2 my-1 rounded ${usersChatSelected === userToSendMessage.id ? "bg-indigo-100" : "hover:bg-indigo-50"}`}>
                 <div className="flex items-center truncate">
-                  <img className="w-8 h-8 rounded-full mr-2" src={UserImage01} width="32" height="32" alt="User 01" />
+                  <img className="w-8 h-8 rounded-full mr-2" src={userToSendMessage?.file?.url ?? defaultUserLogo} width="32" height="32" alt="User 01" />
                   <div className="truncate">
                     <span className="text-sm font-medium text-slate-800">{userToSendMessage.firstName} {userToSendMessage.lastName}</span>
                   </div>

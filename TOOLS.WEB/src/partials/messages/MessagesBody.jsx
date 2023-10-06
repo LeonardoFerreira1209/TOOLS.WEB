@@ -1,21 +1,55 @@
 import React from 'react';
-import User01 from '../../assets/images/user-40-11.jpg';
+import gptLogo from '../../assets/images/ChatGPT-Logo-PNG-1.png';
+import defaultUserLogo from '../../assets/images/channel-01.png';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 function MessagesBody({
-  message,
+  chatMessage,
   myUser,
+  isChatBot
 }) {
+
+  const extractCodeAndLanguage = (message) => {
+    const pattern = /```([\w]+)\n([\s\S]*?)```/;
+    const match = message.match(pattern);
+    
+    return match ? { language: match[1], code: match[2] } : null;
+  };
+  
+  const getUserLogo = (isChatBot, chatMessage, defaultUserLogo) => {
+    return isChatBot ? gptLogo : chatMessage?.userToSendMessage?.file?.url ?? defaultUserLogo;
+  };
+  
+  const formatDateTime = (createdDateTime) => {
+    return new Date(createdDateTime).toLocaleTimeString();
+  };
+  
+  const userLogo = getUserLogo(isChatBot, chatMessage, defaultUserLogo);
+  const localDateTimeString = formatDateTime(chatMessage.created);
+  const { message } = chatMessage;
+  const codeDetails = extractCodeAndLanguage(message);
+  const hasCode = !!codeDetails;
+
   return (
       <>
         {
           <div className="grow px-4 sm:px-6 md:px-5 py-6">
             <div className={`flex items-start mb-4 last:mb-0 ${myUser && 'justify-end'}`}>
               {
-                !myUser && <img className="rounded-full mr-4" src={User01} width="40" height="40" alt="User 01" />
+                !myUser && <img className="rounded-full mr-4" src={userLogo} style={{ width:"40px", height:"40px" }} alt="User 01" />
               }
               <div>
-                <div className={`text-sm ${myUser ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1`}>
-                  {message.message}
+                <div className={`text-sm ${myUser ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} whitespace-pre-wrap p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1`}>
+                  {
+                    !hasCode ? (
+                      message 
+                    ) : (
+                      <SyntaxHighlighter wrapLongLines={true} wrapLines={true} language={codeDetails?.language} style={docco}>
+                        {message}
+                      </SyntaxHighlighter>
+                    )
+                  }
                 </div>
                 <div className="flex items-center justify-between">
                   {
@@ -24,11 +58,11 @@ function MessagesBody({
                       <path d="M10.28 1.28L3.989 7.575 1.695 5.28A1 1 0 00.28 6.695l3 3a1 1 0 001.414 0l7-7A1 1 0 0010.28 1.28z" />
                     </svg>)
                   }
-                  <div className="text-xs text-slate-500 font-medium">{new Date(message.created).toLocaleTimeString()}</div>
+                  <div className="text-xs text-slate-500 font-medium">{localDateTimeString}</div>
                 </div>
               </div>
               {
-                myUser && <img className="rounded-full ml-4" src={User01} width="40" height="40" alt="User 01" />
+                myUser && <img className="rounded-full ml-4" src={userLogo} style={{ width:"40px", height:"40px" }} alt="User 01" />
               }
             </div>
           </div>

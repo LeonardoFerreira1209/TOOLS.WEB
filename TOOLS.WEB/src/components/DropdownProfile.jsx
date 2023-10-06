@@ -7,25 +7,20 @@ function DropdownProfile({
   align
 }) {
 
-  // -- CONSTS
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef(null);
   const dropdown = useRef(null);
   const { user, setRemoveUser } = useUserProvider();
 
   const navigate = useNavigate();
-  // -- CONSTS
   
-  // -- SIGNOUT
   function SigninOut(event) {
     event.preventDefault();
     setRemoveUser();
     navigate("/signin");
   }
-  // -- SIGNOUT
 
-  // -- DROPDOWN
-  useEffect(() => { // close on click outside
+  useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
       if (!dropdownOpen || dropdown.current.contains(target) || trigger.current.contains(target)) return;
@@ -35,7 +30,7 @@ function DropdownProfile({
     return () => document.removeEventListener('click', clickHandler);
   });
 
-  useEffect(() => { // close if the esc key is pressed
+  useEffect(() => {
     const keyHandler = ({ keyCode }) => {
       if (!dropdownOpen || keyCode !== 27) return;
       setDropdownOpen(false);
@@ -43,7 +38,6 @@ function DropdownProfile({
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
-  // -- DROPDOWN
 
   return (
       <div className="relative inline-flex">
@@ -84,7 +78,7 @@ function DropdownProfile({
           >
             <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-slate-200 dark:border-slate-700">
               <div className="font-medium text-slate-800 dark:text-slate-100">{user.tokenObj.unique_name}</div>
-              <div className="text-xs text-slate-500 dark:text-slate-400 italic">Administrator</div>
+              <div className="text-xs text-slate-500 dark:text-slate-400 italic">{user.tokenObj.role}</div>
             </div>
             <ul>
               <li>
