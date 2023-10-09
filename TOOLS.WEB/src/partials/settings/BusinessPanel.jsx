@@ -40,7 +40,7 @@ function BusinessPanel({ props }) {
   })
     .then(response => response.json()).then((userResult) => {
         setValues({
-          id: userResult.dados.id,
+          id: userResult.dados.id, 
           userId: userResult.dados.userId,
           firstName: userResult.dados.firstName !== null && userResult.dados.firstName,
           lastName: userResult.dados.lastName !== null && userResult.dados.lastName,
