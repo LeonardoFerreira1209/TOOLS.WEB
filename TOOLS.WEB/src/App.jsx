@@ -88,10 +88,10 @@ import Business from './pages/settings/Business';
 import Header from './partials/Header';
 import Sidebar from './partials/Sidebar';
 
-import { loadAnimation } from "lottie-web";
-import { defineLordIconElement } from "lord-icon-element";
+import lottie from 'lottie-web';
+import { defineElement } from 'lord-icon-element';
 
-defineLordIconElement(loadAnimation);
+defineElement(lottie.loadAnimation);
 
 function App() {
   const location = useLocation();

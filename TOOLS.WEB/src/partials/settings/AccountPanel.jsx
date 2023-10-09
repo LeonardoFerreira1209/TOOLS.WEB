@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import { useUserProvider } from '../../components/store/context/UserContext';
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 import InputMask from 'react-input-mask';
 import { Link } from 'react-router-dom';
 import defaultUserLogo from '../../assets/images/channel-01.png';
@@ -92,9 +92,9 @@ function AccountPanel({ props }) {
                   <div className="relative">
                     <div className="flex items-center">
                       <ul>
-                        <img data-tip="Clique no <b>(+)</b> para adicionar uma nova imagem!" className="border-4 border-white-500 w-20 h-20 rounded-full" src={avatarImage} alt="User upload" />
-                        <label htmlFor="image" style={{ bottom: "2vh", left: "3vh", position: "relative", cursor: "pointer" }} className="flex justify-center items-center w-7 h-7 rounded-full bg-white border border-slate-200 hover:border-slate-300 color-primary shadow-sm transition duration-150 ml-2">
-                          <ReactTooltip html place='right' border type="light" effect='solid' />
+                        <img className="border-4 border-white-500 w-20 h-20 rounded-full" src={avatarImage} alt="User upload" />
+                        <label htmlFor="image" style={{ bottom: "25px", left: "40px", position: "relative", cursor: "pointer" }} className="flex justify-center items-center w-7 h-7 rounded-full bg-white border border-slate-200 hover:border-slate-300 color-primary shadow-sm transition duration-150 ml-2">
+                          <Tooltip />
                           <input accept='image/*' onChange={changeImage} name="image" type="file" id="image" hidden />
                           <svg className="w-4 h-4 fill-current" viewBox="0 0 16 16">
                             <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />

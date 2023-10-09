@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // -- TOOTIP --
-import ReactTooltip from 'react-tooltip';
+import { Tooltip } from 'react-tooltip';
 
 // -- IMAGES --
 import businessImage from '../../assets/images/—Pngtree—technology 2 5d gradient computer_4118115.jpg';
@@ -156,7 +156,7 @@ function BusinessPanel({ props }) {
             <ul>
             <img data-tip="Clique para adicionar uma nova imagem!" className="w-15 h-20 rounded-full" src={businessImage} width="80" height="80" alt="User upload" />
             <label htmlFor="image" style={{ bottom: "2vh", left: "5vh", position: "relative", cursor: "pointer" }} className="flex justify-center items-center w-7 h-7 rounded-full bg-white border border-slate-200 hover:border-slate-300 color-primary shadow-sm transition duration-150 ml-2">
-              <ReactTooltip place='right' border type="light" effect='solid' />
+              <Tooltip place='right' border type="light" effect='solid' />
               <input accept='image/*' onChange={""} name="image" type="file" id="image" hidden />
               <svg className="w-4 h-4 fill-current" viewBox="0 0 16 16">
                 <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
