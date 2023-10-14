@@ -1,39 +1,86 @@
-import React, { useRef, useState  } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import Transition from '../../shared/utils/Transition';
+import  ghtpSvgIcon  from '../../assets/images/cdnlogo.com_chatgpt.svg'
 
-function MessagesFooter({
-  sendMessage
-}) {
+function MessagesFooter({ sendMessage }) {
   const [message, setMessage] = useState("");
-  const buttonRef = useRef(null);
+  const [showOptions, setShowOptions] = useState(false);
+  const textareaRef = useRef(null);
+  const trigger = useRef(null);
+  const dropdown = useRef(null);
+
+  debugger
+  useEffect(() => {
+    textareaRef.current.style.height = "auto";
+    textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+  }, [message]);
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      buttonRef.current.click();
+    if (event.key === 'Enter' && !event.shiftKey) {
+      event.preventDefault();
+      sendMessage(message);
+      setMessage('');
     }
   };
 
   const onChange = (event) => {
-    setMessage(event.target.value)
-  }
+    setMessage(event.target.value);
+  };
 
   return (
-    <div className="sticky bottom-0">
-      <div className="flex items-center justify-between bg-white border-t border-slate-200 px-4 sm:px-6 md:px-5 h-16">
+    <div className="sticky bottom-0 p-4 bg-white border-t border-gray-200">
+      <div className="flex items-end">
         {/* Plus button */}
-        <button className="shrink-0 text-slate-400 hover:text-slate-500 mr-3">
-          <span className="sr-only">Adicionar</span>
-          <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12C23.98 5.38 18.62.02 12 0zm6 13h-5v5h-2v-5H6v-2h5V6h2v5h5v2z" />
-          </svg>
+        <div className="flex flex-grow items-center ml-8 mr-5">
+          <div className='relative inline-flex'>
+            <button  ref={trigger} onClick={() => setShowOptions((prev) => !prev)} className="mr-4 text-gray-400 hover:text-gray-500 mr-3">
+              <span className="sr-only">Adicionar</span>
+              <svg className="w- h-6 fill-current" viewBox="0 0 24 24">
+                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12C23.98 5.38 18.62.02 12 0zm6 13h-5v5h-2v-5H6v-2h5V6h2v5h5v2z" />
+              </svg>
+            </button>
+            {/* Options block */}
+            <Transition
+              className={`origin-bottom z-10 absolute bottom-full -mr-48 sm:mr-0 min-w-80 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1`}
+              show={showOptions}
+              enterStart="opacity-0 -translate-x-1"
+              enterEnd="opacity-100 translate-y-0"
+              leave="transition ease-out duration-200"
+              leaveStart="opacity-100"
+              leaveEnd="opacity-0"
+            >
+              <div style={{overflow: "auto"}} className="max-h-80"
+                  ref={dropdown}
+                  onFocus={() => setShowOptions(true)}
+                  onBlur={() => setShowOptions(false)}
+                >
+                <div className="grid grid-rows-3 grid-flow-col gap-4">
+                  <div className="p-3 row-span-3">
+                    <img className='transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 rounded-full shadow-current shadow-sm w-100 outline hover:outline-emerald-400 outline-offset-1 ' src={ghtpSvgIcon} />
+                  </div>
+                  <div className="col-span-2 min-w-100 bg-stone-600">02</div>
+                  <div className="row-span-2 col-span-2 min-w-100 bg-red-600">03</div>
+                </div>
+              </div>
+            </Transition>
+          </div>
+          {/* Message input */}
+          <textarea
+            ref={textareaRef}
+            value={message}
+            onChange={onChange}
+            onKeyDown={handleKeyDown}
+            className="flex-grow p-2 border rounded-md focus:outline-none focus:border-indigo-300 resize-none overflow-hidden"
+            placeholder="Aa"
+          />
+        </div>
+        {/* Send button */}
+        <button
+          onClick={() => message.length > 0 && (sendMessage(message), setMessage(''))}
+          className="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap px-4 py-2 rounded-md"
+        >
+          Enviar -&gt;
         </button>
-        {/* Message input */}
-        <div onKeyDown={handleKeyDown} className="grow flex">
-        <div className="grow mr-3">
-        <label htmlFor="message-input" className="sr-only">Escreva uma mensagem</label>
-        <input value={message || ""} onChange={onChange} id="message-input" className="form-input w-full bg-slate-100 border-transparent focus:bg-white focus:border-slate-300" type="text" placeholder="Aa" />
-        </div>
-        <button ref={buttonRef} onClick={() => message.length > 0 && (sendMessage(message), setMessage(null))} className="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap">Enviar -&gt;</button>
-        </div>
       </div>
     </div>
   );

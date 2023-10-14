@@ -25,6 +25,7 @@
     "react-color": "^2.19.3",
     "react-dom": "^18.2.0",
     "react-flatpickr": "^3.10.13",
+    "react-hook-form": "^7.47.0",
     "react-i18next": "^13.2.2",
     "react-input-mask": "^2.0.4",
     "react-placeholder-loading": "^0.5.30",
