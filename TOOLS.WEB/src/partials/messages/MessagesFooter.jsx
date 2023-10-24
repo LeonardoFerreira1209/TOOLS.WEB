@@ -5,11 +5,20 @@ import  ghtpSvgIcon  from '../../assets/images/cdnlogo.com_chatgpt.svg'
 function MessagesFooter({ sendMessage }) {
   const [message, setMessage] = useState("");
   const [showOptions, setShowOptions] = useState(false);
+  const [showCommandOptions, setShowCommandOptions] = useState(false);
+  const [commands, setCommands] = useState(null);
+
   const textareaRef = useRef(null);
   const trigger = useRef(null);
   const dropdown = useRef(null);
+  const dropdownCommands = useRef(null);
 
-  debugger
+  const coomandsOptions = [
+    { 
+      command: '>GPT', 
+      title: 'Envia uma pergunta para o CHATGPT e retorna uma resposta!'},
+  ];
+
   useEffect(() => {
     textareaRef.current.style.height = "auto";
     textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
@@ -24,7 +33,16 @@ function MessagesFooter({ sendMessage }) {
   };
 
   const onChange = (event) => {
-    setMessage(event.target.value);
+    let value = event.target.value;
+    const regex = /^>[^\s]+$/;
+
+    if(regex.test(value)){
+      value = value.toUpperCase();
+      setCommands(coomandsOptions.filter(command => command.command.startsWith(value)));
+      setShowCommandOptions(true);
+    } else setShowCommandOptions(false);
+    
+    setMessage(value);
   };
 
   return (
@@ -51,8 +69,6 @@ function MessagesFooter({ sendMessage }) {
             >
               <div style={{overflow: "auto"}} className="max-h-80"
                   ref={dropdown}
-                  onFocus={() => setShowOptions(true)}
-                  onBlur={() => setShowOptions(false)}
                 >
                 <div className="grid grid-rows-3 grid-flow-col gap-4">
                   <div className="p-3 row-span-3">
@@ -73,6 +89,36 @@ function MessagesFooter({ sendMessage }) {
             className="flex-grow p-2 border rounded-md focus:outline-none focus:border-indigo-300 resize-none overflow-hidden"
             placeholder="Aa"
           />
+          {/* Commands Options block */}
+          <Transition
+            className={`origin-bottom absolute bottom-full w-full bg-white dark:bg-slate-800 border border-b-0 border-slate-200 dark:border-slate-700 py-1.5 rounded overflow-hidden mt-1`}
+            show={showCommandOptions}
+            enterStart="opacity-0 -translate-x-1"
+            enterEnd="opacity-100 translate-y-0"
+            leave="transition ease-out duration-200"
+            leaveStart="opacity-100"
+            leaveEnd="opacity-0"
+          >
+            <div style={{overflow: "auto"}} className="max-h-50"
+                ref={dropdownCommands}
+                onFocus={() => setShowCommandOptions(true)}
+                onBlur={() => setShowCommandOptions(false)}
+              >
+              <div className="grid grid-flow-row gap-2 justify-between">
+                {commands &&
+                  commands.map((object, index) => {
+                    return (
+                      <div className='row' key={index}>
+                        <button onClick={() => { setMessage(object.command), setShowCommandOptions(false) }} type='button' className='btn col-span-6 hover:text-indigo-500'>
+                          {object.command}
+                        </button>
+                        <span>{object.title}</span>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
+          </Transition>
         </div>
         {/* Send button */}
         <button
