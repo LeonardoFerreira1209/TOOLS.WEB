@@ -16,7 +16,8 @@ function MessagesFooter({ sendMessage }) {
   const coomandsOptions = [
     { 
       command: '>GPT', 
-      title: 'Envia uma pergunta para o CHATGPT e retorna uma resposta!'},
+      title: 'Envia uma pergunta para o CHATGPT e retorna uma resposta!'
+    }
   ];
 
   useEffect(() => {
@@ -41,7 +42,7 @@ function MessagesFooter({ sendMessage }) {
       setCommands(coomandsOptions.filter(command => command.command.startsWith(value)));
       setShowCommandOptions(true);
     } else setShowCommandOptions(false);
-    
+
     setMessage(value);
   };
 
@@ -51,7 +52,7 @@ function MessagesFooter({ sendMessage }) {
         {/* Plus button */}
         <div className="flex flex-grow items-center ml-8 mr-5">
           <div className='relative inline-flex'>
-            <button  ref={trigger} onClick={() => setShowOptions((prev) => !prev)} className="mr-4 text-gray-400 hover:text-gray-500 mr-3">
+            <button  ref={trigger} onClick={() => setShowOptions((prev) => !prev)} className="mr-4 text-gray-400 hover:text-gray-500">
               <span className="sr-only">Adicionar</span>
               <svg className="w- h-6 fill-current" viewBox="0 0 24 24">
                 <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12C23.98 5.38 18.62.02 12 0zm6 13h-5v5h-2v-5H6v-2h5V6h2v5h5v2z" />

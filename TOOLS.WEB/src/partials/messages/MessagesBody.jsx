@@ -37,7 +37,7 @@ function MessagesBody({
           <div className="grow px-4 sm:px-6 md:px-5 py-6">
             <div className={`flex items-start mb-4 last:mb-0 ${myUser && 'justify-end'}`}>
               {
-                !myUser && <img className="rounded-full mr-4" src={userLogo} style={{ width:"40px", height:"40px" }} alt="User 01" />
+                !myUser && <img className="rounded-full mr-4" src={userLogo} style={{ width:"40px", height:"40px" }} alt="user picture" />
               }
               <div>
                 <div className={`text-sm ${myUser ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} whitespace-pre-wrap p-3 rounded-lg rounded-tl-none border border-slate-200 shadow-md mb-1`}>
