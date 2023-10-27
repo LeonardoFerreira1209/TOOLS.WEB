@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Transition from '../../shared/utils/Transition';
-import  ghtpSvgIcon  from '../../assets/images/cdnlogo.com_chatgpt.svg'
 
 function MessagesFooter({ sendMessage }) {
   const [message, setMessage] = useState("");
@@ -18,6 +17,40 @@ function MessagesFooter({ sendMessage }) {
       command: '>GPT', 
       title: 'Envia uma pergunta para o CHATGPT e retorna uma resposta!'
     }
+  ];
+
+  const emojis = [
+    '😀', '😃', '😄', '😁',
+    '😆', '😅', '😂', '🤣',
+    '🥲', '🥹', '☺️', '😊',
+    '😇', '🙂', '🙃', '😉',
+    '😌', '😍', '🥰', '😘',
+    '😗', '😙', '😚', '😋',
+    '😛', '😝', '😜', '🤪',
+    '🤨', '🧐', '🤓', '😎',
+    '🥸', '🤩', '🥳', '😏',
+    '😒', '😞', '😔', '😟',
+    '😕', '🙁', '☹️', '😣',
+    '😖', '😫', '😩', '🥺',
+    '😢', '😭', '😮‍💨', '😤',
+    '😠', '😡', '🤬', '🤯',
+    '😳', '🥵', '🥶', '😱',
+    '😨', '😰', '😥', '😓',
+    '🫣', '🤗', '🫡', '🤔',
+    '🫢', '🤭', '🤫', '🤥',
+    '😶', '😶‍🌫️', '😐', '😑',
+    '😬', '🫨', '🫠', '🙄',
+    '😯', '😦', '😧', '😮',
+    '😲', '🥱', '😴', '🤤',
+    '😪', '😵', '😵‍💫', '🫥',
+    '🤐', '🥴', '🤢', '🤮',
+    '🤧', '😷', '🤒', '🤕',
+    '🤑', '🤠', '😈', '👿',
+    '👹', '👺', '🤡', '💩',
+    '👻', '💀', '☠️', '👽',
+    '👾', '🤖', '🎃', '😺',
+    '😸', '😹', '😻', '😼',
+    '😽', '🙀', '😿', '😾',
   ];
 
   useEffect(() => {
@@ -71,12 +104,12 @@ function MessagesFooter({ sendMessage }) {
               <div style={{overflow: "auto"}} className="max-h-80"
                   ref={dropdown}
                 >
-                <div className="grid grid-rows-3 grid-flow-col gap-4">
-                  <div className="p-3 row-span-3">
-                    <img className='transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 rounded-full shadow-current shadow-sm w-100 outline hover:outline-emerald-400 outline-offset-1 ' src={ghtpSvgIcon} />
-                  </div>
-                  <div className="col-span-2 min-w-100 bg-stone-600">02</div>
-                  <div className="row-span-2 col-span-2 min-w-100 bg-red-600">03</div>
+                <div className="text-center grid grid-flow-row-dense grid-cols-8 grid-rows-3 gap-2">
+                 {
+                    emojis && emojis.map((emoji, index) => {
+                      return (<button type='button' onClick={() => { setMessage((prev) => prev.concat(emoji)), setShowOptions((prev) => !prev) }} key={index} className='hover:bg-slate-200 p-1'>{emoji}</button>);
+                    })
+                 }
                 </div>
               </div>
             </Transition>
