@@ -38,7 +38,7 @@ function ConfirmEmaill() {
     setLoading(true);
     event.preventDefault();
     let code = Object.values(values).join("");
-    confirmEmail(navigate, setError, setLoading, params.state.userId, code);
+    confirmEmail(navigate, setError, setLoading, params.state.userid, code);
   }
 
   return (

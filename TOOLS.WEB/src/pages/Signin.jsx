@@ -1,11 +1,10 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useUserProvider } from '../components/store/context/UserContext';
 import { authetication, isInvalidAuthentication }  from '../shared/services/userService';
 import AuthImage from '../assets/images/—Pngtree—2 5d learn know how_4117072.webp';
 import AuthDecoration from '../assets/images/auth-decoration.png';
 import { ToastContainer, toast } from 'react-toastify';
-
 import 'aos/dist/aos.css';
 
 function Signin() {
@@ -13,7 +12,6 @@ function Signin() {
   const { state } = useLocation();
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-
   const { setUser } = useUserProvider();
   const [values, setValues] = useState(initialState);
 
@@ -94,7 +92,7 @@ function Signin() {
             <div className="max-w-sm mx-auto px-4 py-8">
               <h1 data-aos="fade-down" className="text-3xl bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-sky-500 font-bold mb-6">Olá novamente! <b className='text-indigo-100'>✨</b></h1>
               {/* Form */}
-              <form netlify="true">
+              <form>
                 <div className="space-y-4">
                   <div data-aos="fade-left">
                     <label className="block text-sm font-medium mb-1" htmlFor="user">Usuário<span className="text-rose-500">*</span></label>

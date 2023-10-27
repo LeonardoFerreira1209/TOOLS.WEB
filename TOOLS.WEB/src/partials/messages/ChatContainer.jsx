@@ -102,8 +102,8 @@ function ChatContainer({
     const day = Math.floor(diff / oneDay);
     return day;
   }
-  let lastMessageCreatedDate = new Date(0);
   
+  let lastMessageCreatedDate = new Date(0);
   return (
     <>
         <div className="grow px-4 sm:px-6 md:px-5 py-6">

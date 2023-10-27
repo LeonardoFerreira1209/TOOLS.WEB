@@ -1,12 +1,18 @@
-import React from 'react';
-
-import User01 from '../../assets/images/user-32-01.jpg';
-import User02 from '../../assets/images/user-32-07.jpg';
+import React, { useEffect, useState } from 'react';
+import { getChat } from '../../shared/services/userService';
 
 function MessagesHeader({
+  user,
+  chatSelected,
   msgSidebarOpen,
-  setMsgSidebarOpen,
+  setMsgSidebarOpen
 }) {
+  const [chat, setChat] = useState(null);
+
+  useEffect(() => {
+    getChat(user.tokenObj.id, setChat, chatSelected);
+  }, []);
+
   return (
     <div className="sticky top-16">
       <div className="flex items-center justify-between bg-white border-b border-slate-200 px-4 sm:px-6 md:px-5 h-16">
@@ -27,10 +33,10 @@ function MessagesHeader({
           {/* People list */}
           <div className="flex -space-x-3 -ml-px">
             <a className="block" href="#0">
-              <img className="rounded-full border-2 border-white box-content" src={User01} width="32" height="32" alt="User 01" />
+              <img style={{ width:"32px", height:"32px" }} className="rounded-full border-2 border-white box-content" src={chat?.firstUser?.file?.url} alt="User 01" />
             </a>
             <a className="block" href="#0">
-              <img className="rounded-full border-2 border-white box-content" src={User02} width="32" height="32" alt="User 04" />
+              <img  style={{ width:"32px", height:"32px" }} className="rounded-full border-2 border-white box-content" src={chat?.secondUser?.file?.url} alt="User 02" />
             </a>
           </div>
         </div>

@@ -28,8 +28,13 @@ function Messages() {
         <div className={`grow flex flex-col md:translate-x-0 transform transition-transform duration-300 ease-in-out ${msgSidebarOpen ? 'translate-x-1/3' : 'translate-x-0'}`}>
           {/* IziToast */}
           <ToastContainer position="top-right"></ToastContainer>
-          <MessagesHeader msgSidebarOpen={msgSidebarOpen} setMsgSidebarOpen={setMsgSidebarOpen} />
-          { chatSelected && <ChatContainer usersChatSelected={usersChatSelected} user={user} chatSelected={chatSelected} /> }
+          { chatSelected && (
+              <>
+                <MessagesHeader user={user} chatSelected={chatSelected} msgSidebarOpen={msgSidebarOpen} setMsgSidebarOpen={setMsgSidebarOpen} />
+                <ChatContainer usersChatSelected={usersChatSelected} user={user} chatSelected={chatSelected} />
+              </>
+            ) 
+          }
         </div>
       </div>
       <div ref={contentArea}></div>
