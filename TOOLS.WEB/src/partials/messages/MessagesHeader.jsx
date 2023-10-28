@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getChat } from '../../shared/services/userService';
+import firstUserProfile from '../../assets/images/channel-02.png';
+import secondUserProfile from '../../assets/images/channel-01.png';
 
 function MessagesHeader({
   user,
@@ -11,7 +13,7 @@ function MessagesHeader({
 
   useEffect(() => {
     getChat(user.tokenObj.id, setChat, chatSelected);
-  }, []);
+  }, [chatSelected]);
 
   return (
     <div className="sticky top-16">
@@ -33,10 +35,10 @@ function MessagesHeader({
           {/* People list */}
           <div className="flex -space-x-3 -ml-px">
             <a className="block" href="#0">
-              <img style={{ width:"32px", height:"32px" }} className="rounded-full border-2 border-white box-content" src={chat?.firstUser?.file?.url} alt="User 01" />
+              <img style={{ width:"32px", height:"32px" }} className="rounded-full border-2 border-white box-content" src={chat?.firstUser?.file ? chat?.firstUser?.file?.url : firstUserProfile} alt="User 01" />
             </a>
             <a className="block" href="#0">
-              <img  style={{ width:"32px", height:"32px" }} className="rounded-full border-2 border-white box-content" src={chat?.secondUser?.file?.url} alt="User 02" />
+              <img  style={{ width:"32px", height:"32px" }} className="rounded-full border-2 border-white box-content" src={chat?.secondUser?.file ? chat?.secondUser?.file?.url : secondUserProfile} alt="User 02" />
             </a>
           </div>
         </div>
