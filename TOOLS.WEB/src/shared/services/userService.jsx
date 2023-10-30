@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { parseJwt } from '../utils/Utils';
 import { toast } from 'react-toastify';
 
@@ -108,50 +109,51 @@ export function authetication(navigate, state, setUser, setLoading, values) {
     });
 }
 
-export function getUsers(tokenJwt, setUsers, value){
-    fetch(`${process.env.BASE_URL}api/usermanager/get/users/by/name?name=${value}`, 
-    {
-      headers: {
-        'Authorization': `Bearer ${tokenJwt}`
-      },
-        crossDomain:true,
-        mode:'cors', 
-        cache: 'no-cache',
-        credentials:'same-origin',
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        method: 'GET',
-      })
-      .then(response => response.json()).then((results) => {
-        if(results.Sucesso){
-          setUsers(results.Dados);
-        }
-        else{
-          results.Notificacoes.forEach((error) => {
-            toast.error(error.Mensagem, {
-              theme: 'light',
-              autoClose: true
-            })
-          })
-        }
-      },
-      (error) => {
-        console.error(error);
-        toast.error("Ops, não conseguimos fazer a requisição!", {
-          theme: 'light',
-          autoClose: true
-        })
+export function getUsers(navigate, tokenJwt, setUsers, value){
+  fetch(`${process.env.BASE_URL}api/usermanager/get/users/by/name?name=${value}`, 
+  {
+    headers: {
+      'Authorization': `Bearer ${tokenJwt}`
+    },
+      crossDomain:true,
+      mode:'cors', 
+      cache: 'no-cache',
+      credentials:'same-origin',
+      redirect: 'follow',
+      referrerPolicy: 'no-referrer',
+      method: 'GET',
+    })
+    .then(response => response.json()).then((results) => {
+      if(results.Sucesso){
+        setUsers(results.Dados);
       }
-    ).catch(error => {
+      else{
+        results.Notificacoes.forEach((error) => {
+          toast.error(error.Mensagem, {
+            theme: 'light',
+            autoClose: true
+          })
+        });
+        if(results.StatusCode === 401) navigate("/signin");
+      }
+    },
+    (error) => {
       console.error(error);
-      toast.error("Ops, tivemos um erro inesperado!", {
+      toast.error("Ops, não conseguimos fazer a requisição!", {
         theme: 'light',
         autoClose: true
       })
-    });
+    }
+  ).catch(error => {
+    console.error(error);
+    toast.error("Ops, tivemos um erro inesperado!", {
+      theme: 'light',
+      autoClose: true
+    })
+  });
 }
 
-export function getProfileUser(userId, tokenJwt, setValues, setAvatarImage, defaultUserLogo, setLoading){
+export function getProfileUser(navigate, userId, tokenJwt, setValues, setAvatarImage, defaultUserLogo, setLoading){
   fetch(`${process.env.BASE_URL}api/usermanager/get/user/userid/${userId}`, 
   {
     headers: {
@@ -191,7 +193,8 @@ export function getProfileUser(userId, tokenJwt, setValues, setAvatarImage, defa
           toast.error(error.Mensagem, {
             theme: 'light',
             autoClose: true
-          })
+          });
+          if(results.StatusCode === 401) navigate("/signin");
         })
       }
     },
@@ -211,7 +214,7 @@ export function getProfileUser(userId, tokenJwt, setValues, setAvatarImage, defa
   });
 }
 
-export function getChats(tokenJwt, setChats, value, ordered = false){
+export function getChats(navigate, tokenJwt, setChats, value, ordered = false){
   fetch(`${process.env.BASE_URL}api/chatmanager/get/chats/by/user/${value}/ordered/${ordered}`, 
   {
     headers: {
@@ -230,12 +233,13 @@ export function getChats(tokenJwt, setChats, value, ordered = false){
         setChats(results.Dados);
       }
       else{
-          results.Notificacoes.forEach((error) => {
-            toast.error(error.Mensagem, {
-              theme: 'light',
-              autoClose: true
-            })
+        results.Notificacoes.forEach((error) => {
+          toast.error(error.Mensagem, {
+            theme: 'light',
+            autoClose: true
           })
+        });
+        if(results.StatusCode === 401) navigate("/signin");
       }
     },
     (error) => {
@@ -273,12 +277,14 @@ export function getChat(tokenJwt, setChat, value){
         setChat(results.Dados);
       }
       else{
-          results.Notificacoes.forEach((error) => {
-            toast.error(error.Mensagem, {
-              theme: 'light',
-              autoClose: true
-            })
+        debugger
+        results.Notificacoes.forEach((error) => {
+          toast.error(error.Mensagem, {
+            theme: 'light',
+            autoClose: true
           })
+        });
+        if(results.StatusCode === 401) navigate("/signin");
       }
     },
     (error) => {
@@ -339,7 +345,7 @@ export function changeUserImage(tokenJwt, setAvatarImage, userId, formData){
   )
 }
 
-export function getChatMessages(tokenJwt, setChatMessages, value){
+export function getChatMessages(navigate, tokenJwt, setChatMessages, value){
   fetch(`${process.env.BASE_URL}api/chatmanager/get/messages/by/chat/${value}`, 
   {
     headers: {
@@ -363,7 +369,8 @@ export function getChatMessages(tokenJwt, setChatMessages, value){
             theme: 'light',
             autoClose: true
           })
-        })
+        });
+        if(results.StatusCode === 401) navigate("/signin");
       }
     },
     (error) => {
@@ -382,7 +389,7 @@ export function getChatMessages(tokenJwt, setChatMessages, value){
   });
 }
 
-export function createChat(tokenJwt, setusersChatSelected, setChatSelected, values){
+export function createChat(navigate, tokenJwt, setusersChatSelected, setChatSelected, values){
   fetch(`${process.env.BASE_URL}api/chatmanager/create/chat`, 
   {
     headers: {
@@ -408,12 +415,13 @@ export function createChat(tokenJwt, setusersChatSelected, setChatSelected, valu
       }
       else{
         setLoading(false);
-          results.Notificacoes.forEach((error) => {
-            toast.error(error.Mensagem, {
-              theme: 'light',
-              autoClose: true
-            })
+        results.Notificacoes.forEach((error) => {
+          toast.error(error.Mensagem, {
+            theme: 'light',
+            autoClose: true
           })
+        });
+        if(results.StatusCode === 401) navigate("/signin");
       }
     },
     (error) => {
@@ -528,7 +536,7 @@ export function create(navigate, setLoading, values, params) {
   });
 }
 
-export function update(tokenJwt, values, setLoading) {
+export function update(navigate, tokenJwt, values, setLoading) {
   fetch(`${process.env.BASE_URL}api/usermanager/update/user`, {
     crossDomain:true,
     mode:'cors', 
@@ -567,6 +575,7 @@ export function update(tokenJwt, values, setLoading) {
           autoClose: true
         });
         setLoading(false);
+        if(results.StatusCode === 401) navigate("/signin");
       }
     },
     (error) => {

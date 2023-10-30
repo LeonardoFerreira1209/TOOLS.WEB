@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getChats } from '../../shared/services/userService';
 import defaultUserLogo from '../../assets/images/channel-01.png';
 import { HubConnectionBuilder } from '@microsoft/signalr';
+import { useNavigate } from 'react-router-dom';
 
 function DirectMessages({
   setMsgSidebarOpen,
@@ -12,9 +13,10 @@ function DirectMessages({
 }) {
   const [chats, setChats] = useState([]);
   const [connection, setConnection] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getChats(user.tokenJwt, setChats, user.tokenObj.id, true);
+    getChats(navigate, user.tokenJwt, setChats, user.tokenObj.id, true);
 
     return () => {
       

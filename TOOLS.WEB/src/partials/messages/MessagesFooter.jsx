@@ -101,15 +101,28 @@ function MessagesFooter({ sendMessage }) {
               leaveStart="opacity-100"
               leaveEnd="opacity-0"
             >
-              <div style={{overflow: "auto"}} className="max-h-80"
+              <div
                   ref={dropdown}
                 >
-                <div className="text-center grid grid-flow-row-dense grid-cols-8 grid-rows-3 gap-2">
-                 {
-                    emojis && emojis.map((emoji, index) => {
-                      return (<button type='button' onClick={() => { setMessage((prev) => prev.concat(emoji)), setShowOptions((prev) => !prev) }} key={index} className='hover:bg-slate-200 p-1'>{emoji}</button>);
-                    })
-                 }
+                <div className="grid-flow-row">
+                  <div className="relative mb-5 pl-3 pr-3">
+                    <div className="absolute bottom-0 w-full h-px bg-slate-200" aria-hidden="true"></div>
+                    <ul className="relative text-sm font-medium flex flex-nowrap -mx-4 sm:-mx-6 lg:-mx-8 overflow-x-scroll no-scrollbar">
+                      <li className="mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
+                        <button className="block pb-3 color-primary whitespace-nowrap border-b-2 border-indigo-500">Emojis</button>
+                      </li>
+                      <li className="mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
+                        <button className="block pb-3 text-slate-500 hover:text-slate-600 whitespace-nowrap" href="">Imagens</button>
+                      </li>
+                    </ul>
+                  </div>
+                  <div style={{overflow: "auto"}} className="text-center grid grid-flow-row-dense grid-cols-8 grid-rows-12 gap-2 max-h-80">
+                  {
+                      emojis && emojis.map((emoji, index) => {
+                        return (<button type='button' onClick={() => { setMessage((prev) => prev.concat(emoji)), setShowOptions((prev) => !prev) }} key={index} className='hover:bg-slate-200 p-1'>{emoji}</button>);
+                      })
+                  }
+                  </div>
                 </div>
               </div>
             </Transition>

@@ -5,6 +5,7 @@ import MessagesFooter from './MessagesFooter';
 import MessagesBody from './MessagesBody';
 import MessageLoading from './MessageLoading';
 import gptLogo from '../../assets/images/ChatGPT-Logo-PNG-1.png';
+import { useNavigate } from 'react-router-dom';
 
 function ChatContainer({
   usersChatSelected,
@@ -16,6 +17,7 @@ function ChatContainer({
   const [messageLoading, setMessageLoading] = useState(false);
   const messagesEndRef = useRef(null);
   const reconnectDelay = 5000;
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -92,7 +94,7 @@ function ChatContainer({
   }, [connection]);
 
   useEffect(() =>{
-    chatSelected && getChatMessages(user.tokenJwt, setChatMessages, chatSelected);
+    chatSelected && getChatMessages(navigate, user.tokenJwt, setChatMessages, chatSelected);
   }, [usersChatSelected]);
 
   function getDayOfYear(date) {

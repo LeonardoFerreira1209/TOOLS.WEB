@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getChat } from '../../shared/services/userService';
 import firstUserProfile from '../../assets/images/channel-02.png';
 import secondUserProfile from '../../assets/images/channel-01.png';
+import { useNavigate } from 'react-router-dom';
 
 function MessagesHeader({
   user,
@@ -10,9 +11,10 @@ function MessagesHeader({
   setMsgSidebarOpen
 }) {
   const [chat, setChat] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getChat(user.tokenObj.id, setChat, chatSelected);
+    getChat(navigate, user.tokenObj.id, setChat, chatSelected);
   }, [chatSelected]);
 
   return (

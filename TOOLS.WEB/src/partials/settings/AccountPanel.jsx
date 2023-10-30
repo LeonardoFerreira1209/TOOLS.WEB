@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useUserProvider } from '../../components/store/context/UserContext';
 import { Tooltip } from 'react-tooltip';
 import InputMask from 'react-input-mask';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import defaultUserLogo from '../../assets/images/channel-01.png';
 import { getProfileUser, update, changeUserImage } from '../../shared/services/userService';
 
@@ -13,10 +13,11 @@ function AccountPanel({ props }) {
   const [values, setValues] = useState();
   const [avatarImage, setAvatarImage] = useState();
   const { user } = useUserProvider();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getProfileUser(props.id, user.tokenJwt, setValues, setAvatarImage, defaultUserLogo, setLoading);
-  }, [])
+    getProfileUser(navigate, props.id, user.tokenJwt, setValues, setAvatarImage, defaultUserLogo, setLoading);
+  }, []);
 
   function onChange(event) {
     const {value, name} = event.target;
@@ -29,7 +30,7 @@ function AccountPanel({ props }) {
   function updateUser(event) {
     event.preventDefault();
     setLoading(true);
-    update(user.tokenJwt, values, setLoading);
+    update(navigate, user.tokenJwt, values, setLoading);
   }
 
   function changeImage(event) {

@@ -3,6 +3,7 @@ import DirectMessages from './DirectMessages';
 import { createChat, getUsers } from '../../shared/services/userService';
 
 import UserImage01 from '../../assets/images/user-32-01.jpg';
+import { useNavigate } from 'react-router-dom';
 
 function MessagesSidebar({
   msgSidebarOpen,
@@ -14,14 +15,16 @@ function MessagesSidebar({
   setusersChatSelected,
   setChatSelected
 }) {
+  const navigate = useNavigate();
+
   function onchange(event){
-    getUsers(user.tokenJwt, setUsers, event.target.value);
+    getUsers(navigate, user.tokenJwt, setUsers, event.target.value);
   }
 
   function onClick(event){
     setMsgSidebarOpen(false);
     setUsers([]);
-    createChat(user.tokenJwt, setusersChatSelected, setChatSelected, {
+    createChat(navigate, user.tokenJwt, setusersChatSelected, setChatSelected, {
       FirstUserId: user.tokenObj.id,
       SecondUserId: event.currentTarget.id
     });
