@@ -258,7 +258,7 @@ export function getChats(navigate, tokenJwt, setChats, value, ordered = false){
   });
 }
 
-export function getChat(tokenJwt, setChat, value){
+export function getChat(navigate, tokenJwt, setChat, value){
   fetch(`${process.env.BASE_URL}api/chatmanager/get/chat/${value}`, 
   {
     headers: {
