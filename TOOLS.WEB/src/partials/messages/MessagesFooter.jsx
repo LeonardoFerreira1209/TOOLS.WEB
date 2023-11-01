@@ -16,6 +16,10 @@ function MessagesFooter({ sendMessage }) {
     { 
       command: '>GPT', 
       title: 'Envia uma pergunta para o CHATGPT e retorna uma resposta!'
+    },
+    { 
+      command: '>DALLE', 
+      title: 'Envia um prompt para o DALLE e retorna uma imagem!'
     }
   ];
 

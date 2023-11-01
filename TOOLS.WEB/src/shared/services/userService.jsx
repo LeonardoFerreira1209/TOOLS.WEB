@@ -277,7 +277,6 @@ export function getChat(navigate, tokenJwt, setChat, value){
         setChat(results.Dados);
       }
       else{
-        debugger
         results.Notificacoes.forEach((error) => {
           toast.error(error.Mensagem, {
             theme: 'light',
