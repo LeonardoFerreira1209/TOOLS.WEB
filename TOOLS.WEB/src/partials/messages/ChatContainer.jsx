@@ -69,7 +69,10 @@ function ChatContainer({
       connection.on("ReceberMensagem", response => {
           if(response.chatId === chatSelected)
           {
-            response.isChatBot ? setMessageLoading(false) : response.hasCommand && !response.isChatBot && setMessageLoading(true);
+            response.isChatBot 
+              ? setMessageLoading(false) 
+              : response.hasCommand && !response.isChatBot && setMessageLoading(true);
+              
             setChatMessages((prev) => [...prev, response]);
           }
       });
@@ -125,7 +128,7 @@ function ChatContainer({
                           </div>
                       </div>
                     }
-                    <MessagesBody myUser={myUser} isChatBot={message.isChatBot} chatMessage={message}/>
+                    <MessagesBody myUser={myUser} chatMessage={message}/>
                   </div>
               )})
             }
