@@ -74,7 +74,7 @@ function MessagesFooter({ sendMessage }) {
     let value = event.target.value;
     const regex = /^>[^\s]+$/;
 
-    if(regex.test(value)){
+    if(value === ">" || regex.test(value)){
       value = value.toUpperCase();
       setCommands(coomandsOptions.filter(command => command.command.startsWith(value)));
       setShowCommandOptions(true);
