@@ -30,9 +30,10 @@ function MessagesBody({
   const codeDetails = message === "" ? extractCodeAndLanguage(message) : null;
   const hasCode = !!codeDetails;
 
-  addDefaultSrc(ev){
+  const addDefaultSrc = (ev) => {
     ev.target.src = 'https://hyperioblobstorage.blob.core.windows.net/portifolio-api-container/_915e3628-7c3b-41e1-9507-896ae726af1d.jpg'
-
+  }
+  
   return (
       <>
         {
