@@ -43,14 +43,14 @@ function MessagesBody({
                 !myUser && <img className="rounded-full mr-4" src={userLogo} style={{ width:"40px", height:"40px" }} alt="user picture" />
               }
               <div>
-                <div className={`text-sm ${myUser ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} whitespace-pre-wrap p-3 rounded-lg rounded-tl-none ${!isImage && 'shadow-md border border-slate-200'} mb-1`}>
+                <div className={`text-sm ${myUser ? 'bg-indigo-500 text-white' : 'bg-white text-slate-800'} whitespace-pre-wrap p-3 rounded-lg rounded-tl-none ${!isImage && 'shadow-md border border-slate-200'} $ mb-1`}>
                   {
                     !hasCode ? (
                        !isImage ? message :
                         <div>
                           <div className="flex items-center">
-                            <img className="rounded-lg shadow-md mb-1" src={file.url} onError={addDefaultSrc} width="240" height="180" alt="Chat" />
-                            <a href={file.url} target='_blank' className="p-1.5 rounded-full border border-slate-200 ml-4 hover:bg-white transition duration-150">
+                            <img className="rounded-lg shadow-md mb-1" src={ file?.url ?? message } onError={addDefaultSrc} width="240" height="180" alt="Chat" />
+                            <a href={ file?.url ?? message } target='_blank' className="p-1.5 rounded-full border border-slate-200 ml-4 hover:bg-white transition duration-150">
                               <span className="sr-only">Download</span>
                               <svg className="w-4 h-4 shrink-0 fill-current text-slate-400" viewBox="0 0 16 16">
                                 <path d="M15 15H1a1 1 0 01-1-1V2a1 1 0 011-1h4v2H2v10h12V3h-3V1h4a1 1 0 011 1v12a1 1 0 01-1 1zM9 7h3l-4 4-4-4h3V1h2v6z" />

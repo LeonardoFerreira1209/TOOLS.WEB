@@ -137,6 +137,7 @@ function MessagesFooter({ sendMessage }) {
             value={message}
             onChange={onChange}
             onKeyDown={handleKeyDown}
+            autoFocus={true}
             className="flex-grow p-2 border rounded-md focus:outline-none focus:border-indigo-300 resize-none overflow-hidden"
             placeholder="Aa"
           />
@@ -160,7 +161,7 @@ function MessagesFooter({ sendMessage }) {
                   commands.map((object, index) => {
                     return (
                       <div className='row' key={index}>
-                        <button onClick={() => { setMessage(object.command), setShowCommandOptions(false) }} type='button' className='btn col-span-6 hover:text-indigo-500'>
+                        <button onClick={() => { setMessage(object.command.concat(" ")), setShowCommandOptions(false) }} type='button' className='btn col-span-6 hover:text-indigo-500'>
                           {object.command}
                         </button>
                         <span>{object.title}</span>
