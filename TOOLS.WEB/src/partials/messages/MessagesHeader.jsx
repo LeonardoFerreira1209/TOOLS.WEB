@@ -14,7 +14,7 @@ function MessagesHeader({
   const navigate = useNavigate();
 
   useEffect(() => {
-    getChat(navigate, user.tokenObj.id, setChat, chatSelected);
+    getChat(navigate, user.tokenJwt, setChat, chatSelected);
   }, [chatSelected]);
 
   return (

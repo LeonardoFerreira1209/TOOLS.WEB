@@ -16,7 +16,6 @@ function ChatContainer({
   const [connection, setConnection] = useState(null);
   const [messageLoading, setMessageLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  const reconnectDelay = 5000;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +33,6 @@ function ChatContainer({
         })
         .catch(error => {
             console.error('Falha ao conectar com SignalR:', error);
-            setTimeout(() => startConnection(conn), reconnectDelay);
             reject(error);
         });
     });
@@ -54,7 +52,7 @@ function ChatContainer({
     const hubChatId = `chat-${user.tokenObj.id}`;
     const newConnection = new HubConnectionBuilder()
       .withUrl(`${process.env.BASE_URL}chats?userId=${hubChatId}`)
-      .withAutomaticReconnect([0, 10, 30, 50, 70, 100])
+      .withAutomaticReconnect()
       .build();
   
     setConnection(newConnection);
@@ -64,12 +62,12 @@ function ChatContainer({
     if (connection) {
       startConnection(connection).then(() => {
         connection.invoke("JoinGroup", chatSelected);
-        console.debug(`Usuário conectado ao grupo chat-${chatSelected}`);
+        console.log(`Usuário conectado ao grupo chat-${chatSelected}`);
       });
       connection.on("ReceberMensagem", response => {
           if(response.chatId === chatSelected)
           {
-            response.isChatBot 
+            response.isChatBot || response.isCancellation 
               ? setMessageLoading(false) 
               : response.hasCommand && !response.isChatBot && setMessageLoading(true);
               
@@ -84,7 +82,7 @@ function ChatContainer({
       connection.onreconnected(connectionId => {
         console.log(`Conexão estabilizada! "${connectionId}".`);
         connection.invoke("JoinGroup", chatSelected);
-        console.debug(`Usuário conectado ao grupo chat-${chatSelected}`);
+        console.log(`Usuário conectado ao grupo chat-${chatSelected}`);
       });
     }
   
@@ -110,7 +108,7 @@ function ChatContainer({
   
   let lastMessageCreatedDate = new Date(0);
   return (
-    <>
+      <>
         <div className="grow px-4 sm:px-6 md:px-5 py-6">
             {
               chatMessages && chatMessages.map((message, index) => {
