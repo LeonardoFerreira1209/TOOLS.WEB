@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { useUserProvider } from '../../components/store/context/UserContext';
 import { Tooltip } from 'react-tooltip';
 import InputMask from 'react-input-mask';

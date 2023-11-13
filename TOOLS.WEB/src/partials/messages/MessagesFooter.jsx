@@ -1,8 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Transition from '../../shared/utils/Transition';
+import Options from './menu-blocks/Options';
 
 function MessagesFooter({ sendMessage }) {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({
+    message: '',
+    file: null
+  });
+  const [image, setImage] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
   const [showCommandOptions, setShowCommandOptions] = useState(false);
   const [commands, setCommands] = useState(null);
@@ -66,7 +71,11 @@ function MessagesFooter({ sendMessage }) {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
       sendMessage(message);
-      setMessage('');
+      setMessage({
+        ...message,
+        ['message']: '',
+        ['file']: null
+      });
     }
   };
 
@@ -80,7 +89,10 @@ function MessagesFooter({ sendMessage }) {
       setShowCommandOptions(true);
     } else setShowCommandOptions(false);
 
-    setMessage(value);
+    setMessage({
+      ...message,
+        ['message']: value
+    });
   };
 
   return (
@@ -96,45 +108,19 @@ function MessagesFooter({ sendMessage }) {
               </svg>
             </button>
             {/* Options block */}
-            <Transition
-              className={`origin-bottom z-10 absolute bottom-full -mr-48 sm:mr-0 min-w-80 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1.5 rounded shadow-lg overflow-hidden mt-1`}
-              show={showOptions}
-              enterStart="opacity-0 -translate-x-1"
-              enterEnd="opacity-100 translate-y-0"
-              leave="transition ease-out duration-200"
-              leaveStart="opacity-100"
-              leaveEnd="opacity-0"
-            >
-              <div
-                  ref={dropdown}
-                >
-                <div className="grid-flow-row">
-                  <div className="relative mb-5 pl-3 pr-3">
-                    <div className="absolute bottom-0 w-full h-px bg-slate-200" aria-hidden="true"></div>
-                    <ul className="relative text-sm font-medium flex flex-nowrap -mx-4 sm:-mx-6 lg:-mx-8 overflow-x-scroll no-scrollbar">
-                      <li className="mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
-                        <button className="block pb-3 color-primary whitespace-nowrap border-b-2 border-indigo-500">Emojis</button>
-                      </li>
-                      <li className="mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
-                        <button className="block pb-3 text-slate-500 hover:text-slate-600 whitespace-nowrap" href="">Imagens</button>
-                      </li>
-                    </ul>
-                  </div>
-                  <div style={{overflow: "auto"}} className="text-center grid grid-flow-row-dense grid-cols-8 grid-rows-12 gap-2 max-h-80">
-                  {
-                      emojis && emojis.map((emoji, index) => {
-                        return (<button type='button' onClick={() => { setMessage((prev) => prev.concat(emoji)), setShowOptions((prev) => !prev) }} key={index} className='hover:bg-slate-200 p-1'>{emoji}</button>);
-                      })
-                  }
-                  </div>
-                </div>
-              </div>
-            </Transition>
+            <Options
+              image={image}
+              setImage={setImage}
+              showOptions={showOptions}
+              setShowOptions={setShowOptions}
+              setMessage={setMessage}
+              dropdownRef={dropdown}
+            />
           </div>
           {/* Message input */}
           <textarea
             ref={textareaRef}
-            value={message}
+            value={message.message}
             onChange={onChange}
             onKeyDown={handleKeyDown}
             autoFocus={true}
@@ -161,7 +147,10 @@ function MessagesFooter({ sendMessage }) {
                   commands.map((object, index) => {
                     return (
                       <div className='row' key={index}>
-                        <button onClick={() => { setMessage(object.command.concat(" ")), setShowCommandOptions(false) }} type='button' className='btn col-span-6 hover:text-indigo-500'>
+                        <button onClick={() => { setMessage({
+                          ...message,
+                          ['message']: object.command.concat(" ")
+                        }), setShowCommandOptions(false) }} type='button' className='btn col-span-6 hover:text-indigo-500'>
                           {object.command}
                         </button>
                         <span>{object.title}</span>
@@ -174,7 +163,10 @@ function MessagesFooter({ sendMessage }) {
         </div>
         {/* Send button */}
         <button
-          onClick={() => message.length > 0 && (sendMessage(message), setMessage(''))}
+          onClick={() => (message.message.length > 0 || message.file !== null) && (sendMessage(message), setMessage({
+            ...message,
+            ['message']: '',
+          }))}
           className="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap px-4 py-2 rounded-md"
         >
           Enviar -&gt;
