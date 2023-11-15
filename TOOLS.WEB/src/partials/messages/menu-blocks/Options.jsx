@@ -4,6 +4,7 @@ import Transition from "../../../shared/utils/Transition";
 function Options({
     showOptions,
     setShowOptions,
+    message,
     setMessage,
     dropdownRef
 }){
@@ -125,7 +126,7 @@ function Options({
                                     ) : (
                                         <div className="h-32">
                                             <ul>
-                                                <img className="w-full h-32" src={preview} alt="preview" />
+                                                <embed className="w-full h-32" src={preview} type={message?.file?.type} />
                                                 <label onClick={removeFile} htmlFor="image" style={{ bottom: "135px", left: "90%", position: "relative", cursor: "pointer" }} className="flex justify-center items-center w-7 h-7 rounded-full bg-red-50 border text-red-400 hover:text-red-600 border-red-400 hover:border-red-600 color-primary shadow-sm transition duration-150 ml-2">
                                                     <svg className="w-3 h-3 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                                         <path d="M3 3l18 18m0-18L3 21" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
@@ -135,8 +136,8 @@ function Options({
                                         </div>
                                     )
                                 }
-                                <div className="font-medium text-indigo-500 mb-1">Imagem</div>
-                                <div className="text-sm">Selecione uma imagem para compartilhar!</div>
+                                <div className="font-medium text-indigo-500 mb-1">Arquivo</div>
+                                <div className="text-sm">Selecione um arquivo para ser compartilhado!</div>
                             </div>
                             <div className="absolute inset-0 border-2 border-transparent peer-checked:border-indigo-400 rounded pointer-events-none" aria-hidden="true"></div>
                             </label>

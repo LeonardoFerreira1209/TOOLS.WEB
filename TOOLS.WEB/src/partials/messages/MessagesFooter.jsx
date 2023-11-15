@@ -113,6 +113,7 @@ function MessagesFooter({ sendMessage }) {
               setImage={setImage}
               showOptions={showOptions}
               setShowOptions={setShowOptions}
+              message={message}
               setMessage={setMessage}
               dropdownRef={dropdown}
             />

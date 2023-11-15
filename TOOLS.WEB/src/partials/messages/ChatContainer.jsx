@@ -65,6 +65,7 @@ function ChatContainer({
         console.log(`Usuário conectado ao grupo chat-${chatSelected}`);
       });
       connection.on("ReceberMensagem", response => {
+        debugger
           if(response.chatId === chatSelected)
           {
             response.isChatBot || response.isCancellation 

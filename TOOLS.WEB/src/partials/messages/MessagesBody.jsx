@@ -49,7 +49,7 @@ function MessagesBody({
                        !isImage ? message :
                         <div>
                           <div className="flex items-center">
-                            <img className="rounded-lg shadow-md mb-1" src={ file?.url ?? message } onError={addDefaultSrc} width="240" height="180" alt="Chat" />
+                            <embed className="rounded-lg shadow-md mb-1" src={ file?.url ?? message } onError={addDefaultSrc} width="240" height="180"/>
                             <a href={ file?.url ?? message } target='_blank' className="p-1.5 rounded-full border border-slate-200 ml-4 hover:bg-white transition duration-150">
                               <span className="sr-only">Download</span>
                               <svg className="w-4 h-4 shrink-0 fill-current text-slate-400" viewBox="0 0 16 16">
