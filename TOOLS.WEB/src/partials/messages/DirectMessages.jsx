@@ -69,12 +69,13 @@ function DirectMessages({
     setusersChatSelected(event.currentTarget.id)
     setChatSelected(event.currentTarget.parentNode.id)
   }
-  
+  debugger
   return (
     <div className="mt-4">
       <div className="text-xs font-semibold text-slate-400 uppercase mb-3">Seus Chats</div>
       <ul className="mb-6">
         {
+          
           chats && chats.map((chat, index) => {
             const userToSendMessage = user.tokenObj.id === chat.firstUser.id ? chat.secondUser : chat.firstUser;
             return (
@@ -87,7 +88,7 @@ function DirectMessages({
                   </div>
                 </div>
                 <div className="flex items-center ml-2">
-                  <div className="text-xs inline-flex font-medium bg-indigo-400 text-white rounded-full text-center leading-5 px-2">2</div>
+                  <div className="text-xs inline-flex font-medium bg-indigo-400 text-white rounded-full text-center leading-5 px-2">{chat.messages.length}</div>
                 </div>
               </button>
             </li>

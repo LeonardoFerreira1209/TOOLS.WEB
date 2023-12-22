@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Transition from "../../../shared/utils/Transition";
 
 function Options({
@@ -44,6 +44,11 @@ function Options({
         '😽', '🙀', '😿', '😾',
     ];
 
+    useEffect(() => {
+        if(message["file"] === null)
+            setPreview(null)
+    }, [message["file"]]);
+
     function changeFile(event){
         const file = event.target.files[0];
         if(file !== null && file !== undefined){
@@ -62,7 +67,6 @@ function Options({
                 }));
                 setPreview(URL.createObjectURL(file));
             };
-            
             reader.readAsDataURL(file);
         }
     }
@@ -73,7 +77,6 @@ function Options({
             ...prev,
             file: null
         }));
-        setPreview(null);
     }
 
     return (
@@ -97,7 +100,7 @@ function Options({
                         <button onClick={() => setActiveTab('emojis')} className={`block pb-3 color-primary whitespace-nowrap ${activeTab === 'emojis' && 'border-b-2 border-indigo-500'}`}>Emojis</button>
                       </li>
                       <li className="mr-6 last:mr-0 first:pl-4 sm:first:pl-6 lg:first:pl-8 last:pr-4 sm:last:pr-6 lg:last:pr-8">
-                        <button onClick={() => setActiveTab('images')} className={`block pb-3 color-primary whitespace-nowrap ${activeTab === 'images' && 'border-b-2 border-indigo-500'}`}>Imagens</button>
+                        <button onClick={() => setActiveTab('images')} className={`block pb-3 color-primary whitespace-nowrap ${activeTab === 'images' && 'border-b-2 border-indigo-500'}`}>Arquivos</button>
                       </li>
                     </ul>
                   </div>

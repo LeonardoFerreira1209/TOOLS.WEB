@@ -28,40 +28,6 @@ function MessagesFooter({ sendMessage }) {
     }
   ];
 
-  const emojis = [
-    '😀', '😃', '😄', '😁',
-    '😆', '😅', '😂', '🤣',
-    '🥲', '🥹', '☺️', '😊',
-    '😇', '🙂', '🙃', '😉',
-    '😌', '😍', '🥰', '😘',
-    '😗', '😙', '😚', '😋',
-    '😛', '😝', '😜', '🤪',
-    '🤨', '🧐', '🤓', '😎',
-    '🥸', '🤩', '🥳', '😏',
-    '😒', '😞', '😔', '😟',
-    '😕', '🙁', '☹️', '😣',
-    '😖', '😫', '😩', '🥺',
-    '😢', '😭', '😮‍💨', '😤',
-    '😠', '😡', '🤬', '🤯',
-    '😳', '🥵', '🥶', '😱',
-    '😨', '😰', '😥', '😓',
-    '🫣', '🤗', '🫡', '🤔',
-    '🫢', '🤭', '🤫', '🤥',
-    '😶', '😶‍🌫️', '😐', '😑',
-    '😬', '🫨', '🫠', '🙄',
-    '😯', '😦', '😧', '😮',
-    '😲', '🥱', '😴', '🤤',
-    '😪', '😵', '😵‍💫', '🫥',
-    '🤐', '🥴', '🤢', '🤮',
-    '🤧', '😷', '🤒', '🤕',
-    '🤑', '🤠', '😈', '👿',
-    '👹', '👺', '🤡', '💩',
-    '👻', '💀', '☠️', '👽',
-    '👾', '🤖', '🎃', '😺',
-    '😸', '😹', '😻', '😼',
-    '😽', '🙀', '😿', '😾',
-  ];
-
   useEffect(() => {
     textareaRef.current.style.height = "auto";
     textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
@@ -125,7 +91,7 @@ function MessagesFooter({ sendMessage }) {
             onChange={onChange}
             onKeyDown={handleKeyDown}
             autoFocus={true}
-            className="flex-grow p-2 border rounded-md focus:outline-none focus:border-indigo-300 resize-none overflow-hidden"
+            className="flex-grow p-2 border rounded-md focus:outline-none focus:border-indigo-300 focus:z-10 resize-none overflow-hidden"
             placeholder="Aa"
           />
           {/* Commands Options block */}
@@ -151,7 +117,7 @@ function MessagesFooter({ sendMessage }) {
                         <button onClick={() => { setMessage({
                           ...message,
                           ['message']: object.command.concat(" ")
-                        }), setShowCommandOptions(false) }} type='button' className='btn col-span-6 hover:text-indigo-500'>
+                        }), seCom(false) }} type='button' className='btn col-span-6 hover:text-indigo-500'>
                           {object.command}
                         </button>
                         <span>{object.title}</span>
@@ -167,7 +133,8 @@ function MessagesFooter({ sendMessage }) {
           onClick={() => (message.message.length > 0 || message.file !== null) && (sendMessage(message), setMessage({
             ...message,
             ['message']: '',
-          }))}
+            ['file']: null
+          }), setShowOptions(false))}
           className="btn bg-indigo-500 hover:bg-indigo-600 text-white whitespace-nowrap px-4 py-2 rounded-md"
         >
           Enviar -&gt;
