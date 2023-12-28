@@ -69,7 +69,6 @@ function DirectMessages({
     setusersChatSelected(event.currentTarget.id)
     setChatSelected(event.currentTarget.parentNode.id)
   }
-  debugger
   return (
     <div className="mt-4">
       <div className="text-xs font-semibold text-slate-400 uppercase mb-3">Seus Chats</div>

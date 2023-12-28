@@ -7,9 +7,11 @@ function MessagesFooter({ sendMessage }) {
     message: '',
     file: null
   });
-  const [image, setImage] = useState(null);
+
+  const [preview, setPreview] = useState(null);
   const [showOptions, setShowOptions] = useState(false);
   const [showCommandOptions, setShowCommandOptions] = useState(false);
+  const [showImage, setShowImage] = useState(false);
   const [commands, setCommands] = useState(null);
 
   const textareaRef = useRef(null);
@@ -52,6 +54,7 @@ function MessagesFooter({ sendMessage }) {
     if(value === ">" || regex.test(value)){
       value = value.toUpperCase();
       setCommands(coomandsOptions.filter(command => command.command.startsWith(value)));
+      setShowOptions(false);
       setShowCommandOptions(true);
     } else setShowCommandOptions(false);
 
@@ -75,10 +78,11 @@ function MessagesFooter({ sendMessage }) {
             </button>
             {/* Options block */}
             <Options
-              image={image}
-              setImage={setImage}
+              preview={preview}
+              setPreview={setPreview}
               showOptions={showOptions}
               setShowOptions={setShowOptions}
+              setShowImage={setShowImage}
               message={message}
               setMessage={setMessage}
               dropdownRef={dropdown}
@@ -96,7 +100,7 @@ function MessagesFooter({ sendMessage }) {
           />
           {/* Commands Options block */}
           <Transition
-            className={`origin-bottom absolute bottom-full w-full bg-white dark:bg-slate-800 border border-b-0 border-slate-200 dark:border-slate-700 py-1.5 rounded overflow-hidden mt-1`}
+            className={`z-50 origin-bottom absolute bottom-full w-full bg-white dark:bg-slate-800 border border-b-0 border-slate-200 dark:border-slate-700 py-1.5 rounded overflow-hidden mt-1`}
             show={showCommandOptions}
             enterStart="opacity-0 -translate-x-1"
             enterEnd="opacity-100 translate-y-0"
@@ -124,6 +128,32 @@ function MessagesFooter({ sendMessage }) {
                       </div>
                     );
                   })}
+              </div>
+            </div>
+          </Transition>
+          {/* Image blocks */}
+          <Transition
+            className={`origin-bottom absolute bottom-full w-full bg-white dark:bg-slate-800 border border-b-0 border-slate-200 dark:border-slate-700 py-1.5 rounded overflow-hidden mt-1`}
+            show={showImage}
+            enterStart="opacity-0 -translate-x-1"
+            enterEnd="opacity-100 translate-y-0"
+            leave="transition ease-out duration-200"
+            leaveStart="opacity-100"
+            leaveEnd="opacity-0"
+          >
+            <div style={{overflow: "auto"}} className="max-h-50"
+                ref={dropdownCommands}
+                onFocus={() => setShowImage(true)}
+                onBlur={() => setShowImage(false)}
+              >
+              <div className="grid grid-flow-row gap-2 justify-between">
+                {
+                  preview !== null && (
+                    <div className="h-60">
+                      <embed className="w-full h-60 p-3 left-7 relative" src={preview} type={message?.file?.type} />
+                    </div>
+                  )
+                }
               </div>
             </div>
           </Transition>

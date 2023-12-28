@@ -34,7 +34,6 @@ function AccountPanel({ props }) {
   }
 
   function changeImage(event) {
-    debugger
     const formData = new FormData();
     formData.append('file', event.target.files[0]);
     changeUserImage(user.tokenJwt, setAvatarImage, user.tokenObj.id, formData);

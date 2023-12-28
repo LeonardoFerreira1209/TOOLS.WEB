@@ -57,6 +57,7 @@ function MessagesBody({
                               </svg>
                             </a>
                           </div>
+                          <div className='pt-4'>{message}</div>
                         </div>
                        ): (
                         <div>

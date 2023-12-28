@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import Transition from "../../../shared/utils/Transition";
 
 function Options({
+    preview,
+    setPreview,
     showOptions,
     setShowOptions,
+    setShowImage,
     message,
     setMessage,
     dropdownRef
 }){
     const [activeTab, setActiveTab] = useState('emojis');
-    const [preview, setPreview] = useState(null);
+    
     const emojis = [
         '😀', '😃', '😄', '😁',
         '😆', '😅', '😂', '🤣',
@@ -66,6 +69,8 @@ function Options({
                     }
                 }));
                 setPreview(URL.createObjectURL(file));
+                setShowImage(true);
+                setShowOptions(false);
             };
             reader.readAsDataURL(file);
         }
@@ -77,6 +82,7 @@ function Options({
             ...prev,
             file: null
         }));
+        setShowOptions(false);
     }
 
     return (
@@ -111,7 +117,7 @@ function Options({
                                     return (<button type='button' onClick={() => { setMessage((prev) => ({
                                         ...prev,
                                         message: prev.message.concat(emoji)
-                                      })), setShowOptions((prev) => !prev) }} key={index} className='hover:bg-slate-200 p-1'>{emoji}</button>);
+                                      }))}} key={index} className='hover:bg-slate-200 p-1'>{emoji}</button>);
                                 })
                             }
                         </div>)
